@@ -1,3 +1,4 @@
-const API_BASE_URL = process.env.API_BASE_URL;
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
+const KAKAO_CALLBACK_URL = process.env.NEXT_PUBLIC_KAKAO_CALLBACK_URL || '/';
 
-export { API_BASE_URL };
+export { API_BASE_URL, KAKAO_CALLBACK_URL };
