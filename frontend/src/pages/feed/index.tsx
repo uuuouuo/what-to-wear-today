@@ -11,12 +11,12 @@ import { css } from '@emotion/react';
 import Link from 'next/link';
 
 // style import
-import Styled from '../styles/Feed.styled';
+import Styled from './styled';
 
-import Feed_regionFilter from '../components/Feed_regionFilter';
-import Feed_Filter from '../components/Feed_Filter';
-import Feed_Content from '../components/Feed_Content';
-import FooterNavbar from '../components/FooterNavbar';
+import Feed_regionFilter from '../../components/Feed_regionFilter/Feed_regionFilter';
+import Feed_filter from '../../components/Feed_filter/Feed_filter';
+import Feed_content from '../../components/Feed_content/Feed_content';
+import FooterNavbar from '../../components/FooterNavbar/FooterNavbar';
 
 const swiperStyle = css`
   height: 100px;
@@ -47,11 +47,11 @@ const Feed = () => {
       </Styled.FeedNavbar>
 
       <Styled.FeedFilter>
-        <Feed_Filter />
+        <Feed_filter />
       </Styled.FeedFilter>
 
       <Styled.FeedContent>
-        <Feed_Content />
+        <Feed_content />
       </Styled.FeedContent>
 
       <FooterNavbar />

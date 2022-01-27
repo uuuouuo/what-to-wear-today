@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 
-import Styled from '../styles/FooterNavbar.styled';
+import Styled from './FooterNavbar.styled';
 
 const FooterBar = () => {
   return (

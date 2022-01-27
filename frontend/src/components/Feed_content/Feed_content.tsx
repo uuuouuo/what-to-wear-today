@@ -5,9 +5,9 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
 
 //atom
-import Button from '../components/atoms/Button/Button';
+import Button from '../atoms/Button/Button';
 
-import Styled from '../styles/Feed_Content.styled';
+import Styled from './Feed_content.styled';
 
 const Feed_article = () => {
   const Follow = () => {
@@ -15,16 +15,16 @@ const Feed_article = () => {
   };
 
   return (
-    <Styled.Feed_Content>
-      <Styled.Feed_Content_Top>
+    <Styled.Feed_content>
+      <Styled.Feed_content_top>
         <div>사진</div>
         <div>
           <div>
-            <Styled.Feed_Content_User>
+            <Styled.Feed_content_user>
               <div>유저네임</div>
               <div>아이디</div>
               <div>게시글 올린시간(ago)</div>
-            </Styled.Feed_Content_User>
+            </Styled.Feed_content_user>
             <div>게시글 내용</div>
             <div>해시태그</div>
           </div>
@@ -33,12 +33,12 @@ const Feed_article = () => {
           {/* 팔로우 버튼 */}
           <Button children={<p>Follow</p>} onClick={Follow}></Button>
         </div>
-      </Styled.Feed_Content_Top>
-      <Styled.Feed_Content_Bottom>
+      </Styled.Feed_content_top>
+      <Styled.Feed_content_bottom>
         <ChatBubbleOutlineIcon />
         <FavoriteBorderIcon />
-      </Styled.Feed_Content_Bottom>
-    </Styled.Feed_Content>
+      </Styled.Feed_content_bottom>
+    </Styled.Feed_content>
   );
 };
 

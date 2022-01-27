@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Styled from '../styles/Feed_Filter.styled';
+import Styled from './Feed_filter.styled';
 
 import { useDispatch } from 'react-redux';
 
@@ -22,7 +22,7 @@ const feedRerender = (e: any) => {
 
 const FeedFilter = () => {
   return (
-    <Styled.Feed_Filter>
+    <Styled.Feed_filter>
       <button onClick={feedRerender}>추천순</button>
 
       <button onClick={feedRerender}>인기순</button>
@@ -30,7 +30,7 @@ const FeedFilter = () => {
       <button onClick={feedRerender}>좋아요순</button>
 
       <button onClick={feedRerender}>최신순</button>
-    </Styled.Feed_Filter>
+    </Styled.Feed_filter>
   );
 };
 
