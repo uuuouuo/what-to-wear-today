@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
-import { wrapper, content, box, h3, btnJoin, imgbox } from '@/styles/temp';
+import { wrapper, content, box, h3, btnJoin, imgbox } from '../styles/temp';
 import Image from 'next/image';
 
 export default function register() {
