@@ -2,10 +2,10 @@ import React, { FunctionComponent } from 'react';
 import Styled from './Button.styled';
 
 interface Props {
-  chilren: React.ReactChild;
+  children: React.ReactChild | JSX.Element;
   className?: string;
   type?: 'button' | 'submit' | 'reset';
-  onClick?: () => void;
+  onClick?: (e: React.MouseEvent) => void;
   disabled?: boolean;
 }
 
