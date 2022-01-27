@@ -13,10 +13,10 @@ import Link from 'next/link';
 // style import
 import Styled from '../styles/Feed.styled';
 
-import Feed_RegionFilter from 'components/Feed_RegionFilter';
-import Feed_Filter from 'components/Feed_Filter';
-import Feed_Content from 'components/Feed_Content';
-import FooterNavbar from 'components/FooterNavbar';
+import Feed_regionFilter from '../components/Feed_regionFilter';
+import Feed_Filter from '../components/Feed_Filter';
+import Feed_Content from '../components/Feed_Content';
+import FooterNavbar from '../components/FooterNavbar';
 
 const swiperStyle = css`
   height: 100px;
@@ -42,7 +42,7 @@ const Feed = () => {
       </Styled.FeedHeader>
 
       <Styled.FeedNavbar>
-        <Feed_RegionFilter />
+        <Feed_regionFilter />
         <div>날씨정보</div>
       </Styled.FeedNavbar>
 

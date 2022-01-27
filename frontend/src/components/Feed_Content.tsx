@@ -5,7 +5,7 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
 
 //atom
-import Button from 'components/atoms/Button/Button';
+import Button from '../components/atoms/Button/Button';
 
 import Styled from '../styles/Feed_Content.styled';
 
