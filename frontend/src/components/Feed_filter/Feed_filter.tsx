@@ -2,6 +2,8 @@ import React from 'react';
 
 import Styled from './Feed_filter.styled';
 
+import Button from '../atoms/Button/Button';
+
 import { useDispatch } from 'react-redux';
 
 const feedRerender = (e: any) => {
@@ -23,13 +25,13 @@ const feedRerender = (e: any) => {
 const FeedFilter = () => {
   return (
     <Styled.Feed_filter>
-      <button onClick={feedRerender}>추천순</button>
+      <Button onClick={feedRerender}>추천순</Button>
 
-      <button onClick={feedRerender}>인기순</button>
+      <Button onClick={feedRerender}>인기순</Button>
 
-      <button onClick={feedRerender}>좋아요순</button>
+      <Button onClick={feedRerender}>좋아요순</Button>
 
-      <button onClick={feedRerender}>최신순</button>
+      <Button onClick={feedRerender}>최신순</Button>
     </Styled.Feed_filter>
   );
 };

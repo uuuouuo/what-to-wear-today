@@ -18,12 +18,6 @@ import Feed_filter from '../../components/Feed_filter/Feed_filter';
 import Feed_content from '../../components/Feed_content/Feed_content';
 import FooterNavbar from '../../components/FooterNavbar/FooterNavbar';
 
-const swiperStyle = css`
-  height: 100px;
-  width: 100px;
-  background-color: green;
-`;
-
 const Feed = () => {
   const userId: number = 1;
   return (

@@ -11,7 +11,7 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 
 const swipe = css`
-  height: 100px;
+  height: 10vh;
   width: 100px;
   margin: 0px 0px 0px 0px;
 `;
@@ -35,12 +35,23 @@ const RegionFilter = () => {
       <Swiper
         css={swipe}
         direction={'vertical'}
+        centeredSlides={true}
         pagination={{
           clickable: true,
+          type: 'custom',
         }}
       >
         {interestRegions.map((region) => (
-          <SwiperSlide key={region.id}>{region.name}</SwiperSlide>
+          <SwiperSlide
+            style={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+            key={region.id}
+          >
+            {region.name}
+          </SwiperSlide>
         ))}
       </Swiper>
     </div>

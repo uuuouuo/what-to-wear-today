@@ -1,5 +1,5 @@
 import React from 'react';
-import FooterBar from '../components/FooterNavbar';
+import FooterBar from '../../components/FooterNavbar/FooterNavbar';
 
 const Notification = () => {
   return (
