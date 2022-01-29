@@ -1,6 +1,6 @@
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, useCallback } from 'react';
 import Image from 'next/image';
-import Styled from './KakaoButton.styled';
+import { Button } from '@/components/atoms';
 import { KAKAO_CALLBACK_URL } from '@/config';
 
 interface Props {
@@ -8,14 +8,14 @@ interface Props {
 }
 
 const KakaoButton: FunctionComponent<Props> = ({ className }) => {
-  const onClick = (e: React.MouseEvent) => {
+  const onClick = useCallback((e: React.MouseEvent) => {
     window.location.replace(KAKAO_CALLBACK_URL);
-  };
+  }, []);
 
   return (
-    <Styled.Button type="button" className={className} onClick={onClick}>
+    <Button type="button" className={className} onClick={onClick} bgColor="transparent">
       <Image src="/images/kakaoButton/kakao_login_medium_wide.png" width={300} height={45} />
-    </Styled.Button>
+    </Button>
   );
 };
 

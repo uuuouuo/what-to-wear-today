@@ -3,7 +3,7 @@ import React from 'react';
 import KakaoButton from './KakaoButton';
 
 export default {
-  title: 'molecules/KakaoButton',
+  title: 'Molecules/KakaoButton',
   component: KakaoButton,
 };
 
