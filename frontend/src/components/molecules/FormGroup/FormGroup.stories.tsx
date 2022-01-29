@@ -1,33 +1,18 @@
 import React from 'react';
 import { select, text } from '@storybook/addon-knobs';
-import PersonIcon from '@mui/icons-material/Person';
 
-import useChange from '@/hooks/useChange';
+import { useChange } from '@/hooks';
 
 import FormGroup from './FormGroup';
-import Text from '@/components/atoms/Text/Text';
 
 export default {
-  title: 'Atoms/FormGroup',
+  title: 'Molecules/FormGroup',
   component: FormGroup,
 };
 
-export const Defalut = () => {
+export const Default = () => {
   const [value, , onchangeValue] = useChange('');
+  const label = text('label', 'nickname');
   const type = select('type', ['text', 'password', 'email'], 'text', 'GROUP-ID1');
-  return (
-    <FormGroup placeholder="nickname" value={value} onChange={onchangeValue} type={type}>
-      <PersonIcon />
-    </FormGroup>
-  );
-};
-
-export const TextLabel = () => {
-  const [value, , onchangeValue] = useChange('');
-  const type = select('type', ['text', 'password', 'email'], 'text', 'GROUP-ID1');
-  return (
-    <FormGroup value={value} onChange={onchangeValue} type={type}>
-      <Text value="nickname" />
-    </FormGroup>
-  );
+  return <FormGroup value={value} onChange={onchangeValue} type={type} label={label} />;
 };

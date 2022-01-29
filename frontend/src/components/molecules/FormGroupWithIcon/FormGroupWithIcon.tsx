@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from 'react';
-import Styled from './FormGroup.styled';
-import { Input, Label } from '@/components/atoms';
+import Styled from './FormGroupWithIcon.styled';
+import Input from '@/components/atoms/Input/Input';
 
 interface Props {
   className?: string;
@@ -8,25 +8,25 @@ interface Props {
   value: string;
   type?: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  label: string;
+  children: React.ReactChild;
 }
 
-const FormGroup: FunctionComponent<Props> = ({
+const FormGroupWithIcon: FunctionComponent<Props> = ({
   className,
   placeholder = '',
   value,
   type = 'text',
   onChange,
-  label,
+  children,
 }) => {
   return (
-    <Styled.FormGroup className={className}>
-      <Label>
-        <Styled.Text value={label} />
+    <Styled.FormGroupWithIcon className={className}>
+      <Styled.Label>
+        {children}
         <Input placeholder={placeholder} value={value} type={type} onChange={onChange} />
-      </Label>
-    </Styled.FormGroup>
+      </Styled.Label>
+    </Styled.FormGroupWithIcon>
   );
 };
 
-export default FormGroup;
+export default FormGroupWithIcon;
