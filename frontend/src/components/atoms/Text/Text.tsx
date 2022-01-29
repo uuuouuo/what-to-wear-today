@@ -12,8 +12,8 @@ interface Props {
 const Text: FunctionComponent<Props> = ({
   className,
   value,
-  color = '#000',
-  size = '16px',
+  color = 'inherit',
+  size = '1rem',
   weight = 400,
 }) => {
   return (
