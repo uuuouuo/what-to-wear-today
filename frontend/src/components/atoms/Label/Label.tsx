@@ -3,7 +3,7 @@ import Styled from './Label.styled';
 
 interface Props {
   className?: string;
-  children: React.ReactChild | React.ReactChild[];
+  children: React.ReactNode | React.ReactNode[];
   color?: string;
 }
 
