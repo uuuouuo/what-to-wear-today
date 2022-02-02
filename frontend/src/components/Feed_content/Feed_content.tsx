@@ -13,7 +13,7 @@ import Button from '../atoms/Button/Button';
 const Feed_article = () => {
   const scrollAreaRef = useRef<HTMLDivElement>(null);
 
-  const target = useRef(null);
+  const target = useRef<HTMLDivElement>(null);
 
   const loadItems = () => {
     setData((prevState) => {
@@ -73,12 +73,7 @@ const Feed_article = () => {
     }
 
     return () => io && io.disconnect();
-  }, [scrollAreaRef, target]);
-
-  interface sampleType {
-    id: number;
-    name: string;
-  }
+  }, [target, scrollAreaRef]);
 
   const [datas, setData] = useState([
     { id: 0, name: '김이박' },
@@ -120,7 +115,7 @@ const Feed_article = () => {
               </div>
               <div>
                 {/* 팔로우 버튼 */}
-                <Button children={<p>Follow</p>} onClick={Follow}></Button>
+                <Button onClick={Follow}>{<p>follow</p>}</Button>
               </div>
             </Styled.Feed_content_top>
             <Styled.Feed_content_bottom>
