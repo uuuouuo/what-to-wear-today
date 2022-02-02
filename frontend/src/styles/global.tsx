@@ -19,6 +19,7 @@ const GlobalStyle = () => (
 
       body {
         font-family: 'IBMPlexSansKR';
+        letter-spacing: 0.08rem;
       }
 
       a {
