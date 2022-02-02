@@ -6,55 +6,55 @@ import Styled from './styled';
 import { Text } from '@/components/atoms';
 import { Title } from '@/components/molecules';
 import { useCheck } from '@/hooks';
+import { InterestType } from '@/types/interest';
 
-const dummy = [
-  '여행',
-  '비즈니스',
-  '히히히',
-  '헤헤',
-  '오오오오오오',
-  '하위이이잉',
-  '안농',
-  '읭',
-  '이이ㅣ이',
-  '섹 시 우 먼',
-  '공부공부',
-  '공부',
-  '화이팅',
-  '새해 복',
-  '힛',
-  '겨울',
-  '여행',
-  '비즈니스',
-  '히히히',
-  '헤헤',
-  '오오오오오오',
-  '하위이이잉',
-  '안농',
-  '읭',
-  '이이ㅣ이',
-  '섹 시 우 먼',
-  '공부공부',
-  '공부',
-  '화이팅',
-  '새해 복',
-  '힛',
-  '겨울',
+const dummy: InterestType[] = [
+  { _interest_no: 0, interest_name: '여행' },
+  { _interest_no: 1, interest_name: '비즈니스' },
+  { _interest_no: 2, interest_name: '히히히' },
+  { _interest_no: 3, interest_name: '헤헤' },
+  { _interest_no: 4, interest_name: '오오오오오오' },
+  { _interest_no: 5, interest_name: '하위이이잉' },
+  { _interest_no: 6, interest_name: '안농' },
+  { _interest_no: 7, interest_name: '읭' },
+  { _interest_no: 8, interest_name: '이이ㅣ이' },
+  { _interest_no: 9, interest_name: '섹 시 우 먼' },
+  { _interest_no: 10, interest_name: '공부공부' },
+  { _interest_no: 11, interest_name: '공부' },
+  { _interest_no: 12, interest_name: '화이팅' },
+  { _interest_no: 13, interest_name: '새해 복' },
+  { _interest_no: 14, interest_name: '힛' },
+  { _interest_no: 15, interest_name: '겨울' },
+  { _interest_no: 16, interest_name: '여행' },
+  { _interest_no: 17, interest_name: '비즈니스' },
+  { _interest_no: 18, interest_name: '히히히' },
+  { _interest_no: 19, interest_name: '헤헤' },
+  { _interest_no: 20, interest_name: '오오오오오오' },
+  { _interest_no: 21, interest_name: '하위이이잉' },
+  { _interest_no: 22, interest_name: '안농' },
+  { _interest_no: 23, interest_name: '읭' },
+  { _interest_no: 24, interest_name: '이이ㅣ이' },
+  { _interest_no: 25, interest_name: '섹 시 우 먼' },
+  { _interest_no: 26, interest_name: '공부공부' },
+  { _interest_no: 27, interest_name: '공부' },
+  { _interest_no: 28, interest_name: '화이팅' },
+  { _interest_no: 29, interest_name: '새해 복' },
+  { _interest_no: 30, interest_name: '힛' },
+  { _interest_no: 31, interest_name: '겨울' },
 ];
 
-const Login: NextPage = () => {
+const Interest: NextPage = () => {
   const [interests, , onChangeInterest] = useCheck([]);
 
   const isChecked = useCallback(
-    (interest: string): boolean => {
-      console.log(interest, interests);
-      return interests.filter((item: string) => item === interest).length > 0;
+    (interest: number): boolean => {
+      return interests.filter((item: string) => parseInt(item) === interest).length > 0;
     },
     [interests],
   );
 
   const skipFunction = useCallback(() => {
-    Router.push('/');
+    Router.push('/signup/success');
   }, []);
 
   const nextFunction = useCallback(() => {
@@ -66,11 +66,15 @@ const Login: NextPage = () => {
       <Title value="INTEREST" />
       <Styled.InterestContainer>
         {dummy.map((interest) => (
-          <Styled.CheckBoxFormGroup
-            value={interest}
-            checked={isChecked(interest)}
+          <Styled.CheckInputFormGroup
+            type="checkbox"
+            value={interest._interest_no}
+            checked={isChecked(interest._interest_no)}
+            name="interest"
             onChange={onChangeInterest}
-          />
+          >
+            <Text value={interest.interest_name} />
+          </Styled.CheckInputFormGroup>
         ))}
       </Styled.InterestContainer>
       <Styled.ButtonContainer>
@@ -85,4 +89,4 @@ const Login: NextPage = () => {
   );
 };
 
-export default Login;
+export default Interest;
