@@ -15,7 +15,7 @@ const Signup: NextPage = () => {
   const [value, , onChange] = useChange<HTMLInputElement>('');
   const [profileImg, , profileImgChange] = useFileChange<HTMLInputElement>(null);
 
-  const nextPage = useCallback(() => {
+  const nextFunction = useCallback(() => {
     Router.push('/interest');
   }, []);
 
@@ -36,7 +36,7 @@ const Signup: NextPage = () => {
         </Styled.FormGroupWithIcon>
       </Styled.ProfileContainer>
       <FooterContainer>
-        <Styled.Button bgColor="#fff" onClick={nextPage}>
+        <Styled.Button bgColor="#fff" onClick={nextFunction}>
           <Text value="NEXT" />
         </Styled.Button>
       </FooterContainer>
