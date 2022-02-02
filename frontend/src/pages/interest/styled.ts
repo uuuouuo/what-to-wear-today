@@ -4,7 +4,7 @@ import {
   Button as BaseButton,
   FooterContainer as BaseFooterContainer,
 } from '@/components/atoms';
-import { CheckBoxFormGroup as BaseCheckBoxFormGroup } from '@/components/molecules';
+import { CheckInputFormGroup as BaseCheckInputFormGroup } from '@/components/molecules';
 
 const MainContainer = styled(BaseMainContainer)`
   display: flex;
@@ -45,7 +45,7 @@ const InterestContainer = styled.div`
   }
 `;
 
-const CheckBoxFormGroup = styled(BaseCheckBoxFormGroup)`
+const CheckInputFormGroup = styled(BaseCheckInputFormGroup)`
   background-color: #fff;
   margin: 3px;
 
@@ -55,4 +55,4 @@ const CheckBoxFormGroup = styled(BaseCheckBoxFormGroup)`
   }
 `;
 
-export default { MainContainer, InterestContainer, CheckBoxFormGroup, ButtonContainer, Button };
+export default { MainContainer, InterestContainer, CheckInputFormGroup, ButtonContainer, Button };
