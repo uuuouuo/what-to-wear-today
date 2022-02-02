@@ -13,8 +13,8 @@ const Text: FunctionComponent<Props> = ({
   className,
   value,
   color = 'inherit',
-  size = '1rem',
-  weight = 400,
+  size = 'inherit',
+  weight = 'inherit',
 }) => {
   return (
     <Styled.Text className={className} color={color} theme={{ fontSize: size, fontWeight: weight }}>

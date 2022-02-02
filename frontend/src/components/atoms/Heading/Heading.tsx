@@ -14,7 +14,7 @@ const Heading: FunctionComponent<Props> = ({
   as: Component = `h${level}`,
   className,
   children,
-  color = '#000',
+  color = 'inherit',
 }) => {
   return (
     <Styled.Heading as={Component} className={className} color={color}>
