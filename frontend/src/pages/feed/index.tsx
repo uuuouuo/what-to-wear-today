@@ -17,23 +17,13 @@ import Feed_regionFilter from '../../components/Feed_regionFilter/Feed_regionFil
 import Feed_filter from '../../components/Feed_filter/Feed_filter';
 import Feed_content from '../../components/Feed_content/Feed_content';
 import FooterNavbar from '../../components/FooterNavbar/FooterNavbar';
+import Header from '../../components/Header/Header';
 
 const Feed = () => {
   const userId: number = 1;
   return (
     <Styled.FeedLayout>
-      <Styled.FeedHeader>
-        {/* 로고 */}
-        <p>로고</p>
-        {/* 이름 */}
-        <Link href={{ pathname: `/UserInfo`, query: { userId: userId } }} as={`/UserInfo`}>
-          <p>user.name</p>
-        </Link>
-        {/* 알림 */}
-        <Link href={'/notification'}>
-          <NotificationsIcon />
-        </Link>
-      </Styled.FeedHeader>
+      <Header leftSide="logo" name="오늘 뭐 입지?" rightSide="notification"></Header>
 
       <Styled.FeedNavbar>
         <Feed_regionFilter />
