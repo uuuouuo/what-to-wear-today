@@ -13,7 +13,6 @@ const useCheck = <T extends { checked: boolean; value: string }>(
     (e: React.ChangeEvent<T>) => {
       if (e.target.checked) setValues([...values, e.target.value]);
       else setValues(values.filter((value) => value !== e.target.value));
-      console.log(e.target.value);
     },
     [values],
   );
