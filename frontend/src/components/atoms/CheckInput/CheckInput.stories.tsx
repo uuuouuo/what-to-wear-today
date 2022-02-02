@@ -2,20 +2,22 @@ import React from 'react';
 
 import { useCheck } from '@/hooks';
 
-import CheckBox from './CheckBox';
+import CheckInput from './CheckInput';
 
 export default {
-  title: 'Atoms/CheckBox',
-  component: CheckBox,
+  title: 'Atoms/CheckInput',
+  component: CheckInput,
 };
 
 export const Default = () => {
   const [values, , onChange] = useCheck(['123', '345']);
   return values.map((value) => (
-    <CheckBox
+    <CheckInput
       value={value}
+      type="checkbox"
       checked={values.filter((v: string) => v === value).length > 0}
       onChange={onChange}
+      name="number"
     />
   ));
 };
