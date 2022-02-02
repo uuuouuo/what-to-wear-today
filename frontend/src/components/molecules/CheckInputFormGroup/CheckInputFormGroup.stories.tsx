@@ -1,20 +1,26 @@
 import React from 'react';
 import { useCheck } from '@/hooks';
 
-import CheckBoxFormGroup from './CheckBoxFormGroup';
+import { Text } from '@/components/atoms';
+
+import CheckInputFormGroup from './CheckInputFormGroup';
 
 export default {
-  title: 'Molecules/CheckBoxFormGroup',
-  component: CheckBoxFormGroup,
+  title: 'Molecules/CheckInputFormGroup',
+  component: CheckInputFormGroup,
 };
 
 export const Defalut = () => {
   const [values, , onChange] = useCheck(['123', '345']);
   return values.map((value) => (
-    <CheckBoxFormGroup
+    <CheckInputFormGroup
       value={value}
+      type="checkbox"
       checked={values.filter((v: string) => v === value).length > 0}
       onChange={onChange}
-    />
+      name="number"
+    >
+      <Text value={value} />
+    </CheckInputFormGroup>
   ));
 };
