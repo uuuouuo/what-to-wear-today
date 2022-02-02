@@ -1,13 +1,12 @@
 import React from 'react';
 import FooterBar from '../../components/FooterNavbar/FooterNavbar';
 
+import Header from 'components/Header/Header';
+
 const Notification = () => {
   return (
     <>
-      <header>
-        <span>뒤로가기 버튼</span>
-        <span>알림 목록</span>
-      </header>
+      <Header leftSide="pointer" name="알림" />
 
       <article>
         <div>유저 사진</div>
