@@ -1,8 +1,15 @@
 import styled from '@emotion/styled';
 
-const Button = styled.button`
+interface Props {
+  theme: {
+    bgColor: string;
+  };
+}
+
+const Button = styled('button')<Props>`
   border: none;
   outline: none;
+  background-color: ${(props) => props.theme.bgColor};
 `;
 
 export default { Button };

@@ -1,9 +1,13 @@
 import styled from '@emotion/styled';
+import { Text as BaseText } from '@/components/atoms';
 
 const FormGroup = styled.div`
-  display: flex;
-  padding: 3vh;
-  align-items: center;
+  padding: 2vh;
 `;
 
-export default { FormGroup };
+const Text = styled(BaseText)`
+  display: block;
+  padding: 0.7vh;
+`;
+
+export default { FormGroup, Text };

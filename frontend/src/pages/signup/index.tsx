@@ -1,27 +1,47 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import type { NextPage } from 'next';
-import Avatar from '@mui/material/Avatar';
-import Styled from './styled';
-import useChange from '@/hooks/useChange';
-import PersonIcon from '@mui/icons-material/Person';
+import Router from 'next/router';
 
-const Login: NextPage = () => {
-  const [value, , onChange] = useChange('');
-  const changePhoto = (e: React.MouseEvent) => {
-    console.log('change');
-  };
+import Avatar from '@mui/material/Avatar';
+import Person from '@mui/icons-material/Person';
+
+import Styled from './styled';
+import { Text, FooterContainer } from '@/components/atoms';
+import { ImageUpload, Title } from '@/components/molecules';
+
+import { useChange, useFileChange } from '@/hooks';
+
+const Signup: NextPage = () => {
+  const [value, , onChange] = useChange<HTMLInputElement>('');
+  const [profileImg, , profileImgChange] = useFileChange<HTMLInputElement>(null);
+
+  const nextFunction = useCallback(() => {
+    Router.push('/interest');
+  }, []);
 
   return (
-    <Styled.Container>
-      <Styled.Title level={1} value="SIGN UP" color="#fff" />
+    <Styled.MainContainer>
+      <Title value="SIGN UP" />
       <Styled.ProfileContainer>
-        <Avatar src="/broken-image.jpg" sx={{ width: 100, height: 100 }} onClick={changePhoto} />
-        <Styled.FormGroup type="text" value={value} onChange={onChange}>
-          <PersonIcon />
-        </Styled.FormGroup>
+        <ImageUpload onChange={profileImgChange}>
+          <Avatar
+            src={
+              profileImg ? window.URL.createObjectURL(profileImg[0]) : '/images/icon/blank_user.png'
+            }
+            sx={{ width: 150, height: 150 }}
+          />
+        </ImageUpload>
+        <Styled.FormGroupWithIcon placeholder="nickname" value={value} onChange={onChange}>
+          <Person />
+        </Styled.FormGroupWithIcon>
       </Styled.ProfileContainer>
-    </Styled.Container>
+      <FooterContainer>
+        <Styled.Button bgColor="#fff" onClick={nextFunction}>
+          <Text value="NEXT" />
+        </Styled.Button>
+      </FooterContainer>
+    </Styled.MainContainer>
   );
 };
 
-export default Login;
+export default Signup;

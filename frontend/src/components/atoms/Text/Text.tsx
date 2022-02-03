@@ -12,9 +12,9 @@ interface Props {
 const Text: FunctionComponent<Props> = ({
   className,
   value,
-  color = '#000',
-  size = '16px',
-  weight = 400,
+  color = 'inherit',
+  size = 'inherit',
+  weight = 'inherit',
 }) => {
   return (
     <Styled.Text className={className} color={color} theme={{ fontSize: size, fontWeight: weight }}>

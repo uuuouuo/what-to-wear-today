@@ -1,7 +1,7 @@
 import React from 'react';
 import { select, text } from '@storybook/addon-knobs';
 
-import useChange from '@/hooks/useChange';
+import { useChange } from '@/hooks';
 
 import Input from './Input';
 

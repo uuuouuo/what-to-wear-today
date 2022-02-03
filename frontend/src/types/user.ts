@@ -1,5 +1,5 @@
 interface UserType {
-  _no: string;
+  _user_no: string;
   id: string;
   password: string | undefined;
   platform: number;
