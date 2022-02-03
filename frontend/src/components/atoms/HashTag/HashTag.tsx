@@ -1,11 +1,12 @@
+import Styled from './HashTag.styled';
 import React, { FunctionComponent } from 'react';
 
 interface Props {
   value: Array<string>;
 }
 
-const HasgTag: FunctionComponent<Props> = ({ value }) => {
-  return <div>{value}</div>;
+const HashTag: FunctionComponent<Props> = ({ value }) => {
+  return <Styled.HashTag>{value}</Styled.HashTag>;
 };
 
-export default HasgTag;
+export default HashTag;
