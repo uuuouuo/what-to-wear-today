@@ -1,6 +1,6 @@
 package com.ssafy.websns.controller;
 
-import com.ssafy.websns.model.domain.user.User;
+import com.ssafy.websns.model.entity.user.User;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
