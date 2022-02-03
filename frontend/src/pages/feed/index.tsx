@@ -1,16 +1,4 @@
 import React from 'react';
-
-// material UI 아이콘
-import NotificationsIcon from '@mui/icons-material/Notifications';
-
-// emotion 설정
-/** @jsxImportSource @emotion/react */
-import { css } from '@emotion/react';
-
-// nextjs Link 설정
-import Link from 'next/link';
-
-// style import
 import Styled from './styled';
 
 import Feed_regionFilter from '../../components/Feed_regionFilter/Feed_regionFilter';
@@ -20,7 +8,6 @@ import FooterNavbar from '../../components/FooterNavbar/FooterNavbar';
 import Header from '../../components/Header/Header';
 
 const Feed = () => {
-  const userId: number = 1;
   return (
     <Styled.FeedLayout>
       <Header leftSide="logo" name="오늘 뭐 입지?" rightSide="notification"></Header>

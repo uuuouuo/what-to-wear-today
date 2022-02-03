@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 const FeedLayout = styled.div`
   display: flex;
   flex-flow: column nowrap;
-  height: 812px;
+  height: 854px;
   filter: drop-shadow(0px 20px 10px rgba(0, 0, 0, 0.15));
   background-image: linear-gradient(135deg, #ad6bff 0%, #74bcf7 100%);
 `;
