@@ -1,4 +1,5 @@
 import React, { FunctionComponent } from 'react';
+import Avatar from '@mui/material/Avatar';
 
 interface Props {
   userId: number;
@@ -6,12 +7,7 @@ interface Props {
 }
 
 const UserImage: FunctionComponent<Props> = ({ userId, className }) => {
-  return (
-    <div>
-      {/* {userId.Img} */}
-      사진
-    </div>
-  );
+  return <Avatar alt="dobby" src={'/images/profileIMG/sample.jpg'} />;
 };
 
 export default UserImage;
