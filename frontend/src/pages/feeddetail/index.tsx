@@ -1,10 +1,9 @@
 import React from 'react';
-// import Styled from './styled';
+import Styled from './styled';
 
 import Header from 'components/Header/Header';
 import CommentPage from 'components/CommentPage/CommentPage';
-
-import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
+import Dropdown from '../../components/Dropdown/Dropdown';
 
 import {
   UserImage,
@@ -13,14 +12,9 @@ import {
   HashTag,
   ArticleContent,
   ArticleDate,
-  Button,
 } from '../../components/atoms';
 
 const feeddetail = () => {
-  const dropdown = () => {
-    console.log('드롭다운 만들어야 해!');
-  };
-
   const user = {
     userId: 1,
     name: '김',
@@ -35,26 +29,28 @@ const feeddetail = () => {
   };
 
   return (
-    <>
+    <Styled.DetailPageLayout>
       <Header name="오늘 뭐 입지?" rightSide="notification" />
-      <div>
-        <UserImage userId={user.userId} />
-        <div>
-          <UserName value={user.name} />
-          <UserId value={user.id} />
-        </div>
-        <Button type="button" children={<MoreHorizIcon />} onClick={dropdown} />
-      </div>
-      <div>
-        <ArticleContent value={article.content} />
-        <HashTag value={article.hashTag} />
-      </div>
-      <div>
-        <ArticleDate value={article.date} />
-      </div>
-      {/* 댓글 부분 */}
+      <Styled.TopArea>
+        <Styled.ArticleArea>
+          <Styled.UserInfoArea>
+            <UserImage userId={user.userId} />
+            <Styled.UserId>
+              <UserName value={user.name} />
+              <UserId value={user.id} />
+            </Styled.UserId>
+          </Styled.UserInfoArea>
+          <Dropdown />
+        </Styled.ArticleArea>
+
+        <Styled.ArticleContent>
+          <ArticleContent value={article.content} />
+          <HashTag value={article.hashTag} />
+          <ArticleDate value={article.date} />
+        </Styled.ArticleContent>
+      </Styled.TopArea>
       <CommentPage />
-    </>
+    </Styled.DetailPageLayout>
   );
 };
 
