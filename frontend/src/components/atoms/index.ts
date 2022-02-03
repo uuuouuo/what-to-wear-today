@@ -7,6 +7,12 @@ import Input from './Input/Input';
 import Label from './Label/Label';
 import MainContainer from './MainContainer/MainContainer';
 import Text from './Text/Text';
+import ArticleContent from './ArticleContent/ArticleContent';
+import ArticleDate from './ArticleDate/ArticleDate';
+import HashTag from './HashTag/HashTag';
+import UserId from './UserId/UserId';
+import UserImage from './UserImage/UserImage';
+import UserName from './UserName/UserName';
 
 export {
   Button,
@@ -18,4 +24,10 @@ export {
   Label,
   MainContainer,
   Text,
+  ArticleContent,
+  ArticleDate,
+  HashTag,
+  UserId,
+  UserImage,
+  UserName,
 };
