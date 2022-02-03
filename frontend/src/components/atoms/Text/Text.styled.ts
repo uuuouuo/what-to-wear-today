@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 interface Props {
   theme: {
     fontSize: string;
-    fontWeight: number;
+    fontWeight: string | number;
   };
 }
 

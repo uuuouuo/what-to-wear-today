@@ -6,7 +6,7 @@ interface Props {
   value: string;
   color?: string;
   size?: string;
-  weight?: number;
+  weight?: number | string;
 }
 
 const Text: FunctionComponent<Props> = ({
