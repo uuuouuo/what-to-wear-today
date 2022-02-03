@@ -17,6 +17,10 @@ interface Props {
   rightSide?: string;
 }
 
+const action = () => {
+  console.log('action에 넣을 함수');
+};
+
 const Header: FunctionComponent<Props> = ({ leftSide, name, rightSide }) => {
   let r_value = null;
   let r_icon = null;
@@ -25,7 +29,7 @@ const Header: FunctionComponent<Props> = ({ leftSide, name, rightSide }) => {
     r_icon = <NotificationsIcon />;
   } else if (rightSide === 'complete') {
     r_value = '/';
-    r_icon = <Button children="완료" />;
+    r_icon = <Button children="완료" type="submit" onClick={action} />;
   } else {
     r_value = '/';
     r_icon = <></>;
@@ -53,7 +57,7 @@ const Header: FunctionComponent<Props> = ({ leftSide, name, rightSide }) => {
     <Styled.Header>
       <div>{l_type}</div>
 
-      <Heading level={1} value={name} />
+      <Heading level={1} children={name} />
 
       <div>
         <Link href={r_value}>{r_icon}</Link>

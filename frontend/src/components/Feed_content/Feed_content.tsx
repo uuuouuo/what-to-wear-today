@@ -1,14 +1,19 @@
 import React, { useRef, useState, useEffect } from 'react';
 
-// material UI icon
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
 
-//style
 import Styled from './Feed_content.styled';
 
-//atom
-import Button from '../atoms/Button/Button';
+import {
+  Button,
+  UserImage,
+  UserName,
+  UserId,
+  HashTag,
+  ArticleContent,
+  ArticleDate,
+} from '../atoms/';
 
 const Feed_article = () => {
   const scrollAreaRef = useRef<HTMLDivElement>(null);
@@ -101,26 +106,26 @@ const Feed_article = () => {
         return (
           <Styled.Feed_content key={idx} ref={lastEl ? target : null}>
             <Styled.Feed_content_top>
-              <div>사진{article.name}</div>
+              <UserImage userId={article.id} />
+
               <div>
-                <div>
-                  <Styled.Feed_content_user>
-                    <div>유저네임{article.name}</div>
-                    <div>아이디{article.name}</div>
-                    <div>게시글 올린시간(ago){article.name}</div>
-                  </Styled.Feed_content_user>
-                  <div>게시글 내용{article.name}</div>
-                  <div>해시태그{article.name}</div>
-                </div>
+                <Styled.Feed_content_user>
+                  <UserName value={article.name} />
+                  <UserId value={article.name} />
+                  <ArticleDate value={article.name} />
+                </Styled.Feed_content_user>
+                <ArticleContent value={article.name} />
+                <HashTag value={['dd', 'ss', 'aa']} />
               </div>
+
               <div>
                 {/* 팔로우 버튼 */}
-                <Button onClick={Follow}>{<p>follow</p>}</Button>
+                <Button children={'follow'} onClick={Follow} />
               </div>
             </Styled.Feed_content_top>
             <Styled.Feed_content_bottom>
-              <ChatBubbleOutlineIcon />
-              <FavoriteBorderIcon />
+              <Button children={<ChatBubbleOutlineIcon />} onClick={Follow} />
+              <Button children={<FavoriteBorderIcon />} onClick={Follow} />
             </Styled.Feed_content_bottom>
           </Styled.Feed_content>
         );
