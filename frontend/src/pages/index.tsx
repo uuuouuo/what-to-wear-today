@@ -16,11 +16,6 @@ const Home: NextPage = () => {
       });
     }
   });
-  return (
-    <>
-      <div></div>
-      <div></div>
-    </>
-  );
+  return <></>;
 };
 export default Home;
