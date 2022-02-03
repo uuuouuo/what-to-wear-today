@@ -1,7 +1,6 @@
 import React, { FunctionComponent } from 'react';
 import Styled from './FormGroup.styled';
-import Input from '@/components/atoms/Input/Input';
-import Label from '@/components/atoms/Label/Label';
+import { Input, Label } from '@/components/atoms';
 
 interface Props {
   className?: string;
@@ -9,7 +8,7 @@ interface Props {
   value: string;
   type?: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  children: React.ReactChild;
+  label: string;
 }
 
 const FormGroup: FunctionComponent<Props> = ({
@@ -18,12 +17,12 @@ const FormGroup: FunctionComponent<Props> = ({
   value,
   type = 'text',
   onChange,
-  children,
+  label,
 }) => {
   return (
     <Styled.FormGroup className={className}>
       <Label>
-        {children}
+        <Styled.Text value={label} />
         <Input placeholder={placeholder} value={value} type={type} onChange={onChange} />
       </Label>
     </Styled.FormGroup>
