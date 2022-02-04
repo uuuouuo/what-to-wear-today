@@ -113,6 +113,7 @@ public class Weather {
       e.printStackTrace();
     }
 //    System.out.println(weatherDto);
+    weatherDto.setRegionNo(stn);
     return weatherDto;
   }
 

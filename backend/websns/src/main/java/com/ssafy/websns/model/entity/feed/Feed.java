@@ -5,8 +5,10 @@ import static javax.persistence.FetchType.LAZY;
 import com.ssafy.websns.model.entity.BaseEntity;
 import com.ssafy.websns.model.entity.region.Region;
 import com.ssafy.websns.model.entity.user.User;
+import com.ssafy.websns.weather.WeatherDto;
 import io.swagger.annotations.ApiModel;
 import java.time.LocalDateTime;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -41,5 +43,16 @@ public class Feed extends BaseEntity {
   private Boolean privateMode;
 
   private Boolean deleteMode;
+
+  public Integer createFeed(User user, String content,Region regionNo, LocalDateTime createAt, String weather, Boolean privateMode){
+    this.user = user;
+    this.content = content;
+    this.regionNo = regionNo;
+    this.createAt = createAt;
+    this.weather = weather;
+    this.privateMode = privateMode;
+
+    return this.no;
+  }
 
 }

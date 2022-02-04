@@ -11,6 +11,8 @@ import lombok.ToString;
 @ToString
 public class WeatherDto {
 
+  private Integer regionNo;
+
   private String monHour; //일.시
   private String curWeather; //현재 날씨
   private String cloudiness; //운량
