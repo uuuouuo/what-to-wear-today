@@ -6,6 +6,7 @@ import com.ssafy.websns.weather.Weather;
 import com.ssafy.websns.weather.WeatherDto;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -28,10 +29,11 @@ public class WeatherRestController {
 
     System.out.println(dateTime.toString());
 
-    Optional<Region> OptionalRegion = regionRepository.findByRegionNameContaining(region);
+    List<Region> regionList = regionRepository.findByRegionNameContaining(region);
+
     WeatherDto weatherDto = null;
-    if(OptionalRegion.isPresent()){
-      Region region1 = OptionalRegion.get();
+    if(regionList != null){
+      Region region1 = regionList.get(0);
       Weather weather = new Weather(dateTime,region1.getPointCode());
       weatherDto = weather.crawlling();
     }

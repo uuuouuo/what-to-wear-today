@@ -27,4 +27,17 @@ public class Photo {
   @JoinColumn(name = "FEED_NO")
   private Feed feed;
 
+  public Photo() {
+  }
+
+  public Photo(String imgUrl, Feed feed) {
+    this.imgUrl = imgUrl;
+    this.feed = feed;
+  }
+
+  public void createPhoto(String imgUrl,Feed feed){
+    this.imgUrl = imgUrl;
+    this.feed = feed;
+  }
+
 }

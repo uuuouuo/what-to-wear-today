@@ -44,7 +44,7 @@ public class Feed extends BaseEntity {
 
   private Boolean deleteMode;
 
-  public Integer createFeed(User user, String content,Region regionNo, LocalDateTime createAt, String weather, Boolean privateMode){
+  public void createFeed(User user, String content,Region regionNo, LocalDateTime createAt, String weather, Boolean privateMode){
     this.user = user;
     this.content = content;
     this.regionNo = regionNo;
@@ -52,7 +52,8 @@ public class Feed extends BaseEntity {
     this.weather = weather;
     this.privateMode = privateMode;
 
-    return this.no;
+//    return this.no;
   }
+
 
 }

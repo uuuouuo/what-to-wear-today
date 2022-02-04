@@ -1,5 +1,6 @@
 package com.ssafy.websns.model.dto;
 
+import com.ssafy.websns.model.entity.feed.Photo;
 import com.ssafy.websns.model.entity.region.Region;
 import com.ssafy.websns.model.entity.user.User;
 import java.time.LocalDateTime;
@@ -9,9 +10,10 @@ import lombok.Data;
 
 @Data
 public class CreateFeedDto {
+
   private User user;
   private String content;
-  private Region region;
+  private String region;
   private String weather;
   private LocalDateTime createAt;
   private boolean privateMode;
@@ -21,4 +23,14 @@ public class CreateFeedDto {
   public CreateFeedDto() {
   }
 
+  public CreateFeedDto(User user, String content, String region, String weather,
+      LocalDateTime createAt, boolean privateMode, List<String> images) {
+    this.user = user;
+    this.content = content;
+    this.region = region;
+    this.weather = weather;
+    this.createAt = createAt;
+    this.privateMode = privateMode;
+    this.images = images;
+  }
 }

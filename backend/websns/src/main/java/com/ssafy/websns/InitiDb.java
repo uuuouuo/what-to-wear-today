@@ -1,6 +1,6 @@
 //package com.ssafy.websns;
 //
-//import com.ssafy.websns.model.domain.region.Region;
+//import com.ssafy.websns.model.entity.region.Region;
 //import com.ssafy.websns.repository.region.RegionRepository;
 //import java.io.BufferedReader;
 //import java.io.FileReader;
@@ -22,7 +22,7 @@
 //    );
 //    String str;
 //    while ((str = reader.readLine()) != null) {
-//      String[] list = str.split(",");
+//      String[] list = str.split("\t");
 //      Region region = new Region(list[0], Integer.parseInt(list[1]));
 //
 //      repository.save(region);
