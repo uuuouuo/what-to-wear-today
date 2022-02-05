@@ -1,11 +1,12 @@
 import React, { FunctionComponent } from 'react';
+import Styled from './ArticleContent.styled';
 
 interface Props {
   value: string;
 }
 
-const ArticleImage: FunctionComponent<Props> = ({ value }) => {
-  return <div>{value}</div>;
+const ArticleContent: FunctionComponent<Props> = ({ value }) => {
+  return <Styled.AricleContentLayout>{value}</Styled.AricleContentLayout>;
 };
 
-export default ArticleImage;
+export default ArticleContent;
