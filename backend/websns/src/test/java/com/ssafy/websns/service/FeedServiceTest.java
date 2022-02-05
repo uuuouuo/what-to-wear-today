@@ -37,7 +37,7 @@ class FeedServiceTest {
 
     userRepository.save(user);
 
-    LocalDateTime createAt = LocalDateTime.now();
+    String createAt = LocalDateTime.now().toString();
     List<String> images = new ArrayList<>(Arrays.asList("c:\\hi","c:\\hi2"));
     CreateFeedDto createFeedDto = new CreateFeedDto(user,"hello","서울특별시 관악구 중앙동","맑음-5도",createAt,false,images);
 

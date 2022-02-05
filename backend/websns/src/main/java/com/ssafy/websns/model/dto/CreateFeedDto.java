@@ -15,7 +15,7 @@ public class CreateFeedDto {
   private String content;
   private String region;
   private String weather;
-  private LocalDateTime createAt;
+  private String createAt;
   private boolean privateMode;
 
   List<String> images = new ArrayList<>();
@@ -24,7 +24,7 @@ public class CreateFeedDto {
   }
 
   public CreateFeedDto(User user, String content, String region, String weather,
-      LocalDateTime createAt, boolean privateMode, List<String> images) {
+      String createAt, boolean privateMode, List<String> images) {
     this.user = user;
     this.content = content;
     this.region = region;

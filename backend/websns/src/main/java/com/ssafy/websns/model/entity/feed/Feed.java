@@ -8,6 +8,7 @@ import com.ssafy.websns.model.entity.user.User;
 import com.ssafy.websns.weather.WeatherDto;
 import io.swagger.annotations.ApiModel;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -44,16 +45,19 @@ public class Feed extends BaseEntity {
 
   private Boolean deleteMode;
 
-  public void createFeed(User user, String content,Region regionNo, LocalDateTime createAt, String weather, Boolean privateMode){
+  public void createFeed(User user, String content,Region regionNo, String createAt, String weather, Boolean privateMode){
     this.user = user;
     this.content = content;
     this.regionNo = regionNo;
-    this.createAt = createAt;
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.M.d.HH:mm");
+    LocalDateTime dateTime = LocalDateTime.parse(createAt, formatter);
+    this.createAt = dateTime;
     this.weather = weather;
     this.privateMode = privateMode;
 
 //    return this.no;
   }
+
 
 
 }
