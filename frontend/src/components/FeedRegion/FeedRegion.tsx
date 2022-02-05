@@ -29,6 +29,8 @@ const interestRegions: regionType[] = [
   { id: 5, name: 'busan' },
 ];
 
+// const [currentType, SetCurrentType] = useState(1);
+
 const RegionFilter = () => {
   return (
     <div>
