@@ -1,11 +1,11 @@
 import React from 'react';
 import Styled from './styled';
 
-import Feed_regionFilter from '../../components/Feed_regionFilter/Feed_regionFilter';
-import Feed_filter from '../../components/Feed_filter/Feed_filter';
-import Feed_content from '../../components/Feed_content/Feed_content';
-import FooterNavbar from '../../components/FooterNavbar/FooterNavbar';
-import Header from '../../components/Header/Header';
+import FeedRegion from '@/components/FeedRegion/FeedRegion';
+import FeedFilter from '@/components/FeedFilter/FeedFilter';
+import FeedContent from '@/components/FeedContent/FeedContent';
+import FooterNavbar from '@/components/FooterNavbar/FooterNavbar';
+import Header from '@/components/Header/Header';
 
 const Feed = () => {
   return (
@@ -13,16 +13,16 @@ const Feed = () => {
       <Header leftSide="logo" name="오늘 뭐 입지?" rightSide="notification"></Header>
 
       <Styled.FeedNavbar>
-        <Feed_regionFilter />
+        <FeedRegion />
         <div>날씨정보</div>
       </Styled.FeedNavbar>
 
       <Styled.FeedFilter>
-        <Feed_filter />
+        <FeedFilter />
       </Styled.FeedFilter>
 
       <Styled.FeedContent>
-        <Feed_content />
+        <FeedContent />
       </Styled.FeedContent>
 
       <FooterNavbar />
