@@ -1,9 +1,9 @@
 import React from 'react';
 import Styled from './styled';
 
-import Header from 'components/Header/Header';
-import CommentPage from 'components/CommentPage/CommentPage';
-import Dropdown from '../../components/Dropdown/Dropdown';
+import Header from '@/components/Header/Header';
+import CommentPage from '@/components/CommentPage/CommentPage';
+import Dropdown from '@/components/Dropdown/Dropdown';
 
 import {
   UserImage,
