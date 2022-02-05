@@ -1,4 +1,4 @@
-package com.ssafy.websns.repository.region;
+package com.ssafy.websns.model.dto;
 
 import lombok.Data;
 

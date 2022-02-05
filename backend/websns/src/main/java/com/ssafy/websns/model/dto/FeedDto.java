@@ -10,7 +10,7 @@ public class FeedDto {
 
   private Integer no;
 
-  private User user;
+  private String userId;
 
   private String content;
 
@@ -29,10 +29,10 @@ public class FeedDto {
   public FeedDto() {
   }
 
-  public FeedDto(Integer no, User user, String content, LocalDateTime createAt,
+  public FeedDto(Integer no, String userId, String content, LocalDateTime createAt,
       LocalDateTime regDate, LocalDateTime updateDate, String weather, Boolean privateMode,List<PhotoDto> photos) {
     this.no = no;
-    this.user = user;
+    this.userId = userId;
     this.content = content;
     this.createAt = createAt;
     this.regDate = regDate;

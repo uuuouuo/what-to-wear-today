@@ -49,7 +49,7 @@ public class FeedService {
         .map(photo -> new PhotoDto(photo.getNo(), photo.getImgUrl(), photo.getFeed().getNo()))
         .collect(Collectors.toList());
 
-    FeedDto feedDto = new FeedDto(feed.getNo(), feed.getUser(), feed.getContent(),
+    FeedDto feedDto = new FeedDto(feed.getNo(), feed.getUser().getId(), feed.getContent(),
         feed.getCreateAt(), feed.getRegDate(), feed.getUpdateAt(), feed.getWeather(),
         feed.getPrivateMode(),photoDtos);
 
