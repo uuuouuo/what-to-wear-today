@@ -35,7 +35,7 @@ public class WeatherRestController {
     if(regionList != null){
       Region region1 = regionList.get(0);
       Weather weather = new Weather(dateTime,region1.getPointCode());
-      weatherDto = weather.crawlling();
+      weatherDto = weather.crawling();
     }
     else{
 

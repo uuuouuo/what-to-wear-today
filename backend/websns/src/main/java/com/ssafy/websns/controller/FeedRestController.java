@@ -1,7 +1,7 @@
 package com.ssafy.websns.controller;
 
-import com.ssafy.websns.model.dto.CreateFeedDto;
-import com.ssafy.websns.model.dto.FeedDto;
+import com.ssafy.websns.model.dto.feed.CreateFeedDto;
+import com.ssafy.websns.model.dto.feed.FeedDto;
 import com.ssafy.websns.service.FeedService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

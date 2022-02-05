@@ -17,9 +17,10 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import lombok.Getter;
+import lombok.Setter;
 
 @Entity
-@Getter
+@Getter @Setter
 @ApiModel(value = "피드 정보", description = "피드를 나타낸다.")
 public class Feed extends BaseEntity {
 
@@ -37,7 +38,7 @@ public class Feed extends BaseEntity {
 
   private String content;
 
-  private LocalDateTime createAt;
+  private LocalDateTime photoDate;
 
   private String weather;
 
@@ -51,7 +52,7 @@ public class Feed extends BaseEntity {
     this.regionNo = regionNo;
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.M.d.HH:mm");
     LocalDateTime dateTime = LocalDateTime.parse(createAt, formatter);
-    this.createAt = dateTime;
+    this.photoDate = dateTime;
     this.weather = weather;
     this.privateMode = privateMode;
 

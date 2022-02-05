@@ -1,11 +1,7 @@
 package com.ssafy.websns.service;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-import com.ssafy.websns.model.dto.CreateFeedDto;
+import com.ssafy.websns.model.dto.feed.CreateFeedDto;
 import com.ssafy.websns.model.entity.user.User;
-import com.ssafy.websns.repository.feed.FeedRepository;
-import com.ssafy.websns.repository.feed.PhotoRepository;
 import com.ssafy.websns.repository.user.UserRepository;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -22,7 +18,8 @@ import org.springframework.transaction.annotation.Transactional;
 @Rollback(false)
 class FeedServiceTest {
 
-  @Autowired FeedService feedService;
+  @Autowired
+  FeedService feedService;
   @Autowired
   UserRepository userRepository;
   //  @Autowired

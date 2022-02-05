@@ -1,8 +1,8 @@
 package com.ssafy.websns.service;
 
-import com.ssafy.websns.model.dto.CreateFeedDto;
-import com.ssafy.websns.model.dto.FeedDto;
-import com.ssafy.websns.model.dto.PhotoDto;
+import com.ssafy.websns.model.dto.feed.CreateFeedDto;
+import com.ssafy.websns.model.dto.feed.FeedDto;
+import com.ssafy.websns.model.dto.feed.PhotoDto;
 import com.ssafy.websns.model.entity.feed.Feed;
 import com.ssafy.websns.model.entity.feed.Photo;
 import com.ssafy.websns.model.entity.region.Region;
@@ -10,9 +10,7 @@ import com.ssafy.websns.repository.feed.PhotoRepository;
 import com.ssafy.websns.repository.feed.FeedRepository;
 import com.ssafy.websns.repository.region.RegionRepository;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -30,7 +28,7 @@ public class FeedService {
     Region region = regionRepository.findByRegionNameContaining(request.getRegion()).get(0);
 
     feed.createFeed(request.getUser(), request.getContent(), region,
-        request.getCreateAt(), request.getWeather(), request.isPrivateMode());
+        request.getPhotoDate(), request.getWeather(), request.isPrivateMode());
 
     System.out.println(request.getUser());
 
@@ -50,7 +48,7 @@ public class FeedService {
         .collect(Collectors.toList());
 
     FeedDto feedDto = new FeedDto(feed.getNo(), feed.getUser(), feed.getContent(),
-        feed.getCreateAt(), feed.getRegDate(), feed.getUpdateAt(), feed.getWeather(),
+        feed.getPhotoDate(), feed.getCreateAt(), feed.getUpdateAt(), feed.getWeather(),
         feed.getPrivateMode(),photoDtos);
 
     return feedDto;

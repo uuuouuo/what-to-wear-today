@@ -34,7 +34,7 @@ public class Weather {
     this.stn = stn;
   }
 
-  public WeatherDto crawlling() {
+  public WeatherDto crawling() {
 
     LocalDateTime date = this.date;
     Integer stn = this.stn;
