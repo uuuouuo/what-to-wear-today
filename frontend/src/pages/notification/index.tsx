@@ -1,20 +1,19 @@
 import React from 'react';
-import FooterBar from '../../components/FooterNavbar/FooterNavbar';
+import Styled from './styled';
+import FooterBar from '@/components/FooterNavbar/FooterNavbar';
 
-import Header from 'components/Header/Header';
+import Header from '@/components/Header/Header';
+import NotificationContent from '@/components/NotificationContent/NotificationContent';
+
+///////////////////////////
 
 const Notification = () => {
   return (
-    <>
+    <Styled.NotificationLayout>
       <Header leftSide="pointer" name="알림" />
-
-      <article>
-        <div>유저 사진</div>
-        <div>알림 내용</div>
-        <div>팔로우 버튼</div>
-      </article>
+      <NotificationContent />
       <FooterBar />
-    </>
+    </Styled.NotificationLayout>
   );
 };
 
