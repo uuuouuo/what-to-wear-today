@@ -3,7 +3,7 @@ import Styled from './CommentPage.styled';
 
 import Button from 'components/atoms/Button/Button';
 import Input from 'components/atoms/Input/Input';
-import UserImage from '../atoms/UserImage/UserImage';
+import { UserImage } from '@/components/atoms/';
 
 const action = () => {
   console.log('action에 넣을 함수');
