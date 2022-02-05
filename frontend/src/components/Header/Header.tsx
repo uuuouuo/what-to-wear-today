@@ -1,15 +1,10 @@
 import React, { FunctionComponent } from 'react';
-
 import Styled from './Header.styled';
-
 import NotificationsIcon from '@mui/icons-material/Notifications';
-
 import Link from 'next/link';
-
 import Router from 'next/router';
-
-import Heading from 'components/atoms/Heading/Heading';
-import Button from 'components/atoms/Button/Button';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import { Button } from '@/components/atoms/';
 
 interface Props {
   leftSide?: string;
@@ -42,12 +37,12 @@ const Header: FunctionComponent<Props> = ({ leftSide, name, rightSide }) => {
     l_type = (
       <Button
         type="button"
+        bgColor="transparent"
+        children={<ArrowBackIcon />}
         onClick={(e) => {
           Router.back();
         }}
-      >
-        화살표
-      </Button>
+      />
     );
   } else {
     <></>;
@@ -55,13 +50,13 @@ const Header: FunctionComponent<Props> = ({ leftSide, name, rightSide }) => {
 
   return (
     <Styled.Header>
-      <div>{l_type}</div>
+      <Styled.LeftSide>{l_type}</Styled.LeftSide>
 
-      <Heading level={1} children={name} />
+      <Styled.Center level={1} children={name} />
 
-      <div>
+      <Styled.RightSide>
         <Link href={r_value}>{r_icon}</Link>
-      </div>
+      </Styled.RightSide>
     </Styled.Header>
   );
 };
