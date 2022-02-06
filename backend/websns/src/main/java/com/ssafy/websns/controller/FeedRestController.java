@@ -1,7 +1,7 @@
 package com.ssafy.websns.controller;
 
-import com.ssafy.websns.model.dto.feed.FeedDto.CreationReq;
-import com.ssafy.websns.model.dto.feed.FeedDto.Res;
+import com.ssafy.websns.model.dto.feed.FeedDto.CreateReq;
+import com.ssafy.websns.model.dto.feed.FeedDto.CreateRes;
 import com.ssafy.websns.service.FeedService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -17,11 +17,10 @@ public class FeedRestController {
   private final FeedService feedService;
 
   @PostMapping("/feed")
-  public ResponseEntity<Res> createFeed(@RequestBody CreationReq request){
+  public ResponseEntity<CreateRes> createFeed(@RequestBody CreateReq request){
 
-    Res Res = feedService.postFeed(request);
-
-    return new ResponseEntity<>(Res, HttpStatus.OK);
+    CreateRes response = feedService.postFeed(request);
+    return new ResponseEntity<>(response, HttpStatus.OK);
 
   }
 

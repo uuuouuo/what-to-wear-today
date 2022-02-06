@@ -12,7 +12,7 @@ public class FeedDto {
 
   @Getter
   @NoArgsConstructor(access = AccessLevel.PROTECTED)
-  public static class CreationReq {
+  public static class CreateReq {
 
     private User user;
     private String content;
@@ -22,7 +22,7 @@ public class FeedDto {
     private Boolean privateMode;
     private List<String> images = new ArrayList<>();
 
-    public CreationReq(User user, String content, String region, String weather,
+    public CreateReq(User user, String content, String region, String weather,
         String photoDate, Boolean privateMode, List<String> images) {
       this.user = user;
       this.content = content;
@@ -36,7 +36,7 @@ public class FeedDto {
   }
 
     @Getter
-    public static class Res {
+    public static class CreateRes {
 
       private Integer no;
       private User user;
@@ -48,7 +48,7 @@ public class FeedDto {
       private Boolean privateMode;
       private List<PhotoDto> photos;
 
-      public Res(Integer no, User user, String content, LocalDateTime createAt,
+      public CreateRes(Integer no, User user, String content, LocalDateTime createAt,
           LocalDateTime photoDate, LocalDateTime updateDate, String weather, Boolean privateMode,
           List<PhotoDto> photos) {
         this.no = no;

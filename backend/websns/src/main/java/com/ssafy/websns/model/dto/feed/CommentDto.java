@@ -11,22 +11,20 @@ public class CommentDto {
 
   @Getter
   @NoArgsConstructor(access = AccessLevel.PROTECTED)
-  public static class CreationReq {
+  public static class CreateReq {
 
     private Integer no;
     private String userNo;
-    private Integer feedNo;
     private Integer parent;
     private String content;
     private Boolean privateMode;
     private Boolean deleteMode;
     private LocalDateTime createAt;
 
-    public CreationReq(Integer no, String userNo, Integer feedNo, Integer parent, String content,
+    public CreateReq(Integer no, String userNo, Integer parent, String content,
         Boolean privateMode, Boolean deleteMode, LocalDateTime createAt) {
       this.no = no;
       this.userNo = userNo;
-      this.feedNo = feedNo;
       this.parent = parent;
       this.content = content;
       this.privateMode = privateMode;
@@ -37,7 +35,7 @@ public class CommentDto {
   }
 
   @Getter
-  public static class Res {
+  public static class CreateRes {
 
     private User user;
     private String content;
@@ -45,7 +43,7 @@ public class CommentDto {
     private Comment parent;
     private LocalDateTime createAt;
 
-    public Res(User user, Integer feedNo, Comment parent, String content,
+    public CreateRes(User user, Integer feedNo, Comment parent, String content,
         LocalDateTime createAt) {
       this.user = user;
       this.feedNo = feedNo;
@@ -55,5 +53,39 @@ public class CommentDto {
     }
 
   }
+
+  @Getter
+  @NoArgsConstructor(access = AccessLevel.PROTECTED)
+  public static class UpdateReq {
+
+    private String content;
+    private Boolean privateMode;
+    private LocalDateTime updateAt;
+
+    public UpdateReq(String content,
+        Boolean privateMode, LocalDateTime updateAt) {
+      this.content = content;
+      this.privateMode = privateMode;
+      this.updateAt = updateAt;
+    }
+
+  }
+
+  @Getter
+  public static class UpdateRes {
+    
+    private String content;
+    private Boolean privateMode;
+    private LocalDateTime updateAt;
+
+    public UpdateRes(String content,
+        Boolean privateMode, LocalDateTime updateAt) {
+      this.content = content;
+      this.privateMode = privateMode;
+      this.updateAt = updateAt;
+    }
+
+  }
+
 
 }

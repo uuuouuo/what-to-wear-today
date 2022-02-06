@@ -53,4 +53,14 @@ public class Comment extends BaseEntity {
     this.privateMode = privateMode;
     this.deleteMode = deleteMode;
   }
+
+  public void updateComment(String content,
+      Boolean privateMode) {
+    this.content = content;
+    this.privateMode = privateMode;
+  }
+
+  public void deleteComment() {
+    this.deleteMode = true;
+  }
 }

@@ -5,11 +5,9 @@ import static javax.persistence.FetchType.LAZY;
 import com.ssafy.websns.model.entity.BaseEntity;
 import com.ssafy.websns.model.entity.region.Region;
 import com.ssafy.websns.model.entity.user.User;
-import com.ssafy.websns.weather.Weather;
 import io.swagger.annotations.ApiModel;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -18,10 +16,13 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Getter
+@Getter @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @ApiModel(value = "피드 정보", description = "피드를 나타낸다.")
 public class Feed extends BaseEntity {
 
@@ -57,9 +58,6 @@ public class Feed extends BaseEntity {
     this.weather = weather;
     this.privateMode = privateMode;
 
-//    return this.no;
   }
-
-
 
 }
