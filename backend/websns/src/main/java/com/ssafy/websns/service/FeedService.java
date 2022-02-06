@@ -56,6 +56,6 @@ public class FeedService {
 //    feed.updateFeed(request.getContent(), request.getRegion(), request.getPhotoDate(),
 //        request.getWeather(),request.getPrivateMode());
 //  }
-
+//
 }
 
