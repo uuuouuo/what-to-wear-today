@@ -60,4 +60,15 @@ public class Feed extends BaseEntity {
 
   }
 
+  public void updateFeed(String content,Region regionNo, String createAt, String weather, Boolean privateMode){
+    this.content = content;
+    this.regionNo = regionNo;
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.M.d.HH:mm");
+    LocalDateTime dateTime = LocalDateTime.parse(createAt, formatter);
+    this.photoDate = dateTime;
+    this.weather = weather;
+    this.privateMode = privateMode;
+
+  }
+
 }

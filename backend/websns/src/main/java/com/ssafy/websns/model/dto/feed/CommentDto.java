@@ -19,17 +19,15 @@ public class CommentDto {
     private String content;
     private Boolean privateMode;
     private Boolean deleteMode;
-    private LocalDateTime createAt;
 
     public CreateReq(Integer no, String userNo, Integer parent, String content,
-        Boolean privateMode, Boolean deleteMode, LocalDateTime createAt) {
+        Boolean privateMode, Boolean deleteMode) {
       this.no = no;
       this.userNo = userNo;
       this.parent = parent;
       this.content = content;
       this.privateMode = privateMode;
       this.deleteMode = deleteMode;
-      this.createAt = createAt;
     }
 
   }

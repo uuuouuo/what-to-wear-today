@@ -9,16 +9,19 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @ApiModel(value = "사진", description = "사진 정보를 나타냅니다.")
-public class Photo {
+public class Image {
 
   @Id
   @GeneratedValue
-  @Column(name = "PHOTO_NO")
+  @Column(name = "IMAGE_NO")
   private Integer no;
 
   private String imgUrl;
@@ -27,10 +30,7 @@ public class Photo {
   @JoinColumn(name = "FEED_NO")
   private Feed feed;
 
-  public Photo() {
-  }
-
-  public Photo(String imgUrl, Feed feed) {
+  public Image(String imgUrl, Feed feed) {
     this.imgUrl = imgUrl;
     this.feed = feed;
   }

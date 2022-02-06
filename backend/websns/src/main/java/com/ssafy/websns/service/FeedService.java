@@ -1,10 +1,10 @@
 package com.ssafy.websns.service;
 
 import com.ssafy.websns.model.dto.feed.FeedDto.CreateReq;
-import com.ssafy.websns.model.dto.feed.FeedDto.CreateRes;
-import com.ssafy.websns.model.dto.feed.PhotoDto;
+import com.ssafy.websns.model.dto.feed.FeedDto.Res;
+import com.ssafy.websns.model.dto.feed.ImageDto.CreateImage;
 import com.ssafy.websns.model.entity.feed.Feed;
-import com.ssafy.websns.model.entity.feed.Photo;
+import com.ssafy.websns.model.entity.feed.Image;
 import com.ssafy.websns.model.entity.region.Region;
 import com.ssafy.websns.repository.feed.FeedRepository;
 import com.ssafy.websns.repository.feed.PhotoRepository;
@@ -25,7 +25,7 @@ public class FeedService {
   private final RegionRepository regionRepository;
 
   @Transactional
-  public CreateRes postFeed(CreateReq request) {
+  public Res postFeed(CreateReq request) {
 
     Feed feed = new Feed();
     Region region = regionRepository.findByRegionNameContaining(request.getRegion()).get(0);
@@ -33,28 +33,29 @@ public class FeedService {
     feed.createFeed(request.getUser(), request.getContent(), region,
         request.getPhotoDate(), request.getWeather(), request.getPrivateMode());
 
-    System.out.println(request.getUser());
-
-    List<Photo> photos = request.getImages().stream().map(image -> new Photo(image, feed))
+    List<Image> images = request.getImageNames().stream().map(image -> new Image(image, feed))
         .collect(Collectors.toList());
-
-//    List<Photo> phoptos2 = new ArrayList<>();
-//    for (String image : request.getImages()) {
-//      Photo photo = new Photo(image,feed);
-//      photos.add(photo);
-//    }
 
     feedRepository.save(feed);
-    List<Photo> savedPhoto = photoRepository.saveAll(photos);
-    List<PhotoDto> photoDtos = savedPhoto.stream()
-        .map(photo -> new PhotoDto(photo.getNo(), photo.getImgUrl(), photo.getFeed().getNo()))
-        .collect(Collectors.toList());
 
-    CreateRes response = new CreateRes(feed.getNo(), feed.getUser(), feed.getContent(),
-        feed.getPhotoDate(), feed.getCreateAt(), feed.getUpdateAt(), feed.getWeather(),
-        feed.getPrivateMode(),photoDtos);
+    List<Image> savedImages = photoRepository.saveAll(images);
+    List<CreateImage> resImages = savedImages.stream()
+        .map(CreateImage::new).collect(Collectors.toList());
+
+    Res response = new Res(feed.getNo(), feed.getUser(), feed.getContent(),
+        feed.getPhotoDate(), feed.getUpdateAt(), feed.getWeather(),
+        feed.getPrivateMode(),resImages);
 
     return response;
   }
+
+
+//  public UpdateRes editFeed(Integer feedNo, UpdateReq request) {
+//    Feed feed = feedRepository.findByNo(feedNo);
+//    regionRepository.
+//    feed.updateFeed(request.getContent(), request.getRegion(), request.getPhotoDate(),
+//        request.getWeather(),request.getPrivateMode());
+//  }
+
 }
 

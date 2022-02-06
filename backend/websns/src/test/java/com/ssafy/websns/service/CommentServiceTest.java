@@ -55,7 +55,7 @@ public class CommentServiceTest {
     feed.setContent("너무 더워요;");
     feedRepository.save(feed);
 
-    CreateReq req = new CreateReq(1, "1234", -1, "장다빈", false, false, createAt);
+    CreateReq req = new CreateReq(1, "1234", -1, "장다빈", false, false);
 
     // when
     Res res = commentService.postComment(feed.getNo(), req);
