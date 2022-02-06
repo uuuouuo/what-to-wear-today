@@ -1,119 +1,29 @@
 package com.ssafy.websns.weather;
 
-import java.io.IOException;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import org.jsoup.Connection;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
+import lombok.Data;
+import lombok.ToString;
 
+@Data
+@ToString
 public class Weather {
 
-  public LocalDateTime date;
-  public Integer stn;
+  private Integer regionNo;
 
-  public Weather() {
+  private String monHour; //일.시
+  private String curWeather; //현재 날씨
+  private String cloudiness; //운량
+  private String lowerCloudiness; //중하운량
 
-    this.date = LocalDateTime.now();
-    this.stn = 0;
 
-  }
+  private String temperatures;  //기온
+  private String dewPointTemp; //이슬점 온도
+  private String sensibleTemp;  //체감온도
 
-  public Weather(LocalDateTime date) {
-    this.date = date;
-  }
+  private String dayPrecipitation; //일강수
+  private String daySnow; //일적설
+  private String humidity; //습도
 
-  public Weather(Integer stn) {
-    this.stn = stn;
-  }
-
-  public Weather(LocalDateTime date, Integer stn) {
-    this.date = date;
-    this.stn = stn;
-  }
-
-  public WeatherDto crawling() {
-
-    LocalDateTime date = this.date;
-    Integer stn = this.stn;
-
-    String searchDate = date.format(DateTimeFormatter.ofPattern("yyyy.M.d.H:mm"));
-    final String url = "https://www.weather.go.kr/w/obs-climate/land/city-obs.do?tm=" + searchDate
-        + "&type=t99&mode=0&reg=100&auto_man=m&stn=" + Integer.toString(stn);
-
-    String formatDate = date.format(DateTimeFormatter.ofPattern("d.H")) + "H";
-
-    WeatherDto weatherDto = new WeatherDto();
-
-    // Connection 생성
-    Connection conn = Jsoup.connect(url);
-    // HTML 파싱
-    try {
-      Document doc = conn.get();
-      Elements elements = doc.getElementsByClass("table-col");
-
-      for (Element e : elements) {
-
-        for (Element tr : e.getElementsByTag("tr")) {
-          String href = tr.select("a").text();
-          if (href != null && href.equals(formatDate)) {
-            Elements tds = tr.select("td");
-            for (int i = 0; i < 12; i++) {
-              String tmp = tds.get(i).text();
-              if (i == 0) {
-                weatherDto.setMonHour(tmp);
-              }
-              if (i == 1) {
-                weatherDto.setCurWeather(tmp);
-              }
-              if (i == 2) {
-                weatherDto.setCloudiness(tmp);
-              }
-              if (i == 3) {
-                weatherDto.setLowerCloudiness(tmp);
-              }
-              if (i == 4) {
-                weatherDto.setTemperatures(tmp);
-              }
-              if (i == 5) {
-                weatherDto.setDewPointTemp(tmp);
-              }
-              if (i == 6) {
-                weatherDto.setSensibleTemp(tmp);
-              }
-              if (i == 7) {
-                weatherDto.setDayPrecipitation(tmp);
-              }
-              if (i == 8) {
-                weatherDto.setDaySnow(tmp);
-              }
-              if (i == 9) {
-                weatherDto.setHumidity(tmp);
-              }
-              if (i == 10) {
-                weatherDto.setWindDirection(tmp);
-              }
-
-            }
-            Elements scripts = tr.getElementsByTag("script");
-            String s = "";
-            for (Element script : scripts) {
-              s = script.toString().split("'")[1];
-            }
-            weatherDto.setWindSpeed(s);
-
-            break;
-          }
-        }
-      }
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
-
-    weatherDto.setRegionNo(stn);
-    return weatherDto;
-  }
+  private String windDirection; //풍향
+  private String windSpeed; //풍속
 
 }

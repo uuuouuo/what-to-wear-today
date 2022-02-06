@@ -1,16 +1,8 @@
 package com.ssafy.websns.model.dto.feed;
 
-import static javax.persistence.FetchType.LAZY;
-
 import com.ssafy.websns.model.entity.feed.Comment;
-import com.ssafy.websns.model.entity.feed.Feed;
 import com.ssafy.websns.model.entity.user.User;
 import java.time.LocalDateTime;
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

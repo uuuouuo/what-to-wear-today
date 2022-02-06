@@ -5,7 +5,7 @@ import static javax.persistence.FetchType.LAZY;
 import com.ssafy.websns.model.entity.BaseEntity;
 import com.ssafy.websns.model.entity.region.Region;
 import com.ssafy.websns.model.entity.user.User;
-import com.ssafy.websns.weather.WeatherDto;
+import com.ssafy.websns.weather.Weather;
 import io.swagger.annotations.ApiModel;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;

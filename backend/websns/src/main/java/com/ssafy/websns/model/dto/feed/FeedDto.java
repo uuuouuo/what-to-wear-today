@@ -4,13 +4,14 @@ import com.ssafy.websns.model.entity.user.User;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import lombok.Data;
+import lombok.AccessLevel;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 public class FeedDto {
 
-  @Data
-  @NoArgsConstructor
+  @Getter
+  @NoArgsConstructor(access = AccessLevel.PROTECTED)
   public static class CreationReq {
 
     private User user;
@@ -18,12 +19,11 @@ public class FeedDto {
     private String region;
     private String weather;
     private String photoDate;
-    private boolean privateMode;
-
-    List<String> images = new ArrayList<>();
+    private Boolean privateMode;
+    private List<String> images = new ArrayList<>();
 
     public CreationReq(User user, String content, String region, String weather,
-        String photoDate, boolean privateMode, List<String> images) {
+        String photoDate, Boolean privateMode, List<String> images) {
       this.user = user;
       this.content = content;
       this.region = region;
@@ -35,26 +35,17 @@ public class FeedDto {
 
   }
 
-    @Data
-    @NoArgsConstructor
+    @Getter
     public static class Res {
 
       private Integer no;
-
       private User user;
-
       private String content;
-
       private LocalDateTime createAt;
-
       private LocalDateTime photoDate;
-
       private LocalDateTime updateAt;
-
       private String weather;
-
       private Boolean privateMode;
-
       private List<PhotoDto> photos;
 
       public Res(Integer no, User user, String content, LocalDateTime createAt,

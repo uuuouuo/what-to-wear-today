@@ -7,7 +7,6 @@ import com.ssafy.websns.weather.WeatherDto;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
-import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,26 +21,25 @@ public class WeatherRestController {
   private final RegionRepository regionRepository;
 
   @GetMapping("/weather")
-  public ResponseEntity<WeatherDto> weather(@RequestParam(value = "region") String region, @RequestParam(value = "date") String date){
+  public ResponseEntity<Weather> weather(@RequestParam(value = "region") String region, @RequestParam(value = "date") String date){
 
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.M.d.HH:mm");
     LocalDateTime dateTime = LocalDateTime.parse(date, formatter);
 
-    System.out.println(dateTime.toString());
-
     List<Region> regionList = regionRepository.findByRegionNameContaining(region);
 
-    WeatherDto weatherDto = null;
+    Weather weather = null;
     if(regionList != null){
       Region region1 = regionList.get(0);
-      Weather weather = new Weather(dateTime,region1.getPointCode());
-      weatherDto = weather.crawling();
+      WeatherDto weatherDto = new WeatherDto(dateTime,region1.getPointCode());
+      weather = weatherDto.crawling();
     }
     else{
 
     }
 
-    return new ResponseEntity<>(weatherDto, HttpStatus.OK);
+    return new ResponseEntity<>(weather, HttpStatus.OK);
+
   }
 
 

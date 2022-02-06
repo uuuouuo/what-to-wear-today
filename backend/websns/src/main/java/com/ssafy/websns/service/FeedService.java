@@ -28,7 +28,7 @@ public class FeedService {
     Region region = regionRepository.findByRegionNameContaining(request.getRegion()).get(0);
 
     feed.createFeed(request.getUser(), request.getContent(), region,
-        request.getPhotoDate(), request.getWeather(), request.isPrivateMode());
+        request.getPhotoDate(), request.getWeather(), request.getPrivateMode());
 
     System.out.println(request.getUser());
 
@@ -41,7 +41,7 @@ public class FeedService {
 //      photos.add(photo);
 //    }
 
-    Feed savedFeed = feedRepository.save(feed);
+    feedRepository.save(feed);
     List<Photo> savedPhoto = photoRepository.saveAll(photos);
     List<PhotoDto> photoDtos = savedPhoto.stream()
         .map(photo -> new PhotoDto(photo.getNo(), photo.getImgUrl(), photo.getFeed().getNo()))
