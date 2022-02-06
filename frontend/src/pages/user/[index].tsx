@@ -1,23 +1,31 @@
 import React, { useEffect, useState } from 'react';
 import type { NextPage } from 'next';
-import Image from 'next/image';
 
 import Styled from './styled';
 import { Title } from '@/components/molecules';
-import { Label, Button, Input } from '@/components/atoms';
+import { Label, Button } from '@/components/atoms';
 import Avatar from '@mui/material/Avatar';
 import SettingsIcon from '@mui/icons-material/Settings';
 import SearchIcon from '@mui/icons-material/Search';
 
 import { useRouter } from 'next/router';
 
+import Box from '@mui/material/Box';
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
+
 const User: NextPage = () => {
   const router = useRouter();
   const { index } = router.query;
 
-  const [activeIndex, setActiveIndex] = useState(0);
-  const [startDate, setStartDate] = useState();
-  const [endDate, setEndDate] = useState();
+  const [startDate, setStartDate] = useState<Date | null>();
+  const [endDate, setEndDate] = useState<Date | null>();
+  const [value, setValue] = React.useState(0);
+
+  const handleChange = (event: React.SyntheticEvent, newValue: number) => {
+    setValue(newValue);
+  };
+
   const dummyFeed = [
     { title: '더미 피드 1', content: '헤헿' },
     { title: '더미 피드 2', content: '헤헿' },
@@ -42,17 +50,14 @@ const User: NextPage = () => {
   const content = [
     {
       tab: 'feed',
-      id: 0,
       content: dummyFeed,
     },
     {
       tab: 'like',
-      id: 1,
       content: dummyLike,
     },
     {
       tab: 'comment',
-      id: 2,
       content: dummyComment,
     },
   ];
@@ -60,17 +65,15 @@ const User: NextPage = () => {
   const modifyProfile = () => {
     console.log(index);
   };
-  const switchTab = (e: React.MouseEvent<HTMLElement>) => {
-    // console.log(e.target.value);
-    const idx = e.target.value;
-    setActiveIndex(Number(idx));
-  };
   const searchFeed = () => {
     console.log('search');
   };
-  const tmp = (event: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(event.target.valueAsDate);
-    console.log(event.target.valueAsNumber);
+  const setDate = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.name === 'start') {
+      setStartDate(event.target.valueAsDate);
+    } else if (event.target.name === 'end') {
+      setEndDate(event.target.valueAsDate);
+    }
   };
   return (
     <Styled.MainContainer>
@@ -94,18 +97,19 @@ const User: NextPage = () => {
         </Styled.columnContainer>
       </Styled.ProfileContainer>
       <Styled.rowContainer>
-        {content.map((section, idx) => {
-          return (
-            <button key={idx} value={idx} onClick={switchTab}>
-              {section.tab}
-            </button>
-          );
-        })}
+        <Box sx={{ width: '100%', bgcolor: 'background.paper' }}>
+          <Tabs value={value} onChange={handleChange} centered>
+            <Tab label="Feeds" />
+            <Tab label="Likes" />
+            <Tab label="Comments" />
+          </Tabs>
+        </Box>
       </Styled.rowContainer>
       <Styled.contentContainer>
-        {activeIndex === 0 ? (
+        {value === 0 ? (
           <Styled.rowContainer>
-            기간 <input type="date" onChange={tmp}></input> ~ <input type="date"></input>
+            기간 <input type="date" name="start" onChange={setDate}></input> ~{' '}
+            <input type="date" name="end" onChange={setDate}></input>
             <Button onClick={searchFeed}>
               <SearchIcon />
             </Button>
@@ -113,7 +117,7 @@ const User: NextPage = () => {
         ) : null}
       </Styled.contentContainer>
       <Styled.contentContainer>
-        {content[activeIndex].content.map((item, idx) => {
+        {content[value].content.map((item, idx) => {
           return <Styled.columnContainer key={idx}>{item.title}</Styled.columnContainer>;
         })}
       </Styled.contentContainer>
