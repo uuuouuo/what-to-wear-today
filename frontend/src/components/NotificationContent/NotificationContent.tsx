@@ -1,5 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { Heading, UserImage, Button } from '@/components/atoms';
+import { SwipeableList, SwipeableListItem } from 'react-swipeable-list';
+import { UserImage, Button } from '@/components/atoms';
+
 import Styled from './NotificationContent.styled';
 
 const NotificationContent = () => {
@@ -9,28 +11,28 @@ const NotificationContent = () => {
   const loadItems = () => {
     setData((prevState) => {
       const articles = [
-        { id: 11, name: '홍', like: 12 },
-        { id: 12, name: 'ㅂ', like: 10 },
-        { id: 13, name: 'ㅈ', like: 10 },
-        { id: 14, name: 'ㄷ', like: 10 },
-        { id: 15, name: 'ㄱ', like: 10 },
-        { id: 16, name: 'ㅅ', like: 10 },
-        { id: 17, name: 'ㅛ', like: 10 },
-        { id: 18, name: 'ㅕ', like: 10 },
-        { id: 19, name: 'ㅑ', like: 10 },
-        { id: 20, name: 'ㅐ', like: 10 },
-        { id: 21, name: 'ㅔ', like: 10 },
-        { id: 22, name: '짱', like: 14 },
-        { id: 23, name: 'ㄴ', like: 10 },
-        { id: 24, name: 'ㅇ', like: 10 },
-        { id: 25, name: 'ㄹ', like: 10 },
-        { id: 26, name: 'ㅎ', like: 10 },
-        { id: 27, name: 'ㅗ', like: 10 },
-        { id: 28, name: 'ㅓ', like: 10 },
-        { id: 29, name: 'ㅏ', like: 10 },
-        { id: 30, name: 'ㅣ', like: 10 },
-        { id: 31, name: ';', like: 10 },
-        { id: 32, name: 'ㅋ', like: 10 },
+        { id: 11, name: '홍' },
+        { id: 12, name: 'ㅂ' },
+        { id: 13, name: 'ㅈ' },
+        { id: 14, name: 'ㄷ' },
+        { id: 15, name: 'ㄱ' },
+        { id: 16, name: 'ㅅ' },
+        { id: 17, name: 'ㅛ' },
+        { id: 18, name: 'ㅕ' },
+        { id: 19, name: 'ㅑ' },
+        { id: 20, name: 'ㅐ' },
+        { id: 21, name: 'ㅔ' },
+        { id: 22, name: '짱' },
+        { id: 23, name: 'ㄴ' },
+        { id: 24, name: 'ㅇ' },
+        { id: 25, name: 'ㄹ' },
+        { id: 26, name: 'ㅎ' },
+        { id: 27, name: 'ㅗ' },
+        { id: 28, name: 'ㅓ' },
+        { id: 29, name: 'ㅏ' },
+        { id: 30, name: 'ㅣ' },
+        { id: 31, name: 'ㅔ' },
+        { id: 32, name: 'ㅋ' },
       ];
       const id = prevState[prevState.length - 1].id;
       const articleId = articles.map((article, index) => {
@@ -67,38 +69,59 @@ const NotificationContent = () => {
   }, [target, scrollAreaRef]);
 
   const [datas, setData] = useState([
-    { id: 0, name: '김이박', like: 0 },
-    { id: 1, name: '김', like: 0 },
-    { id: 2, name: '이', like: 0 },
-    { id: 3, name: '박', like: 0 },
-    { id: 4, name: '황', like: 0 },
-    { id: 5, name: '정', like: 0 },
-    { id: 6, name: '한', like: 0 },
-    { id: 7, name: '길', like: 0 },
-    { id: 8, name: '선우', like: 0 },
-    { id: 9, name: '독고', like: 0 },
+    { id: 0, name: '김이박' },
+    { id: 1, name: '김' },
+    { id: 2, name: '이' },
+    { id: 3, name: '박' },
+    { id: 4, name: '황' },
+    { id: 5, name: '정' },
+    { id: 6, name: '한' },
+    { id: 7, name: '길' },
+    { id: 8, name: '선우' },
+    { id: 9, name: '독고' },
   ]);
 
   const follow = () => {
     console.log('follow!');
   };
 
-  return (
-    <Styled.NotificationContainer ref={scrollAreaRef}>
-      {datas.map((notifi, idx) => {
-        const lastEl = idx === datas.length - 1;
-        return (
-          <div key={idx} ref={lastEl ? target : null}>
-            <Heading level={1} children={'오늘'}></Heading>
+  const removeItem = (id: number) => {
+    setData(datas.filter((value, index) => value.id !== id));
+  };
 
-            <div>
-              <UserImage userId={1} />
-              <div>알림 내용</div>
-              <Button onClick={follow}>팔로우 버튼</Button>
-            </div>
-          </div>
-        );
-      })}
+  //grahams.tistory.com/193 [MakeDesire]
+
+  출처: https: return (
+    <Styled.NotificationContainer ref={scrollAreaRef}>
+      <SwipeableList>
+        {datas.map((notifi, idx) => {
+          const lastEl = idx === datas.length - 1;
+          return (
+            <SwipeableListItem
+              key={notifi.id}
+              swipeLeft={{
+                content: (
+                  <div style={{ width: '100%', height: '100%', verticalAlign: 'middle' }}></div>
+                ),
+                action: () => {
+                  removeItem(notifi.id);
+                },
+              }}
+            >
+              <Styled.Notification key={idx} ref={lastEl ? target : null}>
+                <Styled.UserImageContainer>
+                  <UserImage userId={1} />
+                </Styled.UserImageContainer>
+                <Styled.ContentContainer>
+                  <div>~~님이 ~~게시글에 댓글을 작성했습니다.</div>
+                  <div>안녕 안녕 안녕하세요 안녕안녕 안녕하세요 ...</div>
+                </Styled.ContentContainer>
+                <Button onClick={follow} children="follow" />
+              </Styled.Notification>
+            </SwipeableListItem>
+          );
+        })}
+      </SwipeableList>
     </Styled.NotificationContainer>
   );
 };

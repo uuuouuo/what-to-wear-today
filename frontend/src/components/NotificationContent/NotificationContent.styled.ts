@@ -12,4 +12,23 @@ const NotificationContainer = styled.div`
   }
 `;
 
-export default { NotificationContainer };
+const UserImageContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: gray;
+`;
+
+const Notification = styled.div`
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+`;
+
+const ContentContainer = styled.div`
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: space-between;
+`;
+
+export default { NotificationContainer, UserImageContainer, Notification, ContentContainer };
