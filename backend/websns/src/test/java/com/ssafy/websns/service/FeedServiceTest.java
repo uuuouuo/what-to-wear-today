@@ -30,8 +30,8 @@ class FeedServiceTest {
   @Test
   public void feedService() throws Exception {
     //given
-    User user = new User("0","jdb",1,"20-30",true,false);
-
+    User user = new User();
+    user.setNo("1234");
     userRepository.save(user);
 
     String createAt = LocalDateTime.now().toString();

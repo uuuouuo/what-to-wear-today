@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-public class WeatherRestController {
+public class WeatherController {
 
   private final RegionRepository regionRepository;
 

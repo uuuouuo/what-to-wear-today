@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-public class CommentRestController {
+public class CommentController {
 
   private final CommentService commentService;
 
@@ -40,7 +40,12 @@ public class CommentRestController {
 
   @DeleteMapping("/comment/{commentNo}")
   public void deleteComment(@PathVariable("commentNo") Integer commentNo) {
-     commentService.cancelComment(commentNo);
+
+    commentService.cancelComment(commentNo);
+
   }
+
+//  @GetMapping("/comment/{feedNo}")
+//  public ResponseEntity<List<>>
 
 }

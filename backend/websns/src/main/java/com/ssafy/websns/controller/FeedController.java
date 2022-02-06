@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-public class FeedRestController {
+public class FeedController {
 
   private final FeedService feedService;
 
@@ -23,5 +23,21 @@ public class FeedRestController {
     return new ResponseEntity<>(response, HttpStatus.OK);
 
   }
+
+//  @PutMapping("/feed/{feedNo}")
+//  public ResponseEntity<UpdateRes> updateComment(@PathVariable("feedNo")Integer feedNo,
+//      @RequestBody UpdateReq request) {
+//
+//    UpdateRes response = feedService.editFeed(feedNo, request);
+//    return new ResponseEntity<>(response, HttpStatus.OK);
+//
+//  }
+
+//  @DeleteMapping("/comment/{commentNo}")
+//  public void deleteComment(@PathVariable("commentNo") Integer commentNo) {
+//
+//    feedService.cancelComment(commentNo);
+//
+//  }
 
 }

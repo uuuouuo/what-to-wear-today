@@ -1,14 +1,20 @@
 package com.ssafy.websns.service;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import com.ssafy.websns.model.dto.feed.CommentDto.CreateReq;
 import com.ssafy.websns.model.dto.feed.CommentDto.CreateRes;
+import com.ssafy.websns.model.dto.feed.CommentDto.UpdateReq;
+import com.ssafy.websns.model.dto.feed.CommentDto.UpdateRes;
+import com.ssafy.websns.model.entity.feed.Comment;
 import com.ssafy.websns.model.entity.feed.Feed;
 import com.ssafy.websns.model.entity.user.User;
+import com.ssafy.websns.repository.feed.CommentRepository;
 import com.ssafy.websns.repository.feed.FeedRepository;
 import com.ssafy.websns.repository.region.RegionRepository;
 import com.ssafy.websns.repository.user.UserRepository;
 import java.time.LocalDateTime;
-import org.assertj.core.api.Assertions;
+import java.util.Optional;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -28,30 +34,68 @@ public class CommentServiceTest {
   RegionRepository regionRepository;
   @Autowired
   CommentService commentService;
+  @Autowired
+  CommentRepository commentRepository;
 
   @Test
-  void postComment() throws Exception {
+  void 댓글생성확인() throws Exception {
     // given
     LocalDateTime createAt = LocalDateTime.now();
-    LocalDateTime photoDate = LocalDateTime.now();
 
-    User user = new User("1","jdb4497",1,"20-30",true,false);
+    User user = new User();
+    user.setNo("1234");
     userRepository.save(user);
-//    Region region = new Region(1,"광주", 100);
-//    regionRepository.save(region);
-//    Feed feed = new Feed(1, user, region, "오늘 추워용", photoDate, "개추움", false, false);
+
+    /**
+     * feed.setNo(1); -> 자동생성이라 안돼
+     */
+
     Feed feed = new Feed();
-    feed.setNo(2);
+    feed.setContent("너무 더워요;");
     feedRepository.save(feed);
 
-    CreateReq req = new CreateReq(1, "1", 0, "장다빈", false, false, createAt);
+    CreateReq req = new CreateReq(1, "1234", -1, "장다빈", false, false, createAt);
 
     // when
-    CreateRes res = commentService.postComment(2, req);
+    CreateRes res = commentService.postComment(feed.getNo(), req);
 
     // then
-    Assertions.assertThat(res.getContent()).isEqualTo("장다빈");
+    assertThat(res.getContent()).isEqualTo("장다빈");
 
     }
+
+    @Test
+    void 댓글수정확인() throws Exception {
+      // given
+      Comment comment = new Comment();
+      comment.setContent("이상한 소리 아니야");
+      commentRepository.save(comment);
+
+      LocalDateTime updateAt = LocalDateTime.now();
+      UpdateReq req = new UpdateReq("장다빈 만나는 여자 다 첫사랑", false, updateAt);
+
+      // when
+      UpdateRes res = commentService.editComment(comment.getNo(), req);
+
+      // then
+      assertThat(comment.getContent()).isEqualTo(res.getContent());
+
+    }
+
+    @Test
+    void 댓글삭제확인() throws Exception {
+      // given
+      Comment comment = new Comment();
+      comment.setContent("장다빈 나쁜놈");
+      Comment save = commentRepository.save(comment);
+
+      // when
+      commentService.cancelComment(comment.getNo());
+      Optional<Comment> find = commentRepository.findByNo(save.getNo());
+      Comment c = find.get();
+      // then
+      assertThat(c.getDeleteMode()).isTrue();
+
+      }
 
 }

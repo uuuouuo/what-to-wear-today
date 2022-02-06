@@ -13,9 +13,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
-@Getter
+@Getter @Setter
 @NoArgsConstructor
 @ApiModel(value = "댓글 정보", description = "댓글 정보를 나타냅니다.")
 public class Comment extends BaseEntity {
