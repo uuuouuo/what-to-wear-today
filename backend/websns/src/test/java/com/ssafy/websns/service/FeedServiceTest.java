@@ -1,11 +1,7 @@
 package com.ssafy.websns.service;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-import com.ssafy.websns.model.dto.CreateFeedDto;
+import com.ssafy.websns.model.dto.feed.FeedDto.CreateReq;
 import com.ssafy.websns.model.entity.user.User;
-import com.ssafy.websns.repository.feed.FeedRepository;
-import com.ssafy.websns.repository.feed.PhotoRepository;
 import com.ssafy.websns.repository.user.UserRepository;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -22,7 +18,8 @@ import org.springframework.transaction.annotation.Transactional;
 @Rollback(false)
 class FeedServiceTest {
 
-  @Autowired FeedService feedService;
+  @Autowired
+  FeedService feedService;
   @Autowired
   UserRepository userRepository;
   //  @Autowired
@@ -33,17 +30,16 @@ class FeedServiceTest {
   @Test
   public void feedService() throws Exception {
     //given
-    User user = new User("0","jdb",1,"20-30",true,false);
-
+    User user = new User();
+    user.setNo("1234");
     userRepository.save(user);
 
     String createAt = LocalDateTime.now().toString();
     List<String> images = new ArrayList<>(Arrays.asList("c:\\hi","c:\\hi2"));
-    CreateFeedDto createFeedDto = new CreateFeedDto(user,"hello","서울특별시 관악구 중앙동","맑음-5도",createAt,false,images);
+    CreateReq request = new CreateReq(user,"hello","서울특별시 관악구 중앙동","맑음-5도",createAt,false,images);
 
     //when
-
-    feedService.createFeed(createFeedDto);
+    feedService.postFeed(request);
 
     //then
 

@@ -1,4 +1,4 @@
-package com.ssafy.websns.model.dto;
+package com.ssafy.websns.model.dto.feed;
 
 import lombok.Data;
 

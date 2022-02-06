@@ -11,7 +11,7 @@
 //
 //@Component
 //@RequiredArgsConstructor
-//public class InitiDb {
+//public class InitDb {
 //
 //  private final RegionRepository repository;
 //
