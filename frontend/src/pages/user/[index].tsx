@@ -14,6 +14,8 @@ import Box from '@mui/material/Box';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 
+import FollowingModal from '@/components/Following_modal/Following_modal';
+
 const User: NextPage = () => {
   const router = useRouter();
   const { index } = router.query;
@@ -91,8 +93,8 @@ const User: NextPage = () => {
             <Label>더위를 잘 타는 타입</Label>
           </Styled.rowContainer>
           <Styled.rowContainer>
-            <Label>팔로잉 : </Label>
-            <Label>팔로워 : </Label>
+            <FollowingModal title="팔로워" />
+            <FollowingModal title="팔로잉" />
           </Styled.rowContainer>
         </Styled.columnContainer>
       </Styled.ProfileContainer>
