@@ -52,7 +52,6 @@ public class Weather {
     // HTML 파싱
     try {
       Document doc = conn.get();
-//      System.out.println(doc.toString());
       Elements elements = doc.getElementsByClass("table-col");
 
       for (Element e : elements) {
@@ -112,7 +111,7 @@ public class Weather {
     } catch (IOException e) {
       e.printStackTrace();
     }
-//    System.out.println(weatherDto);
+
     weatherDto.setRegionNo(stn);
     return weatherDto;
   }

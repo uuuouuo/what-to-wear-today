@@ -28,13 +28,11 @@ public class CommentServiceTest {
   @Test
   void postComment() throws Exception {
     // given
-//    User user = new User("0","jdb",1,"20-30",true,false);
-//    userRepository.save(user);
-//
-//    Feed feed = new Feed();
-//    feed.setNo(1);
+    User user = new User("123412341324","jdb",1,"20-30",true,false);
+    userRepository.save(user);
 
     LocalDateTime createAt = LocalDateTime.now();
+
     CreationReq req = new CreationReq(0, "123412341234", 1, 2, "장다빈", false, true,createAt);
 
     // when

@@ -1,6 +1,6 @@
 package com.ssafy.websns.service;
 
-import com.ssafy.websns.model.dto.feed.CreateFeedDto;
+import com.ssafy.websns.model.dto.feed.FeedDto.CreationReq;
 import com.ssafy.websns.model.entity.user.User;
 import com.ssafy.websns.repository.user.UserRepository;
 import java.time.LocalDateTime;
@@ -36,11 +36,10 @@ class FeedServiceTest {
 
     String createAt = LocalDateTime.now().toString();
     List<String> images = new ArrayList<>(Arrays.asList("c:\\hi","c:\\hi2"));
-    CreateFeedDto createFeedDto = new CreateFeedDto(user,"hello","서울특별시 관악구 중앙동","맑음-5도",createAt,false,images);
+    CreationReq CreationReq = new CreationReq(user,"hello","서울특별시 관악구 중앙동","맑음-5도",createAt,false,images);
 
     //when
-
-    feedService.createFeed(createFeedDto);
+    feedService.postFeed(CreationReq);
 
     //then
 

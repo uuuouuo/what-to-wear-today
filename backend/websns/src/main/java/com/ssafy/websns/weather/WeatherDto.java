@@ -2,13 +2,13 @@ package com.ssafy.websns.weather;
 
 import lombok.Data;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-@Getter
-@Setter
 @Data
 @ToString
+@NoArgsConstructor
 public class WeatherDto {
 
   private Integer regionNo;
@@ -30,6 +30,4 @@ public class WeatherDto {
   private String windDirection; //풍향
   private String windSpeed; //풍속
 
-  public WeatherDto() {
-  }
 }

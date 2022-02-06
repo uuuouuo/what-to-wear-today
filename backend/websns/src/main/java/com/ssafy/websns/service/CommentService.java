@@ -28,12 +28,17 @@ public class CommentService {
     Feed feed = feedRepository.findByNo(request.getFeedNo());
 
     // 부모 댓글 가져오기
-    Comment parentComment = commentRepository.findByNo(request.getParent());
+    Integer parentNo = request.getParent();
+    Comment parentComment = null;
+
+    if(parentNo != -1){
+      parentComment = commentRepository.findByNo(parentNo);
+    }
 
     // 댓글 생성
     Comment comment = new Comment();
-    comment.createComment(request.getNo(), user, feed, parentComment
-        , request.getContent(), request.getPrivateMode(),request.getDeleteMode());
+    comment.createComment(request.getNo(), user, feed, parentComment,
+        request.getContent(), request.getPrivateMode(),request.getDeleteMode());
 
     commentRepository.save(comment);
 

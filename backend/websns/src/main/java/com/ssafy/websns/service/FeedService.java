@@ -1,7 +1,7 @@
 package com.ssafy.websns.service;
 
-import com.ssafy.websns.model.dto.feed.CreateFeedDto;
-import com.ssafy.websns.model.dto.feed.FeedDto;
+import com.ssafy.websns.model.dto.feed.FeedDto.CreationReq;
+import com.ssafy.websns.model.dto.feed.FeedDto.Res;
 import com.ssafy.websns.model.dto.feed.PhotoDto;
 import com.ssafy.websns.model.entity.feed.Feed;
 import com.ssafy.websns.model.entity.feed.Photo;
@@ -22,7 +22,7 @@ public class FeedService {
   private final PhotoRepository photoRepository;
   private final RegionRepository regionRepository;
 
-  public FeedDto createFeed(CreateFeedDto request) {
+  public Res postFeed(CreationReq request) {
 
     Feed feed = new Feed();
     Region region = regionRepository.findByRegionNameContaining(request.getRegion()).get(0);
@@ -47,11 +47,11 @@ public class FeedService {
         .map(photo -> new PhotoDto(photo.getNo(), photo.getImgUrl(), photo.getFeed().getNo()))
         .collect(Collectors.toList());
 
-    FeedDto feedDto = new FeedDto(feed.getNo(), feed.getUser(), feed.getContent(),
+    Res Res = new Res(feed.getNo(), feed.getUser(), feed.getContent(),
         feed.getPhotoDate(), feed.getCreateAt(), feed.getUpdateAt(), feed.getWeather(),
         feed.getPrivateMode(),photoDtos);
 
-    return feedDto;
+    return Res;
   }
 }
 
