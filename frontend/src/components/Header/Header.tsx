@@ -4,6 +4,7 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 import Link from 'next/link';
 import Router from 'next/router';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import Image from 'next/image';
 import { Button } from '@/components/atoms/';
 
 interface Props {
@@ -32,7 +33,7 @@ const Header: FunctionComponent<Props> = ({ leftSide, name, rightSide }) => {
 
   let l_type = null;
   if (leftSide === 'logo') {
-    l_type = <p>로고</p>;
+    l_type = <Image src={'/images/icon/Logo.png'} width={20} height={20} alt="Logo" />;
   } else if (leftSide === 'pointer') {
     l_type = (
       <Button

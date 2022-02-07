@@ -23,6 +23,7 @@ const Notification = styled.div`
   display: flex;
   flex-flow: row nowrap;
   justify-content: space-between;
+  margin: 0.5vh 0;
 `;
 
 const ContentContainer = styled.div`

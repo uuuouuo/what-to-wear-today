@@ -4,6 +4,7 @@ import Styled from './styled';
 import Header from '@/components/Header/Header';
 import CommentPage from '@/components/CommentPage/CommentPage';
 import Dropdown from '@/components/Dropdown/Dropdown';
+import ReportForm from '@/components/ReportForm/ReportForm';
 
 import {
   UserImage,
@@ -46,7 +47,10 @@ const feeddetail = () => {
         <Styled.ArticleContent>
           <ArticleContent value={article.content} />
           <HashTag value={article.hashTag} />
-          <ArticleDate value={article.date} />
+          <Styled.DateLine>
+            <ArticleDate value={article.date} />
+            <ReportForm />
+          </Styled.DateLine>
         </Styled.ArticleContent>
       </Styled.TopArea>
       <CommentPage />

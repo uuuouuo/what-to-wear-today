@@ -1,8 +1,6 @@
 import React from 'react';
 import Styled from './CommentPage.styled';
-
-import Button from 'components/atoms/Button/Button';
-import Input from 'components/atoms/Input/Input';
+import SendIcon from '@mui/icons-material/Send';
 import { UserImage } from '@/components/atoms/';
 
 const action = () => {
@@ -15,8 +13,8 @@ const CommentPage = () => {
       {/* 댓글 입력 영역 */}
       <Styled.WriteArea>
         <UserImage userId={1} />
-        <Input placeholder="댓글 달기..." value="" onChange={action} />
-        <Button children="Reply" type="submit" onClick={action} />
+        <Styled.Input placeholder="댓글 달기..." value="" onChange={action} />
+        <Styled.Button children={<SendIcon />} type="submit" onClick={action} />
       </Styled.WriteArea>
       {/* 댓글리스트 영역 */}
       <div>

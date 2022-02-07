@@ -5,7 +5,7 @@ import MenuItem from '@mui/material/MenuItem';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import Link from 'next/link';
 
-const options = ['수정', '삭제', '공유'];
+const options = ['수정', '삭제'];
 
 const ITEM_HEIGHT = 35;
 

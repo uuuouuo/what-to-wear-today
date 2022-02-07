@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { Button as BaseButton, Input as BaseInput } from '@/components/atoms';
 
 const CommentPageLayout = styled.div`
   display: flex;
@@ -8,6 +9,15 @@ const CommentPageLayout = styled.div`
 const WriteArea = styled.div`
   display: flex;
   flex-flow: row nowrap;
+  justify-content: space-evenly;
+  margin-bottom: 1vh;
 `;
 
-export default { CommentPageLayout, WriteArea };
+const Button = styled(BaseButton)``;
+
+const Input = styled(BaseInput)`
+  border-bottom: 1px solid black;
+  width: 75vw;
+`;
+
+export default { CommentPageLayout, WriteArea, Button, Input };

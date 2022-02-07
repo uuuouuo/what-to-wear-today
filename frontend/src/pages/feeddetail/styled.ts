@@ -34,6 +34,12 @@ const ArticleContent = styled.div`
   border-bottom: 1px solid black;
 `;
 
+const DateLine = styled.div`
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+`;
+
 export default {
   DetailPageLayout,
   ArticleArea,
@@ -41,4 +47,5 @@ export default {
   ArticleContent,
   TopArea,
   UserInfoArea,
+  DateLine,
 };

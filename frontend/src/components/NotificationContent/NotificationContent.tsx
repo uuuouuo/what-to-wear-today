@@ -29,7 +29,7 @@ const NotificationContent = () => {
 
   const trailingActions = (id: number) => (
     <TrailingActions>
-      <SwipeAction children={''} destructive={true} onClick={() => removeItem(id)} />
+      <SwipeAction children={''} destructive={false} onClick={() => removeItem(id)} />
     </TrailingActions>
   );
 
@@ -38,7 +38,11 @@ const NotificationContent = () => {
       <SwipeableList>
         {datas.map((notifi, idx) => {
           return (
-            <SwipeableListItem key={notifi.id} trailingActions={trailingActions(notifi.id)}>
+            <SwipeableListItem
+              key={notifi.id}
+              trailingActions={trailingActions(notifi.id)}
+              fullSwipe={true}
+            >
               <Styled.Notification key={idx}>
                 <Styled.UserImageContainer>
                   <UserImage userId={1} />

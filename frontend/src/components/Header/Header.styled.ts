@@ -7,7 +7,7 @@ const Header = styled.div`
   justify-content: space-between;
   align-items: center;
   padding: 0 1vw 0 1vw;
-  background-color: orange;
+  background-color: rgb(102, 113, 255);
 `;
 
 const LeftSide = styled.div`
