@@ -1,4 +1,5 @@
 import React, { useRef, useState, useEffect } from 'react';
+import Router from 'next/router';
 
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
@@ -97,7 +98,7 @@ const Feed_article = () => {
   //////////////////////////////////////
 
   const follow = () => {
-    console.log('follow!');
+    Router.push('/feeddetail');
   };
 
   return (

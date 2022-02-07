@@ -31,7 +31,7 @@ const feeddetail = () => {
 
   return (
     <Styled.DetailPageLayout>
-      <Header name="오늘 뭐 입지?" rightSide="notification" />
+      <Header name="오늘 뭐 입지?" leftSide="pointer" rightSide="notification" />
       <Styled.TopArea>
         <Styled.ArticleArea>
           <Styled.UserInfoArea>
