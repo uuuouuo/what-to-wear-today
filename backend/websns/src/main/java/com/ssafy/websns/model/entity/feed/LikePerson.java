@@ -15,7 +15,8 @@ import lombok.Getter;
 @Entity
 @Getter
 @ApiModel(value = "좋아요", description = "좋아요에 관한 정보를 나타냅니다.")
-public class Likes {
+
+public class LikePerson {
 
   @Id
   @GeneratedValue

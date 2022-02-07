@@ -5,11 +5,8 @@ import static javax.persistence.FetchType.LAZY;
 import com.ssafy.websns.model.entity.BaseEntity;
 import com.ssafy.websns.model.entity.region.Region;
 import com.ssafy.websns.model.entity.user.User;
-import com.ssafy.websns.weather.WeatherDto;
-import io.swagger.annotations.ApiModel;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -17,10 +14,12 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
-@Getter
-@ApiModel(value = "피드 정보", description = "피드를 나타낸다.")
+@Getter @Setter
+@NoArgsConstructor
 public class Feed extends BaseEntity {
 
   @Id
@@ -34,11 +33,11 @@ public class Feed extends BaseEntity {
 
   @ManyToOne(fetch = LAZY)
   @JoinColumn(name = "REGION_NO")
-  private Region regionNo;
+  private Region region;
 
   private String content;
 
-  private LocalDateTime createAt;
+  private LocalDateTime photoDate;
 
   private String weather;
 
@@ -46,19 +45,36 @@ public class Feed extends BaseEntity {
 
   private Boolean deleteMode;
 
-  public void createFeed(User user, String content,Region regionNo, String createAt, String weather, Boolean privateMode){
-    this.user = user;
-    this.content = content;
-    this.regionNo = regionNo;
+  public void createFeed(Integer no, User user, String content, Region region, String createAt,
+      String weather, Boolean privateMode, Boolean deleteMode){
+
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.M.d.HH:mm");
     LocalDateTime dateTime = LocalDateTime.parse(createAt, formatter);
-    this.createAt = dateTime;
+
+    this.no = no;
+    this.user = user;
+    this.content = content;
+    this.region = region;
+    this.photoDate = dateTime;
     this.weather = weather;
     this.privateMode = privateMode;
-
-//    return this.no;
+    this.deleteMode = deleteMode;
   }
 
+  public void updateFeed(String content, Region region, String createAt, String weather, Boolean privateMode){
 
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.M.d.HH:mm");
+    LocalDateTime dateTime = LocalDateTime.parse(createAt, formatter);
+
+    this.content = content;
+    this.region = region;
+    this.photoDate = dateTime;
+    this.weather = weather;
+    this.privateMode = privateMode;
+  }
+
+  public void deleteFeed() {
+    this.deleteMode = true;
+  }
 
 }

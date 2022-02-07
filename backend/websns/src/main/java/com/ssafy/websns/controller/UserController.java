@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/user")
 @Api("회원 관리")
-public class UserRestController {
+public class UserController {
 
   private static final String SUCCESS = "success";
   private static final String FAIL = "fail";
