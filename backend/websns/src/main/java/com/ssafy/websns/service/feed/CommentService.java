@@ -1,7 +1,7 @@
-package com.ssafy.websns.service;
+package com.ssafy.websns.service.feed;
 
 import com.ssafy.websns.model.dto.feed.CommentDto.CreateReq;
-import com.ssafy.websns.model.dto.feed.CommentDto.Res;
+import com.ssafy.websns.model.dto.feed.CommentDto.CommentRes;
 import com.ssafy.websns.model.dto.feed.CommentDto.UpdateReq;
 import com.ssafy.websns.model.dto.feed.CommentDto.UpdateRes;
 import com.ssafy.websns.model.entity.feed.Comment;
@@ -10,9 +10,8 @@ import com.ssafy.websns.model.entity.user.User;
 import com.ssafy.websns.repository.feed.CommentRepository;
 import com.ssafy.websns.repository.feed.FeedRepository;
 import com.ssafy.websns.repository.user.UserRepository;
+import com.ssafy.websns.service.validation.ValidateExist;
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,17 +26,18 @@ public class CommentService {
   private final UserRepository userRepository;
 
   @Transactional
-  public Res postComment(Integer feedNo, CreateReq request) {
+  public CommentRes postComment(Integer feedNo, CreateReq request) {
+
+    ValidateExist validateExist = new ValidateExist(commentRepository, feedRepository, null);
 
     User user = userRepository.findByNo(request.getUserNo());
-
-    Feed feed = feedRepository.findByNo(feedNo);
+    Feed feed = validateExist.findFeedByNo(feedNo);
 
     Integer parentNo = request.getParent();
-    Comment parentComment = null;
+    Comment parentComment = new Comment();
 
     if (parentNo != -1) {
-      parentComment = validateExistComment(parentNo);
+      parentComment = validateExist.findCommentsByNo(parentNo);
     }
 
     Comment comment = new Comment();
@@ -46,8 +46,8 @@ public class CommentService {
 
     commentRepository.save(comment);
 
-    Res response = new Res(comment.getUser(), comment.getFeed().getNo(), comment.getParent(),
-        comment.getContent(), comment.getCreateAt());
+    CommentRes response = new CommentRes(comment.getUser(), comment.getFeed().getNo(), comment.getParent(),
+        comment.getContent(), comment.getCreatedAt());
 
     return response;
 
@@ -56,12 +56,13 @@ public class CommentService {
   @Transactional
   public UpdateRes editComment(Integer commentNo, UpdateReq request) {
 
-    Comment comment = validateExistComment(commentNo);
-    ;
+    ValidateExist validateExist = new ValidateExist(commentRepository, feedRepository, null);
+
+    Comment comment = validateExist.findCommentsByNo(commentNo);
     comment.updateComment(request.getContent(), request.getPrivateMode());
 
     UpdateRes response = new UpdateRes(comment.getContent(), comment.getPrivateMode(),
-        comment.getUpdateAt());
+        comment.getUpdatedAt());
 
     return response;
 
@@ -69,37 +70,20 @@ public class CommentService {
 
   public void cancelComment(Integer commentNo) {
 
-    Comment comment = validateExistComment(commentNo);
+    ValidateExist validateExist = new ValidateExist(commentRepository, feedRepository, null);
+
+    Comment comment = validateExist.findCommentsByNo(commentNo);
     comment.deleteComment();
+
   }
 
-  public List<Res> searchComments(Integer feedNo) {
+  public List<CommentRes> searchComments(Integer feedNo) {
+    ValidateExist validateExist = new ValidateExist(commentRepository, feedRepository, null);
 
-    Feed feed = feedRepository.findByNo(feedNo);
-    Optional<List<Comment>> optional = commentRepository.findByFeed(feed);
-    List<Res> comments = null;
-
-    if (optional.isPresent()) {
-      comments = optional.get().stream().map(Res::new)
-          .collect(Collectors.toList());
-    }
+    Feed feed = validateExist.findFeedByNo(feedNo);
+    List<CommentRes> comments = validateExist.findCommentsByFeed(feed);
 
     return comments;
-
-  }
-
-  public Comment validateExistComment(Integer commentNo) {
-
-    Comment comment = null;
-    Optional<Comment> optional = commentRepository.findByNo(commentNo);
-
-    if (optional.isPresent()) {
-      comment = optional.get();
-    } else {
-      throw new IllegalStateException("존재하지 않은 댓글입니다.");
-    }
-
-    return comment;
 
   }
 

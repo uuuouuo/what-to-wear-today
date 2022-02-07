@@ -1,10 +1,10 @@
 package com.ssafy.websns.controller;
 
+import com.ssafy.websns.model.dto.feed.CommentDto.CommentRes;
 import com.ssafy.websns.model.dto.feed.CommentDto.CreateReq;
-import com.ssafy.websns.model.dto.feed.CommentDto.Res;
 import com.ssafy.websns.model.dto.feed.CommentDto.UpdateReq;
 import com.ssafy.websns.model.dto.feed.CommentDto.UpdateRes;
-import com.ssafy.websns.service.CommentService;
+import com.ssafy.websns.service.feed.CommentService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -24,9 +24,9 @@ public class CommentController {
   private final CommentService commentService;
 
   @PostMapping("/comment/{feedNo}")
-  public ResponseEntity<Res> createComment(@PathVariable("feedNo") Integer feedNo, @RequestBody CreateReq request){
+  public ResponseEntity<CommentRes> createComment(@PathVariable("feedNo") Integer feedNo, @RequestBody CreateReq request){
 
-    Res response = commentService.postComment(feedNo, request);
+    CommentRes response = commentService.postComment(feedNo, request);
     return new ResponseEntity<>(response, HttpStatus.OK);
 
   }
@@ -48,9 +48,9 @@ public class CommentController {
   }
 
   @GetMapping("/comment/{feedNo}")
-  public ResponseEntity<List<Res>> getCommentList(@PathVariable("feedNo") Integer feedNo) {
+  public ResponseEntity<List<CommentRes>> getCommentList(@PathVariable("feedNo") Integer feedNo) {
 
-    List<Res> response = commentService.searchComments(feedNo);
+    List<CommentRes> response = commentService.searchComments(feedNo);
     return new ResponseEntity<>(response, HttpStatus.OK);
   }
 

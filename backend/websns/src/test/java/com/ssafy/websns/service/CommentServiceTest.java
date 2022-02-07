@@ -2,8 +2,8 @@ package com.ssafy.websns.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import com.ssafy.websns.model.dto.feed.CommentDto.CommentRes;
 import com.ssafy.websns.model.dto.feed.CommentDto.CreateReq;
-import com.ssafy.websns.model.dto.feed.CommentDto.Res;
 import com.ssafy.websns.model.dto.feed.CommentDto.UpdateReq;
 import com.ssafy.websns.model.dto.feed.CommentDto.UpdateRes;
 import com.ssafy.websns.model.entity.feed.Comment;
@@ -13,6 +13,7 @@ import com.ssafy.websns.repository.feed.CommentRepository;
 import com.ssafy.websns.repository.feed.FeedRepository;
 import com.ssafy.websns.repository.region.RegionRepository;
 import com.ssafy.websns.repository.user.UserRepository;
+import com.ssafy.websns.service.feed.CommentService;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -58,7 +59,7 @@ public class CommentServiceTest {
     CreateReq req = new CreateReq(1, "1234", -1, "장다빈", false, false);
 
     // when
-    Res res = commentService.postComment(feed.getNo(), req);
+    CommentRes res = commentService.postComment(feed.getNo(), req);
 
     // then
     assertThat(res.getContent()).isEqualTo("장다빈");
@@ -117,8 +118,8 @@ public class CommentServiceTest {
         commentRepository.save(comment2);
 
         // when
-        List<Res> res = commentService.searchComments(feed.getNo());
-        for (Res r : res) {
+        List<CommentRes> res = commentService.searchComments(feed.getNo());
+        for (CommentRes r : res) {
           System.out.println(r);
         }
 

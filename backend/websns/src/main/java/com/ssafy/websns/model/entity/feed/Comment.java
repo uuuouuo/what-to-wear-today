@@ -4,7 +4,6 @@ import static javax.persistence.FetchType.LAZY;
 
 import com.ssafy.websns.model.entity.BaseEntity;
 import com.ssafy.websns.model.entity.user.User;
-import io.swagger.annotations.ApiModel;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -18,7 +17,6 @@ import lombok.Setter;
 @Entity
 @Getter @Setter
 @NoArgsConstructor
-@ApiModel(value = "댓글 정보", description = "댓글 정보를 나타냅니다.")
 public class Comment extends BaseEntity {
 
   @Id
@@ -64,4 +62,5 @@ public class Comment extends BaseEntity {
   public void deleteComment() {
     this.deleteMode = true;
   }
+
 }
