@@ -2,7 +2,6 @@ package com.ssafy.websns.model.entity.feed;
 
 import static javax.persistence.FetchType.LAZY;
 
-import io.swagger.annotations.ApiModel;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,15 +9,17 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
-@Getter
-@ApiModel(value = "사진", description = "사진 정보를 나타냅니다.")
-public class Photo {
+@Getter @Setter
+@NoArgsConstructor
+public class Image {
 
   @Id
   @GeneratedValue
-  @Column(name = "PHOTO_NO")
+  @Column(name = "IMAGE_NO")
   private Integer no;
 
   private String imgUrl;
@@ -27,17 +28,18 @@ public class Photo {
   @JoinColumn(name = "FEED_NO")
   private Feed feed;
 
-  public Photo() {
-  }
-
-  public Photo(String imgUrl, Feed feed) {
+  public Image(String imgUrl, Feed feed) {
     this.imgUrl = imgUrl;
     this.feed = feed;
   }
 
-  public void createPhoto(String imgUrl,Feed feed){
+  public void createImage(String imgUrl, Feed feed) {
     this.imgUrl = imgUrl;
     this.feed = feed;
+  }
+
+  public void updateImage(String imgUrl) {
+    this.imgUrl = imgUrl;
   }
 
 }

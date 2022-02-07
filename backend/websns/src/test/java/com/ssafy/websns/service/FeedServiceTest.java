@@ -3,6 +3,7 @@ package com.ssafy.websns.service;
 import com.ssafy.websns.model.dto.feed.FeedDto.CreateReq;
 import com.ssafy.websns.model.entity.user.User;
 import com.ssafy.websns.repository.user.UserRepository;
+import com.ssafy.websns.service.feed.FeedService;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -25,7 +26,7 @@ class FeedServiceTest {
   //  @Autowired
 //  FeedRepository feedRepository;
 //  @Autowired
-//  PhotoRepository photoRepository;
+//  imageRepository imageRepository;
 
   @Test
   public void feedService() throws Exception {
@@ -36,7 +37,8 @@ class FeedServiceTest {
 
     String createAt = LocalDateTime.now().toString();
     List<String> images = new ArrayList<>(Arrays.asList("c:\\hi","c:\\hi2"));
-    CreateReq request = new CreateReq(user,"hello","서울특별시 관악구 중앙동","맑음-5도",createAt,false,images);
+    CreateReq request = new CreateReq(1, user,"hello","서울특별시 관악구 중앙동",
+        "맑음-5도",createAt,false, false, images);
 
     //when
     feedService.postFeed(request);
