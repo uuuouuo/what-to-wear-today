@@ -7,4 +7,8 @@ const FooterNavbar = styled.div`
   height: 5vh;
 `;
 
-export default { FooterNavbar };
+const style = {
+  p: 0,
+};
+
+export default { FooterNavbar, style };
