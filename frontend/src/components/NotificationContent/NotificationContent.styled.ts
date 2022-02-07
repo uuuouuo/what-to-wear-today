@@ -32,4 +32,14 @@ const ContentContainer = styled.div`
   justify-content: space-between;
 `;
 
-export default { NotificationContainer, UserImageContainer, Notification, ContentContainer };
+const UserName = styled.a`
+  font-weight: bold;
+`;
+
+export default {
+  NotificationContainer,
+  UserImageContainer,
+  Notification,
+  ContentContainer,
+  UserName,
+};

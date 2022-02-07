@@ -5,9 +5,10 @@ import {
   TrailingActions,
   SwipeAction,
 } from 'react-swipeable-list';
-import { UserImage, Button } from '@/components/atoms';
+import { UserImage } from '@/components/atoms';
 
 import Styled from './NotificationContent.styled';
+import Link from 'next/link';
 
 const NotificationContent = () => {
   const [datas, setData] = useState([
@@ -18,10 +19,6 @@ const NotificationContent = () => {
     { id: 4, name: '백' },
     { id: 5, name: '주' },
   ]);
-
-  const follow = () => {
-    console.log('follow!');
-  };
 
   const removeItem = (id: number) => {
     setData(datas.filter((value, index) => value.id !== id));
@@ -48,10 +45,14 @@ const NotificationContent = () => {
                   <UserImage userId={1} />
                 </Styled.UserImageContainer>
                 <Styled.ContentContainer>
-                  <div>~~님이 ~~게시글에 댓글을 작성했습니다.</div>
+                  <div>
+                    <Link href={`/feed/${notifi.id}`}>
+                      <Styled.UserName>{notifi.name}</Styled.UserName>
+                    </Link>
+                    님이 ~~게시글에 댓글을 작성했습니다.
+                  </div>
                   <div>안녕 안녕 안녕하세요 안녕안녕 안녕하세요 ...</div>
                 </Styled.ContentContainer>
-                <Button onClick={follow} children="follow" />
               </Styled.Notification>
             </SwipeableListItem>
           );
