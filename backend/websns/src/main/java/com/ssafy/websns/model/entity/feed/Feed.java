@@ -33,6 +33,7 @@ public class Feed extends BaseEntity {
   private User user;
 
   @ManyToOne(fetch = LAZY)
+  @JoinColumn(name = "REGION_NO")
   private Region regionNo;
 
   private String content;
