@@ -12,10 +12,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @Entity
-@Getter @Setter
+@Getter
 @NoArgsConstructor
 public class Comment extends BaseEntity {
 
@@ -42,9 +41,18 @@ public class Comment extends BaseEntity {
 
   private Boolean deleteMode;
 
-  public void createComment(Integer no, User user, Feed feed, Comment parent, String content,
+  public Comment(User user, Feed feed, Comment parent, String content, Boolean privateMode,
+      Boolean deleteMode) {
+    this.user = user;
+    this.feed = feed;
+    this.parent = parent;
+    this.content = content;
+    this.privateMode = privateMode;
+    this.deleteMode = deleteMode;
+  }
+
+  public void createComment(User user, Feed feed, Comment parent, String content,
       Boolean privateMode, Boolean deleteMode) {
-    this.no = no;
     this.user = user;
     this.feed = feed;
     this.parent = parent;

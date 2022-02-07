@@ -10,10 +10,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @Entity
-@Getter @Setter
+@Getter
 @NoArgsConstructor
 public class Image {
 
@@ -41,5 +40,6 @@ public class Image {
   public void updateImage(String imgUrl) {
     this.imgUrl = imgUrl;
   }
+
 
 }

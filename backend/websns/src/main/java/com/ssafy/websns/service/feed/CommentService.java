@@ -41,13 +41,12 @@ public class CommentService {
     }
 
     Comment comment = new Comment();
-    comment.createComment(request.getNo(), user, feed, parentComment,
+    comment.createComment(user, feed, parentComment,
         request.getContent(), request.getPrivateMode(), request.getDeleteMode());
 
-    commentRepository.save(comment);
+    Comment saveComment = commentRepository.save(comment);
 
-    CommentRes response = new CommentRes(comment.getUser(), comment.getFeed().getNo(), comment.getParent(),
-        comment.getContent(), comment.getCreatedAt());
+    CommentRes response = new CommentRes(saveComment);
 
     return response;
 
@@ -61,7 +60,7 @@ public class CommentService {
     Comment comment = validateExist.findCommentsByNo(commentNo);
     comment.updateComment(request.getContent(), request.getPrivateMode());
 
-    UpdateRes response = new UpdateRes(comment.getContent(), comment.getPrivateMode(),
+    UpdateRes response = new UpdateRes(comment.getNo(), comment.getContent(), comment.getPrivateMode(),
         comment.getUpdatedAt());
 
     return response;
