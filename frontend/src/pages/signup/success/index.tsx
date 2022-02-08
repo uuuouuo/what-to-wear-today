@@ -7,7 +7,7 @@ import { Title, SuccessBadge } from '@/components/molecules';
 
 const Success: NextPage = () => {
   const nextFunction = useCallback(() => {
-    Router.push('/login');
+    Router.push('/');
   }, []);
 
   return (

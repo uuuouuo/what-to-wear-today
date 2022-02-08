@@ -49,7 +49,7 @@ const Dropdown = () => {
         {options.map((option) => (
           <MenuItem key={option} selected={option === 'Pyxis'} onClick={handleClose}>
             {/* 각 페이지 링크 설정 값 부여 해야 함 */}
-            <Link href={'/feed'}>{option}</Link>
+            <Link href={'/'}>{option}</Link>
           </MenuItem>
         ))}
       </Menu>
