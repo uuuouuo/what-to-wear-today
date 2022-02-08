@@ -1,11 +1,14 @@
 package com.ssafy.websns.controller;
 
+import com.ssafy.websns.model.dto.feed.CommentDto.CommentRes;
 import com.ssafy.websns.model.dto.feed.FeedDto.CreateReq;
 import com.ssafy.websns.model.dto.feed.FeedDto.FeedRes;
 import com.ssafy.websns.model.dto.feed.FeedDto.UpdateReq;
 import com.ssafy.websns.model.dto.feed.FeedDto.UpdateRes;
+import com.ssafy.websns.service.feed.CommentService;
 import com.ssafy.websns.service.feed.FeedService;
 import java.util.List;
+import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -30,6 +33,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class FeedController {
 
   private final FeedService feedService;
+  private final CommentService commentService;
 
   @PostMapping
   public ResponseEntity<FeedRes> createFeed(@RequestBody CreateReq request){
@@ -65,6 +69,33 @@ public class FeedController {
 
   }
 
+  @GetMapping("/details/{feedNo}")
+  public ResponseEntity<FeedDetails> showFeed(@PathVariable("feedNo")Integer feedNo) {
+
+    FeedRes feed = feedService.showFeed(feedNo);
+    List<CommentRes> comments = commentService.searchComments(feedNo);
+
+    FeedDetails feedDetails = new FeedDetails(feed,comments);
+
+    return new ResponseEntity<>(feedDetails,HttpStatus.OK);
+
+  }
 
 
+  @Data
+  private class FeedDetails {
+
+    private FeedRes feedRes;
+    private List<CommentRes> commentRes;
+
+    public FeedDetails() {
+
+    }
+
+    public FeedDetails(FeedRes feedRes,
+        List<CommentRes> commentRes) {
+      this.feedRes = feedRes;
+      this.commentRes = commentRes;
+    }
+  }
 }

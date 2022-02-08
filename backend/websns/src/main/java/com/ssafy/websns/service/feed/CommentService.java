@@ -13,6 +13,7 @@ import com.ssafy.websns.repository.user.UserRepository;
 import com.ssafy.websns.service.validation.ValidateExist;
 import java.util.List;
 import java.util.Optional;
+import javax.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -81,13 +82,13 @@ public class CommentService {
 
   }
 
+  @Transactional
   public void cancelComment(Integer commentNo) {
 
     Optional<Comment> optional = commentRepository.findByNo(commentNo);
     Comment comment = validateExist.findComment(optional);
 
     comment.deleteComment();
-
   }
 
   public List<CommentRes> searchComments(Integer feedNo) {
@@ -95,7 +96,7 @@ public class CommentService {
     Optional<Feed> optional = feedRepository.findByNo(feedNo);
     Feed feed = validateExist.findFeedByNo(optional);
     
-    Optional<List<Comment>> commentOptional = commentRepository.findByFeed(feed);
+    Optional<List<Comment>> commentOptional = commentRepository.findByFeedAndDeleteModeIsFalse(feed);
     List<CommentRes> comments = validateExist.findComments(commentOptional);
 
     return comments;
