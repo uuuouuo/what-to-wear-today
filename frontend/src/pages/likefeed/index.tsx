@@ -1,12 +1,11 @@
 import React from 'react';
 import type { NextPage } from 'next';
 import Styled from './styled';
-import FooterNavbar from '@/components/FooterNavbar/FooterNavbar';
-import Header from '@/components/Header/Header';
+import { Header, FooterNavbar } from '@/components/molecules';
 
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 
-const Likefeed: NextPage = () => {
+const LikeFeed: NextPage = () => {
   return (
     <>
       <Header leftSide="pointer" name="오늘 뭐 입지?" rightSide="notification" />
@@ -18,4 +17,4 @@ const Likefeed: NextPage = () => {
   );
 };
 
-export default Likefeed;
+export default LikeFeed;
