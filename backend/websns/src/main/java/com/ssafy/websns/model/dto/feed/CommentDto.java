@@ -35,15 +35,15 @@ public class CommentDto {
   @Getter
   public static class CommentRes {
 
-    private User user;
+    private String userId;
     private String content;
     private Integer feedNo;
     private Comment parent;
     private LocalDateTime createAt;
 
-    public CommentRes(User user, Integer feedNo, Comment parent, String content,
+    public CommentRes(String userId, Integer feedNo, Comment parent, String content,
         LocalDateTime createAt) {
-      this.user = user;
+      this.userId = userId;
       this.feedNo = feedNo;
       this.parent = parent;
       this.content = content;
@@ -51,7 +51,7 @@ public class CommentDto {
     }
 
     public CommentRes(Comment comment){
-      this.user = comment.getUser();
+      this.userId = comment.getUser().getId();
       this.feedNo = comment.getNo();
       this.parent = comment.getParent();
       this.content= comment.getContent();

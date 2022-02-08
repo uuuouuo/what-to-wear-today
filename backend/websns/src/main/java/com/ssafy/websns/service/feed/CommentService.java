@@ -46,7 +46,7 @@ public class CommentService {
 
     commentRepository.save(comment);
 
-    CommentRes response = new CommentRes(comment.getUser(), comment.getFeed().getNo(), comment.getParent(),
+    CommentRes response = new CommentRes(comment.getUser().getId(), comment.getFeed().getNo(), comment.getParent(),
         comment.getContent(), comment.getCreatedAt());
 
     return response;
