@@ -6,8 +6,8 @@ const Header = styled.div`
   flex-flow: row nowrap;
   justify-content: space-between;
   align-items: center;
-  padding: 0 1vw 0 1vw;
-  background-color: rgb(102, 113, 255);
+  padding: 1vh;
+  background-image: linear-gradient(135deg, #ad6bff 0%, #74bcf7 100%);
 `;
 
 const LeftSide = styled.div`

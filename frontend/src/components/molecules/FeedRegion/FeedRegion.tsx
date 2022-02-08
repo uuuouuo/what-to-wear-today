@@ -1,27 +1,16 @@
 import React from 'react';
+import Styled from './FeedRegion.styled';
+import { Text } from '@/components/atoms';
+import { RegionType } from '@/types/region';
 
 import { Swiper, SwiperSlide } from 'swiper/react';
+import WbSunnyIcon from '@mui/icons-material/WbSunny';
 import SwiperCore, { Pagination } from 'swiper';
 SwiperCore.use([Pagination]);
 
-/** @jsxImportSource @emotion/react */
-import { css } from '@emotion/react';
-
 import 'swiper/css';
-import 'swiper/css/pagination';
 
-const swipe = css`
-  height: 6vh;
-  width: 100px;
-  margin: 0px 0px 0px 0px;
-`;
-
-interface regionType {
-  id: number;
-  name: string;
-}
-
-const interestRegions: regionType[] = [
+const interestRegions: RegionType[] = [
   { id: 1, name: 'seoul' },
   { id: 2, name: 'gwangju' },
   { id: 3, name: 'ahnyang' },
@@ -33,30 +22,28 @@ const interestRegions: regionType[] = [
 
 const RegionFilter = () => {
   return (
-    <div>
+    <Styled.Container>
       <Swiper
-        css={swipe}
-        direction={'vertical'}
-        centeredSlides={true}
+        direction="horizontal"
+        centeredSlides
         pagination={{
           clickable: true,
           type: 'custom',
         }}
       >
         {interestRegions.map((region) => (
-          <SwiperSlide
-            style={{
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}
-            key={region.id}
-          >
-            {region.name}
+          <SwiperSlide>
+            <Styled.SwiperSlideContainer>
+              <Text value={region.name} />
+              <Styled.WeatherArea>
+                <WbSunnyIcon />
+                <Text value="-3" />
+              </Styled.WeatherArea>
+            </Styled.SwiperSlideContainer>
           </SwiperSlide>
         ))}
       </Swiper>
-    </div>
+    </Styled.Container>
   );
 };
 

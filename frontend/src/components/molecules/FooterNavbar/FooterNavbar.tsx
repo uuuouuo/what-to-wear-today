@@ -1,16 +1,14 @@
 import React, { useCallback, useEffect } from 'react';
-import BottomNavigation from '@mui/material/BottomNavigation';
-import BottomNavigationAction from '@mui/material/BottomNavigationAction';
+import { BottomNavigation, Paper } from '@mui/material';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import HomeIcon from '@mui/icons-material/Home';
 import SearchIcon from '@mui/icons-material/Search';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import PersonIcon from '@mui/icons-material/Person';
 import Link from 'next/link';
-import Paper from '@mui/material/Paper';
 import { useRouter } from 'next/router';
 
-import Styled from './sytled';
+import Styled from './FooterNavbar.sytled';
 
 const FooterNavbar = () => {
   const current = useRouter().pathname.slice(1);
@@ -44,7 +42,7 @@ const FooterNavbar = () => {
         <Styled.BottomNavigationAction
           sx={{ pt: 0, pb: 0 }}
           icon={
-            <Link href={'/feed'}>
+            <Link href={'/'}>
               <HomeIcon />
             </Link>
           }

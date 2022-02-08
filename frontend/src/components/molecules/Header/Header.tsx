@@ -5,7 +5,7 @@ import Link from 'next/link';
 import Router from 'next/router';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import Image from 'next/image';
-import { Button } from '@/components/atoms/';
+import { Button } from '@/components/atoms';
 
 interface Props {
   leftSide?: string;

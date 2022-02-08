@@ -6,8 +6,6 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
 
 import Styled from './FeedContent.styled';
-import ArticleImage from '@/components/ArticleImage/ArticleImage';
-
 import {
   Button,
   UserImage,
@@ -16,9 +14,10 @@ import {
   HashTag,
   ArticleContent,
   ArticleDate,
-} from '../atoms';
+} from '@/components/atoms';
+import { ArticleImage } from '@/components/molecules';
 
-const Feed_article = () => {
+const FeedContent = () => {
   const scrollAreaRef = useRef<HTMLDivElement>(null);
 
   const target = useRef<HTMLDivElement>(null);
@@ -99,7 +98,11 @@ const Feed_article = () => {
   //////////////////////////////////////
 
   const follow = () => {
-    Router.push('/feeddetail');
+    Router.push('/feed/1');
+  };
+
+  const moveProfile = (e: React.MouseEvent) => {
+    Router.push(`/user/${e.target.dataset.userId}`);
   };
 
   return (
@@ -109,12 +112,14 @@ const Feed_article = () => {
         return (
           <Styled.Feed_content key={idx} ref={lastEl ? target : null}>
             <Styled.Feed_content_top>
-              <UserImage userId={article.id} />
+              <Button data-userId="hello" onClick={moveProfile}>
+                <UserImage src="images/profileIMG/sample.png" />
+              </Button>
               <Styled.Feed_content_user>
-                <Link href={`/feed`} underline="none" sx={{ color: 'black' }}>
+                <Link href={`/`} underline="none" sx={{ color: 'black' }}>
                   <UserName value={article.name} />
                 </Link>
-                <Link href={`/feed`} underline="none" sx={{ color: 'black' }}>
+                <Link href={`/`} underline="none" sx={{ color: 'black' }}>
                   <UserId value={article.name} />
                 </Link>
               </Styled.Feed_content_user>
@@ -132,7 +137,7 @@ const Feed_article = () => {
                   underline="none"
                   sx={{ color: 'silver' }}
                   onClick={() => {
-                    Router.push('/feeddetail');
+                    Router.push('/feed/1');
                   }}
                 >
                   자세히 보기
@@ -151,4 +156,4 @@ const Feed_article = () => {
   );
 };
 
-export default Feed_article;
+export default FeedContent;
