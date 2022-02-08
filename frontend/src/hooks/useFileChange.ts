@@ -1,18 +1,31 @@
 import React, { useCallback, useState } from 'react';
 
-const useFileChange = <T extends { files: FileList | null }>(
-  initalState: FileList | null,
+const useFileChange = <T extends { files: FileList }>(
+  initalState: File[] | null,
 ): [
-  FileList | null,
-  React.Dispatch<React.SetStateAction<FileList | null>>,
-  (e: React.ChangeEvent<T>) => void,
+  File[] | null,
+  React.Dispatch<React.SetStateAction<File[] | null>>,
+  (e: React.ChangeEvent) => void,
+  (e: React.ChangeEvent) => void,
 ] => {
-  const [files, setValue] = useState(initalState);
-  const onChange = useCallback((e: React.ChangeEvent<T>) => {
-    setValue(e.target.files);
-  }, []);
+  const [files, setFile] = useState(initalState);
+  const onChange = useCallback(
+    (e: React.ChangeEvent) => {
+      setFile([...e.target.files]);
+    },
+    [files],
+  );
 
-  return [files, setValue, onChange];
+  const appendFile = useCallback(
+    (e: React.ChangeEvent) => {
+      setFile([...(files || []), ...e.target.files]);
+    },
+    [files],
+  );
+
+  const removeFile = useCallback((file: File) => {}, []);
+
+  return [files, setFile, onChange, appendFile];
 };
 
 export default useFileChange;
