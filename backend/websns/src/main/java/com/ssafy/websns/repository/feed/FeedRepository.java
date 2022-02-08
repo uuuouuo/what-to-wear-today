@@ -10,9 +10,10 @@ import org.springframework.data.repository.query.Param;
 public interface FeedRepository extends JpaRepository<Feed,Integer> {
 
   Optional<Feed> findByNo(Integer feedNo);
-//  Optional<List<Feed>> findByContentContaining(String content);
-//  Optional<List<Feed>> findByContentContainingAndDeleteModeIsFalse(String content);
+
+  Optional<List<Feed>> findAllByRegion(Integer regionNo);
+
   @Query("select f from Feed f where f.content like %:content% and f.deleteMode = false")
-  Optional<List<Feed>> findFeedsByContent(@Param("content") String content);
+  Optional<List<Feed>> findFeedsByContent(@Param("content") String keyword);
 
 }

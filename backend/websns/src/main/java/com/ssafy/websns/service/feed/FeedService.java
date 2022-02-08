@@ -16,6 +16,7 @@ import com.ssafy.websns.repository.user.UserRepository;
 import com.ssafy.websns.service.validation.ValidateExist;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -30,6 +31,8 @@ public class FeedService {
   private final ImageRepository imageRepository;
   private final RegionRepository regionRepository;
   private final UserRepository userRepository;
+
+  private ValidateExist validateExist = new ValidateExist();
 
   @Transactional
   public FeedRes postFeed(CreateReq request) {
@@ -61,10 +64,11 @@ public class FeedService {
   @Transactional
   public UpdateRes editFeed(Integer feedNo, UpdateReq request) {
 
-    ValidateExist validateExist = new ValidateExist(null, feedRepository, null);
+//    ValidateExist validateExist = new ValidateExist(null, feedRepository, null);
+    Optional<Feed> optional = feedRepository.findByNo(feedNo);
 
     // 피드 정보 찾기
-    Feed feed = validateExist.findFeedByNo(feedNo);
+    Feed feed = validateExist.findFeedByNo(optional);
     // 피드에 수정된 지역 정보 찾기
     Region region = regionRepository.findByRegionNameContaining(request.getRegion()).get(0);
 
@@ -95,23 +99,27 @@ public class FeedService {
 
   public void cancelFeed(Integer feedNo) {
 
-    ValidateExist validateExist = new ValidateExist(null, feedRepository, null);
+//    ValidateExist validateExist = new ValidateExist(null, feedRepository, null);
+    Optional<Feed> optional = feedRepository.findByNo(feedNo);
 
-    Feed feed = validateExist.findFeedByNo(feedNo);
+
+    Feed feed = validateExist.findFeedByNo(optional);
     feed.deleteFeed();
 
   }
 
   public List<FeedRes> searchFeeds(String keyword) {
 
-    ValidateExist validateExist = new ValidateExist(null, feedRepository, imageRepository);
-
-    List<Feed> feeds = validateExist.findFeedsByNoByKeyword(keyword);
+//    ValidateExist validateExist = new ValidateExist(null, feedRepository, imageRepository);
+    Optional<List<Feed>> optionalFeed = feedRepository.findFeedsByContent(keyword);
+    List<Feed> feeds = validateExist.findFeeds(optionalFeed);
 
     List<FeedRes> response = new ArrayList<>();
 
+
     feeds.stream().forEach(feed -> {
-      List<CreateImage> resImages = validateExist.findImagesByFeed(feed).stream()
+      Optional<List<Image>> optional = imageRepository.findByFeed(feed);
+      List<CreateImage> resImages = validateExist.findImages(optional).stream()
           .map(CreateImage::new).collect(Collectors.toList());
 
       FeedRes feedRes = new FeedRes(feed, resImages);
@@ -122,6 +130,14 @@ public class FeedService {
     return response;
 
   }
+
+//  public List<FeedRes> showFeeds(Integer regionNo) {
+//
+//    Optional<List<Feed>> optional = feedRepository.findAllByRegion(regionNo);
+//
+//
+//    return null;
+//  }
 
 }
 

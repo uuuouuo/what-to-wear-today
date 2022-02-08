@@ -12,6 +12,7 @@ import com.ssafy.websns.repository.feed.FeedRepository;
 import com.ssafy.websns.repository.user.UserRepository;
 import com.ssafy.websns.service.validation.ValidateExist;
 import java.util.List;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,19 +26,24 @@ public class CommentService {
   private final FeedRepository feedRepository;
   private final UserRepository userRepository;
 
+  private ValidateExist validateExist = new ValidateExist();
+
   @Transactional
   public CommentRes postComment(Integer feedNo, CreateReq request) {
 
-    ValidateExist validateExist = new ValidateExist(commentRepository, feedRepository, null);
+//    ValidateExist validateExist = new ValidateExist(commentRepository, feedRepository, null);
+
+    Optional<Feed> feedOptional = feedRepository.findByNo(feedNo);
 
     User user = userRepository.findByNo(request.getUserNo());
-    Feed feed = validateExist.findFeedByNo(feedNo);
+    Feed feed = validateExist.findFeedByNo(feedOptional);
 
     Integer parentNo = request.getParent();
     Comment parentComment = new Comment();
 
     if (parentNo != -1) {
-      parentComment = validateExist.findCommentsByNo(parentNo);
+      Optional<Comment> optional = commentRepository.findByNo(parentNo);
+      parentComment = validateExist.findComment(optional);
     }
 
     Comment comment = new Comment();
@@ -55,9 +61,11 @@ public class CommentService {
   @Transactional
   public UpdateRes editComment(Integer commentNo, UpdateReq request) {
 
-    ValidateExist validateExist = new ValidateExist(commentRepository, feedRepository, null);
+//    ValidateExist validateExist = new ValidateExist(commentRepository, feedRepository, null);
 
-    Comment comment = validateExist.findCommentsByNo(commentNo);
+    Optional<Comment> optional = commentRepository.findByNo(commentNo);
+
+    Comment comment = validateExist.findComment(optional);
     comment.updateComment(request.getContent(), request.getPrivateMode());
 
     UpdateRes response = new UpdateRes(comment.getNo(), comment.getContent(), comment.getPrivateMode(),
@@ -69,18 +77,24 @@ public class CommentService {
 
   public void cancelComment(Integer commentNo) {
 
-    ValidateExist validateExist = new ValidateExist(commentRepository, feedRepository, null);
+//    ValidateExist validateExist = new ValidateExist(commentRepository, feedRepository, null);
 
-    Comment comment = validateExist.findCommentsByNo(commentNo);
+    Optional<Comment> optional = commentRepository.findByNo(commentNo);
+
+    Comment comment = validateExist.findComment(optional);
     comment.deleteComment();
 
   }
 
   public List<CommentRes> searchComments(Integer feedNo) {
-    ValidateExist validateExist = new ValidateExist(commentRepository, feedRepository, null);
+//    ValidateExist validateExist = new ValidateExist(commentRepository, feedRepository, null);
 
-    Feed feed = validateExist.findFeedByNo(feedNo);
-    List<CommentRes> comments = validateExist.findCommentsByFeed(feed);
+    Optional<Feed> optional = feedRepository.findByNo(feedNo);
+
+    Feed feed = validateExist.findFeedByNo(optional);
+    
+    Optional<List<Comment>> commentOptional = commentRepository.findByFeed(feed);
+    List<CommentRes> comments = validateExist.findComments(commentOptional);
 
     return comments;
 

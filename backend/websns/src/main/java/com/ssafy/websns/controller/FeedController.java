@@ -13,15 +13,17 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@RequestMapping("/feed")
 @RequiredArgsConstructor
 public class FeedController {
 
   private final FeedService feedService;
 
-  @PostMapping("/feed")
+  @PostMapping
   public ResponseEntity<FeedRes> createFeed(@RequestBody CreateReq request){
 
     FeedRes response = feedService.postFeed(request);
@@ -29,7 +31,7 @@ public class FeedController {
 
   }
 
-  @PutMapping("/feed/{feedNo}")
+  @PutMapping("/{feedNo}")
   public ResponseEntity<UpdateRes> updateFeed(@PathVariable("feedNo")Integer feedNo,
       @RequestBody UpdateReq request) {
 
@@ -38,7 +40,7 @@ public class FeedController {
 
   }
 
-  @DeleteMapping("/feed/{feedNo}")
+  @DeleteMapping("/{feedNo}")
   public void deleteComment(@PathVariable("feedNo")Integer feedNo) {
 
     feedService.cancelFeed(feedNo);

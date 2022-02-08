@@ -4,25 +4,21 @@ import com.ssafy.websns.model.dto.feed.CommentDto.CommentRes;
 import com.ssafy.websns.model.entity.feed.Comment;
 import com.ssafy.websns.model.entity.feed.Feed;
 import com.ssafy.websns.model.entity.feed.Image;
-import com.ssafy.websns.repository.feed.CommentRepository;
-import com.ssafy.websns.repository.feed.FeedRepository;
-import com.ssafy.websns.repository.feed.ImageRepository;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-import lombok.RequiredArgsConstructor;
 
-@RequiredArgsConstructor
+//@RequiredArgsConstructor
 public class ValidateExist {
 
-  private final CommentRepository commentRepository;
-  private final FeedRepository feedRepository;
-  private final ImageRepository imageRepository;
+//  private final CommentRepository commentRepository;
+//  private final FeedRepository feedRepository;
+//  private final ImageRepository imageRepository;
 
-  public Feed findFeedByNo(Integer feedNo) {
+  public Feed findFeedByNo(Optional<Feed> optional) {
 
     Feed feed = new Feed();
-    Optional<Feed> optional = feedRepository.findByNo(feedNo);
+//    Optional<Feed> optional = feedRepository.findByNo(feedNo);
 
     if(optional.isPresent()) {
       feed = optional.get();
@@ -35,10 +31,10 @@ public class ValidateExist {
   }
 
 
-  public Comment findCommentsByNo(Integer commentNo) {
+  public Comment findComment(Optional<Comment> optional) {
 
     Comment comment = new Comment();
-    Optional<Comment> optional = commentRepository.findByNo(commentNo);
+//    Optional<Comment> optional = commentRepository.findByNo(commentNo);
 
     if (optional.isPresent()) {
       comment = optional.get();
@@ -50,9 +46,9 @@ public class ValidateExist {
 
   }
 
-  public List<CommentRes> findCommentsByFeed(Feed feed) {
+  public List<CommentRes> findComments(Optional<List<Comment>> optional) {
 
-    Optional<List<Comment>> optional = commentRepository.findByFeed(feed);
+//    Optional<List<Comment>> optional = commentRepository.findByFeed(feed);
     List<CommentRes> comments = null;
 
     if (optional.isPresent()) {
@@ -64,9 +60,8 @@ public class ValidateExist {
 
   }
 
-  public List<Feed> findFeedsByNoByKeyword(String keyword) {
+  public List<Feed> findFeeds(Optional<List<Feed>> optional) {
 
-    Optional<List<Feed>> optional = feedRepository.findFeedsByContent(keyword);
     List<Feed> feeds = null;
 
     if(optional.isPresent()) {
@@ -77,8 +72,8 @@ public class ValidateExist {
 
   }
 
-  public List<Image> findImagesByFeed(Feed feed) {
-    Optional<List<Image>> optional = imageRepository.findByFeed(feed);
+  public List<Image> findImages(Optional<List<Image>> optional) {
+
     List<Image> images = null;
 
     if(optional.isPresent()) {

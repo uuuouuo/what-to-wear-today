@@ -15,15 +15,17 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@RequestMapping("/comment")
 @RequiredArgsConstructor
 public class CommentController {
 
   private final CommentService commentService;
 
-  @PostMapping("/comment/{feedNo}")
+  @PostMapping("/{feedNo}")
   public ResponseEntity<CommentRes> createComment(@PathVariable("feedNo") Integer feedNo, @RequestBody CreateReq request){
 
     CommentRes response = commentService.postComment(feedNo, request);
@@ -31,7 +33,7 @@ public class CommentController {
 
   }
 
-  @PutMapping("/comment/{commentNo}")
+  @PutMapping("/{commentNo}")
   public ResponseEntity<UpdateRes> updateComment(@PathVariable("commentNo")Integer commentNo,
       @RequestBody UpdateReq request) {
 
@@ -40,14 +42,14 @@ public class CommentController {
 
   }
 
-  @DeleteMapping("/comment/{commentNo}")
+  @DeleteMapping("/{commentNo}")
   public void deleteComment(@PathVariable("commentNo") Integer commentNo) {
 
     commentService.cancelComment(commentNo);
 
   }
 
-  @GetMapping("/comment/{feedNo}")
+  @GetMapping("/{feedNo}")
   public ResponseEntity<List<CommentRes>> getCommentList(@PathVariable("feedNo") Integer feedNo) {
 
     List<CommentRes> response = commentService.searchComments(feedNo);
