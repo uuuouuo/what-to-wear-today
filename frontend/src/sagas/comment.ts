@@ -6,7 +6,7 @@ import {
   LOAD_COMMENTS_REQUEST,
   LOAD_COMMENTS_SUCCESS,
   LOAD_COMMENTS_FAILURE,
-} from '@/action/CommentAction';
+} from '@/action/commentAction';
 
 const api = apiInstance();
 
@@ -14,6 +14,7 @@ function loadCommentsAPI(feedNo: number) {
   return api.get(`/comment/${feedNo}`);
 }
 
+// todo: type 설정 필요
 function* loadComments(action) {
   try {
     const result = yield call(loadCommentsAPI, action.feedNo);
