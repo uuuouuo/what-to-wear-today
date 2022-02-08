@@ -2,6 +2,7 @@ package com.ssafy.websns.service;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
+import com.ssafy.websns.model.dto.feed.FeedDto.FeedRes;
 import com.ssafy.websns.model.dto.feed.FeedDto.UpdateReq;
 import com.ssafy.websns.model.dto.feed.FeedDto.UpdateRes;
 import com.ssafy.websns.model.entity.feed.Feed;
@@ -67,10 +68,10 @@ class FeedServiceTest {
   @Test
   void 피드수정확인() throws Exception {
     // given
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.M.d.HH:mm");
-    String photoDateString = LocalDateTime.now().format(formatter);
     //2022-02-08T11:29:55.5494298
     //2022.02.08.11:29
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.M.d.HH:mm");
+    String photoDateString = LocalDateTime.now().format(formatter);
     LocalDateTime photoDate = LocalDateTime.parse(photoDateString, formatter);
 
     User user = new User("a123412341234", "jdb4497@nate.com", 1, "20 - 30", true, false);
@@ -129,8 +130,12 @@ class FeedServiceTest {
         // given
 
         // when
+        List<FeedRes> feeds = feedService.searchFeeds("추운거");
 
         // then
+        assertThat(feeds.size()).isEqualTo(2);
+
+        feeds.stream().forEach(System.out::println);
 
         }
 

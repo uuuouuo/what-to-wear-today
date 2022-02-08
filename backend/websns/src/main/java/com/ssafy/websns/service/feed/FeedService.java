@@ -14,6 +14,7 @@ import com.ssafy.websns.repository.feed.ImageRepository;
 import com.ssafy.websns.repository.region.RegionRepository;
 import com.ssafy.websns.repository.user.UserRepository;
 import com.ssafy.websns.service.validation.ValidateExist;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
@@ -105,9 +106,9 @@ public class FeedService {
 
     ValidateExist validateExist = new ValidateExist(null, feedRepository, imageRepository);
 
-    List<Feed> feeds = validateExist.findFeedByNosByKeyword(keyword);
+    List<Feed> feeds = validateExist.findFeedsByNoByKeyword(keyword);
 
-    List<FeedRes> response = null;
+    List<FeedRes> response = new ArrayList<>();
 
     feeds.stream().forEach(feed -> {
       List<CreateImage> resImages = validateExist.findImagesByFeed(feed).stream()

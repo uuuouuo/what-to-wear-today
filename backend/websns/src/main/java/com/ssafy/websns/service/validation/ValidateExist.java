@@ -64,9 +64,9 @@ public class ValidateExist {
 
   }
 
-  public List<Feed> findFeedByNosByKeyword(String keyword) {
+  public List<Feed> findFeedsByNoByKeyword(String keyword) {
 
-    Optional<List<Feed>> optional = feedRepository.findByContentContaining(keyword);
+    Optional<List<Feed>> optional = feedRepository.findFeedsByContent(keyword);
     List<Feed> feeds = null;
 
     if(optional.isPresent()) {
