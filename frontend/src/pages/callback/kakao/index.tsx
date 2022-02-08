@@ -6,29 +6,18 @@ import CircularProgress from '@mui/material/CircularProgress';
 import { Modal } from '@/components/molecules';
 import { UserType } from 'types/user';
 import { useDisplay } from 'hooks';
+import { useSelector } from 'react-redux';
 
 interface Props {
   code: string | string[] | undefined;
 }
 
 const Kakao: NextPage<Props> = ({ code }) => {
+  const { myInfo } = useSelector((state) => state.user);
   const [open, , openModal, closeModal] = useDisplay(false);
   useEffect(() => {
-    // const user: UserType = {
-    //   _no: 'p123456789',
-    //   id: '잠소면',
-    //   password: undefined,
-    //   platform: 1,
-    //   age_range: undefined,
-    //   gender: undefined,
-    // };
-
-    const user = undefined;
-
-    if (user) setTimeout(() => Router.push('/'), 3000);
-    else {
-      openModal();
-    }
+    if (myInfo) setTimeout(() => Router.push('/'), 3000);
+    else openModal();
   }, []);
 
   const agreeFunction = useCallback(() => {
