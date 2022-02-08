@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import javax.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -39,6 +40,7 @@ public class FeedService {
   private final TagRepository tagRepository;
   private final UserRepository userRepository;
   private final FeedTagRepository feedTagRepository;
+  private final EntityManager em;
 
   private ValidateExist validateExist = new ValidateExist();
 
@@ -154,13 +156,13 @@ public class FeedService {
 
   }
 
+  @Transactional
   public void cancelFeed(Integer feedNo) {
 
     Optional<Feed> optional = feedRepository.findByNo(feedNo);
     Feed feed = validateExist.findFeedByNo(optional);
 
     feed.deleteFeed();
-
   }
 
   public List<FeedRes> searchFeeds(String keyword) {
@@ -238,5 +240,30 @@ public class FeedService {
 
   }
 
+  public FeedRes showFeed(Integer feedNo) {
+
+    Optional<Feed> feedOp = feedRepository.findByNo(feedNo);
+
+    Feed feed = null;
+    if(feedOp.isPresent()){
+      feed = feedOp.get();
+    }
+    Optional<List<Image>> imagesOptional = imageRepository.findByFeed(feed);
+    List<CreateImage> resImages = validateExist.findImages(imagesOptional).stream()
+        .map(CreateImage::new).collect(Collectors.toList());
+
+    Optional<List<FeedTag>> allByFeed = feedTagRepository.findAllByFeed(feed);
+    List<String> resTags = null;
+    if(allByFeed.isPresent()){
+      resTags = allByFeed.get().stream().map(tag -> tag.getTagNo().getTagName())
+          .collect(Collectors.toList());
+    }
+
+    FeedRes feedRes = new FeedRes(feed, resImages, resTags);
+
+    return feedRes;
+
+
+  }
 }
 
