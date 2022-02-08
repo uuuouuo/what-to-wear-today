@@ -3,7 +3,7 @@ import type { NextPage } from 'next';
 
 import Styled from './styled';
 import { Title } from '@/components/molecules';
-import { Label, Button } from '@/components/atoms';
+import { Label, Button, Text } from '@/components/atoms';
 import Avatar from '@mui/material/Avatar';
 import SettingsIcon from '@mui/icons-material/Settings';
 import SearchIcon from '@mui/icons-material/Search';
@@ -85,9 +85,15 @@ const User: NextPage = () => {
         <Styled.columnContainer>
           <Styled.rowContainer>
             <Label>보노보노</Label>
-            <Button onClick={modifyProfile}>
-              <SettingsIcon />
-            </Button>
+            {Number(index) === 1 ? (
+              <Button onClick={modifyProfile}>
+                <SettingsIcon />
+              </Button>
+            ) : (
+              <Button onClick={modifyProfile}>
+                <Text value="Follow" />
+              </Button>
+            )}
           </Styled.rowContainer>
           <Styled.rowContainer>
             <Label>더위를 잘 타는 타입</Label>
