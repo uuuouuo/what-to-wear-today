@@ -17,7 +17,6 @@ function loadCommentsAPI(feedNo: number) {
 function* loadComments(action) {
   try {
     const result = yield call(loadCommentsAPI, action.feedNo);
-
     yield put({
       type: LOAD_COMMENTS_SUCCESS,
       data: result.data,
@@ -25,7 +24,7 @@ function* loadComments(action) {
   } catch (err) {
     yield put({
       type: LOAD_COMMENTS_FAILURE,
-      error: err.response.data,
+      error: err.response,
     });
   }
 }
