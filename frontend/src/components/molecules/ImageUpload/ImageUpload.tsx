@@ -5,13 +5,19 @@ interface Props {
   className?: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   children: React.ReactChild;
+  multiple?: boolean;
 }
 
-const ImageUpload: FunctionComponent<Props> = ({ className, onChange, children }) => {
+const ImageUpload: FunctionComponent<Props> = ({
+  className,
+  onChange,
+  children,
+  multiple = false,
+}) => {
   return (
     <Label className={className}>
       {children}
-      <FileInput accept="image/*" onChange={onChange} />
+      <FileInput accept="image/*" onChange={onChange} multiple={multiple} />
     </Label>
   );
 };
