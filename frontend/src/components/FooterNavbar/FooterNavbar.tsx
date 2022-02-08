@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import Box from '@mui/material/Box';
 import BottomNavigation from '@mui/material/BottomNavigation';
 import BottomNavigationAction from '@mui/material/BottomNavigationAction';
 import FavoriteIcon from '@mui/icons-material/Favorite';
@@ -8,22 +7,22 @@ import SearchIcon from '@mui/icons-material/Search';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import PersonIcon from '@mui/icons-material/Person';
 import Link from 'next/link';
-import Styled from './FooterNavbar.styled';
+import Paper from '@mui/material/Paper';
 import { useRouter } from 'next/router';
 
 const FooterNavbar = () => {
   const current = useRouter().pathname.slice(1);
-  console.log(current);
+  const [value, setValue] = React.useState(0);
+
   useEffect(() => {
     const arbitrary = 10;
-    if (current !== 'feed' && 'search' && 'create' && 'likeFeed' && 'myPage') {
+    if (current !== 'feed' && 'search' && 'create' && 'likefeed' && 'mypage') {
       setValue(arbitrary);
     }
   });
 
-  const [value, setValue] = React.useState(0);
   return (
-    <Styled.FooterNavbar>
+    <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0 }} elevation={3}>
       <BottomNavigation
         showLabels
         value={value}
@@ -32,48 +31,47 @@ const FooterNavbar = () => {
         }}
       >
         <BottomNavigationAction
-          sx={Styled.style}
+          sx={{ pt: 0, pb: 0 }}
           icon={
             <Link href={'/feed'}>
               <HomeIcon />
             </Link>
           }
         />
-
         <BottomNavigationAction
-          sx={Styled.style}
+          sx={{ pt: 0, pb: 0 }}
           icon={
-            <Link href={'/'}>
+            <Link href={'/search'}>
               <SearchIcon />
             </Link>
           }
         />
         <BottomNavigationAction
-          sx={Styled.style}
+          sx={{ pt: 0, pb: 0 }}
           icon={
-            <Link href={'/'}>
+            <Link href={'/create'}>
               <AddCircleIcon />
             </Link>
           }
         />
         <BottomNavigationAction
-          sx={Styled.style}
+          sx={{ pt: 0, pb: 0 }}
           icon={
-            <Link href={'/'}>
-              <AddCircleIcon />
+            <Link href={'/likefeed'}>
+              <FavoriteIcon />
             </Link>
           }
         />
         <BottomNavigationAction
-          sx={Styled.style}
+          sx={{ pt: 0, pb: 0, width: 50 }}
           icon={
-            <Link href={'/'}>
+            <Link href={'/mypage'}>
               <PersonIcon />
             </Link>
           }
         />
       </BottomNavigation>
-    </Styled.FooterNavbar>
+    </Paper>
   );
 };
 
