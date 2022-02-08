@@ -1,7 +1,7 @@
 package com.ssafy.websns.service.feed;
 
-import com.ssafy.websns.model.dto.feed.CommentDto.CreateReq;
 import com.ssafy.websns.model.dto.feed.CommentDto.CommentRes;
+import com.ssafy.websns.model.dto.feed.CommentDto.CreateReq;
 import com.ssafy.websns.model.dto.feed.CommentDto.UpdateReq;
 import com.ssafy.websns.model.dto.feed.CommentDto.UpdateRes;
 import com.ssafy.websns.model.entity.feed.Comment;
@@ -28,6 +28,12 @@ public class CommentService {
 
   private ValidateExist validateExist = new ValidateExist();
 
+//  private CommentService(CommentRepository commentRepository, FeedRepository feedRepository, UserRepository userRepository){
+//    this.commentRepository = commentRepository;
+//    this.feedRepository = feedRepository;
+//    this.userRepository = userRepository;
+//  }
+
   @Transactional
   public CommentRes postComment(Integer feedNo, CreateReq request) {
 
@@ -35,11 +41,11 @@ public class CommentService {
 
     Optional<Feed> feedOptional = feedRepository.findByNo(feedNo);
 
-    User user = userRepository.findByNo(request.getUserNo());
+    User user = userRepository.findByUserId(request.getUserId());
     Feed feed = validateExist.findFeedByNo(feedOptional);
 
     Integer parentNo = request.getParent();
-    Comment parentComment = new Comment();
+    Comment parentComment = null;
 
     if (parentNo != -1) {
       Optional<Comment> optional = commentRepository.findByNo(parentNo);
@@ -77,20 +83,16 @@ public class CommentService {
 
   public void cancelComment(Integer commentNo) {
 
-//    ValidateExist validateExist = new ValidateExist(commentRepository, feedRepository, null);
-
     Optional<Comment> optional = commentRepository.findByNo(commentNo);
-
     Comment comment = validateExist.findComment(optional);
+
     comment.deleteComment();
 
   }
 
   public List<CommentRes> searchComments(Integer feedNo) {
-//    ValidateExist validateExist = new ValidateExist(commentRepository, feedRepository, null);
 
     Optional<Feed> optional = feedRepository.findByNo(feedNo);
-
     Feed feed = validateExist.findFeedByNo(optional);
     
     Optional<List<Comment>> commentOptional = commentRepository.findByFeed(feed);

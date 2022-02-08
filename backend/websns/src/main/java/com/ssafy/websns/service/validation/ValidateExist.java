@@ -8,17 +8,11 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-//@RequiredArgsConstructor
 public class ValidateExist {
-
-//  private final CommentRepository commentRepository;
-//  private final FeedRepository feedRepository;
-//  private final ImageRepository imageRepository;
 
   public Feed findFeedByNo(Optional<Feed> optional) {
 
     Feed feed = new Feed();
-//    Optional<Feed> optional = feedRepository.findByNo(feedNo);
 
     if(optional.isPresent()) {
       feed = optional.get();
@@ -34,7 +28,6 @@ public class ValidateExist {
   public Comment findComment(Optional<Comment> optional) {
 
     Comment comment = new Comment();
-//    Optional<Comment> optional = commentRepository.findByNo(commentNo);
 
     if (optional.isPresent()) {
       comment = optional.get();
@@ -48,7 +41,6 @@ public class ValidateExist {
 
   public List<CommentRes> findComments(Optional<List<Comment>> optional) {
 
-//    Optional<List<Comment>> optional = commentRepository.findByFeed(feed);
     List<CommentRes> comments = null;
 
     if (optional.isPresent()) {

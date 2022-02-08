@@ -55,11 +55,11 @@ public class Feed extends BaseEntity {
     this.deleteMode = deleteMode;
   }
 
-  public void createFeed(User user, String content, Region region, String createdAt,
+  public void createFeed(User user, String content, Region region, String photoDate,
       String weather, Boolean privateMode, Boolean deleteMode){
 
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.M.d.HH:mm");
-    LocalDateTime dateTime = LocalDateTime.parse(createdAt, formatter);
+    LocalDateTime dateTime = LocalDateTime.parse(photoDate, formatter);
 
     this.user = user;
     this.content = content;

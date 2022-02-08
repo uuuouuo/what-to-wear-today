@@ -12,15 +12,15 @@ public class CommentDto {
   @NoArgsConstructor(access = AccessLevel.PROTECTED)
   public static class CreateReq {
 
-    private String userNo;
+    private String userId;
     private Integer parent;
     private String content;
     private Boolean privateMode;
     private Boolean deleteMode;
 
-    public CreateReq(String userNo, Integer parent, String content,
+    public CreateReq(String userId, Integer parent, String content,
         Boolean privateMode, Boolean deleteMode) {
-      this.userNo = userNo;
+      this.userId = userId;
       this.parent = parent;
       this.content = content;
       this.privateMode = privateMode;
@@ -33,7 +33,7 @@ public class CommentDto {
   public static class CommentRes {
 
     private Integer no;
-    private String userNo;
+    private String userId;
     private Integer feedNo;
     private Integer parent;
     private String content;
@@ -41,7 +41,7 @@ public class CommentDto {
 
     public CommentRes(Comment comment){
       this.no = comment.getNo();
-      this.userNo = comment.getUser().getNo();
+      this.userId = comment.getUser().getUserId();
       this.feedNo = comment.getNo();
       this.parent = comment.getParent() != null ? comment.getParent().getNo() : null;
       this.content= comment.getContent();
