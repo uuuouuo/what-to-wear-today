@@ -5,6 +5,7 @@ import Header from '@/components/Header/Header';
 import CommentPage from '@/components/CommentPage/CommentPage';
 import Dropdown from '@/components/Dropdown/Dropdown';
 import ReportForm from '@/components/ReportForm/ReportForm';
+import FooterNavbar from '@/components/FooterNavbar/FooterNavbar';
 
 import {
   UserImage,
@@ -54,6 +55,7 @@ const feeddetail = () => {
         </Styled.ArticleContent>
       </Styled.TopArea>
       <CommentPage />
+      <FooterNavbar />
     </Styled.DetailPageLayout>
   );
 };

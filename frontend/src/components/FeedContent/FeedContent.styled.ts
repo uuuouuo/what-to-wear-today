@@ -51,7 +51,15 @@ const Feed_ArticleArea = styled.div`
   display: flex;
   flex-flow: column nowrap;
   align-items: left;
-  margin-left: 2vw;
+  margin: 0vh 0vw 0vh 5vw;
+`;
+
+const SpaceBetween = styled.div`
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  width: 94%;
+  margin-bottom: 1vh;
 `;
 
 export default {
@@ -61,4 +69,5 @@ export default {
   Feed_content_bottom,
   Feed_content_user,
   Feed_ArticleArea,
+  SpaceBetween,
 };
