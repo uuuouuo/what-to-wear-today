@@ -1,51 +1,34 @@
-//package com.ssafy.websns.service;
-//
-//import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-//
-//import com.ssafy.websns.model.dto.feed.FeedDto.FeedRes;
-//import com.ssafy.websns.model.dto.feed.FeedDto.UpdateReq;
-//import com.ssafy.websns.model.dto.feed.FeedDto.UpdateRes;
-//import com.ssafy.websns.model.entity.feed.Feed;
-//import com.ssafy.websns.model.entity.feed.Image;
-//import com.ssafy.websns.model.entity.region.Region;
-//import com.ssafy.websns.model.entity.user.User;
-//import com.ssafy.websns.repository.feed.FeedRepository;
-//import com.ssafy.websns.repository.feed.ImageRepository;
-//import com.ssafy.websns.repository.region.RegionRepository;
-//import com.ssafy.websns.repository.user.UserRepository;
-//import com.ssafy.websns.service.feed.FeedService;
-//import java.time.LocalDateTime;
-//import java.time.format.DateTimeFormatter;
-//import java.util.ArrayList;
-//import java.util.List;
-//import javax.persistence.EntityManager;
-//import org.junit.jupiter.api.Test;
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.boot.test.context.SpringBootTest;
-//import org.springframework.test.annotation.Rollback;
-//import org.springframework.transaction.annotation.Transactional;
-//
-//@SpringBootTest
-//@Transactional
-//@Rollback(false)
-//class FeedServiceTest {
-//
-//  @Autowired
-//  FeedService feedService;
-//  @Autowired
-//  UserRepository userRepository;
-//  @Autowired
-//  RegionRepository regionRepository;
-//  @Autowired
-//  FeedRepository feedRepository;
-//  @Autowired
-//  ImageRepository imageRepository;
-//
-//  @Autowired
-//  EntityManager em;
-////  @Autowired
-////  imageRepository imageRepository;
-//
+package com.ssafy.websns.service;
+
+import com.ssafy.websns.repository.feed.FeedRepository;
+import com.ssafy.websns.repository.feed.ImageRepository;
+import com.ssafy.websns.repository.region.RegionRepository;
+import com.ssafy.websns.repository.user.UserRepository;
+import com.ssafy.websns.service.feed.FeedService;
+import javax.persistence.EntityManager;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.Rollback;
+import org.springframework.transaction.annotation.Transactional;
+
+@SpringBootTest
+@Transactional
+@Rollback(false)
+class FeedServiceTest {
+
+  @Autowired
+  FeedService feedService;
+  @Autowired
+  UserRepository userRepository;
+  @Autowired
+  RegionRepository regionRepository;
+  @Autowired
+  FeedRepository feedRepository;
+  @Autowired
+  ImageRepository imageRepository;
+  @Autowired
+  EntityManager em;
+
 ////  @Test
 ////  void 피드생성확인() throws Exception {
 ////    //given
@@ -114,17 +97,19 @@
 //
 //    }
 //
+//
 //    @Test
 //    void 피드삭제확인() throws Exception {
 //
 //      // when
-//      feedService.cancelFeed(41);
-//      Feed feed = feedRepository.findByNo(41).get();
+//      feedService.cancelFeed(49);
+//      Feed feed = feedRepository.findByNo(49).get();
 //
 //      // then
 //      assertThat(feed.getDeleteMode()).isTrue();
-//      }
 //
+//      }
+
 //      @Test
 //      void 피드검색확인() throws Exception {
 //        // given
@@ -139,4 +124,4 @@
 //
 //        }
 //
-//}
+}
