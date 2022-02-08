@@ -1,5 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import Styled from './CommentPage.styled';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import Divider from '@mui/material/Divider';
+import ListItemText from '@mui/material/ListItemText';
+import ListItemAvatar from '@mui/material/ListItemAvatar';
+import Typography from '@mui/material/Typography';
 import SendIcon from '@mui/icons-material/Send';
 import { UserImage } from '@/components/atoms/';
 import { useDispatch, useSelector } from 'react-redux';
@@ -19,6 +25,7 @@ const CommentPage = () => {
     });
   }, []);
 
+  // input값 받는 함수
   const [text, setText] = useState('');
   const inputValue = (e: React.ChangeEvent<HTMLInputElement>) => {
     setText(e.target.value);
@@ -26,25 +33,38 @@ const CommentPage = () => {
 
   return (
     <Styled.CommentPageLayout>
-      {/* 댓글 입력 영역 */}
       <Styled.WriteArea>
         <UserImage userId={1} />
         <Styled.Input placeholder="댓글 달기..." value={text} onChange={inputValue} />
         <Styled.Button children={<SendIcon />} type="submit" onClick={action} />
       </Styled.WriteArea>
-      {/* 댓글리스트 영역 */}
-      <div>
+      <React.Fragment>
         {comments.map((comment) => (
-          <>
-            <UserImage userId={1} />
-            <div>이름:{comment.userNo}</div>
-            <div>댓글내용:{comment.content}</div>
-            <div>날짜시각:{comment.createAt}</div>
-            {/* 슬라이드로 구현해볼까? */}
-            <div>본인에게만 보이는 수정 삭제 아이콘</div>
-          </>
+          <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
+            <ListItem alignItems="flex-start">
+              <ListItemAvatar>
+                {/* 유저 이미지 */}
+                <UserImage userId={1} />
+              </ListItemAvatar>
+              <ListItemText
+                // 유저 아이디 부분
+                primary="dobby"
+                secondary={
+                  <Typography
+                    sx={{ display: 'inline' }}
+                    component="span"
+                    variant="body2"
+                    color="text.primary"
+                  >
+                    {comment.content}
+                  </Typography>
+                }
+              />
+            </ListItem>
+            <Divider variant="inset" component="li" />
+          </List>
         ))}
-      </div>
+      </React.Fragment>
     </Styled.CommentPageLayout>
   );
 };

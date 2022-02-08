@@ -11,6 +11,7 @@ const WriteArea = styled.div`
   flex-flow: row nowrap;
   justify-content: space-evenly;
   margin-bottom: 1vh;
+  background-color: rgb(240, 240, 240);
 `;
 
 const Button = styled(BaseButton)``;

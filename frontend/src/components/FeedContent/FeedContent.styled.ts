@@ -44,6 +44,7 @@ const Feed_content_user = styled.div`
   justify-content: start;
   margin-left: 2vw;
   font-size: 13px;
+  text-decoration: none;
 `;
 
 const Feed_ArticleArea = styled.div`
