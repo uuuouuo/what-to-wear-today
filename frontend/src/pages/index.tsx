@@ -1,9 +1,10 @@
+import React, { useEffect } from 'react';
+import Styled from './styled';
 import type { NextPage } from 'next';
-import React from 'react';
-import { useEffect } from 'react';
+
+import { Header, FeedRegion, Tab, FooterNavbar, FeedContent } from '@/components/molecules';
 
 const Home: NextPage = () => {
-  // 위도 경도값 받기
   useEffect(() => {
     if (navigator) {
       navigator.geolocation.getCurrentPosition((position: any) => {
@@ -16,6 +17,23 @@ const Home: NextPage = () => {
       });
     }
   });
-  return <></>;
+  return (
+    <Styled.MainContainer>
+      <Styled.FeedLayout>
+        <Header leftSide="logo" name="오늘 뭐 입지?" rightSide="notification" />
+
+        <Styled.FeedNavbar>
+          <FeedRegion />
+          <Tab tabList={['추천순', '인기순', '좋아요순', '최신순']} />
+        </Styled.FeedNavbar>
+
+        <Styled.FeedContent>
+          <FeedContent />
+        </Styled.FeedContent>
+      </Styled.FeedLayout>
+      <FooterNavbar />
+    </Styled.MainContainer>
+  );
 };
+
 export default Home;
