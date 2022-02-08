@@ -2,8 +2,9 @@ import {
   LOAD_COMMENTS_REQUEST,
   LOAD_COMMENTS_SUCCESS,
   LOAD_COMMENTS_FAILURE,
-} from '@/action/CommentAction';
+} from 'action/commentAction';
 
+// todo: type 설정 필요
 export const initialState = {
   comments: [],
   loadCommentsLoading: false,
@@ -22,7 +23,6 @@ const reducer = (state = initialState, action) => {
       };
 
     case LOAD_COMMENTS_SUCCESS:
-      // const comments = action.data.filter(comment = > !comment.parent).map();
       return {
         ...state,
         loadCommentsLoading: false,
