@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "prod": "next start",
+    "prod": "next start -p 80",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
   },
