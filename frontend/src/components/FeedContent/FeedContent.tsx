@@ -110,10 +110,13 @@ const Feed_article = () => {
           <Styled.Feed_content key={idx} ref={lastEl ? target : null}>
             <Styled.Feed_content_top>
               <UserImage userId={article.id} />
-
               <Styled.Feed_content_user>
-                <UserName value={article.name} />
-                <UserId value={article.name} />
+                <Link href={`/feed`} underline="none" sx={{ color: 'black' }}>
+                  <UserName value={article.name} />
+                </Link>
+                <Link href={`/feed`} underline="none" sx={{ color: 'black' }}>
+                  <UserId value={article.name} />
+                </Link>
               </Styled.Feed_content_user>
             </Styled.Feed_content_top>
 
@@ -126,6 +129,8 @@ const Feed_article = () => {
                 <ArticleDate value={article.name} />
                 <Link
                   component="button"
+                  underline="none"
+                  sx={{ color: 'silver' }}
                   onClick={() => {
                     Router.push('/feeddetail');
                   }}
