@@ -71,8 +71,13 @@ class FeedServiceTest {
 
     User user = new User("a123412341234", "jdb4497@nate.com", 1, "20 - 30", true, false);
     userRepository.save(user);
+//    em.flush();
+//    em.clear();
     Region region = new Region("서울", 100);
     regionRepository.save(region);
+
+//    User byNo = userRepository.findByNo(user.getNo());
+
     Feed feed = new Feed(user, region, "오늘 덥네요 ;", photoDate, "핵더움", false, false);
     feedRepository.save(feed);
 
@@ -82,29 +87,29 @@ class FeedServiceTest {
     createImages.add(image1);
     createImages.add(image2);
     imageRepository.saveAll(createImages);
-
-    Image reqImage1 = new Image("장다빈_근육남.png", feed);
-    Image reqImage2 = new Image("장다빈_핸섬가이.png", feed);
-    Image reqImage3 = new Image("장다빈_순수남.png", feed);
-    List<String> images = new ArrayList<>();
-    images.add(reqImage1.getImgUrl());
-    images.add(reqImage2.getImgUrl());
-    images.add(reqImage3.getImgUrl());
-
-
-    UpdateReq updateReq = new UpdateReq("추운거 같기도 하고", "서울", "맑음",
-        photoDateString, false, images);
-
-    em.flush();
-    em.clear();
-    // when
-    UpdateRes updateRes = feedService.editFeed(feed.getNo(), updateReq);
-    List<Image> testImages = imageRepository.findByFeed(feed).get();
-
-    // then
-    assertThat(feed.getContent()).isEqualTo(updateRes.getContent());
-    assertThat(testImages.size()).isEqualTo(3);
-    testImages.stream().forEach(System.out::println);
+//
+//    Image reqImage1 = new Image("장다빈_근육남.png", feed);
+//    Image reqImage2 = new Image("장다빈_핸섬가이.png", feed);
+//    Image reqImage3 = new Image("장다빈_순수남.png", feed);
+//    List<String> images = new ArrayList<>();
+//    images.add(reqImage1.getImgUrl());
+//    images.add(reqImage2.getImgUrl());
+//    images.add(reqImage3.getImgUrl());
+//
+//
+//    UpdateReq updateReq = new UpdateReq("추운거 같기도 하고", "서울", "맑음",
+//        photoDateString, false, images);
+//
+////    em.flush();
+////    em.clear();
+//    // when
+//    UpdateRes updateRes = feedService.editFeed(feed.getNo(), updateReq);
+//    List<Image> testImages = imageRepository.findByFeed(feed).get();
+//
+//    // then
+//    assertThat(feed.getContent()).isEqualTo(updateRes.getContent());
+//    assertThat(testImages.size()).isEqualTo(3);
+//    testImages.stream().forEach(System.out::println);
 
     }
 
