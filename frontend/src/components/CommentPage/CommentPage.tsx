@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Styled from './CommentPage.styled';
 import SendIcon from '@mui/icons-material/Send';
 import { UserImage } from '@/components/atoms/';
@@ -8,12 +8,18 @@ const action = () => {
 };
 
 const CommentPage = () => {
+  const [text, setText] = useState('');
+
+  const inputValue = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setText(e.target.value);
+  };
+
   return (
     <Styled.CommentPageLayout>
       {/* 댓글 입력 영역 */}
       <Styled.WriteArea>
         <UserImage userId={1} />
-        <Styled.Input placeholder="댓글 달기..." value="" onChange={action} />
+        <Styled.Input placeholder="댓글 달기..." value={text} onChange={inputValue} />
         <Styled.Button children={<SendIcon />} type="submit" onClick={action} />
       </Styled.WriteArea>
       {/* 댓글리스트 영역 */}
