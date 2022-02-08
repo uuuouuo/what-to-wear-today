@@ -19,7 +19,7 @@ public class User {
   @Column(name = "USER_NO")
   private String no;
 
-  private String id;
+  private String userId;
 
   private Integer platform;
 
