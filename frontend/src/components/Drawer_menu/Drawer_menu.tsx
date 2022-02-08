@@ -1,18 +1,21 @@
-import * as React from 'react';
+import React, { FunctionComponent } from 'react';
+import Router from 'next/router';
+
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
 import Button from '@mui/material/Button';
 import List from '@mui/material/List';
-import Divider from '@mui/material/Divider';
 import ListItem from '@mui/material/ListItem';
-import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
 
 type Anchor = 'top' | 'left' | 'bottom' | 'right';
 
-export default function TemporaryDrawer() {
+interface Props {
+  // string[]는 에러로 추가
+  userId: string | string[];
+}
+
+const TemporaryDrawer: FunctionComponent<Props> = ({ userId }) => {
   const [state, setState] = React.useState({
     top: false,
     left: false,
@@ -33,8 +36,11 @@ export default function TemporaryDrawer() {
       setState({ ...state, [anchor]: open });
     };
 
-  const testFunc = () => {
-    console.log('테스트테스트');
+  const nextFunction = (event: React.MouseEvent<HTMLElement>) => {
+    const target = event.target as HTMLElement;
+    if (target.innerHTML === '지역설정') {
+      Router.push(`/setregion/${userId}`);
+    }
   };
 
   const list = (anchor: Anchor) => (
@@ -47,20 +53,10 @@ export default function TemporaryDrawer() {
       <List>
         {['지역설정', '고객센터', '로그아웃'].map((text, index) => (
           <ListItem button key={text}>
-            {/* <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon> */}
-            <ListItemText onClick={testFunc} primary={text} />
+            <ListItemText onClick={nextFunction} primary={text} />
           </ListItem>
         ))}
       </List>
-      {/* <Divider /> */}
-      {/* <List>
-        {['All mail', 'Trash', 'Spam'].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-            <ListItemText primary={text} />
-          </ListItem>
-        ))}
-      </List> */}
     </Box>
   );
 
@@ -76,4 +72,6 @@ export default function TemporaryDrawer() {
       ))}
     </div>
   );
-}
+};
+
+export default TemporaryDrawer;
