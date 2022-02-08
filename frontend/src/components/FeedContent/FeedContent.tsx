@@ -1,6 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react';
 import Router from 'next/router';
 
+import Link from '@mui/material/Link';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
 
@@ -121,7 +122,17 @@ const Feed_article = () => {
             <Styled.Feed_ArticleArea>
               <ArticleContent value={article.name} />
               <HashTag value={['dd', 'ss', 'aa']} />
-              <ArticleDate value={article.name} />
+              <Styled.SpaceBetween>
+                <ArticleDate value={article.name} />
+                <Link
+                  component="button"
+                  onClick={() => {
+                    Router.push('/feeddetail');
+                  }}
+                >
+                  자세히 보기
+                </Link>
+              </Styled.SpaceBetween>
             </Styled.Feed_ArticleArea>
 
             <Styled.Feed_content_bottom>
