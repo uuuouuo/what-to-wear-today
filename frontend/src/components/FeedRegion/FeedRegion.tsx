@@ -11,7 +11,7 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 
 const swipe = css`
-  height: 10vh;
+  height: 6vh;
   width: 100px;
   margin: 0px 0px 0px 0px;
 `;

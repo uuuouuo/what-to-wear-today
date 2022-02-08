@@ -15,6 +15,7 @@ const FeedNavbar = styled.div`
   justify-content: space-between;
   align-items: center;
   padding-right: 5vw;
+  height: 7vh;
 `;
 
 const FeedFilter = styled.div`
