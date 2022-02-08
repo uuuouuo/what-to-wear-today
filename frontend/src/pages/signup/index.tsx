@@ -36,7 +36,7 @@ const Signup: NextPage = () => {
         </Styled.FormGroupWithIcon>
       </Styled.ProfileContainer>
       <FooterContainer>
-        <Styled.Button bgColor="#fff" onClick={nextFunction}>
+        <Styled.Button bgColor="#fff" onClick={nextFunction} disabled={!value}>
           <Text value="NEXT" />
         </Styled.Button>
       </FooterContainer>
