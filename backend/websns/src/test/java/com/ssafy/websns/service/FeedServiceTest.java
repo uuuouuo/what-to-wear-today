@@ -1,6 +1,6 @@
 package com.ssafy.websns.service;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 import com.ssafy.websns.model.dto.feed.FeedDto.UpdateReq;
 import com.ssafy.websns.model.dto.feed.FeedDto.UpdateRes;
@@ -14,6 +14,7 @@ import com.ssafy.websns.repository.region.RegionRepository;
 import com.ssafy.websns.repository.user.UserRepository;
 import com.ssafy.websns.service.feed.FeedService;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -66,15 +67,21 @@ class FeedServiceTest {
   @Test
   void 피드수정확인() throws Exception {
     // given
-    LocalDateTime photoDate = LocalDateTime.now();
-    String photoDateString = photoDate.toString();
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.M.d.HH:mm");
+    String photoDateString = LocalDateTime.now().format(formatter);
+    //2022-02-08T11:29:55.5494298
+    //2022.02.08.11:29
+    LocalDateTime photoDate = LocalDateTime.parse(photoDateString, formatter);
 
     User user = new User("a123412341234", "jdb4497@nate.com", 1, "20 - 30", true, false);
     userRepository.save(user);
+    em.flush();
+    em.clear();
     Region region = new Region("서울", 100);
     regionRepository.save(region);
     Feed feed = new Feed(user, region, "오늘 덥네요 ;", photoDate, "핵더움", false, false);
     feedRepository.save(feed);
+
 
     Image image1 = new Image("장다빈_뱃살.png", feed);
     Image image2 = new Image("장다빈_섹_시_우_먼.png", feed);
@@ -95,8 +102,6 @@ class FeedServiceTest {
     UpdateReq updateReq = new UpdateReq("추운거 같기도 하고", "서울", "맑음",
         photoDateString, false, images);
 
-    em.flush();
-    em.clear();
     // when
     UpdateRes updateRes = feedService.editFeed(feed.getNo(), updateReq);
     List<Image> testImages = imageRepository.findByFeed(feed).get();
@@ -108,5 +113,25 @@ class FeedServiceTest {
 
     }
 
+    @Test
+    void 피드삭제확인() throws Exception {
+
+      // when
+      feedService.cancelFeed(41);
+      Feed feed = feedRepository.findByNo(41).get();
+
+      // then
+      assertThat(feed.getDeleteMode()).isTrue();
+      }
+
+      @Test
+      void 피드검색확인() throws Exception {
+        // given
+
+        // when
+
+        // then
+
+        }
 
 }
