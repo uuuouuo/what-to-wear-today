@@ -2,11 +2,10 @@ import React from 'react';
 import Styled from './styled';
 
 import Link from '@mui/material/Link';
-import Header from '@/components/Header/Header';
+import { Header, FooterNavbar } from '@/components/molecules';
 import CommentPage from '@/components/CommentPage/CommentPage';
 import Dropdown from '@/components/Dropdown/Dropdown';
 import ReportForm from '@/components/ReportForm/ReportForm';
-import FooterNavbar from '@/components/FooterNavbar/FooterNavbar';
 
 import {
   UserImage,
@@ -15,9 +14,9 @@ import {
   HashTag,
   ArticleContent,
   ArticleDate,
-} from '../../components/atoms';
+} from '@/components/atoms';
 
-const feeddetail = () => {
+const FeedDetail = () => {
   const user = {
     userId: 1,
     name: '김',
@@ -37,12 +36,12 @@ const feeddetail = () => {
       <Styled.TopArea>
         <Styled.ArticleArea>
           <Styled.UserInfoArea>
-            <Link href={`/feeddetail`} underline="none" sx={{ color: 'black' }}>
-              <UserImage userId={user.userId} />
+            <Link href={`/feed/1`} underline="none" sx={{ color: 'black' }}>
+              <UserImage />
             </Link>
 
             <Styled.UserId>
-              <Link href={`/feeddetail`} underline="none" sx={{ color: 'black' }}>
+              <Link href={`/feed/1`} underline="none" sx={{ color: 'black' }}>
                 <UserName value={user.name} />
               </Link>
               <UserId value={user.id} />
@@ -66,4 +65,4 @@ const feeddetail = () => {
   );
 };
 
-export default feeddetail;
+export default FeedDetail;
