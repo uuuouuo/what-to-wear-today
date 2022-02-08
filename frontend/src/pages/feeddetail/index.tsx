@@ -1,6 +1,7 @@
 import React from 'react';
 import Styled from './styled';
 
+import Link from '@mui/material/Link';
 import Header from '@/components/Header/Header';
 import CommentPage from '@/components/CommentPage/CommentPage';
 import Dropdown from '@/components/Dropdown/Dropdown';
@@ -36,9 +37,14 @@ const feeddetail = () => {
       <Styled.TopArea>
         <Styled.ArticleArea>
           <Styled.UserInfoArea>
-            <UserImage userId={user.userId} />
+            <Link href={`/feeddetail`} underline="none" sx={{ color: 'black' }}>
+              <UserImage userId={user.userId} />
+            </Link>
+
             <Styled.UserId>
-              <UserName value={user.name} />
+              <Link href={`/feeddetail`} underline="none" sx={{ color: 'black' }}>
+                <UserName value={user.name} />
+              </Link>
               <UserId value={user.id} />
             </Styled.UserId>
           </Styled.UserInfoArea>
