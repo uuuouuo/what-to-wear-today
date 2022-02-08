@@ -8,9 +8,11 @@ import com.ssafy.websns.model.dto.feed.ImageDto.CreateImage;
 import com.ssafy.websns.model.entity.feed.Feed;
 import com.ssafy.websns.model.entity.feed.Image;
 import com.ssafy.websns.model.entity.region.Region;
+import com.ssafy.websns.model.entity.user.User;
 import com.ssafy.websns.repository.feed.FeedRepository;
 import com.ssafy.websns.repository.feed.ImageRepository;
 import com.ssafy.websns.repository.region.RegionRepository;
+import com.ssafy.websns.repository.user.UserRepository;
 import com.ssafy.websns.service.validation.ValidateExist;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -26,18 +28,19 @@ public class FeedService {
   private final FeedRepository feedRepository;
   private final ImageRepository imageRepository;
   private final RegionRepository regionRepository;
+  private final UserRepository userRepository;
 
   @Transactional
   public FeedRes postFeed(CreateReq request) {
 
     Feed feed = new Feed();
     Region region = regionRepository.findByRegionNameContaining(request.getRegion()).get(0);
+    User user = userRepository.findByNo(request.getUser());
 
-    feed.createFeed(request.getNo(), request.getUser(), request.getContent(), region,
+    feed.createFeed(user, request.getContent(), region,
         request.getPhotoDate(), request.getWeather(), request.getPrivateMode(),
         request.getDeleteMode());
 
-    // repository - entity
     List<Image> imageNames = request.getImageNames().stream()
         .map(image -> new Image(image, feed))
         .collect(Collectors.toList());
@@ -45,13 +48,10 @@ public class FeedService {
     feedRepository.save(feed);
     List<Image> savedImages = imageRepository.saveAll(imageNames);
 
-    // DTO - controller
     List<CreateImage> resImages = savedImages.stream()
         .map(CreateImage::new).collect(Collectors.toList());
 
-    FeedRes response = new FeedRes(feed.getNo(), feed.getUser(), feed.getContent(),
-        feed.getPhotoDate(), feed.getUpdatedAt(), feed.getWeather(),
-        feed.getPrivateMode(), resImages);
+    FeedRes response = new FeedRes(feed, resImages);
 
     return response;
 
@@ -86,9 +86,7 @@ public class FeedService {
         .map(CreateImage::new).collect(Collectors.toList());
 
     // response DTO 에 담기
-    UpdateRes response = new UpdateRes(feed.getContent(), feed.getRegion().getNo(),
-        feed.getPhotoDate(), feed.getUpdatedAt(),
-        feed.getWeather(), feed.getPrivateMode(), resImages);
+    UpdateRes response = new UpdateRes(feed, resImages);
 
     return response;
 
@@ -115,9 +113,7 @@ public class FeedService {
       List<CreateImage> resImages = validateExist.findImagesByFeed(feed).stream()
           .map(CreateImage::new).collect(Collectors.toList());
 
-      FeedRes feedRes = new FeedRes(feed.getNo(), feed.getUser(), feed.getContent(),
-          feed.getPhotoDate(), feed.getUpdatedAt(), feed.getWeather(),
-          feed.getPrivateMode(), resImages);
+      FeedRes feedRes = new FeedRes(feed, resImages);
 
       response.add(feedRes);
     });

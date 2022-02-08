@@ -1,13 +1,22 @@
 package com.ssafy.websns.service;
 
-import com.ssafy.websns.model.dto.feed.FeedDto.CreateReq;
+import static org.assertj.core.api.Assertions.assertThat;
+
+import com.ssafy.websns.model.dto.feed.FeedDto.UpdateReq;
+import com.ssafy.websns.model.dto.feed.FeedDto.UpdateRes;
+import com.ssafy.websns.model.entity.feed.Feed;
+import com.ssafy.websns.model.entity.feed.Image;
+import com.ssafy.websns.model.entity.region.Region;
 import com.ssafy.websns.model.entity.user.User;
+import com.ssafy.websns.repository.feed.FeedRepository;
+import com.ssafy.websns.repository.feed.ImageRepository;
+import com.ssafy.websns.repository.region.RegionRepository;
 import com.ssafy.websns.repository.user.UserRepository;
 import com.ssafy.websns.service.feed.FeedService;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+import javax.persistence.EntityManager;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -23,31 +32,81 @@ class FeedServiceTest {
   FeedService feedService;
   @Autowired
   UserRepository userRepository;
-  //  @Autowired
-//  FeedRepository feedRepository;
+  @Autowired
+  RegionRepository regionRepository;
+  @Autowired
+  FeedRepository feedRepository;
+  @Autowired
+  ImageRepository imageRepository;
+
+  @Autowired
+  EntityManager em;
 //  @Autowired
 //  imageRepository imageRepository;
 
+//  @Test
+//  void 피드생성확인() throws Exception {
+//    //given
+//    User user = new User();
+//    user.setNo("1234");
+//    userRepository.save(user);
+//
+//    String createdAt = LocalDateTime.now().toString();
+//    List<String> images = new ArrayList<>(Arrays.asList("c:\\hi","c:\\hi2"));
+//    CreateReq request = new CreateReq(1, user,"hello","서울특별시 관악구 중앙동",
+//        "맑음-5도",createdAt,false, false, images);
+//
+//    //when
+//    feedService.postFeed(request);
+//
+//    //then
+//
+//  }
+
   @Test
-  public void feedService() throws Exception {
-    //given
-    User user = new User();
-    user.setNo("1234");
+  void 피드수정확인() throws Exception {
+    // given
+    LocalDateTime photoDate = LocalDateTime.now();
+    String photoDateString = photoDate.toString();
+
+    User user = new User("a123412341234", "jdb4497@nate.com", 1, "20 - 30", true, false);
     userRepository.save(user);
+    Region region = new Region("서울", 100);
+    regionRepository.save(region);
+    Feed feed = new Feed(user, region, "오늘 덥네요 ;", photoDate, "핵더움", false, false);
+    feedRepository.save(feed);
 
-    String createAt = LocalDateTime.now().toString();
-    List<String> images = new ArrayList<>(Arrays.asList("c:\\hi","c:\\hi2"));
-    CreateReq request = new CreateReq(1, user,"hello","서울특별시 관악구 중앙동",
-        "맑음-5도",createAt,false, false, images);
+    Image image1 = new Image("장다빈_뱃살.png", feed);
+    Image image2 = new Image("장다빈_섹_시_우_먼.png", feed);
+    List<Image> createImages = new ArrayList<>();
+    createImages.add(image1);
+    createImages.add(image2);
+    imageRepository.saveAll(createImages);
 
-    //when
-    feedService.postFeed(request);
+    Image reqImage1 = new Image("장다빈_근육남.png", feed);
+    Image reqImage2 = new Image("장다빈_핸섬가이.png", feed);
+    Image reqImage3 = new Image("장다빈_순수남.png", feed);
+    List<String> images = new ArrayList<>();
+    images.add(reqImage1.getImgUrl());
+    images.add(reqImage2.getImgUrl());
+    images.add(reqImage3.getImgUrl());
 
-    //then
 
+    UpdateReq updateReq = new UpdateReq("추운거 같기도 하고", "서울", "맑음",
+        photoDateString, false, images);
 
+    em.flush();
+    em.clear();
+    // when
+    UpdateRes updateRes = feedService.editFeed(feed.getNo(), updateReq);
+    List<Image> testImages = imageRepository.findByFeed(feed).get();
 
-  }
+    // then
+    assertThat(feed.getContent()).isEqualTo(updateRes.getContent());
+    assertThat(testImages.size()).isEqualTo(3);
+    testImages.stream().forEach(System.out::println);
+
+    }
 
 
 }
