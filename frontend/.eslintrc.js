@@ -22,6 +22,9 @@ module.exports = {
     ' no-else-return': 'off',
     'react/function-component-definition': 'off',
     '@typescript-eslint/ban-ts-comment': 'off',
+    'react/jsx-boolean-value': 'off',
+    'react/no-children-prop': 'off',
+    'react/jsx-curly-brace-presence': 'off',
   },
   settings: {
     'import/resolver': {
