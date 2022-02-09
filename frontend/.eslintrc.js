@@ -17,6 +17,7 @@ module.exports = {
     'import/extensions': 0,
     'import/no-unresolved': 0,
     'react/prop-types': 0,
+    'import/order': 'off',
   },
   settings: {
     'import/resolver': {
@@ -24,9 +25,7 @@ module.exports = {
         extensions: ['.js', '.jsx', '.ts', '.tsx'],
       },
       alias: {
-        map: [
-          ['@', './src'],
-        ],
+        map: [['@', './src']],
       },
     },
   },
