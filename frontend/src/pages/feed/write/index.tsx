@@ -1,4 +1,4 @@
-// import React from 'react';
+import React from 'react';
 // import type { NextPage } from 'next';
 // import Router from 'next/router';
 // import Styled from './styled';
