@@ -23,13 +23,11 @@ const Home: NextPage = () => {
         <Header leftSide="logo" name="오늘 뭐 입지?" rightSide="notification" />
 
         <Styled.FeedNavbar>
-          <FeedRegion />
-          <Tab tabList={['추천순', '인기순', '좋아요순', '최신순']} />
+          {/* <FeedRegion /> */}
+          {/* <TabArea tabList={['추천순', '인기순', '좋아요순', '최신순']} /> */}
         </Styled.FeedNavbar>
 
-        <Styled.FeedContent>
-          <FeedContent />
-        </Styled.FeedContent>
+        <Styled.FeedContent>{/* <FeedContent /> */}</Styled.FeedContent>
       </Styled.FeedLayout>
       <FooterNavbar />
     </Styled.MainContainer>
