@@ -3,9 +3,9 @@ import type { NextPage } from 'next';
 // import Router from 'next/router';
 // import Styled from './styled';
 
-// import { Button, Text, MainContainer, FooterContainer } from 'components/atoms';
-// import { Title, Modal } from '@/components/molecules';
-// import { useChange, useFileChange, useDisplay } from '@/hooks';
+import { Button, Text, MainContainer, FooterContainer } from 'components/atoms';
+import { Title, Modal } from '@/components/molecules';
+import { useChange, useFileChange, useDisplay } from '@/hooks';
 
 const FeedWrite: NextPage = () => {
   const [value, , onChange] = useChange('');
