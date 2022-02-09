@@ -42,6 +42,13 @@ module.exports = {
     'line-after-import': 'off',
     'no-useless-rename': 'off',
     '@typescript-eslint/no-unused-vars': 'off',
+    'prefer-destructuring': 'off',
+    'no-underscore-dangle': 'off',
+    'import/newline-after-import': 'off',
+    'spaced-comment': 'off',
+    'react/jsx-no-useless-fragment': 'off',
+    '@typescript-eslint/no-inferrable-types': 'off',
+    'no-else-return': 'off',
   },
   settings: {
     'import/resolver': {
