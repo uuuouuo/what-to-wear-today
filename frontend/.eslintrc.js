@@ -49,6 +49,8 @@ module.exports = {
     'react/jsx-no-useless-fragment': 'off',
     '@typescript-eslint/no-inferrable-types': 'off',
     'no-else-return': 'off',
+    radix: 'off',
+    '@typescript-eslint/no-empty-function': 'off',
   },
   settings: {
     'import/resolver': {
