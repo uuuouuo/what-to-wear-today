@@ -1,7 +1,7 @@
 import React from 'react';
 import type { NextPage } from 'next';
-// import Router from 'next/router';
-// import Styled from './styled';
+import Router from 'next/router';
+import Styled from './styled';
 
 import { Button, Text, MainContainer, FooterContainer } from 'components/atoms';
 import { Title, Modal } from '@/components/molecules';
@@ -20,7 +20,7 @@ const FeedWrite: NextPage = () => {
   return (
     <MainContainer>
       <Title value="CREATE" />
-      {/* <Styled.ContentContainer>
+      <Styled.ContentContainer>
         <Styled.ImageList
           selectedFile={file}
           setFile={setFile}
@@ -39,7 +39,7 @@ const FeedWrite: NextPage = () => {
         open={display}
         agreeFunction={() => console.log('히히')}
         disagreeFunction={() => console.log('헤헤')}
-      /> */}
+      />
     </MainContainer>
   );
 };
