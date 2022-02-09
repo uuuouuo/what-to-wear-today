@@ -9,7 +9,7 @@ import Typography from '@mui/material/Typography';
 import SendIcon from '@mui/icons-material/Send';
 import { UserImage } from '@/components/atoms/';
 import { useDispatch, useSelector } from 'react-redux';
-import { LOAD_COMMENTS_REQUEST } from '@/action/CommentAction';
+import { LOAD_COMMENTS_REQUEST } from '@/action/commentAction';
 
 const action = () => {
   console.log('action에 넣을 함수');
