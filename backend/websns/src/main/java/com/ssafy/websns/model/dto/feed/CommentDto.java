@@ -42,7 +42,7 @@ public class CommentDto {
     public CommentRes(Comment comment){
       this.no = comment.getNo();
       this.userId = comment.getUser().getUserId();
-      this.feedNo = comment.getNo();
+      this.feedNo = comment.getFeed().getNo();
       this.parent = comment.getParent() != null ? comment.getParent().getNo() : null;
       this.content= comment.getContent();
       this.createdAt = comment.getCreatedAt();
