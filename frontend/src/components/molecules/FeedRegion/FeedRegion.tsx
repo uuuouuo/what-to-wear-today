@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FunctionComponent } from 'react';
 import Styled from './FeedRegion.styled';
 import { Text } from '@/components/atoms';
 import { RegionType } from '@/types/region';
@@ -20,7 +20,7 @@ const interestRegions: RegionType[] = [
 
 // const [currentType, SetCurrentType] = useState(1);
 
-const RegionFilter = () => {
+const FeedRegion: FunctionComponent = () => {
   return (
     <Styled.Container>
       <Swiper
@@ -47,4 +47,4 @@ const RegionFilter = () => {
   );
 };
 
-export default RegionFilter;
+export default FeedRegion;
