@@ -18,6 +18,10 @@ module.exports = {
     'import/no-unresolved': 0,
     'react/prop-types': 0,
     'import/order': 'off',
+    'react/require-default-props': 'off',
+    ' no-else-return': 'off',
+    'react/function-component-definition': 'off',
+    '@typescript-eslint/ban-ts-comment': 'off',
   },
   settings: {
     'import/resolver': {
