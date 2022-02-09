@@ -1,5 +1,13 @@
-import type { AppProps } from "next/app";
+import type { AppProps } from 'next/app';
+import GlobalStyle from '@/styles/global';
+import wrapper from '@/store/configureStore';
+
 function MyApp({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />;
+  return (
+    <>
+      <GlobalStyle />
+      <Component {...pageProps} />
+    </>
+  );
 }
-export default MyApp;
+export default wrapper.withRedux(MyApp);
