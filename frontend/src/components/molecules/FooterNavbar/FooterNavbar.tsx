@@ -8,7 +8,7 @@ import PersonIcon from '@mui/icons-material/Person';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
-import Styled from './FooterNavbar.sytled';
+import Styled from './FooterNavbar.styled';
 
 const FooterNavbar = () => {
   const current = useRouter().pathname.slice(1);
