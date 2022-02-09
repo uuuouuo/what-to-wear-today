@@ -25,6 +25,7 @@ module.exports = {
     'react/jsx-boolean-value': 'off',
     'react/no-children-prop': 'off',
     'react/jsx-curly-brace-presence': 'off',
+    '@typescript-eslint/prefer-as-const': 'off',
   },
   settings: {
     'import/resolver': {
