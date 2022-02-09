@@ -11,5 +11,5 @@ export default {
 export const Default = () => {
   const [file, setFile] = useFileChange(null);
   const [files, , , appendFile] = useFileChange(null);
-  return <ImageList selectFile={file} setFile={setFile} files={files} appendFile={appendFile} />;
+  return <ImageList selectedFile={file} setFile={setFile} files={files} appendFile={appendFile} />;
 };

@@ -3,4 +3,4 @@ interface RegionType {
   name: string;
 }
 
-export { RegionType };
+export type { RegionType };

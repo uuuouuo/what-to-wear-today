@@ -8,5 +8,9 @@ export default {
 };
 
 export const Default = () => {
-  return <MainContainer />;
+  return (
+    <MainContainer>
+      <span>하윙!</span>
+    </MainContainer>
+  );
 };

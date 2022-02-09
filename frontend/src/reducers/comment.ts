@@ -3,16 +3,16 @@ import {
   LOAD_COMMENTS_SUCCESS,
   LOAD_COMMENTS_FAILURE,
 } from 'action/commentAction';
+import { StateType } from '@/types/comment';
 
-// todo: type 설정 필요
-export const initialState = {
+export const initialState: StateType = {
   comments: [],
   loadCommentsLoading: false,
   loadCommentsDone: false,
   loadCommentsError: null,
 };
 
-const reducer = (state = initialState, action) => {
+const reducer = (state = initialState, action: any) => {
   switch (action.type) {
     case LOAD_COMMENTS_REQUEST:
       return {

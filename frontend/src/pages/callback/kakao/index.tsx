@@ -7,13 +7,14 @@ import { Modal } from '@/components/molecules';
 import { UserType } from 'types/user';
 import { useDisplay } from 'hooks';
 import { useSelector } from 'react-redux';
+import type { RootState } from '@/reducers';
 
 interface Props {
   code: string | string[] | undefined;
 }
 
 const Kakao: NextPage<Props> = ({ code }) => {
-  const { myInfo } = useSelector((state) => state.user);
+  const { myInfo } = useSelector((state: RootState) => state.user);
   const [open, , openModal, closeModal] = useDisplay(false);
   useEffect(() => {
     if (myInfo) setTimeout(() => Router.push('/'), 3000);
