@@ -19,7 +19,7 @@ import DrawerMenu from '@/components/Drawer_menu/Drawer_menu';
 
 const User: NextPage = () => {
   const router = useRouter();
-  const { index } = router.query;
+  const { userId } = router.query;
 
   const [startDate, setStartDate] = useState<Date | null>();
   const [endDate, setEndDate] = useState<Date | null>();
@@ -66,7 +66,7 @@ const User: NextPage = () => {
   ];
 
   const modifyProfile = () => {
-    console.log(index);
+    console.log(userId);
   };
   const searchFeed = () => {
     console.log('search');
@@ -81,13 +81,13 @@ const User: NextPage = () => {
   return (
     <Styled.MainContainer>
       <Title value="Profile" />
-      <DrawerMenu userId={index} />
+      <DrawerMenu userId={userId} />
       <Styled.ProfileContainer>
         <Avatar src={'/images/icon/blank_user.png'} sx={{ width: 100, height: 100 }} />
         <Styled.columnContainer>
           <Styled.rowContainer>
             <Label>보노보노</Label>
-            {Number(index) === 1 ? (
+            {Number(userId) === 1 ? (
               <Button onClick={modifyProfile}>
                 <SettingsIcon />
               </Button>
