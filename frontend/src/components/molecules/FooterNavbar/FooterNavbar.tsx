@@ -15,7 +15,7 @@ const FooterNavbar = () => {
   const [value, setValue] = React.useState(100);
 
   useEffect(() => {
-    if (current === 'feed') {
+    if (current === '') {
       setValue(0);
     } else if (current === 'srarch') {
       setValue(1);
