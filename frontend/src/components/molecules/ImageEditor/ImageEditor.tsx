@@ -15,29 +15,30 @@ const ImageEditor: FunctionComponent<Props> = ({ className, file }) => {
   };
 
   return (
-    <TuiImageEditor
-      includeUI={{
-        loadImage: {
-          path: file,
-          name: 'SampleImage',
-        },
-        theme: myTheme,
-        menu: ['shape', 'filter'],
-        initMenu: 'filter',
-        uiSize: {
-          width: '1000px',
-          height: '700px',
-        },
-        menuBarPosition: 'bottom',
-      }}
-      cssMaxHeight={document.documentElement.clientWidth}
-      cssMaxWidth={document.documentElement.clientHeight}
-      selectionStyle={{
-        cornerSize: 50,
-        rotatingPointOffset: 100,
-      }}
-      usageStatistics={true}
-    />
+    // <TuiImageEditor
+    //   includeUI={{
+    //     loadImage: {
+    //       path: file,
+    //       name: 'SampleImage',
+    //     },
+    //     theme: myTheme,
+    //     menu: ['shape', 'filter'],
+    //     initMenu: 'filter',
+    //     uiSize: {
+    //       width: '1000px',
+    //       height: '700px',
+    //     },
+    //     menuBarPosition: 'bottom',
+    //   }}
+    //   cssMaxHeight={document.documentElement.clientWidth}
+    //   cssMaxWidth={document.documentElement.clientHeight}
+    //   selectionStyle={{
+    //     cornerSize: 50,
+    //     rotatingPointOffset: 100,
+    //   }}
+    //   usageStatistics={true}
+    // />
+    <div>dd</div>
   );
 };
 export default ImageEditor;
