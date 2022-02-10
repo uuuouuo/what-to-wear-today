@@ -22,18 +22,19 @@ import {
 } from '@/components/atoms';
 
 interface Props {
-  data: number | undefined;
+  feedNo: number | undefined;
 }
 
-const FeedDetail: NextPage<Props> = ({ data }) => {
+const FeedDetail: NextPage<Props> = ({ feedNo }) => {
   const dispatch = useDispatch();
   const { feed } = useSelector((state: RootState) => state.feed);
   useEffect(() => {
     dispatch({
       type: LOAD_FEED_REQUEST,
-      feedNo: { data },
+      feedNo: { feedNo },
     });
   }, []);
+  console.log(feed);
 
   return (
     <Styled.DetailPageLayout>
@@ -56,7 +57,7 @@ const FeedDetail: NextPage<Props> = ({ data }) => {
         </Styled.ArticleArea>
 
         <Styled.ArticleContent>
-          <ArticleContent value={'feed'} />
+          <ArticleContent value={'d'} />
           <HashTag value={['article.hashTag']} />
           <Styled.DateLine>
             <ArticleDate value={'article.date'} />

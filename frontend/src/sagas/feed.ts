@@ -13,7 +13,8 @@ function loadFeedAPI(feedNo: number): Promise<AxiosResponse<FeedType>> {
 
 function* loadFeed(action: any) {
   try {
-    const result: Promise<AxiosResponse<FeedType>> = yield call(loadFeedAPI, action.feedNo);
+    const result: Promise<AxiosResponse<FeedType>> = yield call(loadFeedAPI, action.feedNo.feedNo);
+    console.log(result);
     yield put({
       type: LOAD_FEED_SUCCESS,
       data: result,

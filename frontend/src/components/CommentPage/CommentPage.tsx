@@ -10,7 +10,7 @@ import Typography from '@mui/material/Typography';
 import SendIcon from '@mui/icons-material/Send';
 import { UserImage } from '@/components/atoms/';
 import { useDispatch, useSelector } from 'react-redux';
-import { LOAD_COMMENTS_REQUEST } from '@/action/commentAction';
+import { LOAD_COMMENTS_REQUEST } from 'action/commentAction';
 import { CommentType } from '@/types/comment';
 
 const action = () => {
@@ -20,10 +20,11 @@ const action = () => {
 const CommentPage = () => {
   const dispatch = useDispatch();
   const { comments } = useSelector((state: RootState) => state.comment);
+
   useEffect(() => {
     dispatch({
       type: LOAD_COMMENTS_REQUEST,
-      feedNo: 1,
+      feedNo: 3548,
     });
   }, []);
 

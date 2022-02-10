@@ -7,7 +7,7 @@ interface Props {
 }
 
 const FeedDetail: NextPage<Props> = ({ data }) => {
-  return <FeedDetailTemplate data={data}></FeedDetailTemplate>;
+  return <FeedDetailTemplate feedNo={data}></FeedDetailTemplate>;
 };
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
