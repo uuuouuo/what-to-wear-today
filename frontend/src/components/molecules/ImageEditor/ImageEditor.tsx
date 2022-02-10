@@ -15,10 +15,7 @@ const ImageEditor: FunctionComponent<Props> = ({ className, file }) => {
   };
 
   return (
-<<<<<<< HEAD
-=======
     <></>
->>>>>>> 78d02284670944daf3452964dd84f187d6fdd98e
     // <TuiImageEditor
     //   includeUI={{
     //     loadImage: {
@@ -42,10 +39,6 @@ const ImageEditor: FunctionComponent<Props> = ({ className, file }) => {
     //   }}
     //   usageStatistics={true}
     // />
-<<<<<<< HEAD
-    <div>dd</div>
-=======
->>>>>>> 78d02284670944daf3452964dd84f187d6fdd98e
   );
 };
 export default ImageEditor;
