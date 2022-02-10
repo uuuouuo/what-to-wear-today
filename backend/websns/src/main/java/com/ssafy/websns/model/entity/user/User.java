@@ -4,13 +4,14 @@ import io.swagger.annotations.ApiModel;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @Entity
-@Getter @Setter
+@Getter
 @NoArgsConstructor
+@AllArgsConstructor
 @ApiModel(value = "회원 정보", description = "회원의 상세 정보를 나타냅니다.")
 public class User {
 
@@ -18,7 +19,7 @@ public class User {
   @Column(name = "USER_NO")
   private String no;
 
-  private String id;
+  private String userId;
 
   private Integer platform;
 
