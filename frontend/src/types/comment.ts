@@ -7,4 +7,11 @@ interface CommentType {
   parent: number;
 }
 
-export type { CommentType };
+interface StateType {
+  comments: CommentType[];
+  loadCommentsLoading: boolean;
+  loadCommentsDone: boolean;
+  loadCommentsError: Error | null;
+}
+
+export type { CommentType, StateType };

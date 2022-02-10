@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Styled from './CommentPage.styled';
+import type { RootState } from '@/reducers';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import Divider from '@mui/material/Divider';
@@ -10,6 +11,7 @@ import SendIcon from '@mui/icons-material/Send';
 import { UserImage } from '@/components/atoms/';
 import { useDispatch, useSelector } from 'react-redux';
 import { LOAD_COMMENTS_REQUEST } from '@/action/commentAction';
+import { CommentType } from '@/types/comment';
 
 const action = () => {
   console.log('action에 넣을 함수');
@@ -17,7 +19,7 @@ const action = () => {
 
 const CommentPage = () => {
   const dispatch = useDispatch();
-  const { comments } = useSelector((state) => state.comment);
+  const { comments } = useSelector((state: RootState) => state.comment);
   useEffect(() => {
     dispatch({
       type: LOAD_COMMENTS_REQUEST,
@@ -34,17 +36,17 @@ const CommentPage = () => {
   return (
     <Styled.CommentPageLayout>
       <Styled.WriteArea>
-        <UserImage userId={1} />
+        <UserImage />
         <Styled.Input placeholder="댓글 달기..." value={text} onChange={inputValue} />
         <Styled.Button children={<SendIcon />} type="submit" onClick={action} />
       </Styled.WriteArea>
       <React.Fragment>
-        {comments.map((comment) => (
+        {comments.map((comment: CommentType) => (
           <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
             <ListItem alignItems="flex-start">
               <ListItemAvatar>
                 {/* 유저 이미지 */}
-                <UserImage userId={1} />
+                <UserImage />
               </ListItemAvatar>
               <ListItemText
                 // 유저 아이디 부분

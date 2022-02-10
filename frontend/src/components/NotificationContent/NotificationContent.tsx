@@ -42,7 +42,7 @@ const NotificationContent = () => {
             >
               <Styled.Notification key={idx}>
                 <Styled.UserImageContainer>
-                  <UserImage userId={1} />
+                  <UserImage />
                 </Styled.UserImageContainer>
                 <Styled.ContentContainer>
                   <div>

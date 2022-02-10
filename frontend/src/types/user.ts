@@ -7,4 +7,11 @@ interface UserType {
   gender: boolean | undefined;
 }
 
-export type { UserType };
+interface StateType {
+  myInfo: UserType;
+  kakaoLoginLoading: boolean;
+  kakaoLoginDone: boolean;
+  kakaoLoginError: Error | null;
+}
+
+export type { UserType, StateType };

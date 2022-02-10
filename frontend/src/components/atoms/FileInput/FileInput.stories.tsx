@@ -9,6 +9,6 @@ export default {
 };
 
 export const Default = () => {
-  const [, , onchangeValue] = useFileChange(null);
+  const [file, , onchangeValue] = useFileChange(null);
   return <FileInput onChange={onchangeValue} />;
 };

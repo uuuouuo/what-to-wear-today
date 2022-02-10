@@ -11,7 +11,7 @@ function kakaoLoginAPI(code: string) {
   return api.post(`/user/kakao/${code}`);
 }
 
-function* kakaoLogin(action) {
+function* kakaoLogin(action: any) {
   try {
     // const result = yield call(kakaoLoginAPI, action.code);
 
@@ -22,9 +22,9 @@ function* kakaoLogin(action) {
 
     yield put({
       type: KAKAO_LOGIN_FAILURE,
-      error: err.response,
+      error: 'error',
     });
-  } catch (err) {
+  } catch (err: any) {
     yield put({
       type: KAKAO_LOGIN_FAILURE,
       error: err.response,

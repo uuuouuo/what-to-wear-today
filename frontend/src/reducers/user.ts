@@ -1,14 +1,15 @@
 import { KAKAO_LOGIN_REQUEST, KAKAO_LOGIN_SUCCESS, KAKAO_LOGIN_FAILURE } from '@/action/userAction';
+import { StateType } from '@/types/user';
 
 // type 설정 필요
-export const initialState = {
+export const initialState: StateType = {
   myInfo: null,
   kakaoLoginLoading: false,
   kakaoLoginDone: false,
   kakaoLoginError: null,
 };
 
-const reducer = (state = initialState, action) => {
+const reducer = (state = initialState, action: any) => {
   switch (action.type) {
     case KAKAO_LOGIN_REQUEST:
       return {

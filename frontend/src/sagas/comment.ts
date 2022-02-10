@@ -7,22 +7,26 @@ import {
   LOAD_COMMENTS_SUCCESS,
   LOAD_COMMENTS_FAILURE,
 } from '@/action/commentAction';
+import { CommentType } from '@/types/comment';
 
 const api = apiInstance();
 
-function loadCommentsAPI(feedNo: number) {
+function loadCommentsAPI(feedNo: number): Promise<AxiosResponse<CommentType[]>> {
   return api.get(`/comment/${feedNo}`);
 }
 
 // todo: type 설정 필요
-function* loadComments(action) {
+function* loadComments(action: any) {
   try {
-    const result = yield call(loadCommentsAPI, action.feedNo);
+    const result: Promise<AxiosResponse<CommentType[]>> = yield call(
+      loadCommentsAPI,
+      action.feedNo,
+    );
     yield put({
       type: LOAD_COMMENTS_SUCCESS,
-      data: result.data,
+      data: result,
     });
-  } catch (err) {
+  } catch (err: any) {
     yield put({
       type: LOAD_COMMENTS_FAILURE,
       error: err.response,

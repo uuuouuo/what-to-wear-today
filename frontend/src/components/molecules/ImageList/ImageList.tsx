@@ -11,7 +11,7 @@ interface Props {
   files: File[] | null;
   selectedFile: File[] | null;
   setFile: React.Dispatch<React.SetStateAction<File[] | null>>;
-  appendFile: (e: React.ChangeEvent) => void;
+  appendFile: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 const FileList: FunctionComponent<Props> = ({
@@ -21,8 +21,8 @@ const FileList: FunctionComponent<Props> = ({
   setFile,
   appendFile,
 }) => {
-  const handleImage = (e: React.MouseEvent) => {
-    const idx: number = e.target.dataset.idx;
+  const handleImage = (e: React.MouseEvent<HTMLInputElement>) => {
+    const idx: number = 0;
     if (files && files[idx]) {
       setFile([files[idx]]);
     }

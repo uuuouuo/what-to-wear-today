@@ -13,7 +13,7 @@ import { useChange, useFileChange } from '@/hooks';
 
 const Signup: NextPage = () => {
   const [value, , onChange] = useChange<HTMLInputElement>('');
-  const [profileImg, , profileImgChange] = useFileChange<HTMLInputElement>(null);
+  const [profileImg, , profileImgChange] = useFileChange(null);
 
   const nextFunction = useCallback(() => {
     Router.push('/interest');

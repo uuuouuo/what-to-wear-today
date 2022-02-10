@@ -15,7 +15,7 @@ const SetRegion: NextPage = () => {
   const [value, setValue, onChange] = useChange<HTMLInputElement>('');
   const [regionList, setRegionList] = useState([]);
 
-  const handleDelete = (event, idx: number) => {
+  const handleDelete = (event: React.MouseEvent, idx: number) => {
     const newRegionList = regionList.filter((el, i) => {
       return idx !== i;
     });
@@ -47,7 +47,7 @@ const SetRegion: NextPage = () => {
                 key={idx}
                 label={region}
                 variant="outlined"
-                onDelete={(e) => handleDelete(e, idx)}
+                onDelete={(e: React.MouseEvent) => handleDelete(e, idx)}
               />
             );
           })}

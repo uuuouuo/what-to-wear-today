@@ -102,7 +102,7 @@ const FeedContent = () => {
   };
 
   const moveProfile = (e: React.MouseEvent) => {
-    Router.push(`/user/${e.target.dataset.userId}`);
+    Router.push(`/user/1`);
   };
 
   return (
