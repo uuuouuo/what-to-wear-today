@@ -10,10 +10,6 @@ const Home: NextPage = () => {
       navigator.geolocation.getCurrentPosition((position: any) => {
         const latitude: number = position.coords.latitude;
         const longitude: number = position.coords.longitude;
-        console.log(position.coords.latitude);
-        console.log(position.coords.longitude);
-        // 위도 경도 리턴값
-        // latitude, longitude
       });
     }
   });
