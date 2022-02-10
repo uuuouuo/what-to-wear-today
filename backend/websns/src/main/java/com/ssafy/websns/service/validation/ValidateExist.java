@@ -4,6 +4,7 @@ import com.ssafy.websns.model.dto.feed.CommentDto.CommentRes;
 import com.ssafy.websns.model.entity.feed.Comment;
 import com.ssafy.websns.model.entity.feed.Feed;
 import com.ssafy.websns.model.entity.feed.Image;
+import com.ssafy.websns.model.entity.user.User;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -74,5 +75,13 @@ public class ValidateExist {
     return images;
 
   }
-
+  public User findUser(Optional<User> optional) {
+    User user;
+    if (optional.isPresent()) {
+      user = optional.get();
+    } else {
+      throw new IllegalStateException("존재하지 않은 댓글입니다.");
+    }
+    return user;
+  }
 }

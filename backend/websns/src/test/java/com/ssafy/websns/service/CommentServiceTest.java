@@ -49,7 +49,7 @@ public class CommentServiceTest {
     String photoDateString = LocalDateTime.now().format(formatter);
     LocalDateTime photoDate = LocalDateTime.parse(photoDateString, formatter);
 
-    User user = new User("a123412341234", "jdb4497@nate.com", 1, "20 - 30", true, false);
+    User user = new User("a12341234123", "jdb4497@gmail.com", "12341234", "kakao", "20 - 30", true, false);
     userRepository.save(user);
     em.flush();
     em.clear();
