@@ -13,7 +13,6 @@ import com.ssafy.websns.repository.user.UserRepository;
 import com.ssafy.websns.service.validation.ValidateExist;
 import java.util.List;
 import java.util.Optional;
-import javax.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,12 +28,6 @@ public class CommentService {
 
   private ValidateExist validateExist = new ValidateExist();
 
-//  private CommentService(CommentRepository commentRepository, FeedRepository feedRepository, UserRepository userRepository){
-//    this.commentRepository = commentRepository;
-//    this.feedRepository = feedRepository;
-//    this.userRepository = userRepository;
-//  }
-
   @Transactional
   public CommentRes postComment(Integer feedNo, CreateReq request) {
 
@@ -43,7 +36,7 @@ public class CommentService {
     Optional<Feed> feedOptional = feedRepository.findByNo(feedNo);
 
     User user = userRepository.findByUserId(request.getUserId());
-    Feed feed = validateExist.findFeedByNo(feedOptional);
+    Feed feed = validateExist.findFeed(feedOptional);
 
     Integer parentNo = request.getParent();
     Comment parentComment = null;
@@ -94,9 +87,19 @@ public class CommentService {
   public List<CommentRes> searchComments(Integer feedNo) {
 
     Optional<Feed> optional = feedRepository.findByNo(feedNo);
-    Feed feed = validateExist.findFeedByNo(optional);
+    Feed feed = validateExist.findFeed(optional);
     
     Optional<List<Comment>> commentOptional = commentRepository.findByFeedAndDeleteModeIsFalse(feed);
+    List<CommentRes> comments = validateExist.findComments(commentOptional);
+
+    return comments;
+
+  }
+
+  public List<CommentRes> showCommentsById(String userId) {
+
+    Optional<List<Comment>> commentOptional = commentRepository.findByUser(userId);
+    userRepository.findByUserId()
     List<CommentRes> comments = validateExist.findComments(commentOptional);
 
     return comments;

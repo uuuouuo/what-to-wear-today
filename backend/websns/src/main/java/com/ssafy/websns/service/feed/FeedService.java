@@ -48,15 +48,6 @@ public class FeedService {
 
   private ValidateExist validateExist = new ValidateExist();
 
-//  private FeedService(FeedRepository feedRepository,ImageRepository imageRepository, RegionRepository regionRepository,
-//      UserRepository userRepository, TagListRepository tagListRepository){
-//    this.feedRepository = feedRepository;
-//    this.imageRepository = imageRepository;
-//    this.regionRepository = regionRepository;
-//    this.tagListRepository = tagListRepository;
-//    this.userRepository = userRepository;
-//  }
-
   @Transactional
   public FeedRes postFeed(CreateReq request) {
 
@@ -134,7 +125,7 @@ public class FeedService {
     Optional<Feed> optional = feedRepository.findByNo(feedNo);
 
     // 피드 정보 찾기
-    Feed feed = validateExist.findFeedByNo(optional);
+    Feed feed = validateExist.findFeed(optional);
     // 피드에 수정된 지역 정보 찾기
     Region region = regionRepository.findByRegionNameContaining(request.getRegion()).get(0);
 
@@ -210,7 +201,7 @@ public class FeedService {
   public void cancelFeed(Integer feedNo) {
 
     Optional<Feed> optional = feedRepository.findByNo(feedNo);
-    Feed feed = validateExist.findFeedByNo(optional);
+    Feed feed = validateExist.findFeed(optional);
 
     feed.deleteFeed();
   }
@@ -236,7 +227,7 @@ public class FeedService {
 
   }
 
-//  public List<FeedRes> showFeeds(Integer regionNo) {
+//  public List<FeedRes> showFeedsByRegion(Integer regionNo) {
 //
 //    Optional<List<Feed>> optional = feedRepository.findAllByRegion(regionNo);
 //    List<Feed> feeds = validateExist.findFeeds(feeds);
@@ -257,7 +248,7 @@ public class FeedService {
 //
 //  }
 
-  public List<FeedRes> showFeedsWithPage(Integer regionNo, Pageable pageable) {
+  public List<FeedRes> showFeedsByRegion(Integer regionNo, Pageable pageable) {
 
     Page<Feed> feeds = feedRepository.findAllByRegion(regionNo, pageable);
 
@@ -270,10 +261,10 @@ public class FeedService {
       List<CreateImage> resImages = validateExist.findImages(imagesOptional).stream()
           .map(CreateImage::new).collect(Collectors.toList());
 
-      Optional<List<FeedTag>> allByFeed = feedTagRepository.findAllByFeed(feed);
+      Optional<List<FeedTag>> tagOptional = feedTagRepository.findAllByFeed(feed);
       List<String> resTags = null;
-      if (allByFeed.isPresent()) {
-        resTags = allByFeed.get().stream().map(tag -> tag.getTagNo().getTagName())
+      if (tagOptional.isPresent()) {
+        resTags = tagOptional.get().stream().map(tag -> tag.getTagNo().getTagName())
             .collect(Collectors.toList());
       }
 
@@ -288,7 +279,7 @@ public class FeedService {
 
   }
 
-  public FeedRes showFeed(Integer feedNo) {
+  public FeedRes searchFeedByNo(Integer feedNo) {
 
     Optional<Feed> feedOp = feedRepository.findByNo(feedNo);
 
@@ -313,5 +304,34 @@ public class FeedService {
 
 
   }
+
+  public List<FeedRes> showFeedsById(String userId) {
+
+    Optional<List<Feed>> feedOptional = feedRepository.findByUser(userId);
+    List<Feed> feeds = validateExist.findFeeds(feedOptional);
+
+    List<FeedRes> response = new ArrayList<>();
+
+    feeds.stream().forEach(feed -> {
+    Optional<List<Image>> imagesOptional = imageRepository.findByFeed(feed);
+    List<CreateImage> resImages = validateExist.findImages(imagesOptional).stream()
+        .map(CreateImage::new).collect(Collectors.toList());
+
+    Optional<List<FeedTag>> allByFeed = feedTagRepository.findAllByFeed(feed);
+    List<String> resTags = null;
+    if (allByFeed.isPresent()) {
+      resTags = allByFeed.get().stream().map(tag -> tag.getTagNo().getTagName())
+          .collect(Collectors.toList());
+    }
+
+    FeedRes feedRes = new FeedRes(feed, resImages, resTags);
+    response.add(feedRes);
+
+    });
+    
+    return response;
+
+  }
+
 }
 

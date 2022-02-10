@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 
 public class ValidateExist {
 
-  public Feed findFeedByNo(Optional<Feed> optional) {
+  public Feed findFeed(Optional<Feed> optional) {
 
     Feed feed = new Feed();
 

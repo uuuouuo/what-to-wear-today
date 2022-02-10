@@ -26,7 +26,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
@@ -69,9 +68,9 @@ public class FeedController {
   }
 
   @GetMapping("/{regionNo}")
-  public ResponseEntity<Page<FeedRes>> showFeeds(@PathVariable("regionNo")Integer regionNo, @PageableDefault(size = 20) Pageable pageable) {
+  public ResponseEntity<Page<FeedRes>> findFeedsByRegion(@PathVariable("regionNo")Integer regionNo, @PageableDefault(size = 20) Pageable pageable) {
 
-    List<FeedRes> feeds = feedService.showFeedsWithPage(regionNo, pageable);
+    List<FeedRes> feeds = feedService.showFeedsByRegion(regionNo, pageable);
     Page<FeedRes> pageRes = new PageImpl<>(feeds, pageable, feeds.size());
 
     return new ResponseEntity<>(pageRes,HttpStatus.OK);
@@ -79,9 +78,9 @@ public class FeedController {
   }
 
   @GetMapping("/details/{feedNo}")
-  public ResponseEntity<FeedDetails> showFeed(@PathVariable("feedNo")Integer feedNo) {
+  public ResponseEntity<FeedDetails> findFeed(@PathVariable("feedNo")Integer feedNo) {
 
-    FeedRes feed = feedService.showFeed(feedNo);
+    FeedRes feed = feedService.searchFeedByNo(feedNo);
     List<CommentRes> comments = commentService.searchComments(feedNo);
 
     FeedDetails feedDetails = new FeedDetails(feed,comments);

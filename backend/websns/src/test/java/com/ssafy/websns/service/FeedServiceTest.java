@@ -43,8 +43,7 @@
 //
 //  @Autowired
 //  EntityManager em;
-////  @Autowired
-////  imageRepository imageRepository;
+
 //
 ////  @Test
 ////  void 피드생성확인() throws Exception {
