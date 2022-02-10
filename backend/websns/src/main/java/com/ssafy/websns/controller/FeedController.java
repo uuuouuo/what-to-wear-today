@@ -2,6 +2,7 @@ package com.ssafy.websns.controller;
 
 import com.ssafy.websns.model.dto.feed.CommentDto.CommentRes;
 import com.ssafy.websns.model.dto.feed.FeedDto.CreateReq;
+import com.ssafy.websns.model.dto.feed.FeedDto.FeedReq;
 import com.ssafy.websns.model.dto.feed.FeedDto.FeedRes;
 import com.ssafy.websns.model.dto.feed.FeedDto.UpdateReq;
 import com.ssafy.websns.model.dto.feed.FeedDto.UpdateRes;
@@ -15,6 +16,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -24,7 +26,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequestMapping("/feed")
@@ -35,10 +40,14 @@ public class FeedController {
   private final FeedService feedService;
   private final CommentService commentService;
 
-  @PostMapping
-  public ResponseEntity<FeedRes> createFeed(@RequestBody CreateReq request){
+  @PostMapping(consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
+  public ResponseEntity<FeedRes> createFeed(
+      @RequestPart(value="request") FeedReq request,
+      @RequestPart(value="imageNames")List<MultipartFile> images){
 
-    FeedRes response = feedService.postFeed(request);
+    CreateReq createReq = new CreateReq(request,images);
+
+    FeedRes response = feedService.postFeed(createReq);
     return new ResponseEntity<>(response, HttpStatus.OK);
 
   }

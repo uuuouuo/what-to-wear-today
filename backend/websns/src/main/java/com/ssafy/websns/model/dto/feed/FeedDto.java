@@ -7,8 +7,35 @@ import java.util.List;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.web.multipart.MultipartFile;
 
 public class FeedDto {
+
+  @Getter
+  @NoArgsConstructor(access = AccessLevel.PROTECTED)
+  public static class FeedReq {
+
+    private String userId;
+    private String content;
+    private String region;
+    private String weather;
+    private String photoDate;
+    private Boolean privateMode;
+    private Boolean deleteMode;
+    private List<String> tags;
+
+    public FeedReq(String userId, String content, String region, String weather,
+        String photoDate, Boolean privateMode, Boolean deleteMode, List<String> tags) {
+      this.userId = userId;
+      this.content = content;
+      this.region = region;
+      this.weather = weather;
+      this.photoDate = photoDate;
+      this.privateMode = privateMode;
+      this.deleteMode = deleteMode;
+      this.tags = tags;
+    }
+  }
 
   @Getter
   @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -21,12 +48,25 @@ public class FeedDto {
     private String photoDate;
     private Boolean privateMode;
     private Boolean deleteMode;
-    private List<String> imageNames;
     private List<String> tags;
+    private List<MultipartFile> imageNames;
 
+    public CreateReq(FeedReq feedReq,List<MultipartFile> images){
+
+      this.userId = feedReq.getUserId();
+      this.content = feedReq.getContent();
+      this.region = feedReq.getRegion();
+      this.weather = feedReq.getWeather();
+      this.photoDate = feedReq.getPhotoDate();
+      this.privateMode = feedReq.getPrivateMode();
+      this.deleteMode = feedReq.getDeleteMode();
+      this.tags = feedReq.getTags();
+      this.imageNames = images;
+
+    }
 
     public CreateReq(String userId, String content, String region, String weather,
-        String photoDate, Boolean privateMode, Boolean deleteMode, List<String> imageNames, List<String> tags) {
+        String photoDate, Boolean privateMode, Boolean deleteMode, List<MultipartFile> imageNames, List<String> tags) {
       this.userId = userId;
       this.content = content;
       this.region = region;
@@ -39,7 +79,7 @@ public class FeedDto {
     }
 
     public CreateReq(String userId, String content, String region, String weather,
-        String photoDate, Boolean privateMode, Boolean deleteMode, List<String> imageNames) {
+        String photoDate, Boolean privateMode, Boolean deleteMode, List<MultipartFile> imageNames) {
       this.userId = userId;
       this.content = content;
       this.region = region;
@@ -98,11 +138,11 @@ public class FeedDto {
     private String weather;
     private String photoDate;
     private Boolean privateMode;
-    private List<String> imageNames;
+    private List<MultipartFile> imageNames;
     private List<String> tags;
 
     public UpdateReq(String content, String region, String weather,
-        String photoDate, Boolean privateMode, List<String> imageNames, List<String> tags) {
+        String photoDate, Boolean privateMode, List<MultipartFile> imageNames, List<String> tags) {
       this.content = content;
       this.region = region;
       this.weather = weather;

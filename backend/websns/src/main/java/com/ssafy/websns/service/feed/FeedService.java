@@ -18,7 +18,10 @@ import com.ssafy.websns.repository.feed.TagRepository;
 import com.ssafy.websns.repository.region.RegionRepository;
 import com.ssafy.websns.repository.user.UserRepository;
 import com.ssafy.websns.service.validation.ValidateExist;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -28,6 +31,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 @Service
 @Transactional(readOnly = true)
@@ -66,29 +70,51 @@ public class FeedService {
 
     Feed savedFeed = feedRepository.save(feed);
 
-    List<Image> imageNames = request.getImageNames().stream()
-        .map(image -> new Image(image, feed))
-        .collect(Collectors.toList());
+    List<MultipartFile> imageNames = request.getImageNames();
 
-    List<Image> savedImages = imageRepository.saveAll(imageNames);
+    Date date = new Date();
+    StringBuilder sb = new StringBuilder();
+
+    List<Image> imageList = new ArrayList<>();
+
+    // file image 가 없을 경우
+    if (!imageNames.isEmpty()) {
+      for (MultipartFile imageName : imageNames) {
+        sb.append(date.getTime());
+        sb.append(imageName.getOriginalFilename());
+        String fileName = "C://images/feed/" + sb.toString();
+        File dest = new File(fileName);
+        try {
+          imageName.transferTo(dest);
+          imageList.add(new Image(fileName, feed));
+        } catch (IllegalStateException e) {
+          e.printStackTrace();
+        } catch (IOException e) {
+          e.printStackTrace();
+        }
+      }
+    }
+
+//    List<Image> imageNames = request.getImageNames().stream()
+//        .map(image -> new Image(image, feed))
+//        .collect(Collectors.toList());
+//
+    List<Image> savedImages = imageRepository.saveAll(imageList);
 
     List<String> feedTags = request.getTags();
     List<FeedTag> tags = new ArrayList<>();
 
     feedTags.stream().forEach(tag -> {
       Optional<Tag> byTagName = tagRepository.findByTagName(tag);
-      if(byTagName.isEmpty()){
+      if (byTagName.isEmpty()) {
         Tag saveTag = tagRepository.save(new Tag(tag));
         FeedTag save = feedTagRepository.save(new FeedTag(savedFeed, saveTag));
         tags.add(save);
-      }
-      else{
+      } else {
         FeedTag save = feedTagRepository.save(new FeedTag(savedFeed, byTagName.get()));
         tags.add(save);
       }
     });
-
-
 
     List<CreateImage> resImages = savedImages.stream()
         .map(CreateImage::new).collect(Collectors.toList());
@@ -96,7 +122,7 @@ public class FeedService {
     List<String> resTags = tags.stream().map(tag -> tag.getTagNo().getTagName())
         .collect(Collectors.toList());
 
-    FeedRes response = new FeedRes(feed, resImages,resTags);
+    FeedRes response = new FeedRes(feed, resImages, resTags);
 
     return response;
 
@@ -121,23 +147,47 @@ public class FeedService {
     feedTagRepository.deleteFeedTagByFeed(feed);
 
     // 수정된 이미지 이름 리스트
-    List<Image> imageNames = request.getImageNames().stream().
-        map(image -> new Image(image, feed)).collect(Collectors.toList());
+//    List<Image> imageNames = request.getImageNames().stream().
+//        map(image -> new Image(image, feed)).collect(Collectors.toList());
+
+    List<MultipartFile> imageNames = request.getImageNames();
+
+    Date date = new Date();
+    StringBuilder sb = new StringBuilder();
+
+    List<Image> imageList = new ArrayList<>();
+
+    // file image 가 없을 경우
+    if (!imageNames.isEmpty()) {
+      for (MultipartFile imageName : imageNames) {
+        sb.append(date.getTime());
+        sb.append(imageName.getOriginalFilename());
+        String fileName = "C://images/feed/" + sb.toString();
+        File dest = new File(fileName);
+        try {
+          imageName.transferTo(dest);
+          imageList.add(new Image(fileName, feed));
+        } catch (IllegalStateException e) {
+          e.printStackTrace();
+        } catch (IOException e) {
+          e.printStackTrace();
+        }
+      }
+    }
 
     // 수정된 이미지 저장
-    List<Image> savedImages = imageRepository.saveAll(imageNames);
+    List<Image> savedImages = imageRepository.saveAll(imageList);
 
     List<String> feedTags = request.getTags();
     List<FeedTag> tags = new ArrayList<>();
 
     feedTags.stream().forEach(tag -> {
       Optional<Tag> byTagName = tagRepository.findByTagName(tag);
-      if(byTagName.isEmpty()){
+      if (byTagName.isEmpty()) {
         Tag saveTag = tagRepository.save(new Tag(tag));
         FeedTag save = feedTagRepository.save(new FeedTag(feed, saveTag));
         tags.add(save);
-      }
-      else{
+      } else {
         FeedTag save = feedTagRepository.save(new FeedTag(feed, byTagName.get()));
         tags.add(save);
       }
@@ -150,7 +200,7 @@ public class FeedService {
         .collect(Collectors.toList());
 
     // response DTO 에 담기
-    UpdateRes response = new UpdateRes(feed, resImages,resTags);
+    UpdateRes response = new UpdateRes(feed, resImages, resTags);
 
     return response;
 
@@ -176,8 +226,6 @@ public class FeedService {
       Optional<List<Image>> optional = imageRepository.findByFeed(feed);
       List<CreateImage> resImages = validateExist.findImages(optional).stream()
           .map(CreateImage::new).collect(Collectors.toList());
-
-
 
       FeedRes feedRes = new FeedRes(feed, resImages);
 
@@ -211,7 +259,7 @@ public class FeedService {
 
   public List<FeedRes> showFeedsWithPage(Integer regionNo, Pageable pageable) {
 
-    Page<Feed> feeds = feedRepository.findAllByRegion(regionNo,pageable);
+    Page<Feed> feeds = feedRepository.findAllByRegion(regionNo, pageable);
 
     List<FeedRes> response = new ArrayList<>();
 
@@ -224,7 +272,7 @@ public class FeedService {
 
       Optional<List<FeedTag>> allByFeed = feedTagRepository.findAllByFeed(feed);
       List<String> resTags = null;
-      if(allByFeed.isPresent()){
+      if (allByFeed.isPresent()) {
         resTags = allByFeed.get().stream().map(tag -> tag.getTagNo().getTagName())
             .collect(Collectors.toList());
       }
@@ -245,7 +293,7 @@ public class FeedService {
     Optional<Feed> feedOp = feedRepository.findByNo(feedNo);
 
     Feed feed = null;
-    if(feedOp.isPresent()){
+    if (feedOp.isPresent()) {
       feed = feedOp.get();
     }
     Optional<List<Image>> imagesOptional = imageRepository.findByFeed(feed);
@@ -254,7 +302,7 @@ public class FeedService {
 
     Optional<List<FeedTag>> allByFeed = feedTagRepository.findAllByFeed(feed);
     List<String> resTags = null;
-    if(allByFeed.isPresent()){
+    if (allByFeed.isPresent()) {
       resTags = allByFeed.get().stream().map(tag -> tag.getTagNo().getTagName())
           .collect(Collectors.toList());
     }
