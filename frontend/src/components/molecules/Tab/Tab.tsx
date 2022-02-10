@@ -23,9 +23,9 @@ const Tab: FunctionComponent<Props> = ({ tabList }) => {
 
   return (
     <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-      <Tabs value={value} onChange={handleChange} aria-label="basic tabs example" centered>
+      <Tabs value={value} centered onChange={handleChange} aria-label="basic tabs example">
         {tabList.map((tab, idx) => (
-          <TabItem label={tab} {...a11yProps(idx)} />
+          <TabItem label={tab} {...a11yProps(idx)} key={idx} />
         ))}
       </Tabs>
     </Box>

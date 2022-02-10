@@ -31,8 +31,8 @@ const FeedRegion: FunctionComponent = () => {
           type: 'custom',
         }}
       >
-        {interestRegions.map((region) => (
-          <SwiperSlide>
+        {interestRegions.map((region, idx) => (
+          <SwiperSlide key={idx}>
             <Styled.SwiperSlideContainer>
               <Text value={region.name} />
               <Styled.WeatherArea>
