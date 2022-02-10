@@ -23,7 +23,9 @@ const SetRegion: NextPage = () => {
   };
 
   const addRegion = () => {
-    setRegionList([...regionList, value]);
+    if (value.trim()) {
+      setRegionList([...regionList, value]);
+    }
     setValue('');
   };
 
