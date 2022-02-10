@@ -62,6 +62,8 @@ public class CommentServiceTest {
     Comment comment2 = new Comment(user, feed, null, "ㅇㅈ", false, false);
     commentRepository.save(comment2);
 
+    String l = String.valueOf(System.currentTimeMillis());
+    System.out.println(l);
     // when
     List<CommentRes> commentRes = commentService.showCommentsById(user.getUserId());
 

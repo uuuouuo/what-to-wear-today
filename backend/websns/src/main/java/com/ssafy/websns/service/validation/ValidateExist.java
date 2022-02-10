@@ -3,6 +3,7 @@ package com.ssafy.websns.service.validation;
 import com.ssafy.websns.model.dto.feed.CommentDto.CommentRes;
 import com.ssafy.websns.model.entity.feed.Comment;
 import com.ssafy.websns.model.entity.feed.Feed;
+import com.ssafy.websns.model.entity.feed.FeedTag;
 import com.ssafy.websns.model.entity.feed.Image;
 import com.ssafy.websns.model.entity.user.User;
 import java.util.List;
@@ -11,6 +12,16 @@ import java.util.stream.Collectors;
 
 public class ValidateExist {
 
+  public User findUser(Optional<User> optional) {
+    User user;
+    if (optional.isPresent()) {
+      user = optional.get();
+    } else {
+      throw new IllegalStateException("존재하지 않은 회원입니다.");
+    }
+    return user;
+  }
+
   public Feed findFeed(Optional<Feed> optional) {
 
     Feed feed = new Feed();
@@ -18,7 +29,7 @@ public class ValidateExist {
     if(optional.isPresent()) {
       feed = optional.get();
     } else {
-      throw new IllegalStateException("존재하지 않은 피드 입니다.");
+      throw new IllegalStateException("존재하지 않은 게시물입니다.");
     }
 
     return feed;
@@ -75,13 +86,17 @@ public class ValidateExist {
     return images;
 
   }
-  public User findUser(Optional<User> optional) {
-    User user;
-    if (optional.isPresent()) {
-      user = optional.get();
-    } else {
-      throw new IllegalStateException("존재하지 않은 댓글입니다.");
+
+  public List<FeedTag> findFeedTags(Optional<List<FeedTag>> optional) {
+
+    List<FeedTag> feedTags = null;
+
+    if(optional.isPresent()) {
+      feedTags = optional.get();
     }
-    return user;
+
+    return feedTags;
+
   }
+
 }

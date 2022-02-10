@@ -54,8 +54,7 @@ public class FeedService {
     Feed feed = new Feed();
     Region region = regionRepository.findByRegionNameContaining(request.getRegion()).get(0);
 
-    Optional<User> userOptional = userRepository.findByUserId(request.getUserId()); // 리팩토링
-
+    Optional<User> userOptional = userRepository.findByUserId(request.getUserId());
     User user = validateExist.findUser(userOptional);
 
     feed.createFeed(user, request.getContent(), region,
@@ -89,10 +88,6 @@ public class FeedService {
       }
     }
 
-//    List<Image> imageNames = request.getImageNames().stream()
-//        .map(image -> new Image(image, feed))
-//        .collect(Collectors.toList());
-//
     List<Image> savedImages = imageRepository.saveAll(imageList);
 
     List<String> feedTags = request.getTags();
@@ -141,9 +136,6 @@ public class FeedService {
     feedTagRepository.deleteFeedTagByFeed(feed);
 
     // 수정된 이미지 이름 리스트
-//    List<Image> imageNames = request.getImageNames().stream().
-//        map(image -> new Image(image, feed)).collect(Collectors.toList());
-
     List<MultipartFile> imageNames = request.getImageNames();
 
     Date date = new Date();
@@ -176,7 +168,9 @@ public class FeedService {
     List<FeedTag> tags = new ArrayList<>();
 
     feedTags.stream().forEach(tag -> {
+      // vaildExist 함수 생성 하기 !
       Optional<Tag> byTagName = tagRepository.findByTagName(tag);
+
       if (byTagName.isEmpty()) {
         Tag saveTag = tagRepository.save(new Tag(tag));
         FeedTag save = feedTagRepository.save(new FeedTag(feed, saveTag));
@@ -230,53 +224,26 @@ public class FeedService {
 
   }
 
-//  public List<FeedRes> showFeedsByRegion(Integer regionNo) {
-//
-//    Optional<List<Feed>> optional = feedRepository.findAllByRegion(regionNo);
-//    List<Feed> feeds = validateExist.findFeeds(feeds);
-//
-//    List<FeedRes> response = new ArrayList<>();
-//
-//    feeds.stream().forEach(feed -> {
-//      Optional<List<Image>> imagesOptional = imageRepository.findByFeed(feed);
-//      List<CreateImage> resImages = validateExist.findImages(imagesOptional).stream()
-//          .map(CreateImage::new).collect(Collectors.toList());
-//
-//      FeedRes feedRes = new FeedRes(feed, resImages);
-//
-//      response.add(feedRes);
-//    });
-//
-//    return response;
-//
-//  }
-
   public List<FeedRes> showFeedsByRegion(Integer regionNo, Pageable pageable) {
 
     Page<Feed> feeds = feedRepository.findAllByRegion(regionNo, pageable);
 
     List<FeedRes> response = new ArrayList<>();
 
-//    Page<FeedRes> resPage;
-
     feeds.stream().forEach(feed -> {
       Optional<List<Image>> imagesOptional = imageRepository.findByFeed(feed);
       List<CreateImage> resImages = validateExist.findImages(imagesOptional).stream()
           .map(CreateImage::new).collect(Collectors.toList());
 
-      Optional<List<FeedTag>> tagOptional = feedTagRepository.findAllByFeed(feed);
-      List<String> resTags = null;
-      if (tagOptional.isPresent()) {
-        resTags = tagOptional.get().stream().map(tag -> tag.getTagNo().getTagName())
-            .collect(Collectors.toList());
-      }
+      Optional<List<FeedTag>> feedTagOptional = feedTagRepository.findByFeed(feed);
+      List<FeedTag> feedTags = validateExist.findFeedTags(feedTagOptional);
+      List<String> resTags = feedTags.stream().map(tag -> tag.getTagNo().getTagName())
+          .collect(Collectors.toList());
 
       FeedRes feedRes = new FeedRes(feed, resImages, resTags);
 
       response.add(feedRes);
     });
-
-//    Page<FeedRes> pageRes = new PageImpl<User>(response);
 
     return response;
 
@@ -284,27 +251,22 @@ public class FeedService {
 
   public FeedRes searchFeedByNo(Integer feedNo) {
 
-    Optional<Feed> feedOp = feedRepository.findByNo(feedNo);
+    Optional<Feed> feedOptional = feedRepository.findByNo(feedNo);
+    Feed feed = validateExist.findFeed(feedOptional);
 
-    Feed feed = null;
-    if (feedOp.isPresent()) {
-      feed = feedOp.get();
-    }
     Optional<List<Image>> imagesOptional = imageRepository.findByFeed(feed);
-    List<CreateImage> resImages = validateExist.findImages(imagesOptional).stream()
+    List<Image> images = validateExist.findImages(imagesOptional);
+    List<CreateImage> resImages = images.stream()
         .map(CreateImage::new).collect(Collectors.toList());
 
-    Optional<List<FeedTag>> allByFeed = feedTagRepository.findAllByFeed(feed);
-    List<String> resTags = null;
-    if (allByFeed.isPresent()) {
-      resTags = allByFeed.get().stream().map(tag -> tag.getTagNo().getTagName())
+    Optional<List<FeedTag>> feedTagOptional = feedTagRepository.findByFeed(feed);
+    List<FeedTag> feedTags = validateExist.findFeedTags(feedTagOptional);
+    List<String> resTags = feedTags.stream().map(tag -> tag.getTagNo().getTagName())
           .collect(Collectors.toList());
-    }
 
     FeedRes feedRes = new FeedRes(feed, resImages, resTags);
 
     return feedRes;
-
 
   }
 
@@ -319,19 +281,18 @@ public class FeedService {
     List<FeedRes> response = new ArrayList<>();
 
     feeds.stream().forEach(feed -> {
-    Optional<List<Image>> imagesOptional = imageRepository.findByFeed(feed);
-    List<CreateImage> resImages = validateExist.findImages(imagesOptional).stream()
-        .map(CreateImage::new).collect(Collectors.toList());
+      Optional<List<Image>> imagesOptional = imageRepository.findByFeed(feed);
+      List<Image> images = validateExist.findImages(imagesOptional);
+      List<CreateImage> resImages = images.stream()
+          .map(CreateImage::new).collect(Collectors.toList());
 
-    Optional<List<FeedTag>> allByFeed = feedTagRepository.findAllByFeed(feed);
-    List<String> resTags = null;
-    if (allByFeed.isPresent()) {
-      resTags = allByFeed.get().stream().map(tag -> tag.getTagNo().getTagName())
+      Optional<List<FeedTag>> feedTagOptional = feedTagRepository.findByFeed(feed);
+      List<FeedTag> feedTags = validateExist.findFeedTags(feedTagOptional);
+      List<String> resTags = feedTags.stream().map(tag -> tag.getTagNo().getTagName())
           .collect(Collectors.toList());
-    }
 
-    FeedRes feedRes = new FeedRes(feed, resImages, resTags);
-    response.add(feedRes);
+      FeedRes feedRes = new FeedRes(feed, resImages, resTags);
+      response.add(feedRes);
 
     });
     
