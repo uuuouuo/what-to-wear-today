@@ -62,7 +62,10 @@ public class FeedService {
 
     Feed feed = new Feed();
     Region region = regionRepository.findByRegionNameContaining(request.getRegion()).get(0);
-    User user = userRepository.findByUserId(request.getUserId()); // 리팩토링
+
+    Optional<User> userOptional = userRepository.findByUserId(request.getUserId()); // 리팩토링
+
+    User user = validateExist.findUser(userOptional);
 
     feed.createFeed(user, request.getContent(), region,
         request.getPhotoDate(), request.getWeather(), request.getPrivateMode(),

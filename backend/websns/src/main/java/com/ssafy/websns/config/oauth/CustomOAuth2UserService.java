@@ -7,6 +7,8 @@ import com.ssafy.websns.exception.OAuth2AuthenticationProcessingException;
 import com.ssafy.websns.model.entity.user.AuthProvider;
 import com.ssafy.websns.model.entity.user.User;
 import com.ssafy.websns.repository.user.UserRepository;
+import com.ssafy.websns.service.validation.ValidateExist;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import org.springframework.security.core.AuthenticationException;
@@ -21,6 +23,7 @@ import org.springframework.stereotype.Service;
 public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 
   private final UserRepository userRepository;
+  private ValidateExist validateExist = new ValidateExist();
 
   @Override
   public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
@@ -34,13 +37,13 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
     String provider = userRequest.getClientRegistration().getRegistrationId();
     System.out.println("getClientId: "+ provider);
 
-    try{
-      return processOAuth2User(userRequest, oAuth2User);
-    } catch (AuthenticationException ex) {
-      throw ex;
-    } catch (Exception ex) {
-      throw new InternalAuthenticationServiceException(ex.getMessage(), ex.getCause());
-    }
+    return processOAuth2User(userRequest, oAuth2User);
+//    try{
+//    } catch (AuthenticationException ex) {
+//      throw ex;
+//    } catch (Exception ex) {
+//      throw new InternalAuthenticationServiceException(ex.getMessage(), ex.getCause());
+//    }
   }
 
   private OAuth2User processOAuth2User(OAuth2UserRequest userRequest, OAuth2User oAuth2User) {
@@ -49,9 +52,10 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 //    if(isEmpty(oAuth2UserInfo.getEmail())) {
 //      throw new OAuth2AuthenticationProcessingException("OAuth2 공급자(구글, 네이버, ...) 에서 이메일을 찾을 수 없습니다.");
 //    }
-    System.out.println(oAuth2UserInfo);
+    System.out.println("oAuth2UserInfo:" + oAuth2UserInfo.toString());
 
-    User user = userRepository.findByUserId(oAuth2UserInfo.getProviderId());
+    Optional<User> userOptional = userRepository.findByUserId(oAuth2UserInfo.getProviderId());
+    User user = validateExist.findUser(userOptional);
 
     if(user != null) {
       if(!user.getPlatform().equals(AuthProvider.valueOf(userRequest.getClientRegistration().getRegistrationId()))) {

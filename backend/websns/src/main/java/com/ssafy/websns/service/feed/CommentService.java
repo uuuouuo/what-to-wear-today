@@ -42,7 +42,9 @@ public class CommentService {
 
     Optional<Feed> feedOptional = feedRepository.findByNo(feedNo);
 
-    User user = userRepository.findByUserId(request.getUserId());
+    Optional<User> userOptional = userRepository.findByUserId(request.getUserId());
+
+    User user = validateExist.findUser(userOptional);
     Feed feed = validateExist.findFeedByNo(feedOptional);
 
     Integer parentNo = request.getParent();

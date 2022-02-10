@@ -12,8 +12,6 @@ import org.springframework.web.filter.CorsFilter;
 
 @Configuration
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(securedEnabled = true, prePostEnabled = true)
-// secured어노테이션 활성, preAuthorize 어노테이션 활성
 @RequiredArgsConstructor
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
@@ -32,7 +30,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //        .addFilter(new JwtAuthenticationFilter(authenticationManager())) //AuthenticationManager
 //        .addFilter(new JwtAuthorizationFilter(authenticationManager(),userRepository))
         .authorizeRequests()
-        .antMatchers("/user/**").permitAll()
+        .antMatchers("/user/**","/auth/**").permitAll()
         .anyRequest()
         .authenticated()
         .and()

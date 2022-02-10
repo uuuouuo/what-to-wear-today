@@ -23,16 +23,16 @@ public class UserController {
   private static final String SUCCESS = "success";
   private static final String FAIL = "fail";
 
-  @PostMapping("/login")
-  public ResponseEntity<Map<String, Object>> login(
-      @RequestBody @ApiParam(value = "로그인 시 필요한 회원정보(아이디, 비밀번호).", required = true) User user) {
-    Map<String, Object> resultMap = new HashMap<>();
-
-//    resultMap.put("access-token", token);
-//    resultMap.put("message", SUCCESS);
-//    String jwtToken;
-    return new ResponseEntity<Map<String, Object>>(resultMap, HttpStatus.OK);
-  }
+//  @PostMapping("/login")
+//  public ResponseEntity<Map<String, Object>> login(
+//      @RequestBody @ApiParam(value = "로그인 시 필요한 회원정보(아이디, 비밀번호).", required = true) User user) {
+//    Map<String, Object> resultMap = new HashMap<>();
+//
+////    resultMap.put("access-token", token);
+////    resultMap.put("message", SUCCESS);
+////    String jwtToken;
+//    return new ResponseEntity<Map<String, Object>>(resultMap, HttpStatus.OK);
+//  }
 
   @GetMapping("/test/oauth/login")
   public @ResponseBody
