@@ -1,5 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Styled from './styled';
+import type { NextPage } from 'next';
+
+import type { RootState } from '@/reducers';
+import { useDispatch, useSelector } from 'react-redux';
+import { LOAD_FEED_REQUEST } from '@/action/feedAction';
 
 import Link from '@mui/material/Link';
 import { Header, FooterNavbar } from '@/components/molecules';
@@ -16,19 +21,19 @@ import {
   ArticleDate,
 } from '@/components/atoms';
 
-const FeedDetail = () => {
-  const user = {
-    userId: 1,
-    name: '김',
-    id: 'dobby0807',
-  };
+interface Props {
+  data: number | undefined;
+}
 
-  const article = {
-    id: 1,
-    content: 'qweqweqwe',
-    hashTag: ['추워', '아냐 더워', '아냐 적당해'],
-    date: '220203',
-  };
+const FeedDetail: NextPage<Props> = ({ data }) => {
+  const dispatch = useDispatch();
+  const { feed } = useSelector((state: RootState) => state.feed);
+  useEffect(() => {
+    dispatch({
+      type: LOAD_FEED_REQUEST,
+      feedNo: { data },
+    });
+  }, []);
 
   return (
     <Styled.DetailPageLayout>
@@ -42,19 +47,19 @@ const FeedDetail = () => {
 
             <Styled.UserId>
               <Link href={`/feed/1`} underline="none" sx={{ color: 'black' }}>
-                <UserName value={user.name} />
+                <UserName value={'user.name'} />
               </Link>
-              <UserId value={user.id} />
+              <UserId value={'user.id'} />
             </Styled.UserId>
           </Styled.UserInfoArea>
           <Dropdown />
         </Styled.ArticleArea>
 
         <Styled.ArticleContent>
-          <ArticleContent value={article.content} />
-          <HashTag value={article.hashTag} />
+          <ArticleContent value={'feed'} />
+          <HashTag value={['article.hashTag']} />
           <Styled.DateLine>
-            <ArticleDate value={article.date} />
+            <ArticleDate value={'article.date'} />
             <ReportForm />
           </Styled.DateLine>
         </Styled.ArticleContent>
