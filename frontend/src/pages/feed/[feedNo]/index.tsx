@@ -1,9 +1,19 @@
 import React from 'react';
 import { NextPage } from 'next';
+import { GetServerSideProps } from 'next';
 import FeedDetailTemplate from '@/template/feed/detail';
+interface Props {
+  data: number | undefined;
+}
 
-const FeedDetail: NextPage = () => {
-  return <FeedDetailTemplate></FeedDetailTemplate>;
+const FeedDetail: NextPage<Props> = ({ data }) => {
+  return <FeedDetailTemplate data={data}></FeedDetailTemplate>;
+};
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const data = context.query.feedNo;
+
+  return { props: { data: data } };
 };
 
 export default FeedDetail;
