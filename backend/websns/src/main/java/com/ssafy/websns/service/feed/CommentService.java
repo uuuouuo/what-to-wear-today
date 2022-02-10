@@ -99,7 +99,7 @@ public class CommentService {
   public List<CommentRes> showCommentsById(String userId) {
 
     Optional<List<Comment>> commentOptional = commentRepository.findByUser(userId);
-    userRepository.findByUserId()
+
     List<CommentRes> comments = validateExist.findComments(commentOptional);
 
     return comments;

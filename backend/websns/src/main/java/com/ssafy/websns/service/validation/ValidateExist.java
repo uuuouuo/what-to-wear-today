@@ -24,7 +24,6 @@ public class ValidateExist {
 
   }
 
-
   public Comment findComment(Optional<Comment> optional) {
 
     Comment comment = new Comment();
