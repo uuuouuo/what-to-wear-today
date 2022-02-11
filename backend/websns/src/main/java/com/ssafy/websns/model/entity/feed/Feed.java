@@ -15,10 +15,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @Entity
-@Getter @Setter
+@Getter
 @NoArgsConstructor
 public class Feed extends BaseEntity {
 
@@ -45,13 +44,24 @@ public class Feed extends BaseEntity {
 
   private Boolean deleteMode;
 
-  public void createFeed(Integer no, User user, String content, Region region, String createAt,
+  // test
+  public Feed(User user, Region region, String content, LocalDateTime photoDate,
+      String weather, Boolean privateMode, Boolean deleteMode) {
+    this.user = user;
+    this.region = region;
+    this.content = content;
+    this.photoDate = photoDate;
+    this.weather = weather;
+    this.privateMode = privateMode;
+    this.deleteMode = deleteMode;
+  }
+
+  public void createFeed(User user, String content, Region region, String photoDate,
       String weather, Boolean privateMode, Boolean deleteMode){
 
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.M.d.HH:mm");
-    LocalDateTime dateTime = LocalDateTime.parse(createAt, formatter);
+    LocalDateTime dateTime = LocalDateTime.parse(photoDate, formatter);
 
-    this.no = no;
     this.user = user;
     this.content = content;
     this.region = region;
@@ -61,10 +71,10 @@ public class Feed extends BaseEntity {
     this.deleteMode = deleteMode;
   }
 
-  public void updateFeed(String content, Region region, String createAt, String weather, Boolean privateMode){
+  public void updateFeed(String content, Region region, String createdAt, String weather, Boolean privateMode){
 
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.M.d.HH:mm");
-    LocalDateTime dateTime = LocalDateTime.parse(createAt, formatter);
+    LocalDateTime dateTime = LocalDateTime.parse(createdAt, formatter);
 
     this.content = content;
     this.region = region;

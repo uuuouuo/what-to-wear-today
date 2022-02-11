@@ -3,42 +3,57 @@ package com.ssafy.websns.service.validation;
 import com.ssafy.websns.model.dto.feed.CommentDto.CommentRes;
 import com.ssafy.websns.model.entity.feed.Comment;
 import com.ssafy.websns.model.entity.feed.Feed;
+import com.ssafy.websns.model.entity.feed.FeedTag;
 import com.ssafy.websns.model.entity.feed.Image;
-import com.ssafy.websns.repository.feed.CommentRepository;
-import com.ssafy.websns.repository.feed.FeedRepository;
-import com.ssafy.websns.repository.feed.ImageRepository;
+import com.ssafy.websns.model.entity.feed.Tag;
+import com.ssafy.websns.model.entity.user.User;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-import lombok.RequiredArgsConstructor;
 
-@RequiredArgsConstructor
 public class ValidateExist {
 
-  private final CommentRepository commentRepository;
-  private final FeedRepository feedRepository;
-  private final ImageRepository imageRepository;
+  public User findUser(Optional<User> optional) {
+    User user;
+    if (optional.isPresent()) {
+      user = optional.get();
+    } else {
+      throw new IllegalStateException("존재하지 않은 회원입니다.");
+    }
+    return user;
+  }
 
-  public Feed findFeedByNo(Integer feedNo) {
+  public Feed findFeed(Optional<Feed> optional) {
 
-    Feed feed = new Feed();
-    Optional<Feed> optional = feedRepository.findByNo(feedNo);
+    Feed feed;
 
     if(optional.isPresent()) {
       feed = optional.get();
     } else {
-      throw new IllegalStateException("존재하지 않은 피드 입니다.");
+      throw new IllegalStateException("존재하지 않은 게시물입니다.");
     }
 
     return feed;
 
   }
 
+  public Tag findTag(Optional<Tag> optional) {
 
-  public Comment findCommentsByNo(Integer commentNo) {
+    Tag tag;
 
-    Comment comment = new Comment();
-    Optional<Comment> optional = commentRepository.findByNo(commentNo);
+    if(optional.isPresent()) {
+      tag = optional.get();
+      return tag;
+    } else {
+      return null;
+    }
+
+
+  }
+
+  public Comment findComment(Optional<Comment> optional) {
+
+    Comment comment;
 
     if (optional.isPresent()) {
       comment = optional.get();
@@ -50,9 +65,8 @@ public class ValidateExist {
 
   }
 
-  public List<CommentRes> findCommentsByFeed(Feed feed) {
+  public List<CommentRes> findComments(Optional<List<Comment>> optional) {
 
-    Optional<List<Comment>> optional = commentRepository.findByFeed(feed);
     List<CommentRes> comments = null;
 
     if (optional.isPresent()) {
@@ -64,9 +78,8 @@ public class ValidateExist {
 
   }
 
-  public List<Feed> findFeedByNosByKeyword(String keyword) {
+  public List<Feed> findFeeds(Optional<List<Feed>> optional) {
 
-    Optional<List<Feed>> optional = feedRepository.findByContentContaining(keyword);
     List<Feed> feeds = null;
 
     if(optional.isPresent()) {
@@ -77,8 +90,8 @@ public class ValidateExist {
 
   }
 
-  public List<Image> findImagesByFeed(Feed feed) {
-    Optional<List<Image>> optional = imageRepository.findByFeed(feed);
+  public List<Image> findImages(Optional<List<Image>> optional) {
+
     List<Image> images = null;
 
     if(optional.isPresent()) {
@@ -86,6 +99,18 @@ public class ValidateExist {
     }
 
     return images;
+
+  }
+
+  public List<FeedTag> findFeedTags(Optional<List<FeedTag>> optional) {
+
+    List<FeedTag> feedTags = null;
+
+    if(optional.isPresent()) {
+      feedTags = optional.get();
+    }
+
+    return feedTags;
 
   }
 

@@ -5,14 +5,12 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
 @Getter
 @NoArgsConstructor
-@AllArgsConstructor
 @ApiModel(value = "지역 정보", description = "지역 정보를 나타낸다")
 public class Region {
 
@@ -29,4 +27,5 @@ public class Region {
     this.regionName = regionName;
     this.pointCode = pointCode;
   }
+
 }

@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface ImageRepository extends JpaRepository<Image,Integer> {
 
   Optional<List<Image>> findByFeed(Feed feed);
+
   void deleteByFeed(Feed feed);
 
 }

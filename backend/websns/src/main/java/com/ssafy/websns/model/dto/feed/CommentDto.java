@@ -1,7 +1,6 @@
 package com.ssafy.websns.model.dto.feed;
 
 import com.ssafy.websns.model.entity.feed.Comment;
-import com.ssafy.websns.model.entity.user.User;
 import java.time.LocalDateTime;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -13,17 +12,15 @@ public class CommentDto {
   @NoArgsConstructor(access = AccessLevel.PROTECTED)
   public static class CreateReq {
 
-    private Integer no;
-    private String userNo;
+    private String userId;
     private Integer parent;
     private String content;
     private Boolean privateMode;
     private Boolean deleteMode;
 
-    public CreateReq(Integer no, String userNo, Integer parent, String content,
+    public CreateReq(String userId, Integer parent, String content,
         Boolean privateMode, Boolean deleteMode) {
-      this.no = no;
-      this.userNo = userNo;
+      this.userId = userId;
       this.parent = parent;
       this.content = content;
       this.privateMode = privateMode;
@@ -35,27 +32,20 @@ public class CommentDto {
   @Getter
   public static class CommentRes {
 
-    private User user;
-    private String content;
+    private Integer no;
+    private String userId;
     private Integer feedNo;
-    private Comment parent;
-    private LocalDateTime createAt;
-
-    public CommentRes(User user, Integer feedNo, Comment parent, String content,
-        LocalDateTime createAt) {
-      this.user = user;
-      this.feedNo = feedNo;
-      this.parent = parent;
-      this.content = content;
-      this.createAt = createAt;
-    }
+    private Integer parent;
+    private String content;
+    private LocalDateTime createdAt;
 
     public CommentRes(Comment comment){
-      this.user = comment.getUser();
-      this.feedNo = comment.getNo();
-      this.parent = comment.getParent();
+      this.no = comment.getNo();
+      this.userId = comment.getUser().getUserId();
+      this.feedNo = comment.getFeed().getNo();
+      this.parent = comment.getParent() != null ? comment.getParent().getNo() : null;
       this.content= comment.getContent();
-      this.createAt = comment.getCreatedAt();
+      this.createdAt = comment.getCreatedAt();
     }
 
   }
@@ -79,13 +69,15 @@ public class CommentDto {
 
   @Getter
   public static class UpdateRes {
-    
+
+    private Integer no;
     private String content;
     private Boolean privateMode;
     private LocalDateTime updateAt;
 
-    public UpdateRes(String content,
+    public UpdateRes(Integer no, String content,
         Boolean privateMode, LocalDateTime updateAt) {
+      this.no = no;
       this.content = content;
       this.privateMode = privateMode;
       this.updateAt = updateAt;

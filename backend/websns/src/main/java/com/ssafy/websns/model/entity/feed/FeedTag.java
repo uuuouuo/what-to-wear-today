@@ -2,7 +2,6 @@ package com.ssafy.websns.model.entity.feed;
 
 import static javax.persistence.FetchType.LAZY;
 
-import com.ssafy.websns.model.entity.user.User;
 import io.swagger.annotations.ApiModel;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,23 +13,29 @@ import lombok.Getter;
 
 @Entity
 @Getter
-@ApiModel(value = "좋아요", description = "좋아요에 관한 정보를 나타냅니다.")
-
-public class LikePerson {
+@ApiModel(value = "피드에 있는 태그정보", description = "피드에 있는 태그정보를 나타냅니다.")
+public class FeedTag {
 
   @Id
   @GeneratedValue
-  @Column(name = "LIKE_NO")
+  @Column(name = "FEED_TAG_NO")
   private Integer no;
 
   @ManyToOne(fetch = LAZY)
-  @JoinColumn
-//  @JoinColumn(name = "USER_NO")
-  private User user;
+  @JoinColumn(name = "FEED_NO")
+  private Feed feed;
 
   @ManyToOne(fetch = LAZY)
-//  @JoinColumn(name = "FEED_NO")
-  @JoinColumn
-  private Feed feed;
+  @JoinColumn(name = "TAG_NO")
+  private Tag tagNo;
+
+  public FeedTag(){
+
+  }
+
+  public FeedTag(Feed feed,Tag tagNo){
+    this.feed = feed;
+    this.tagNo = tagNo;
+  }
 
 }
