@@ -14,8 +14,8 @@ import Box from '@mui/material/Box';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 
-import FollowingModal from '@/components/Following_modal/Following_modal';
-import DrawerMenu from '@/components/Drawer_menu/Drawer_menu';
+import FollowingModal from 'components/molecules/FollowingModal/FollowingModal';
+import DrawerMenu from 'components/DrawerMenu/DrawerMenu';
 
 const User: NextPage = () => {
   const router = useRouter();
@@ -83,7 +83,7 @@ const User: NextPage = () => {
       <Title value="Profile" />
       <DrawerMenu userId={userId} />
       <Styled.ProfileContainer>
-        <Avatar src={'/images/icon/blank_user.png'} sx={{ width: 100, height: 100 }} />
+        <Avatar src="/images/icon/blank_user.png" sx={{ width: 100, height: 100 }} />
         <Styled.columnContainer>
           <Styled.rowContainer>
             <Label>보노보노</Label>
@@ -118,8 +118,8 @@ const User: NextPage = () => {
       <Styled.contentContainer>
         {value === 0 ? (
           <Styled.rowContainer>
-            기간 <input type="date" name="start" onChange={setDate}></input> ~{' '}
-            <input type="date" name="end" onChange={setDate}></input>
+            기간 <input type="date" name="start" onChange={setDate} /> ~{' '}
+            <input type="date" name="end" onChange={setDate} />
             <Button onClick={searchFeed}>
               <SearchIcon />
             </Button>

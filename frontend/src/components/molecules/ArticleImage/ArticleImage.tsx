@@ -1,37 +1,20 @@
-import React from 'react';
+import React, { FunctionComponent } from 'react';
 import { useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
-import MobileStepper from '@mui/material/MobileStepper';
-import Paper from '@mui/material/Paper';
 import SwipeableViews from 'react-swipeable-views';
+import MobileStepper from '@mui/material/MobileStepper';
 import Styled from './ArticleImage.styled';
+import { PhotoType } from '@/types/photo';
 
-const images = [
-  {
-    label: 'dobby',
-    imgPath: '/images/profileIMG/sample.jpg',
-  },
-  {
-    label: 'Bird',
-    imgPath:
-      'https://images.unsplash.com/photo-1538032746644-0212e812a9e7?auto=format&fit=crop&w=400&h=250&q=60',
-  },
-  {
-    label: 'Bali, Indonesia',
-    imgPath:
-      'https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=400&h=250&q=80',
-  },
-  {
-    label: 'Goč, Serbia',
-    imgPath:
-      'https://images.unsplash.com/photo-1512341689857-198e7e2f3ca8?auto=format&fit=crop&w=400&h=250&q=60',
-  },
-];
+interface Props {
+  images: PhotoType[];
+}
 
-const ArticleImage = () => {
+const ArticleImage: FunctionComponent<Props> = ({ images }) => {
+  const MAX_STEPS = images.length;
   const theme = useTheme();
+  const classes = Styled.useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
-  const maxSteps = images.length;
 
   const handleStepChange = (step: number) => {
     setActiveStep(step);
@@ -39,14 +22,6 @@ const ArticleImage = () => {
 
   return (
     <Box sx={{ maxWidth: 350, flexGrow: 1 }}>
-      <Paper
-        sx={{
-          display: 'flex',
-          alignItems: 'center',
-          height: 10,
-          bgcolor: 'background.default',
-        }}
-      ></Paper>
       <SwipeableViews
         axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
         index={activeStep}
@@ -54,7 +29,7 @@ const ArticleImage = () => {
         enableMouseEvents
       >
         {images.map((step, index) => (
-          <div key={step.label}>
+          <div key={step.no}>
             {Math.abs(activeStep - index) <= 2 ? (
               <Box
                 component="img"
@@ -65,8 +40,8 @@ const ArticleImage = () => {
                   overflow: 'hidden',
                   width: '100%',
                 }}
-                src={step.imgPath}
-                alt={step.label}
+                src={step.imgUrl}
+                alt="feed image"
               />
             ) : null}
           </div>
@@ -74,11 +49,15 @@ const ArticleImage = () => {
       </SwipeableViews>
       <Styled.Stepper>
         <MobileStepper
-          steps={maxSteps}
+          classes={{
+            dot: classes.dot,
+            dotActive: classes.dotActive,
+          }}
+          steps={MAX_STEPS}
           position="static"
           activeStep={activeStep}
-          backButton={''}
-          nextButton={''}
+          backButton=""
+          nextButton=""
         />
       </Styled.Stepper>
     </Box>

@@ -3,9 +3,9 @@ import Styled from './styled';
 
 import Link from '@mui/material/Link';
 import { Header, FooterNavbar } from '@/components/molecules';
-import CommentPage from '@/components/CommentPage/CommentPage';
-import Dropdown from '@/components/Dropdown/Dropdown';
-import ReportForm from '@/components/ReportForm/ReportForm';
+// import CommentPage from '@/components/CommentPage/CommentPage';
+import Dropdown from 'components/atoms/Dropdown/Dropdown';
+import ReportForm from 'components/molecules/ReportForm/ReportForm';
 
 import {
   UserImage,
@@ -36,12 +36,12 @@ const FeedDetail = () => {
       <Styled.TopArea>
         <Styled.ArticleArea>
           <Styled.UserInfoArea>
-            <Link href={`/feed/1`} underline="none" sx={{ color: 'black' }}>
+            <Link href="/feed/1" underline="none" sx={{ color: 'black' }}>
               <UserImage />
             </Link>
 
             <Styled.UserId>
-              <Link href={`/feed/1`} underline="none" sx={{ color: 'black' }}>
+              <Link href="/feed/1" underline="none" sx={{ color: 'black' }}>
                 <UserName value={user.name} />
               </Link>
               <UserId value={user.id} />
@@ -59,7 +59,7 @@ const FeedDetail = () => {
           </Styled.DateLine>
         </Styled.ArticleContent>
       </Styled.TopArea>
-      <CommentPage />
+      {/* <CommentPage /> */}
       <FooterNavbar />
     </Styled.DetailPageLayout>
   );

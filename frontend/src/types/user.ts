@@ -7,6 +7,13 @@ interface UserType {
   gender: boolean | undefined;
 }
 
+interface UserProfileType {
+  no: string;
+  userId: string;
+  nickName: string;
+  profileImage: string;
+}
+
 interface StateType {
   myInfo: UserType;
   kakaoLoginLoading: boolean;
@@ -14,4 +21,4 @@ interface StateType {
   kakaoLoginError: Error | null;
 }
 
-export type { UserType, StateType };
+export type { UserType, UserProfileType, StateType };

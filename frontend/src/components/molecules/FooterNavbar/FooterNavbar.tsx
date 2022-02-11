@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { BottomNavigation, Paper } from '@mui/material';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import HomeIcon from '@mui/icons-material/Home';
@@ -12,12 +12,12 @@ import Styled from './FooterNavbar.styled';
 
 const FooterNavbar = () => {
   const current = useRouter().pathname.slice(1);
-  const [value, setValue] = React.useState(100);
+  const [value, setValue] = React.useState(0);
 
   useEffect(() => {
     if (current === '') {
       setValue(0);
-    } else if (current === 'srarch') {
+    } else if (current === 'search') {
       setValue(1);
     } else if (current === 'create') {
       setValue(2);
@@ -31,7 +31,7 @@ const FooterNavbar = () => {
   });
 
   return (
-    <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0 }} elevation={3}>
+    <Paper>
       <BottomNavigation
         showLabels
         value={value}
@@ -42,17 +42,24 @@ const FooterNavbar = () => {
         <Styled.BottomNavigationAction
           sx={{ pt: 0, pb: 0 }}
           icon={
-            <Link href={'/'}>
+            <Link href="/">
               <HomeIcon />
             </Link>
           }
         />
-        <Styled.BottomNavigationAction sx={{ pt: 0, pb: 0 }} icon={<SearchIcon />} />
+        <Styled.BottomNavigationAction
+          sx={{ pt: 0, pb: 0 }}
+          icon={
+            <Link href="/search">
+              <SearchIcon />
+            </Link>
+          }
+        />
         <Styled.BottomNavigationAction sx={{ pt: 0, pb: 0 }} icon={<AddCircleIcon />} />
         <Styled.BottomNavigationAction
           sx={{ pt: 0, pb: 0 }}
           icon={
-            <Link href={'/likefeed'}>
+            <Link href="/likefeed">
               <FavoriteIcon />
             </Link>
           }
@@ -60,7 +67,7 @@ const FooterNavbar = () => {
         <Styled.BottomNavigationAction
           sx={{ pt: 0, pb: 0 }}
           icon={
-            <Link href={'/user/1'}>
+            <Link href="/user/1">
               <PersonIcon />
             </Link>
           }

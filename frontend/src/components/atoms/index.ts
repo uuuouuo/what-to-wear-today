@@ -1,4 +1,5 @@
 import Button from './Button/Button';
+import Dropdown from './Dropdown/Dropdown';
 import CheckInput from './CheckInput/CheckInput';
 import FileInput from './FileInput/FileInput';
 import FooterContainer from './FooterContainer/FooterContainer';
@@ -9,15 +10,10 @@ import Label from './Label/Label';
 import MainContainer from './MainContainer/MainContainer';
 import Text from './Text/Text';
 import Textarea from './Textarea/Textarea';
-import ArticleContent from './ArticleContent/ArticleContent';
-import ArticleDate from './ArticleDate/ArticleDate';
-import HashTag from './HashTag/HashTag';
-import UserId from './UserId/UserId';
-import UserImage from './UserImage/UserImage';
-import UserName from './UserName/UserName';
 
 export {
   Button,
+  Dropdown,
   CheckInput,
   FileInput,
   FooterContainer,
@@ -28,10 +24,4 @@ export {
   MainContainer,
   Text,
   Textarea,
-  ArticleContent,
-  ArticleDate,
-  HashTag,
-  UserId,
-  UserImage,
-  UserName,
 };

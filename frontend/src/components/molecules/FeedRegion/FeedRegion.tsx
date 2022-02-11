@@ -1,49 +1,43 @@
-import React from 'react';
+import React, { FunctionComponent } from 'react';
 import Styled from './FeedRegion.styled';
 import { Text } from '@/components/atoms';
 import { RegionType } from '@/types/region';
-
 import { Swiper, SwiperSlide } from 'swiper/react';
 import WbSunnyIcon from '@mui/icons-material/WbSunny';
 import SwiperCore, { Pagination } from 'swiper';
+
+import 'swiper/swiper-bundle.min.css';
+import 'swiper/swiper.min.css';
+
 SwiperCore.use([Pagination]);
 
-import 'swiper/css';
+interface Props {
+  interestRegions: RegionType[];
+}
 
-const interestRegions: RegionType[] = [
-  { id: 1, name: 'seoul' },
-  { id: 2, name: 'gwangju' },
-  { id: 3, name: 'ahnyang' },
-  { id: 4, name: 'daejeon' },
-  { id: 5, name: 'busan' },
-];
-
-// const [currentType, SetCurrentType] = useState(1);
-
-const RegionFilter = () => {
+const RegionFilter: FunctionComponent<Props> = ({ interestRegions }) => {
   return (
-    <Styled.Container>
-      <Swiper
-        direction="horizontal"
-        centeredSlides
-        pagination={{
-          clickable: true,
-          type: 'custom',
-        }}
-      >
-        {interestRegions.map((region) => (
-          <SwiperSlide>
-            <Styled.SwiperSlideContainer>
-              <Text value={region.name} />
-              <Styled.WeatherArea>
-                <WbSunnyIcon />
-                <Text value="-3" />
-              </Styled.WeatherArea>
-            </Styled.SwiperSlideContainer>
-          </SwiperSlide>
-        ))}
-      </Swiper>
-    </Styled.Container>
+    <Swiper
+      direction="vertical"
+      centeredSlides
+      pagination={{
+        clickable: true,
+        type: 'custom',
+      }}
+      style={{ height: '7vh' }}
+    >
+      {interestRegions.map((region: RegionType) => (
+        <SwiperSlide key={region.no}>
+          <Styled.SwiperSlideContainer>
+            <Text value={region.regionName} />
+            <Styled.WeatherArea>
+              <WbSunnyIcon />
+              <Text value={region.temperature} />
+            </Styled.WeatherArea>
+          </Styled.SwiperSlideContainer>
+        </SwiperSlide>
+      ))}
+    </Swiper>
   );
 };
 

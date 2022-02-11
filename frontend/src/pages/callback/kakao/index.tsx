@@ -7,7 +7,7 @@ interface Props {
 }
 
 const Kakao: NextPage<Props> = ({ code }) => {
-  return <KakaoTemplate code={code}></KakaoTemplate>;
+  return <KakaoTemplate code={code} />;
 };
 
 Kakao.getInitialProps = ({ query: { code } }: NextPageContext) => {

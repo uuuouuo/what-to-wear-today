@@ -1,10 +1,12 @@
+import { UserProfileType } from './user';
+
 interface CommentType {
-  _no: number;
-  userId: string;
+  no: number;
+  user: UserProfileType;
   content: string;
   createdAt: Date;
   feedNo: number;
-  parent: number;
+  parent?: number;
 }
 
 interface StateType {

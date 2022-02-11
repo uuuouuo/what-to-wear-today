@@ -3,7 +3,7 @@ import Styled from './styled';
 import type { NextPage } from 'next';
 
 import { Header, FooterNavbar } from '@/components/molecules';
-import NotificationContent from '@/components/NotificationContent/NotificationContent';
+import NotificationContent from 'components/molecules/NotificationContent/NotificationContent';
 
 const Notification: NextPage = () => {
   return (

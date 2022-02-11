@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { Heading as Heading } from '@/components/atoms';
+import { Heading as BaseHeading } from '@/components/atoms';
 
 const Header = styled.div`
   display: flex;
@@ -20,10 +20,10 @@ const RightSide = styled.div`
   width: 10vw;
 `;
 
-const Center = styled(Heading)`
+const Heading = styled(BaseHeading)`
   display: flex;
   height: 30px;
   align-items: center;
 `;
 
-export default { Header, LeftSide, RightSide, Center };
+export default { Header, LeftSide, RightSide, Heading };
