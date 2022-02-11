@@ -1,23 +1,13 @@
 package com.ssafy.websns.controller;
 
-import com.ssafy.websns.model.entity.user.User;
-import io.swagger.annotations.ApiParam;
-import java.util.HashMap;
-import java.util.Map;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.core.user.OAuth2User;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
-@Controller
-@RequestMapping("/user")
+@RestController
 public class UserController {
 
   private static final String SUCCESS = "success";
@@ -44,17 +34,12 @@ public class UserController {
 
     System.out.println("userDetails : "+oauth.getAttributes());
     return "세션 정보 확인하기";
-
   }
 
-  @GetMapping("/loginform")
-  public String loginForm(){
-    return "login-form";
+  @GetMapping("/check")
+  public String testOAuthLo13123gin(){
+    return "로그인 완료";
   }
-
-  @GetMapping
-  public String index(){
-    return "home";
-  }
+  
 
 }

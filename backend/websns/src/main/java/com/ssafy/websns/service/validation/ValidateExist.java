@@ -81,7 +81,7 @@ public class ValidateExist {
     if (optional.isPresent()) {
       user = optional.get();
     } else {
-      throw new IllegalStateException("존재하지 않은 댓글입니다.");
+      throw new IllegalStateException("존재하지 않은 회원입니다.");
     }
     return user;
   }
