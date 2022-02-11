@@ -4,7 +4,7 @@ import com.ssafy.websns.model.dto.feed.FeedDto.CreateReq;
 import com.ssafy.websns.model.dto.feed.FeedDto.FeedRes;
 import com.ssafy.websns.model.dto.feed.FeedDto.UpdateReq;
 import com.ssafy.websns.model.dto.feed.FeedDto.UpdateRes;
-import com.ssafy.websns.model.dto.feed.ImageDto.CreateImage;
+import com.ssafy.websns.model.dto.feed.ImageDto.ImageFile;
 import com.ssafy.websns.model.entity.feed.Feed;
 import com.ssafy.websns.model.entity.feed.FeedTag;
 import com.ssafy.websns.model.entity.feed.Image;
@@ -105,8 +105,8 @@ public class FeedService {
       }
     });
 
-    List<CreateImage> resImages = savedImages.stream()
-        .map(CreateImage::new).collect(Collectors.toList());
+    List<ImageFile> resImages = savedImages.stream()
+        .map(ImageFile::new).collect(Collectors.toList());
 
     List<String> resTags = tags.stream().map(tag -> tag.getTagNo().getTagName())
         .collect(Collectors.toList());
@@ -164,27 +164,31 @@ public class FeedService {
     // 수정된 이미지 저장
     List<Image> savedImages = imageRepository.saveAll(imageList);
 
-    List<String> feedTags = request.getTags();
-    List<FeedTag> tags = new ArrayList<>();
+    List<String> tagNames = request.getTags();
+    List<FeedTag> feedTags = new ArrayList<>();
 
-    feedTags.stream().forEach(tag -> {
-      // vaildExist 함수 생성 하기 !
-      Optional<Tag> byTagName = tagRepository.findByTagName(tag);
+    tagNames.stream().forEach(tagName -> {
 
-      if (byTagName.isEmpty()) {
-        Tag saveTag = tagRepository.save(new Tag(tag));
-        FeedTag save = feedTagRepository.save(new FeedTag(feed, saveTag));
-        tags.add(save);
+      Optional<Tag> tagOptional = tagRepository.findByTagName(tagName);
+      Tag tag = validateExist.findTag(tagOptional);
+
+      Tag saveTag;
+      FeedTag saveFeedTag;
+      if (tag == null) {
+        saveTag = tagRepository.save(new Tag(tagName));
+        saveFeedTag = feedTagRepository.save(new FeedTag(feed, saveTag));
       } else {
-        FeedTag save = feedTagRepository.save(new FeedTag(feed, byTagName.get()));
-        tags.add(save);
+        saveFeedTag = feedTagRepository.save(new FeedTag(feed, tag));
       }
+
+      feedTags.add(saveFeedTag);
+
     });
 
-    List<CreateImage> resImages = savedImages.stream()
-        .map(CreateImage::new).collect(Collectors.toList());
+    List<ImageFile> resImages = savedImages.stream()
+        .map(ImageFile::new).collect(Collectors.toList());
 
-    List<String> resTags = tags.stream().map(tag -> tag.getTagNo().getTagName())
+    List<String> resTags = feedTags.stream().map(tag -> tag.getTagNo().getTagName())
         .collect(Collectors.toList());
 
     // response DTO 에 담기
@@ -203,27 +207,6 @@ public class FeedService {
     feed.deleteFeed();
   }
 
-  public List<FeedRes> searchFeeds(String keyword) {
-
-    Optional<List<Feed>> optionalFeed = feedRepository.findFeedsByContent(keyword);
-    List<Feed> feeds = validateExist.findFeeds(optionalFeed);
-
-    List<FeedRes> response = new ArrayList<>();
-
-    feeds.stream().forEach(feed -> {
-      Optional<List<Image>> optional = imageRepository.findByFeed(feed);
-      List<CreateImage> resImages = validateExist.findImages(optional).stream()
-          .map(CreateImage::new).collect(Collectors.toList());
-
-      FeedRes feedRes = new FeedRes(feed, resImages);
-
-      response.add(feedRes);
-    });
-
-    return response;
-
-  }
-
   public List<FeedRes> showFeedsByRegion(Integer regionNo, Pageable pageable) {
 
     Page<Feed> feeds = feedRepository.findAllByRegion(regionNo, pageable);
@@ -232,8 +215,8 @@ public class FeedService {
 
     feeds.stream().forEach(feed -> {
       Optional<List<Image>> imagesOptional = imageRepository.findByFeed(feed);
-      List<CreateImage> resImages = validateExist.findImages(imagesOptional).stream()
-          .map(CreateImage::new).collect(Collectors.toList());
+      List<ImageFile> resImages = validateExist.findImages(imagesOptional).stream()
+          .map(ImageFile::new).collect(Collectors.toList());
 
       Optional<List<FeedTag>> feedTagOptional = feedTagRepository.findByFeed(feed);
       List<FeedTag> feedTags = validateExist.findFeedTags(feedTagOptional);
@@ -256,8 +239,8 @@ public class FeedService {
 
     Optional<List<Image>> imagesOptional = imageRepository.findByFeed(feed);
     List<Image> images = validateExist.findImages(imagesOptional);
-    List<CreateImage> resImages = images.stream()
-        .map(CreateImage::new).collect(Collectors.toList());
+    List<ImageFile> resImages = images.stream()
+        .map(ImageFile::new).collect(Collectors.toList());
 
     Optional<List<FeedTag>> feedTagOptional = feedTagRepository.findByFeed(feed);
     List<FeedTag> feedTags = validateExist.findFeedTags(feedTagOptional);
@@ -283,8 +266,8 @@ public class FeedService {
     feeds.stream().forEach(feed -> {
       Optional<List<Image>> imagesOptional = imageRepository.findByFeed(feed);
       List<Image> images = validateExist.findImages(imagesOptional);
-      List<CreateImage> resImages = images.stream()
-          .map(CreateImage::new).collect(Collectors.toList());
+      List<ImageFile> resImages = images.stream()
+          .map(ImageFile::new).collect(Collectors.toList());
 
       Optional<List<FeedTag>> feedTagOptional = feedTagRepository.findByFeed(feed);
       List<FeedTag> feedTags = validateExist.findFeedTags(feedTagOptional);
@@ -299,6 +282,27 @@ public class FeedService {
     return response;
 
   }
+
+  //  public List<FeedRes> searchFeedsByKeyword(String keyword) {
+//
+//    Optional<List<Feed>> optionalFeed = feedRepository.findFeedsByContent(keyword);
+//    List<Feed> feeds = validateExist.findFeeds(optionalFeed);
+//
+//    List<FeedRes> response = new ArrayList<>();
+//
+//    feeds.stream().forEach(feed -> {
+//      Optional<List<Image>> optional = imageRepository.findByFeed(feed);
+//      List<ImageFile> resImages = validateExist.findImages(optional).stream()
+//          .map(ImageFile::new).collect(Collectors.toList());
+//
+//      FeedRes feedRes = new FeedRes(feed, resImages);
+//
+//      response.add(feedRes);
+//    });
+//
+//    return response;
+//
+//  }
 
 }
 

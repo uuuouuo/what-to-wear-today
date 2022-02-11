@@ -1,6 +1,7 @@
 package com.ssafy.websns.model.dto.feed;
 
-import com.ssafy.websns.model.dto.feed.ImageDto.CreateImage;
+import com.ssafy.websns.model.dto.feed.CommentDto.CommentRes;
+import com.ssafy.websns.model.dto.feed.ImageDto.ImageFile;
 import com.ssafy.websns.model.entity.feed.Feed;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -102,10 +103,10 @@ public class FeedDto {
     private LocalDateTime photoDate;
     private String weather;
     private Boolean privateMode;
-    private List<CreateImage> images;
+    private List<ImageFile> images;
     private List<String> tags;
 
-    public FeedRes(Feed feed, List<CreateImage> images, List<String> tags) {
+    public FeedRes(Feed feed, List<ImageFile> images, List<String> tags) {
       this.no = feed.getNo();
       this.userId = feed.getUser().getUserId();
       this.content = feed.getContent();
@@ -117,7 +118,7 @@ public class FeedDto {
       this.tags = tags;
     }
 
-    public FeedRes(Feed feed, List<CreateImage> images) {
+    public FeedRes(Feed feed, List<ImageFile> images) {
       this.no = feed.getNo();
       this.userId = feed.getUser().getUserId();
       this.content = feed.getContent();
@@ -164,10 +165,10 @@ public class FeedDto {
     private LocalDateTime photoDate;
     private LocalDateTime updateAt;
     private Boolean privateMode;
-    private List<CreateImage> images;
+    private List<ImageFile> images;
     private List<String> tags;
 
-    public UpdateRes(Feed feed, List<CreateImage> images, List<String> tags) {
+    public UpdateRes(Feed feed, List<ImageFile> images, List<String> tags) {
       this.no = feed.getNo();
       this.content = feed.getContent();
       this.regionNo = feed.getRegion().getNo();
@@ -177,6 +178,19 @@ public class FeedDto {
       this.privateMode = feed.getPrivateMode();
       this.images = images;
       this.tags = tags;
+    }
+
+  }
+
+  @Getter
+  public static class FeedDetailRes {
+
+    private FeedRes feedRes;
+    private List<CommentRes> commentRes;
+
+    public FeedDetailRes(FeedRes feedRes, List<CommentRes> commentRes) {
+      this.feedRes = feedRes;
+      this.commentRes = commentRes;
     }
 
   }

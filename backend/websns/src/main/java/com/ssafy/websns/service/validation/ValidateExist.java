@@ -5,6 +5,7 @@ import com.ssafy.websns.model.entity.feed.Comment;
 import com.ssafy.websns.model.entity.feed.Feed;
 import com.ssafy.websns.model.entity.feed.FeedTag;
 import com.ssafy.websns.model.entity.feed.Image;
+import com.ssafy.websns.model.entity.feed.Tag;
 import com.ssafy.websns.model.entity.user.User;
 import java.util.List;
 import java.util.Optional;
@@ -24,7 +25,7 @@ public class ValidateExist {
 
   public Feed findFeed(Optional<Feed> optional) {
 
-    Feed feed = new Feed();
+    Feed feed;
 
     if(optional.isPresent()) {
       feed = optional.get();
@@ -36,9 +37,23 @@ public class ValidateExist {
 
   }
 
+  public Tag findTag(Optional<Tag> optional) {
+
+    Tag tag;
+
+    if(optional.isPresent()) {
+      tag = optional.get();
+      return tag;
+    } else {
+      return null;
+    }
+
+
+  }
+
   public Comment findComment(Optional<Comment> optional) {
 
-    Comment comment = new Comment();
+    Comment comment;
 
     if (optional.isPresent()) {
       comment = optional.get();
