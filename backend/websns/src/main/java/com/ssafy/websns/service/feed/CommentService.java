@@ -28,21 +28,14 @@ public class CommentService {
 
   private ValidateExist validateExist = new ValidateExist();
 
-//  private CommentService(CommentRepository commentRepository, FeedRepository feedRepository, UserRepository userRepository){
-//    this.commentRepository = commentRepository;
-//    this.feedRepository = feedRepository;
-//    this.userRepository = userRepository;
-//  }
-
   @Transactional
   public CommentRes postComment(Integer feedNo, CreateReq request) {
 
-//    ValidateExist validateExist = new ValidateExist(commentRepository, feedRepository, null);
-
     Optional<Feed> feedOptional = feedRepository.findByNo(feedNo);
+    Optional<User> userOptional = userRepository.findByUserId(request.getUserId());
 
-    User user = userRepository.findByUserId(request.getUserId());
-    Feed feed = validateExist.findFeedByNo(feedOptional);
+    User user = validateExist.findUser(userOptional);
+    Feed feed = validateExist.findFeed(feedOptional);
 
     Integer parentNo = request.getParent();
     Comment parentComment = null;
@@ -67,8 +60,6 @@ public class CommentService {
   @Transactional
   public UpdateRes editComment(Integer commentNo, UpdateReq request) {
 
-//    ValidateExist validateExist = new ValidateExist(commentRepository, feedRepository, null);
-
     Optional<Comment> optional = commentRepository.findByNo(commentNo);
 
     Comment comment = validateExist.findComment(optional);
@@ -81,21 +72,33 @@ public class CommentService {
 
   }
 
+  @Transactional
   public void cancelComment(Integer commentNo) {
 
     Optional<Comment> optional = commentRepository.findByNo(commentNo);
     Comment comment = validateExist.findComment(optional);
 
     comment.deleteComment();
-
   }
 
   public List<CommentRes> searchComments(Integer feedNo) {
 
     Optional<Feed> optional = feedRepository.findByNo(feedNo);
-    Feed feed = validateExist.findFeedByNo(optional);
-    
-    Optional<List<Comment>> commentOptional = commentRepository.findByFeed(feed);
+    Feed feed = validateExist.findFeed(optional);
+
+    Optional<List<Comment>> commentOptional = commentRepository.findByFeedAndDeleteModeIsFalse(feed);
+    List<CommentRes> comments = validateExist.findComments(commentOptional);
+
+    return comments;
+
+  }
+
+  public List<CommentRes> showCommentsById(String userId) {
+
+    Optional<User> userOptional = userRepository.findByUserId(userId);
+    User user = validateExist.findUser(userOptional);
+
+    Optional<List<Comment>> commentOptional = commentRepository.findByUser(user);
     List<CommentRes> comments = validateExist.findComments(commentOptional);
 
     return comments;

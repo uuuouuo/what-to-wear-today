@@ -1,14 +1,15 @@
 package com.ssafy.websns.service;
 
-import com.ssafy.websns.model.entity.feed.Feed;
+
+import com.ssafy.websns.model.dto.feed.FeedDto.FeedRes;
 import com.ssafy.websns.repository.feed.FeedRepository;
 import com.ssafy.websns.repository.feed.ImageRepository;
 import com.ssafy.websns.repository.region.RegionRepository;
 import com.ssafy.websns.repository.user.UserRepository;
 import com.ssafy.websns.service.feed.FeedService;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.EntityManager;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -30,9 +31,38 @@ class FeedServiceTest {
   FeedRepository feedRepository;
   @Autowired
   ImageRepository imageRepository;
+
   @Autowired
   EntityManager em;
 
+  @Test
+  void 유저로피드찾기확인() throws Exception {
+    // given
+//    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.M.d.HH:mm");
+//    String photoDateString = LocalDateTime.now().format(formatter);
+//    LocalDateTime photoDate = LocalDateTime.parse(photoDateString, formatter);
+
+//    User user = new User("a12341234123", "jdb4497@gmail.com", "12341234", "kakao", "20 - 30", true, false);
+//    userRepository.save(user);
+//    em.flush();
+//    em.clear();
+//    Region region = new Region("서울", 100);
+//    regionRepository.save(region);
+//    Feed feed1 = new Feed(user, region, "오늘 덥네요 ;", photoDate, "핵더움", false, false);
+//    Feed feed2 = new Feed(user, region, "오늘 덥네요 ;", photoDate, "핵더움", false, false);
+//    feedRepository.save(feed1);
+//    feedRepository.save(feed2);
+
+    // when
+    List<FeedRes> feeds = feedService.showFeedsById("jdb4497@gmail.com");
+
+    // then
+    Assertions.assertThat(feeds.size()).isEqualTo(5);
+
+  }
+
+//
+>>>>>>> 3d1eb39e0a21d9f99a2d478f6cd38d852589687b
 ////  @Test
 ////  void 피드생성확인() throws Exception {
 ////    //given
@@ -131,4 +161,9 @@ class FeedServiceTest {
 //
 //        }
 //
+<<<<<<< HEAD
 }
+=======
+}
+
+>>>>>>> 3d1eb39e0a21d9f99a2d478f6cd38d852589687b
