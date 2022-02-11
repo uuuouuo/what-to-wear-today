@@ -62,7 +62,6 @@ class FeedServiceTest {
   }
 
 //
->>>>>>> 3d1eb39e0a21d9f99a2d478f6cd38d852589687b
 ////  @Test
 ////  void 피드생성확인() throws Exception {
 ////    //given
@@ -161,9 +160,4 @@ class FeedServiceTest {
 //
 //        }
 //
-<<<<<<< HEAD
 }
-=======
-}
-
->>>>>>> 3d1eb39e0a21d9f99a2d478f6cd38d852589687b
