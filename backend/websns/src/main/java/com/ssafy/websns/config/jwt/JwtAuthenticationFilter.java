@@ -40,10 +40,4 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     }
   }
-
-  private void updateToken(String jwtToken) {
-
-
-
-  }
 }

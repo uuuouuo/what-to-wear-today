@@ -78,6 +78,7 @@ public class CommentService {
     Comment comment = validateExist.findComment(optional);
 
     comment.deleteComment();
+
   }
 
   public List<CommentRes> searchComments(Integer feedNo) {

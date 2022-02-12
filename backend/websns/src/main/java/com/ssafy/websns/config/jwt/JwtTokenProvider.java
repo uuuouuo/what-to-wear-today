@@ -93,4 +93,14 @@ public class JwtTokenProvider {
     }
     return null;
   }
+
+  public String logout(User user) {
+
+    String jwtToken = JWT.create()
+        .withSubject("jwt토큰")
+        .withExpiresAt(new Date(System.currentTimeMillis() - System.currentTimeMillis()))
+        .withClaim("userId", user.getUserId())
+        .sign(Algorithm.HMAC512(JwtProperties.SECRET));
+    return jwtToken;
+  }
 }
