@@ -17,6 +17,8 @@ import Tab from '@mui/material/Tab';
 import FollowingModal from '@/components/Following_modal/Following_modal';
 import DrawerMenu from '@/components/Drawer_menu/Drawer_menu';
 
+import MypageFeeds from '@/components/MypageFeeds/MypageFeeds';
+
 const User: NextPage = () => {
   const router = useRouter();
   const { userId } = router.query;
@@ -68,16 +70,6 @@ const User: NextPage = () => {
   const modifyProfile = () => {
     console.log(userId);
   };
-  const searchFeed = () => {
-    console.log('search');
-  };
-  const setDate = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (event.target.name === 'start') {
-      setStartDate(event.target.valueAsDate);
-    } else if (event.target.name === 'end') {
-      setEndDate(event.target.valueAsDate);
-    }
-  };
   return (
     <Styled.MainContainer>
       <Title value="Profile" />
@@ -115,22 +107,13 @@ const User: NextPage = () => {
           </Tabs>
         </Box>
       </Styled.rowContainer>
-      <Styled.contentContainer>
-        {value === 0 ? (
-          <Styled.rowContainer>
-            기간 <input type="date" name="start" onChange={setDate}></input> ~{' '}
-            <input type="date" name="end" onChange={setDate}></input>
-            <Button onClick={searchFeed}>
-              <SearchIcon />
-            </Button>
-          </Styled.rowContainer>
-        ) : null}
-      </Styled.contentContainer>
+      <Styled.contentContainer></Styled.contentContainer>
       <Styled.contentContainer>
         {content[value].content.map((item, idx) => {
           return <Styled.columnContainer key={idx}>{item.title}</Styled.columnContainer>;
         })}
       </Styled.contentContainer>
+      <MypageFeeds />
     </Styled.MainContainer>
   );
 };
