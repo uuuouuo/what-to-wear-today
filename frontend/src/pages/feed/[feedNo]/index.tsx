@@ -1,19 +1,27 @@
 import React from 'react';
 import { NextPage } from 'next';
-import { GetServerSideProps } from 'next';
 import FeedDetailTemplate from '@/template/feed/detail';
+import wrapper from '@/store/configureStore';
+import { loadFeedRequest } from '@/action/feedAction';
+import { END } from 'redux-saga';
 interface Props {
-  data: number | undefined;
+  feedNo: number;
 }
 
-const FeedDetail: NextPage<Props> = ({ data }) => {
-  return <FeedDetailTemplate feedNo={data}></FeedDetailTemplate>;
+const FeedDetail: NextPage<Props> = ({ feedNo }) => {
+  return <FeedDetailTemplate feedNo={feedNo}></FeedDetailTemplate>;
 };
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const data = context.query.feedNo;
+export const getServerSideProps = wrapper.getServerSideProps(
+  (store) =>
+    async ({ req, res, params }) => {
+      const data = Number(params.feedNo);
+      store.dispatch(loadFeedRequest(data));
+      store.dispatch(END);
+      await store.sagaTask.toPromise();
 
-  return { props: { data: data } };
-};
+      return { props: { feedNo: data } };
+    },
+);
 
 export default FeedDetail;
