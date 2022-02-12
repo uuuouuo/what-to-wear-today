@@ -15,14 +15,14 @@ public class ImageDto {
 
   @Getter
   @NoArgsConstructor(access = AccessLevel.PROTECTED)
-  public static class CreateImage {
+  public static class ImageFile {
 
     private Integer no;
     private String imgUrl;
     private byte[] imgFile;
     private Integer feedNo;
 
-    public CreateImage(Image image) {
+    public ImageFile(Image image) {
       this.no = image.getNo();
       this.imgUrl = image.getImgUrl();
       this.feedNo = image.getFeed().getNo();

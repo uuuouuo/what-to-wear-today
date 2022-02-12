@@ -32,7 +32,6 @@ public class CommentService {
   public CommentRes postComment(Integer feedNo, CreateReq request) {
 
     Optional<Feed> feedOptional = feedRepository.findByNo(feedNo);
-
     Optional<User> userOptional = userRepository.findByUserId(request.getUserId());
 
     User user = validateExist.findUser(userOptional);
@@ -85,8 +84,20 @@ public class CommentService {
 
     Optional<Feed> optional = feedRepository.findByNo(feedNo);
     Feed feed = validateExist.findFeed(optional);
-    
+
     Optional<List<Comment>> commentOptional = commentRepository.findByFeedAndDeleteModeIsFalse(feed);
+    List<CommentRes> comments = validateExist.findComments(commentOptional);
+
+    return comments;
+
+  }
+
+  public List<CommentRes> showCommentsById(String userId) {
+
+    Optional<User> userOptional = userRepository.findByUserId(userId);
+    User user = validateExist.findUser(userOptional);
+
+    Optional<List<Comment>> commentOptional = commentRepository.findByUser(user);
     List<CommentRes> comments = validateExist.findComments(commentOptional);
 
     return comments;
