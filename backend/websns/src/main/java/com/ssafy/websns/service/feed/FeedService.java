@@ -25,7 +25,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-import javax.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -44,7 +43,6 @@ public class FeedService {
   private final TagRepository tagRepository;
   private final UserRepository userRepository;
   private final FeedTagRepository feedTagRepository;
-  private final EntityManager em;
 
   private ValidateExist validateExist = new ValidateExist();
 
@@ -67,7 +65,6 @@ public class FeedService {
 
     Date date = new Date();
     StringBuilder sb = new StringBuilder();
-
     List<Image> imageList = new ArrayList<>();
 
     // file image 가 없을 경우
@@ -90,25 +87,25 @@ public class FeedService {
 
     List<Image> savedImages = imageRepository.saveAll(imageList);
 
-    List<String> feedTags = request.getTags();
-    List<FeedTag> tags = new ArrayList<>();
+    List<String> tagNames = request.getTags();
+    List<FeedTag> feedTags = new ArrayList<>();
 
-    feedTags.stream().forEach(tag -> {
-      Optional<Tag> byTagName = tagRepository.findByTagName(tag);
-      if (byTagName.isEmpty()) {
-        Tag saveTag = tagRepository.save(new Tag(tag));
-        FeedTag save = feedTagRepository.save(new FeedTag(savedFeed, saveTag));
-        tags.add(save);
-      } else {
-        FeedTag save = feedTagRepository.save(new FeedTag(savedFeed, byTagName.get()));
-        tags.add(save);
+    tagNames.stream().forEach(tagName -> {
+      Optional<Tag> tagOptional = tagRepository.findByTagName(tagName);
+      Tag tag = validateExist.findTag(tagOptional);
+
+      if (tag == null) {
+        tag = tagRepository.save(new Tag(tagName));
       }
+        FeedTag saveFeedTag = feedTagRepository.save(new FeedTag(savedFeed, tag));
+        feedTags.add(saveFeedTag);
+
     });
 
     List<ImageFile> resImages = savedImages.stream()
         .map(ImageFile::new).collect(Collectors.toList());
 
-    List<String> resTags = tags.stream().map(tag -> tag.getTagNo().getTagName())
+    List<String> resTags = feedTags.stream().map(tag -> tag.getTagNo().getTagName())
         .collect(Collectors.toList());
 
     FeedRes response = new FeedRes(feed, resImages, resTags);
@@ -168,19 +165,15 @@ public class FeedService {
     List<FeedTag> feedTags = new ArrayList<>();
 
     tagNames.stream().forEach(tagName -> {
-
       Optional<Tag> tagOptional = tagRepository.findByTagName(tagName);
       Tag tag = validateExist.findTag(tagOptional);
 
-      Tag saveTag;
       FeedTag saveFeedTag;
       if (tag == null) {
-        saveTag = tagRepository.save(new Tag(tagName));
-        saveFeedTag = feedTagRepository.save(new FeedTag(feed, saveTag));
-      } else {
-        saveFeedTag = feedTagRepository.save(new FeedTag(feed, tag));
+        tag = tagRepository.save(new Tag(tagName));
       }
 
+      saveFeedTag = feedTagRepository.save(new FeedTag(feed, tag));
       feedTags.add(saveFeedTag);
 
     });
@@ -214,42 +207,11 @@ public class FeedService {
     List<FeedRes> response = new ArrayList<>();
 
     feeds.stream().forEach(feed -> {
-      Optional<List<Image>> imagesOptional = imageRepository.findByFeed(feed);
-      List<ImageFile> resImages = validateExist.findImages(imagesOptional).stream()
-          .map(ImageFile::new).collect(Collectors.toList());
-
-      Optional<List<FeedTag>> feedTagOptional = feedTagRepository.findByFeed(feed);
-      List<FeedTag> feedTags = validateExist.findFeedTags(feedTagOptional);
-      List<String> resTags = feedTags.stream().map(tag -> tag.getTagNo().getTagName())
-          .collect(Collectors.toList());
-
-      FeedRes feedRes = new FeedRes(feed, resImages, resTags);
-
+      FeedRes feedRes = getFeedRes(feed);
       response.add(feedRes);
     });
 
     return response;
-
-  }
-
-  public FeedRes searchFeedByNo(Integer feedNo) {
-
-    Optional<Feed> feedOptional = feedRepository.findByNo(feedNo);
-    Feed feed = validateExist.findFeed(feedOptional);
-
-    Optional<List<Image>> imagesOptional = imageRepository.findByFeed(feed);
-    List<Image> images = validateExist.findImages(imagesOptional);
-    List<ImageFile> resImages = images.stream()
-        .map(ImageFile::new).collect(Collectors.toList());
-
-    Optional<List<FeedTag>> feedTagOptional = feedTagRepository.findByFeed(feed);
-    List<FeedTag> feedTags = validateExist.findFeedTags(feedTagOptional);
-    List<String> resTags = feedTags.stream().map(tag -> tag.getTagNo().getTagName())
-          .collect(Collectors.toList());
-
-    FeedRes feedRes = new FeedRes(feed, resImages, resTags);
-
-    return feedRes;
 
   }
 
@@ -264,22 +226,40 @@ public class FeedService {
     List<FeedRes> response = new ArrayList<>();
 
     feeds.stream().forEach(feed -> {
-      Optional<List<Image>> imagesOptional = imageRepository.findByFeed(feed);
-      List<Image> images = validateExist.findImages(imagesOptional);
-      List<ImageFile> resImages = images.stream()
-          .map(ImageFile::new).collect(Collectors.toList());
-
-      Optional<List<FeedTag>> feedTagOptional = feedTagRepository.findByFeed(feed);
-      List<FeedTag> feedTags = validateExist.findFeedTags(feedTagOptional);
-      List<String> resTags = feedTags.stream().map(tag -> tag.getTagNo().getTagName())
-          .collect(Collectors.toList());
-
-      FeedRes feedRes = new FeedRes(feed, resImages, resTags);
+      FeedRes feedRes = getFeedRes(feed);
       response.add(feedRes);
-
     });
-    
+
     return response;
+
+  }
+
+  public FeedRes searchFeedByNo(Integer feedNo) {
+
+    Optional<Feed> feedOptional = feedRepository.findByNo(feedNo);
+    Feed feed = validateExist.findFeed(feedOptional);
+
+    FeedRes feedRes = getFeedRes(feed);
+
+    return feedRes;
+
+  }
+
+  private FeedRes getFeedRes(Feed feed) {
+
+    Optional<List<Image>> imagesOptional = imageRepository.findByFeed(feed);
+    List<Image> images = validateExist.findImages(imagesOptional);
+    List<ImageFile> resImages = images.stream()
+        .map(ImageFile::new).collect(Collectors.toList());
+
+    Optional<List<FeedTag>> feedTagOptional = feedTagRepository.findByFeed(feed);
+    List<FeedTag> feedTags = validateExist.findFeedTags(feedTagOptional);
+    List<String> resTags = feedTags.stream().map(tag -> tag.getTagNo().getTagName())
+        .collect(Collectors.toList());
+
+    FeedRes feedRes = new FeedRes(feed, resImages, resTags);
+
+    return feedRes;
 
   }
 
