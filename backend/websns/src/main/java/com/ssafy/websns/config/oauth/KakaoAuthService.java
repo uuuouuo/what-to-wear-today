@@ -62,6 +62,12 @@ public class KakaoAuthService { // public class GoogleAuthService
 
   }
 
+  public void logout(AuthReq authRequest) {
+
+    clientKakao.logout(authRequest.getAccessToken());
+
+  }
+
 //  public String updateToken(String jwtToken) {
 //
 //    String userId = jwtTokenProvider.getUserId(jwtToken);

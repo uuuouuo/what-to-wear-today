@@ -46,13 +46,12 @@ public class AuthController {
   }
 
   @PostMapping(value = "/logout")
-  public ResponseEntity<String> kakaoAuthRequest(@RequestBody AuthReq authRequest, HttpServletResponse response) {
+  public ResponseEntity<String> logout(@RequestBody AuthReq authRequest, HttpServletResponse response) {
 
-    String jwtToken = kakaoAuthService.logout(authRequest);
+    kakaoAuthService.logout(authRequest);
     response.addHeader(JwtProperties.HEADER_STRING,"");
 
-    System.out.println("jwt 토큰 " + jwtToken);
-    return ResponseEntity.ok().body("JWT 생성 완료.");
+    return ResponseEntity.ok().body("로그아웃 완료");
 
   }
 
