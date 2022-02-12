@@ -22,7 +22,7 @@ const reducer = (state = initialState, action: any) => {
       return {
         ...state,
         loadFeedLoading: false,
-        comments: action.data,
+        feed: action.data,
         loadFeedDone: true,
       };
 
