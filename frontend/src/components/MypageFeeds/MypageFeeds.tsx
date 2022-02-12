@@ -4,17 +4,17 @@ import type { RootState } from '@/reducers';
 import { useDispatch, useSelector } from 'react-redux';
 import { LOAD_MYPAGE_Feed_REQUEST } from '@/action/MypageFeedAction';
 
-const MypageFeeds = () => {
+const MypageFeeds = ({ userId }) => {
   const dispatch = useDispatch();
   const { myFeeds } = useSelector((state: RootState) => state.mypageFeeds);
   useEffect(() => {
     dispatch({
       type: LOAD_MYPAGE_Feed_REQUEST,
-      userId: 'jdb',
+      userId: userId,
     });
   }, []);
 
-  console.log(myFeeds.data);
+  // console.log(myFeeds.data);
 
   return (
     <Styled.contentContainer>
