@@ -22,22 +22,12 @@ import MypageFeeds from '@/components/MypageFeeds/MypageFeeds';
 const User: NextPage = () => {
   const router = useRouter();
   const { userId } = router.query;
-
-  const [startDate, setStartDate] = useState<Date | null>();
-  const [endDate, setEndDate] = useState<Date | null>();
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
   };
 
-  const dummyFeed = [
-    { title: '더미 피드 1', content: '헤헿' },
-    { title: '더미 피드 2', content: '헤헿' },
-    { title: '더미 피드 3', content: '헤헿' },
-    { title: '더미 피드 4', content: '헤헿' },
-    { title: '더미 피드 5', content: '헤헿' },
-  ];
   const dummyLike = [
     { title: '더미 라이크 1', content: '헤헿' },
     { title: '더미 라이크 2', content: '헤헿' },
@@ -52,24 +42,13 @@ const User: NextPage = () => {
     { title: '더미 코멘트 4', content: '헤헿' },
     { title: '더미 코멘트 5', content: '헤헿' },
   ];
-  const content = [
-    {
-      tab: 'feed',
-      content: dummyFeed,
-    },
-    {
-      tab: 'like',
-      content: dummyLike,
-    },
-    {
-      tab: 'comment',
-      content: dummyComment,
-    },
-  ];
 
   const modifyProfile = () => {
     console.log(userId);
   };
+
+  // console.log(content[value].content);
+
   return (
     <Styled.MainContainer>
       <Title value="Profile" />
@@ -109,11 +88,8 @@ const User: NextPage = () => {
       </Styled.rowContainer>
       <Styled.contentContainer></Styled.contentContainer>
       <Styled.contentContainer>
-        {content[value].content.map((item, idx) => {
-          return <Styled.columnContainer key={idx}>{item.title}</Styled.columnContainer>;
-        })}
+        {value === 0 ? <MypageFeeds /> : value === 1 ? null : null}
       </Styled.contentContainer>
-      <MypageFeeds />
     </Styled.MainContainer>
   );
 };
