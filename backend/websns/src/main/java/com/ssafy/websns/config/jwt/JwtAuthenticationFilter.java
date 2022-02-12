@@ -21,8 +21,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
       HttpServletResponse response,
       FilterChain filterChain)  throws ServletException, IOException {
 
-    final String authorizationHeader = request.getHeader("Authorization"); // Authorization 헤더 꺼냄
-
+    final String authorizationHeader = request.getHeader("JWT"); // Authorization 헤더 꺼냄
+    System.out.println("header token : " + authorizationHeader);
     if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) { // JWT 토큰이 존재하는지 확인
 //      String tokenStr = JwtHeaderUtil.getAccessToken(request); // Bearer로 시작하는 값에서 Bearer를 제거한 accessToken(appToken) 반환
       String jwtToken = authorizationHeader.replace("Bearer ", "");
@@ -32,8 +32,18 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         Authentication authentication = tokenProvider.getAuthentication(jwtToken);
         SecurityContextHolder.getContext().setAuthentication(authentication); // token에 존재하는 authentication 정보 삽입
       }
-
       filterChain.doFilter(request, response);
     }
+    else if(authorizationHeader == null || authorizationHeader.equals("null")){
+
+      filterChain.doFilter(request,response);
+
+    }
+  }
+
+  private void updateToken(String jwtToken) {
+
+
+
   }
 }

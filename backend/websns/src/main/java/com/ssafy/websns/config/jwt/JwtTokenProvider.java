@@ -29,6 +29,8 @@ public class JwtTokenProvider {
 
   }
 
+
+
   public String getUserId(String jwtToken) {
 
     String userId = JWT.require(Algorithm.HMAC512(JwtProperties.SECRET)).build().verify(jwtToken).getClaim("userId").asString();
@@ -37,13 +39,20 @@ public class JwtTokenProvider {
   }
 
   public boolean validate(String jwtToken) {
-    Date expiresAt = JWT.require(Algorithm.HMAC512(JwtProperties.SECRET)).build().verify(jwtToken)
-        .getExpiresAt();
+    return validateExpired(jwtToken) && validateForm(jwtToken);
+  }
+
+  public boolean validateExpired(String jwtToken){
+    Date expiresAt = JWT.require(Algorithm.HMAC512(JwtProperties.SECRET)).build().verify(jwtToken).getExpiresAt();
     Date cur = new Date();
 
     if(expiresAt.compareTo(cur)<0) {
       return false;
     }
+    return true;
+  }
+
+  public boolean validateForm(String jwtToken){
     String userId = getUserId(jwtToken);
     Optional<User> userOptional = userRepository.findByUserId(userId);
 
@@ -51,6 +60,7 @@ public class JwtTokenProvider {
       return false;
     }
     return true;
+
   }
 
   public Authentication getAuthentication(String jwtToken) {
@@ -73,4 +83,14 @@ public class JwtTokenProvider {
     return null;
   }
 
+  public String update(String jwtToken) {
+
+    String userId = getUserId(jwtToken);
+    Optional<User> userOptional = userRepository.findByUserId(userId);
+
+    if(userOptional.isPresent()) {
+      return create(userOptional.get());
+    }
+    return null;
+  }
 }

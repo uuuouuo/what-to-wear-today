@@ -11,7 +11,18 @@ import java.util.stream.Collectors;
 
 public class ValidateExist {
 
-  public Feed findFeedByNo(Optional<Feed> optional) {
+
+  public User findUser(Optional<User> optional) {
+    User user;
+    if (optional.isPresent()) {
+      user = optional.get();
+    } else {
+      throw new IllegalStateException("존재하지 않은 회원입니다.");
+    }
+    return user;
+  }
+
+  public Feed findFeed(Optional<Feed> optional) {
 
     Feed feed = new Feed();
 
@@ -24,7 +35,6 @@ public class ValidateExist {
     return feed;
 
   }
-
 
   public Comment findComment(Optional<Comment> optional) {
 
@@ -76,13 +86,6 @@ public class ValidateExist {
     return images;
 
   }
-  public User findUser(Optional<User> optional) {
-    User user;
-    if (optional.isPresent()) {
-      user = optional.get();
-    } else {
-      throw new IllegalStateException("존재하지 않은 회원입니다.");
-    }
-    return user;
-  }
+
+
 }

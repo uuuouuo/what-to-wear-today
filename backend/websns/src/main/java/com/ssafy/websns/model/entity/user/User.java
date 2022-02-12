@@ -9,7 +9,6 @@ import javax.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import java.util.Random;
 import org.hibernate.annotations.GenericGenerator;
 
 @Entity
@@ -38,20 +37,19 @@ public class User {
 
   private Boolean deleteMode;
 
-  public void createUser(String userId, String platform, String ageRange,
-      String gender, Boolean deleteMode) {
-    this.userId = userId;
-    this.platform = platform;
-    this.ageRange = ageRange;
-    this.gender = gender.equals("female") ? true : false;
-    this.deleteMode = deleteMode;
+  public void createUser(User user) {
+    this.userId = user.getUserId();
+    this.platform = user.getPlatform();
+    this.ageRange = user.getAgeRange();
+    this.gender = user.getGender().equals("female") ? true : false;
+    this.deleteMode = false;
   }
 
   public void createKakaoUser(UserResponse userResponse) {
     this.userId = String.valueOf(userResponse.getId());
     this.platform = "kakao";
-    this.ageRange = userResponse.getAgeRange();
-    this.gender = userResponse.getGender().equals("female") ? true : false;
+    this.ageRange = userResponse.getKakao_account().get("age_range").toString();
+    this.gender = userResponse.getKakao_account().get("gender").equals("female") ? true : false;
     this.deleteMode = false;
   }
 

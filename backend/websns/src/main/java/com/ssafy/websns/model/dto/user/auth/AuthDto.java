@@ -1,4 +1,4 @@
-package com.ssafy.websns.model.dto.Auth;
+package com.ssafy.websns.model.dto.user.auth;
 
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -8,6 +8,7 @@ import lombok.Setter;
 public class AuthDto {
 
   @Getter
+  @Setter
   @NoArgsConstructor(access = AccessLevel.PROTECTED)
   public static class AuthReq{
     String accessToken;
@@ -16,6 +17,17 @@ public class AuthDto {
       this.accessToken = accessToken;
     }
   }
+
+  @Getter
+  @NoArgsConstructor(access = AccessLevel.PROTECTED)
+  public static class RefreshAuthReq{
+    String userId;
+
+    public RefreshAuthReq(String userId) {
+      this.userId = userId;
+    }
+  }
+
 
   @Getter
   @Setter

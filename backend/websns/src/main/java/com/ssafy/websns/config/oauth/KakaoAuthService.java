@@ -2,8 +2,7 @@ package com.ssafy.websns.config.oauth;
 
 import com.ssafy.websns.config.jwt.JwtTokenProvider;
 import com.ssafy.websns.config.oauth.provider.ClientKakao;
-import com.ssafy.websns.model.dto.Auth.AuthDto.AuthRes;
-import com.ssafy.websns.model.dto.Auth.AuthDto.AuthReq;
+import com.ssafy.websns.model.dto.user.auth.AuthDto.AuthReq;
 import com.ssafy.websns.model.entity.user.User;
 import com.ssafy.websns.repository.user.UserRepository;
 import java.util.Optional;
@@ -26,7 +25,9 @@ public class KakaoAuthService { // public class GoogleAuthService
 
     String socialId = user.getUserId();
 
-    Optional<User> findUser = userRepository.findById(socialId);
+    System.out.println(socialId);
+
+    Optional<User> findUser = userRepository.findByUserId(socialId);
 
 
     //JWT 토큰 생성
@@ -38,13 +39,40 @@ public class KakaoAuthService { // public class GoogleAuthService
 //        .sign(Algorithm.HMAC512(JwtProperties.SECRET));
 
     String jwtToken = jwtTokenProvider.create(user);
-
+    System.out.println(jwtToken);
 //    AuthToken appToken = authTokenProvider.createUserAppToken(socialId); // 신규 토큰 생성
-    AuthRes authRes = new AuthRes();
 
     if (findUser.isEmpty()) {
       userRepository.save(user);
     }
     return jwtToken;
   }
+
+  public String updateToken(String userId) {
+    Optional<User> userOptional = userRepository.findByUserId(userId);
+
+    String newJwtToken = null;
+    System.out.println("2 : " + userOptional.isPresent());
+    if(userOptional.isPresent()) {
+      User user = userOptional.get();
+      newJwtToken = jwtTokenProvider.create(user);
+    }
+
+    return newJwtToken;
+
+  }
+
+//  public String updateToken(String jwtToken) {
+//
+//    String userId = jwtTokenProvider.getUserId(jwtToken);
+//    Optional<User> userOptional = userRepository.findByUserId(userId);
+//
+//    String newJwtToken = "";
+//    if(userOptional.isPresent()) {
+//      newJwtToken = jwtTokenProvider.create(userOptional.get());
+//    }
+//
+//    return newJwtToken;
+//
+//  }
 }

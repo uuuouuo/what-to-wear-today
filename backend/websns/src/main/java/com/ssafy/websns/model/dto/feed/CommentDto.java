@@ -75,12 +75,11 @@ public class CommentDto {
     private Boolean privateMode;
     private LocalDateTime updateAt;
 
-    public UpdateRes(Integer no, String content,
-        Boolean privateMode, LocalDateTime updateAt) {
-      this.no = no;
-      this.content = content;
-      this.privateMode = privateMode;
-      this.updateAt = updateAt;
+    public UpdateRes(Comment comment) {
+      this.no = comment.getNo();
+      this.content = comment.getContent();
+      this.privateMode = comment.getPrivateMode();
+      this.updateAt = comment.getUpdatedAt();
     }
 
   }
