@@ -1,17 +1,13 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import Styled from './styled';
 import type { NextPage } from 'next';
-
 import type { RootState } from '@/reducers';
-import { useDispatch, useSelector } from 'react-redux';
-import { LOAD_FEED_REQUEST } from '@/action/feedAction';
-
+import { useSelector } from 'react-redux';
 import Link from '@mui/material/Link';
 import { Header, FooterNavbar } from '@/components/molecules';
 import CommentPage from '@/components/CommentPage/CommentPage';
 import Dropdown from '@/components/Dropdown/Dropdown';
 import ReportForm from '@/components/ReportForm/ReportForm';
-
 import {
   UserImage,
   UserName,
@@ -22,19 +18,11 @@ import {
 } from '@/components/atoms';
 
 interface Props {
-  feedNo: number | undefined;
+  feedNo: number;
 }
 
 const FeedDetail: NextPage<Props> = ({ feedNo }) => {
-  const dispatch = useDispatch();
   const { feed } = useSelector((state: RootState) => state.feed);
-  useEffect(() => {
-    dispatch({
-      type: LOAD_FEED_REQUEST,
-      feedNo: { feedNo },
-    });
-  }, []);
-  console.log(feed);
 
   return (
     <Styled.DetailPageLayout>
@@ -48,19 +36,19 @@ const FeedDetail: NextPage<Props> = ({ feedNo }) => {
 
             <Styled.UserId>
               <Link href={`/feed/1`} underline="none" sx={{ color: 'black' }}>
-                <UserName value={'user.name'} />
+                <UserName value={'feed.userId'} />
               </Link>
-              <UserId value={'user.id'} />
+              <UserId value={'feed.userId'} />
             </Styled.UserId>
           </Styled.UserInfoArea>
           <Dropdown />
         </Styled.ArticleArea>
 
         <Styled.ArticleContent>
-          <ArticleContent value={'d'} />
-          <HashTag value={['article.hashTag']} />
+          <ArticleContent value={feed[0].content} />
+          <HashTag value={['feed.tags']} />
           <Styled.DateLine>
-            <ArticleDate value={'article.date'} />
+            <ArticleDate value={'feed.createdAt'} />
             <ReportForm />
           </Styled.DateLine>
         </Styled.ArticleContent>
