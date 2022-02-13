@@ -1,6 +1,6 @@
 package com.ssafy.websns.service.user;
 
-import com.ssafy.websns.model.dto.user.UserDto.UserRes;
+import com.ssafy.websns.model.dto.user.UserProfileDto.UserProfileRes;
 import com.ssafy.websns.model.entity.user.User;
 import com.ssafy.websns.model.entity.user.UserProfile;
 import com.ssafy.websns.repository.user.UserProfileRepository;
@@ -19,7 +19,7 @@ public class UserService {
 
   private ValidateExist validateExist = new ValidateExist();
 
-  public UserRes searchUser(String userId) {
+  public UserProfileRes searchUser(String userId) {
 
     Optional<User> userOptional = userRepository.findByUserId(userId);
     User user = validateExist.findUser(userOptional);
@@ -28,12 +28,9 @@ public class UserService {
     UserProfile userProfile = validateExist.findUserProfile(profileOptional);
 
     userProfile.createUserProfile(user, userProfile.getNickname());
-//    new
-//    user.createUser(user);
-    UserRes userRes = new UserRes(user);
-
-    return userRes;
-
+//    UserProfileRes userProfileRes = new UserProfileRes(user, userProfile.getNickname());
+//    return userProfileRes;
+    return null;
   }
 
 }

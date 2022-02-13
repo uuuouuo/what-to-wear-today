@@ -2,7 +2,7 @@ package com.ssafy.websns.controller;
 
 import com.ssafy.websns.config.jwt.JwtProperties;
 import com.ssafy.websns.config.oauth.KakaoAuthService;
-import com.ssafy.websns.model.dto.user.UserDto.UserRes;
+import com.ssafy.websns.model.dto.user.UserProfileDto.UserProfileRes;
 import com.ssafy.websns.model.dto.user.auth.AuthDto.AuthReq;
 import com.ssafy.websns.model.dto.user.auth.AuthDto.LoginAuthReq;
 import com.ssafy.websns.service.user.UserService;
@@ -39,6 +39,7 @@ public class AuthController {
   @PostMapping(value = "/logout")
   public ResponseEntity<String> logout(@RequestBody AuthReq authRequest, HttpServletResponse response) {
 
+    System.out.println("여기에 들어옴 !!!!!");
     String jwtToken = kakaoAuthService.logout(authRequest.getUserId());
     response.addHeader(JwtProperties.HEADER_STRING,JwtProperties.TOKEN_PREFIX +jwtToken);
 
@@ -47,22 +48,34 @@ public class AuthController {
     return ResponseEntity.ok().body("로그아웃 완료");
 
   }
+  @PostMapping(value = "/refresh")
+  public ResponseEntity<String> refresh(@RequestBody AuthReq authRequest, HttpServletResponse response) {
 
-  @PostMapping("/refresh")
-  public ResponseEntity<String> getRefreshToken (@RequestBody AuthReq userId, HttpServletResponse response) {
+    System.out.println("여기에 들어옴 !!!!!");
+    String jwtToken = kakaoAuthService.updateToken(authRequest.getUserId());
+    response.addHeader(JwtProperties.HEADER_STRING,JwtProperties.TOKEN_PREFIX +jwtToken);
 
-    String newJwtToken = kakaoAuthService.updateToken(userId.getUserId());
-    response.addHeader(JwtProperties.HEADER_STRING,JwtProperties.TOKEN_PREFIX +newJwtToken);
-    return ResponseEntity.ok().body("JWT 재생성 완료.");
+    System.out.println("jwt 토큰 " + jwtToken);
+
+    return ResponseEntity.ok().body("JWT 재생성 완료");
 
   }
 
+//  @PostMapping("/refresh")
+//  public ResponseEntity<String> getRefreshToken (@RequestBody AuthReq userId, HttpServletResponse response) {
+//
+//    String newJwtToken = kakaoAuthService.updateToken(userId.getUserId());
+//    response.addHeader(JwtProperties.HEADER_STRING,JwtProperties.TOKEN_PREFIX +newJwtToken);
+//    return ResponseEntity.ok().body("JWT 재생성 완료.");
+//
+//  }
+
   @GetMapping("/{userId}")
-  public ResponseEntity<UserRes> findUser (@PathVariable("userId") String userId) {
+  public ResponseEntity<UserProfileRes> findUser (@PathVariable("userId") String userId) {
 
-    UserRes userRes = userService.searchUser(userId);
+    UserProfileRes userProfileRes = userService.searchUser(userId);
 
-    return new ResponseEntity<>(userRes, HttpStatus.OK);
+    return new ResponseEntity<>(userProfileRes, HttpStatus.OK);
 
   }
 
