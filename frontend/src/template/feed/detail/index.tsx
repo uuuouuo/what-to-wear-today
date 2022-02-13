@@ -26,19 +26,23 @@ const FeedDetail: NextPage<Props> = ({ feedNo }) => {
 
   return (
     <Styled.DetailPageLayout>
-      <Header name="오늘 뭐 입지?" leftSide="pointer" rightSide="notification" />
+      <Header
+        name="오늘 뭐 입지?"
+        leftSide="pointer"
+        rightSide="notification"
+        userId={feed[0].userId}
+      />
       <Styled.TopArea>
         <Styled.ArticleArea>
           <Styled.UserInfoArea>
-            <Link href={`/feed/1`} underline="none" sx={{ color: 'black' }}>
+            <Link href={`/user/${feed[0].userId}`} underline="none" sx={{ color: 'black' }}>
               <UserImage />
             </Link>
 
             <Styled.UserId>
-              <Link href={`/feed/1`} underline="none" sx={{ color: 'black' }}>
-                <UserName value={'feed.userId'} />
+              <Link href={`/user/${feed[0].userId}`} underline="none" sx={{ color: 'black' }}>
+                <UserName value={feed[0].userId} />
               </Link>
-              <UserId value={'feed.userId'} />
             </Styled.UserId>
           </Styled.UserInfoArea>
           <Dropdown />
@@ -46,14 +50,14 @@ const FeedDetail: NextPage<Props> = ({ feedNo }) => {
 
         <Styled.ArticleContent>
           <ArticleContent value={feed[0].content} />
-          <HashTag value={['feed.tags']} />
+          <HashTag value={[feed[0].tags]} />
           <Styled.DateLine>
-            <ArticleDate value={'feed.createdAt'} />
+            <ArticleDate value={feed[0].createdAt} />
             <ReportForm />
           </Styled.DateLine>
         </Styled.ArticleContent>
       </Styled.TopArea>
-      <CommentPage />
+      <CommentPage feedNo={feedNo} />
       <FooterNavbar />
     </Styled.DetailPageLayout>
   );

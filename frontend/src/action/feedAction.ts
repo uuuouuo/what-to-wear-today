@@ -4,7 +4,7 @@ export const LOAD_FEED_FAILURE = 'LOAD_FEED_FAILURE';
 
 export const loadFeedRequest = (feedNo: number) => ({
   type: LOAD_FEED_REQUEST,
-  payload: feedNo,
+  feedNo: feedNo,
 });
 
 export const loadFeedSuccess = () => ({
