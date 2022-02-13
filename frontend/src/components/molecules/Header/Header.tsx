@@ -11,18 +11,23 @@ interface Props {
   leftSide?: string;
   name: string;
   rightSide?: string;
+  userId?: string;
 }
 
 const action = () => {
   console.log('action에 넣을 함수');
 };
 
-const Header: FunctionComponent<Props> = ({ leftSide, name, rightSide }) => {
+const Header: FunctionComponent<Props> = ({ leftSide, name, rightSide, userId }) => {
   let r_value = null;
   let r_icon = null;
   if (rightSide === 'notification') {
     r_value = '/notification';
-    r_icon = <NotificationsIcon />;
+    r_icon = (
+      <Link href={`/notification/${userId}`}>
+        <NotificationsIcon />
+      </Link>
+    );
   } else if (rightSide === 'complete') {
     r_value = '/';
     r_icon = <Button children="완료" type="submit" onClick={action} />;

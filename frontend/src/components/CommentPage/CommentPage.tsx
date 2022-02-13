@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { FunctionComponent, useState } from 'react';
 import Styled from './CommentPage.styled';
 import type { RootState } from '@/reducers';
 import List from '@mui/material/List';
@@ -11,19 +11,26 @@ import SendIcon from '@mui/icons-material/Send';
 import { UserImage } from '@/components/atoms/';
 import { useDispatch, useSelector } from 'react-redux';
 import { CommentType } from '@/types/comment';
+import { commentCreate } from '@/action/createCommentAction';
 
-const action = () => {
-  console.log('action에 넣을 함수');
-};
+interface Props {
+  feedNo: number;
+}
 
-const CommentPage = () => {
-  const dispatch = useDispatch();
+const CommentPage: FunctionComponent<Props> = ({ feedNo }) => {
+  const { feed } = useSelector((state: RootState) => state.feed);
   const { comments } = useSelector((state: RootState) => state.comment);
 
-  // input값 받는 함수
+  const dispatch = useDispatch();
   const [text, setText] = useState('');
+
   const inputValue = (e: React.ChangeEvent<HTMLInputElement>) => {
     setText(e.target.value);
+  };
+
+  const action = (e: React.MouseEvent<Element, MouseEvent>) => {
+    dispatch(commentCreate(text, feed));
+    setText('');
   };
 
   return (
@@ -34,8 +41,8 @@ const CommentPage = () => {
         <Styled.Button children={<SendIcon />} type="submit" onClick={action} />
       </Styled.WriteArea>
       <React.Fragment>
-        {comments.map((comment: CommentType) => (
-          <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
+        {comments.map((comment: CommentType, idx: number) => (
+          <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }} key={idx}>
             <ListItem alignItems="flex-start">
               <ListItemAvatar>
                 {/* 유저 이미지 */}
@@ -43,7 +50,7 @@ const CommentPage = () => {
               </ListItemAvatar>
               <ListItemText
                 // 유저 아이디 부분
-                primary="dobby"
+                primary={comment.userId}
                 secondary={
                   <Typography
                     sx={{ display: 'inline' }}
@@ -51,7 +58,7 @@ const CommentPage = () => {
                     variant="body2"
                     color="text.primary"
                   >
-                    {'d'}
+                    {comment.content}
                   </Typography>
                 }
               />

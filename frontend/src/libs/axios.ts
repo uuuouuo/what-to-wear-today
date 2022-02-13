@@ -13,9 +13,8 @@ function authInstance() {
   const instance = axios.create({
     baseURL: API_BASE_URL,
     headers: {
-      'Content-type': 'application/json',
+      'Content-Type': 'application/json',
     },
-    withCredentials: true,
   });
   return instance;
 }

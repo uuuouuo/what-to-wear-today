@@ -6,13 +6,13 @@ import { FeedType } from '@/types/feed';
 
 const api = apiInstance();
 
-function loadFeedAPI(payload: number): Promise<AxiosResponse<FeedType>> {
-  return api.get(`/feed/${payload}`);
+function loadFeedAPI(feedNo: number): Promise<AxiosResponse<FeedType>> {
+  return api.get(`/feed/${feedNo}`);
 }
 
 function* loadFeed(action: any) {
   try {
-    const result: Promise<AxiosResponse<FeedType>> = yield call(loadFeedAPI, action.payload);
+    const result: Promise<AxiosResponse<FeedType>> = yield call(loadFeedAPI, action.feedNo);
     yield put({
       type: LOAD_FEED_SUCCESS,
       data: result.data.content,
