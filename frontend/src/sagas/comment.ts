@@ -6,13 +6,10 @@ import {
   LOAD_COMMENTS_REQUEST,
   LOAD_COMMENTS_SUCCESS,
   LOAD_COMMENTS_FAILURE,
-} from 'action/commentAction';
-
-import {
   COMMENT_CREATE,
   COMMENT_CREATE_SUCCESS,
   COMMENT_CREATE_FAILURE,
-} from 'action/createCommentAction';
+} from 'action/commentAction';
 
 import { CommentType } from '@/types/comment';
 
@@ -24,39 +21,43 @@ function loadCommentsAPI(feedNo: number): Promise<AxiosResponse<CommentType[]>> 
 }
 
 function createCommentsAPI(action: any): Promise<AxiosResponse<CommentType[]>> {
-  console.log('이건? ', action);
-  return authApi.post(`/comment/${action.feedNo}`);
+  return authApi.post(`/comment/${action.feedNo}`, action.request);
 }
 
-// todo: type 설정 필요
 function* loadComments(action: any) {
   try {
-    const result: Promise<AxiosResponse<CommentType[]>> = yield call(loadCommentsAPI, action);
+    const result: Promise<AxiosResponse<CommentType[]>> = yield call(
+      loadCommentsAPI,
+      action.feedNo,
+    );
+    console.log(result);
     yield put({
-      type: COMMENT_CREATE_SUCCESS,
+      type: LOAD_COMMENTS_SUCCESS,
       data: result.data,
     });
   } catch (err: any) {
     yield put({
-      type: COMMENT_CREATE_FAILURE,
+      type: LOAD_COMMENTS_FAILURE,
       error: err.response,
     });
   }
 }
 
 function* createComment(action: any) {
-  // try {
-  //   const result: Promise<AxiosResponse<CommentType[]>> = yield call(createCommentsAPI, action);
-  //   yield put({
-  //     type: LOAD_COMMENTS_SUCCESS,
-  //     data: result.data,
-  //   });
-  // } catch (err: any) {
-  //   yield put({
-  //     type: LOAD_COMMENTS_FAILURE,
-  //     error: err.response,
-  //   });
-  // }
+  try {
+    const result: Promise<AxiosResponse<CommentType[]>> = yield call(createCommentsAPI, action);
+
+    console.log('결과값', result.data);
+    // yield put({
+    //   type: COMMENT_CREATE_SUCCESS,
+    //   data: result.data,
+    // });
+  } catch (err: any) {
+    yield put({
+      type: COMMENT_CREATE_FAILURE,
+      error: err.response,
+    });
+  }
 }
 
 function* watchLoadComments() {
