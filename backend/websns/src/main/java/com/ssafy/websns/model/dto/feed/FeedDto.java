@@ -2,7 +2,6 @@ package com.ssafy.websns.model.dto.feed;
 
 import com.ssafy.websns.model.dto.feed.ImageDto.CreateImage;
 import com.ssafy.websns.model.entity.feed.Feed;
-import com.ssafy.websns.model.entity.user.User;
 import java.time.LocalDateTime;
 import java.util.List;
 import lombok.AccessLevel;
@@ -15,8 +14,7 @@ public class FeedDto {
   @NoArgsConstructor(access = AccessLevel.PROTECTED)
   public static class CreateReq {
 
-    private Integer no;
-    private User user;
+    private String userId;
     private String content;
     private String region;
     private String weather;
@@ -24,11 +22,25 @@ public class FeedDto {
     private Boolean privateMode;
     private Boolean deleteMode;
     private List<String> imageNames;
+    private List<String> tags;
 
-    public CreateReq(Integer no, User user, String content, String region, String weather,
+
+    public CreateReq(String userId, String content, String region, String weather,
+        String photoDate, Boolean privateMode, Boolean deleteMode, List<String> imageNames, List<String> tags) {
+      this.userId = userId;
+      this.content = content;
+      this.region = region;
+      this.weather = weather;
+      this.photoDate = photoDate;
+      this.privateMode = privateMode;
+      this.deleteMode = deleteMode;
+      this.imageNames = imageNames;
+      this.tags = tags;
+    }
+
+    public CreateReq(String userId, String content, String region, String weather,
         String photoDate, Boolean privateMode, Boolean deleteMode, List<String> imageNames) {
-      this.no = no;
-      this.user = user;
+      this.userId = userId;
       this.content = content;
       this.region = region;
       this.weather = weather;
@@ -40,42 +52,42 @@ public class FeedDto {
 
   }
 
-    @Getter
-    public static class FeedRes {
+  @Getter
+  public static class FeedRes {
 
-      private Integer no;
-      private User user;
-      private String content;
-      private LocalDateTime createAt;
-      private LocalDateTime photoDate;
-      private String weather;
-      private Boolean privateMode;
-      private List<CreateImage> images;
+    private Integer no;
+    private String userId;
+    private String content;
+    private LocalDateTime createdAt;
+    private LocalDateTime photoDate;
+    private String weather;
+    private Boolean privateMode;
+    private List<CreateImage> images;
+    private List<String> tags;
 
-      public FeedRes(Integer no, User user, String content, LocalDateTime createAt,
-          LocalDateTime photoDate, String weather, Boolean privateMode,
-          List<CreateImage> images) {
-        this.no = no;
-        this.user = user;
-        this.content = content;
-        this.createAt = createAt;
-        this.photoDate = photoDate;
-        this.weather = weather;
-        this.privateMode = privateMode;
-        this.images = images;
-      }
-
-      public FeedRes(Feed feed) {
-        this.no = feed.getNo();
-        this.user = feed.getUser();
-        this.content = feed.getContent();
-        this.createAt = feed.getCreatedAt();
-        this.photoDate = feed.getPhotoDate();
-        this.weather = feed.getWeather();
-        this.privateMode = feed.getPrivateMode();
-      }
-
+    public FeedRes(Feed feed, List<CreateImage> images, List<String> tags) {
+      this.no = feed.getNo();
+      this.userId = feed.getUser().getUserId();
+      this.content = feed.getContent();
+      this.createdAt = feed.getCreatedAt();
+      this.photoDate = feed.getPhotoDate();
+      this.weather = feed.getWeather();
+      this.privateMode = feed.getPrivateMode();
+      this.images = images;
+      this.tags = tags;
     }
+
+    public FeedRes(Feed feed, List<CreateImage> images) {
+      this.no = feed.getNo();
+      this.userId = feed.getUser().getUserId();
+      this.content = feed.getContent();
+      this.createdAt = feed.getCreatedAt();
+      this.photoDate = feed.getPhotoDate();
+      this.weather = feed.getWeather();
+      this.privateMode = feed.getPrivateMode();
+      this.images = images;
+    }
+  }
 
   @Getter
   @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -87,15 +99,17 @@ public class FeedDto {
     private String photoDate;
     private Boolean privateMode;
     private List<String> imageNames;
+    private List<String> tags;
 
     public UpdateReq(String content, String region, String weather,
-        String photoDate, Boolean privateMode, List<String> imageNames) {
+        String photoDate, Boolean privateMode, List<String> imageNames, List<String> tags) {
       this.content = content;
       this.region = region;
       this.weather = weather;
       this.photoDate = photoDate;
       this.privateMode = privateMode;
       this.imageNames = imageNames;
+      this.tags = tags;
     }
 
   }
@@ -103,6 +117,7 @@ public class FeedDto {
   @Getter
   public static class UpdateRes {
 
+    private Integer no;
     private String content;
     private Integer regionNo;
     private String weather;
@@ -110,16 +125,18 @@ public class FeedDto {
     private LocalDateTime updateAt;
     private Boolean privateMode;
     private List<CreateImage> images;
+    private List<String> tags;
 
-    public UpdateRes(String content, Integer regionNo, LocalDateTime photoDate, LocalDateTime updateDate,
-        String weather, Boolean privateMode, List<CreateImage> images) {
-      this.content = content;
-      this.regionNo = regionNo;
-      this.photoDate = photoDate;
-      this.updateAt = updateDate;
-      this.weather = weather;
-      this.privateMode = privateMode;
+    public UpdateRes(Feed feed, List<CreateImage> images, List<String> tags) {
+      this.no = feed.getNo();
+      this.content = feed.getContent();
+      this.regionNo = feed.getRegion().getNo();
+      this.photoDate = feed.getPhotoDate();
+      this.updateAt = feed.getUpdatedAt();
+      this.weather = feed.getWeather();
+      this.privateMode = feed.getPrivateMode();
       this.images = images;
+      this.tags = tags;
     }
 
   }

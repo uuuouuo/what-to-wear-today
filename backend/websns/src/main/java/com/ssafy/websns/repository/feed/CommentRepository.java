@@ -10,6 +10,6 @@ public interface CommentRepository extends JpaRepository<Comment, Integer> {
 
   Optional<Comment> findByNo(Integer commentNo);
 
-  Optional<List<Comment>> findByFeed(Feed feed);
+  Optional<List<Comment>> findByFeedAndDeleteModeIsFalse(Feed feed);
 
 }

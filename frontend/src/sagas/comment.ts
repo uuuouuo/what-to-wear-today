@@ -6,7 +6,7 @@ import {
   LOAD_COMMENTS_REQUEST,
   LOAD_COMMENTS_SUCCESS,
   LOAD_COMMENTS_FAILURE,
-} from '@/action/commentAction';
+} from 'action/commentAction';
 import { CommentType } from '@/types/comment';
 
 const api = apiInstance();

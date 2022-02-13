@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState, useEffect, FunctionComponent } from 'react';
 import Router from 'next/router';
 
 import Link from '@mui/material/Link';
@@ -17,7 +17,7 @@ import {
 } from '@/components/atoms';
 import { ArticleImage } from '@/components/molecules';
 
-const FeedContent = () => {
+const FeedContent: FunctionComponent = () => {
   const scrollAreaRef = useRef<HTMLDivElement>(null);
 
   const target = useRef<HTMLDivElement>(null);
@@ -94,8 +94,6 @@ const FeedContent = () => {
     { id: 8, name: '선우', like: 0 },
     { id: 9, name: '독고', like: 0 },
   ]);
-
-  //////////////////////////////////////
 
   const follow = () => {
     Router.push('/feed/1');

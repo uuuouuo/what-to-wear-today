@@ -15,12 +15,6 @@ public class ImageDto {
     private String imgUrl;
     private Integer feedNo;
 
-    public CreateImage(Integer no, String imgUrl, Integer feedNo) {
-      this.no = no;
-      this.imgUrl = imgUrl;
-      this.feedNo = feedNo;
-    }
-
     public CreateImage(Image image) {
       this.no = image.getNo();
       this.imgUrl = image.getImgUrl();
