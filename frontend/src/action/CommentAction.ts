@@ -1,9 +1,12 @@
 export const LOAD_COMMENTS_REQUEST = 'LOAD_COMMENTS_REQUEST';
 export const LOAD_COMMENTS_SUCCESS = 'LOAD_COMMENTS_SUCCESS';
 export const LOAD_COMMENTS_FAILURE = 'LOAD_COMMENTS_FAILURE';
-export const COMMENT_CREATE = 'COMMENT_CREATE';
-export const COMMENT_CREATE_SUCCESS = 'COMMENT_CREATE_SUCCESS';
-export const COMMENT_CREATE_FAILURE = 'COMMENT_CREATE_FAILURE';
+export const CREATE_COMMENT_REQUEST = 'CREATE_COMMENT_REQUEST';
+export const CREATE_COMMENT_SUCCESS = 'CREATE_COMMENT_SUCCESS';
+export const CREATE_COMMENT_FAILURE = 'CREATE_COMMENT_FAILURE';
+export const DELETE_COMMENT_REQUEST = 'DELETE_COMMENT_REQUEST';
+export const DELETE_COMMENT_SUCCESS = 'DELETE_COMMENT_SUCCESS';
+export const DELETE_COMMENT_FAILURE = 'DELETE_COMMENT_FAILURE';
 
 export const loadCommentsRequest = (feedNo: number) => ({
   type: LOAD_COMMENTS_REQUEST,
@@ -18,8 +21,10 @@ export const loadCommentsFailure = () => ({
   type: LOAD_COMMENTS_FAILURE,
 });
 
-export const commentCreate = (content: string, feed: any) => ({
-  type: COMMENT_CREATE,
+///////////////////////////
+
+export const createCommentRequest = (content: string, feed: any) => ({
+  type: CREATE_COMMENT_REQUEST,
   feedNo: feed[0].no,
   request: {
     userId: 'jdb',
@@ -30,10 +35,25 @@ export const commentCreate = (content: string, feed: any) => ({
   },
 });
 
-export const commentCreateSuccess = () => ({
-  type: COMMENT_CREATE_SUCCESS,
+export const createCommentSuccess = () => ({
+  type: CREATE_COMMENT_SUCCESS,
 });
 
-export const commentCreateFailure = () => ({
-  type: COMMENT_CREATE_FAILURE,
+export const createCommentFailure = () => ({
+  type: CREATE_COMMENT_FAILURE,
+});
+
+///////////////////////////
+
+export const deleteCommentRequest = (commentNo: number) => ({
+  type: DELETE_COMMENT_REQUEST,
+  commentNo: commentNo,
+});
+
+export const deleteCommentSuccess = () => ({
+  type: DELETE_COMMENT_SUCCESS,
+});
+
+export const deleteCommentFailure = () => ({
+  type: DELETE_COMMENT_FAILURE,
 });

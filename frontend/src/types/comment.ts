@@ -12,9 +12,12 @@ interface StateType {
   loadCommentsLoading: boolean;
   loadCommentsDone: boolean;
   loadCommentsError: Error | null;
-  CommentAdding: boolean;
+  createCommentAdding: boolean;
   createCommentDone: boolean;
   createCommentError: Error | null;
+  deleteCommentDeleting: boolean;
+  deleteCommentDone: boolean;
+  deleteCommentError: Error | null;
 }
 
 export type { CommentType, StateType };
