@@ -25,7 +25,7 @@ const reducer = (state = initialState, action: any) => {
       return {
         ...state,
         loadMyCommentsLoading: false,
-        MyComments: action.data,
+        myComments: action.data,
         loadMyCommentsDone: true,
       };
 
