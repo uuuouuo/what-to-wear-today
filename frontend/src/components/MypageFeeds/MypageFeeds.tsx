@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Styled from './MypageFeeds.styled';
 import type { RootState } from '@/reducers';
-import { useDispatch, useSelector } from 'react-redux';
-import { LOAD_MYPAGE_Feed_REQUEST } from '@/action/MypageFeedAction';
+import { useSelector } from 'react-redux';
 
 const MypageFeeds = () => {
   const { myFeeds } = useSelector((state: RootState) => state.mypageFeeds);
