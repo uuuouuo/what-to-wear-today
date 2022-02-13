@@ -2,6 +2,7 @@ package com.ssafy.websns.model.dto.user;
 
 import com.ssafy.websns.model.entity.user.User;
 import lombok.AccessLevel;
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -44,7 +45,14 @@ public class UserDto {
       this.ageRange = user.getAgeRange();
       this.gender = user.getGender();
     }
-
   }
+
+  @Data
+  public static class LoginRes {
+
+    private String jwtToken;
+    private Boolean isMember;
+  }
+
 
 }

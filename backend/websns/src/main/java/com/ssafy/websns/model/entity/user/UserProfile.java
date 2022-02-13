@@ -30,9 +30,10 @@ public class UserProfile {
 
   private String profileImg;
   
-  public void createUserProfile(User user,String nickname) {
+  public void createUserProfile(User user,String nickname,String profileImg) {
     this.user = user;
     this.nickname = nickname;
+    this.profileImg = profileImg;
   }
 
 }

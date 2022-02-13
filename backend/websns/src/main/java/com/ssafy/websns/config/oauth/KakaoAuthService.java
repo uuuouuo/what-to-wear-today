@@ -2,8 +2,8 @@ package com.ssafy.websns.config.oauth;
 
 import com.ssafy.websns.config.jwt.JwtTokenProvider;
 import com.ssafy.websns.config.oauth.provider.ClientKakao;
+import com.ssafy.websns.model.dto.user.UserDto.LoginRes;
 import com.ssafy.websns.model.dto.user.auth.AuthDto.LoginAuthReq;
-import com.ssafy.websns.model.dto.user.auth.ClientDto.UserData;
 import com.ssafy.websns.model.entity.user.User;
 import com.ssafy.websns.model.entity.user.UserProfile;
 import com.ssafy.websns.repository.user.UserProfileRepository;
@@ -22,10 +22,10 @@ public class KakaoAuthService { // public class GoogleAuthService
   private final UserRepository userRepository;
   private final UserProfileRepository userProfileRepository;
   @Transactional
-  public String login(LoginAuthReq authRequest) {
+  public LoginRes login(LoginAuthReq authRequest) {
 
-    UserData userData = clientKakao.getUserData(authRequest.getAccessToken()); // userData 담기
-    User user = userData.getUser();
+    User user = clientKakao.getUserData(authRequest.getAccessToken()); // userData 담기
+
     String socialId = user.getUserId();
 
     System.out.println(socialId);
@@ -42,14 +42,24 @@ public class KakaoAuthService { // public class GoogleAuthService
     String jwtToken = jwtTokenProvider.create(user);
     System.out.println(jwtToken);
 
-    if (findUser.isEmpty()) {
-      userRepository.save(user);
-      UserProfile userProfile = new UserProfile();
-      userProfile.createUserProfile(user,userData.getNickname());
-      userProfileRepository.save(userProfile);
-    }
+    LoginRes loginRes = new LoginRes();
+    loginRes.setJwtToken(jwtToken);
 
-    return jwtToken;
+    User savedUser = null;
+    if (findUser.isEmpty()) {
+      savedUser = userRepository.save(user);
+      loginRes.setIsMember(false);
+    }
+    else {
+      Optional<UserProfile> userProfileOptional = userProfileRepository.findByUser(savedUser);
+      if(userProfileOptional.isEmpty()) {
+        loginRes.setIsMember(false);
+      }
+      else {
+        loginRes.setIsMember(true);
+      }
+    }
+    return loginRes;
   }
 
   public String updateToken(String userId) {

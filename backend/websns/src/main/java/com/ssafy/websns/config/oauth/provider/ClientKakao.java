@@ -1,8 +1,6 @@
 package com.ssafy.websns.config.oauth.provider;
 
-import com.ssafy.websns.model.dto.user.auth.ClientDto.UserData;
 import com.ssafy.websns.model.entity.user.User;
-import java.util.HashMap;
 import java.util.Map;
 import lombok.Data;
 import org.springframework.stereotype.Component;
@@ -12,7 +10,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 public class ClientKakao implements ClientProxy {
 
   // TODO ADMIN 유저 생성 시 getAdminUserData 메소드 생성 필요
-  public UserData getUserData(String accessToken) {
+  public User getUserData(String accessToken) {
 
     System.out.println("access : " + accessToken);
     UserResponse userResponse = WebClient.builder().build().get()
@@ -26,13 +24,13 @@ public class ClientKakao implements ClientProxy {
     User user = new User();
     user.createKakaoUser(userResponse);
 
-    Map<String, Object> kakao_account = userResponse.getKakao_account();
+//    Map<String, Object> kakao_account = userResponse.getKakao_account();
+//
+//    Map<String,String> profile = (HashMap<String,String>)userResponse.getKakao_account().get("profile");
 
-    Map<String,String> profile = (HashMap<String,String>)userResponse.getKakao_account().get("profile");
+//    UserData userData = new UserData(user, profile.get("nickname"));
 
-    UserData userData = new UserData(user, profile.get("nickname"));
-
-    return userData;
+    return user;
 
   }
 
