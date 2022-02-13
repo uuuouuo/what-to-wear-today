@@ -8,5 +8,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface UserProfileRepository extends JpaRepository<UserProfile,String> {
 
   Optional<UserProfile> findByUser(User user);
+  void deleteByNo(Integer no);
 
 }

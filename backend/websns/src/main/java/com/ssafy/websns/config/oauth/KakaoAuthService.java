@@ -45,13 +45,13 @@ public class KakaoAuthService { // public class GoogleAuthService
     LoginRes loginRes = new LoginRes();
     loginRes.setJwtToken(jwtToken);
 
-    User savedUser = null;
     if (findUser.isEmpty()) {
-      savedUser = userRepository.save(user);
+      userRepository.save(user);
       loginRes.setIsMember(false);
     }
     else {
-      Optional<UserProfile> userProfileOptional = userProfileRepository.findByUser(savedUser);
+
+      Optional<UserProfile> userProfileOptional = userProfileRepository.findByUser(findUser.get());
       if(userProfileOptional.isEmpty()) {
         loginRes.setIsMember(false);
       }

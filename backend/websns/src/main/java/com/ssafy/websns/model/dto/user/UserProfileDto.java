@@ -1,38 +1,60 @@
 package com.ssafy.websns.model.dto.user;
 
 import com.ssafy.websns.model.entity.user.UserProfile;
+import java.util.List;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.web.multipart.MultipartFile;
 
 public class UserProfileDto {
 
-
   @Getter
-  @NoArgsConstructor
-  public static class UserProfileReq {
+  @NoArgsConstructor(access = AccessLevel.PROTECTED)
+  public static class CreateReq {
+    private String nickname;
+    private MultipartFile image;
+    private String jwtToken;
+    private List<Integer> interestNos;
+    private List<Integer> typeNos;
 
-    String nickname;
-
-    public UserProfileReq(String nickname) {
-      this.nickname = nickname;
+    public CreateReq(SignUpReq signUpReq, MultipartFile image,String jwtToken) {
+      this.nickname = signUpReq.getNickname();
+      this.image = image;
+      this.jwtToken = jwtToken;
+      this.interestNos = signUpReq.getInterestNos();
+      this.typeNos = signUpReq.getTypeNos();
     }
 
   }
 
   @Getter
-  @NoArgsConstructor
-  public static class CreateReq {
-    private String nickname;
-    private MultipartFile image;
-    private String jwtToken;
+  @NoArgsConstructor(access = AccessLevel.PROTECTED)
+  public static class SignUpReq {
 
-    public CreateReq(String nickname, MultipartFile image, String jwtToken) {
+    String nickname;
+    List<Integer> interestNos;
+    List<Integer> typeNos;
+
+    public SignUpReq(String nickname, List<Integer> interestNos,
+        List<Integer> typeNos) {
       this.nickname = nickname;
-      this.image = image;
-      this.jwtToken = jwtToken;
+      this.interestNos = interestNos;
+      this.typeNos = typeNos;
     }
+  }
 
+  @Getter
+  @NoArgsConstructor(access = AccessLevel.PROTECTED)
+  public static class UserProfileReq {
+
+    String nickname;
+    String profileImg;
+
+    public UserProfileReq(String nickname, String profileImg) {
+      this.nickname = nickname;
+      this.profileImg = profileImg;
+    }
   }
 
   @Getter
@@ -49,5 +71,6 @@ public class UserProfileDto {
     }
 
   }
+
 
 }

@@ -4,6 +4,7 @@ import com.ssafy.websns.config.jwt.JwtProperties;
 import com.ssafy.websns.config.oauth.KakaoAuthService;
 import com.ssafy.websns.model.dto.user.UserDto.LoginRes;
 import com.ssafy.websns.model.dto.user.UserProfileDto.CreateReq;
+import com.ssafy.websns.model.dto.user.UserProfileDto.SignUpReq;
 import com.ssafy.websns.model.dto.user.UserProfileDto.UserProfileReq;
 import com.ssafy.websns.model.dto.user.UserProfileDto.UserProfileRes;
 import com.ssafy.websns.model.dto.user.auth.AuthDto.AuthReq;
@@ -51,20 +52,17 @@ public class AuthController {
 
   @PostMapping(value = "/kakao",consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
   @ResponseStatus(value = HttpStatus.OK)
-  public ResponseEntity<String> signup(
-      @RequestPart(value="request") UserProfileReq profileReq,
+  public void signup(
+      @RequestPart(value="request") SignUpReq signUpReq,
       @RequestPart(value="imageName") MultipartFile image,
       HttpServletRequest request) {
 
     System.out.println("asdfasdfasdfewsdf");
     String jwtToken = request.getHeader("JWT");
-    CreateReq createReq = new CreateReq(profileReq.getNickname(), image, jwtToken);
+    CreateReq createReq = new CreateReq(signUpReq, image,jwtToken);
     userProfileService.signUp(createReq);
 //    LoginRes loginRes = kakaoAuthService.login(authRequest);
-
-
-    return ResponseEntity.ok().body("로그아웃 완료");
-  }
+}
 
 
   @PostMapping(value = "/logout")
@@ -93,7 +91,7 @@ public class AuthController {
 
   }
 
-  @GetMapping("/{userId}")
+  @GetMapping(value = "/{userId}")
   public ResponseEntity<UserProfileRes> findUser (@PathVariable("userId") String userId) {
 
     UserProfileRes userProfileRes = userProfileService.searchUserProfile(userId);
@@ -102,9 +100,12 @@ public class AuthController {
 
   }
   
-  @PatchMapping("/{userId}")
-  public ResponseEntity<UserProfileRes> updateUser (@PathVariable("userId") String userId) {
-    userProfileService.editUserProfile(userId);
+  @PatchMapping(value = "/{userId}", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
+  public ResponseEntity<UserProfileRes> updateUser (
+      @PathVariable("userId") String userId,
+      @RequestPart(value="request") UserProfileReq request,
+      @RequestPart(value="imageName") MultipartFile image) {
+    userProfileService.editUserProfile(userId, request, image);
   }
 
 
