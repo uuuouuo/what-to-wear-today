@@ -31,14 +31,17 @@ function createCommentsAPI(action: any): Promise<AxiosResponse<CommentType[]>> {
 // todo: type 설정 필요
 function* loadComments(action: any) {
   try {
-    const result: Promise<AxiosResponse<CommentType[]>> = yield call(loadCommentsAPI, action);
+    const result: Promise<AxiosResponse<CommentType[]>> = yield call(
+      loadCommentsAPI,
+      action.feedNo,
+    );
     yield put({
-      type: COMMENT_CREATE_SUCCESS,
+      type: LOAD_COMMENTS_SUCCESS,
       data: result.data,
     });
   } catch (err: any) {
     yield put({
-      type: COMMENT_CREATE_FAILURE,
+      type: LOAD_COMMENTS_FAILURE,
       error: err.response,
     });
   }
