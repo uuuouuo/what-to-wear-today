@@ -41,4 +41,4 @@ const RegionFilter: FunctionComponent<Props> = ({ interestRegions }) => {
   );
 };
 
-export default RegionFilter;
+export default FeedRegion;

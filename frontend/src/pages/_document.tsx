@@ -6,9 +6,7 @@ class MyDocument extends Document {
   render() {
     return (
       <Html>
-        <Head>
-          <title>오늘 뭐 입지?</title>
-        </Head>
+        <Head></Head>
         <body>
           <Main />
           <NextScript />

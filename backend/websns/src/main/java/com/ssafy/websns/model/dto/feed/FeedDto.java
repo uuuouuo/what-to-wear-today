@@ -49,25 +49,12 @@ public class FeedDto {
     private String photoDate;
     private Boolean privateMode;
     private Boolean deleteMode;
+    private List<String> imageNames;
     private List<String> tags;
-    private List<MultipartFile> imageNames;
 
-    public CreateReq(FeedReq feedReq,List<MultipartFile> images){
-
-      this.userId = feedReq.getUserId();
-      this.content = feedReq.getContent();
-      this.region = feedReq.getRegion();
-      this.weather = feedReq.getWeather();
-      this.photoDate = feedReq.getPhotoDate();
-      this.privateMode = feedReq.getPrivateMode();
-      this.deleteMode = feedReq.getDeleteMode();
-      this.tags = feedReq.getTags();
-      this.imageNames = images;
-
-    }
 
     public CreateReq(String userId, String content, String region, String weather,
-        String photoDate, Boolean privateMode, Boolean deleteMode, List<MultipartFile> imageNames, List<String> tags) {
+        String photoDate, Boolean privateMode, Boolean deleteMode, List<String> imageNames, List<String> tags) {
       this.userId = userId;
       this.content = content;
       this.region = region;
@@ -80,7 +67,7 @@ public class FeedDto {
     }
 
     public CreateReq(String userId, String content, String region, String weather,
-        String photoDate, Boolean privateMode, Boolean deleteMode, List<MultipartFile> imageNames) {
+        String photoDate, Boolean privateMode, Boolean deleteMode, List<String> imageNames) {
       this.userId = userId;
       this.content = content;
       this.region = region;
@@ -103,10 +90,10 @@ public class FeedDto {
     private LocalDateTime photoDate;
     private String weather;
     private Boolean privateMode;
-    private List<ImageFile> images;
+    private List<CreateImage> images;
     private List<String> tags;
 
-    public FeedRes(Feed feed, List<ImageFile> images, List<String> tags) {
+    public FeedRes(Feed feed, List<CreateImage> images, List<String> tags) {
       this.no = feed.getNo();
       this.userId = feed.getUser().getUserId();
       this.content = feed.getContent();
@@ -118,7 +105,7 @@ public class FeedDto {
       this.tags = tags;
     }
 
-    public FeedRes(Feed feed, List<ImageFile> images) {
+    public FeedRes(Feed feed, List<CreateImage> images) {
       this.no = feed.getNo();
       this.userId = feed.getUser().getUserId();
       this.content = feed.getContent();
@@ -139,11 +126,11 @@ public class FeedDto {
     private String weather;
     private String photoDate;
     private Boolean privateMode;
-    private List<MultipartFile> imageNames;
+    private List<String> imageNames;
     private List<String> tags;
 
     public UpdateReq(String content, String region, String weather,
-        String photoDate, Boolean privateMode, List<MultipartFile> imageNames, List<String> tags) {
+        String photoDate, Boolean privateMode, List<String> imageNames, List<String> tags) {
       this.content = content;
       this.region = region;
       this.weather = weather;
@@ -165,10 +152,10 @@ public class FeedDto {
     private LocalDateTime photoDate;
     private LocalDateTime updateAt;
     private Boolean privateMode;
-    private List<ImageFile> images;
+    private List<CreateImage> images;
     private List<String> tags;
 
-    public UpdateRes(Feed feed, List<ImageFile> images, List<String> tags) {
+    public UpdateRes(Feed feed, List<CreateImage> images, List<String> tags) {
       this.no = feed.getNo();
       this.content = feed.getContent();
       this.regionNo = feed.getRegion().getNo();
@@ -178,19 +165,6 @@ public class FeedDto {
       this.privateMode = feed.getPrivateMode();
       this.images = images;
       this.tags = tags;
-    }
-
-  }
-
-  @Getter
-  public static class FeedDetailRes {
-
-    private FeedRes feedRes;
-    private List<CommentRes> commentRes;
-
-    public FeedDetailRes(FeedRes feedRes, List<CommentRes> commentRes) {
-      this.feedRes = feedRes;
-      this.commentRes = commentRes;
     }
 
   }

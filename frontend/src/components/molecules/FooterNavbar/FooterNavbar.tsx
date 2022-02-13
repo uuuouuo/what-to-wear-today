@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, FunctionComponent } from 'react';
 import { BottomNavigation, Paper } from '@mui/material';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import HomeIcon from '@mui/icons-material/Home';
@@ -10,7 +10,7 @@ import { useRouter } from 'next/router';
 
 import Styled from './FooterNavbar.styled';
 
-const FooterNavbar = () => {
+const FooterNavbar: FunctionComponent = () => {
   const current = useRouter().pathname.slice(1);
   const [value, setValue] = React.useState(0);
 

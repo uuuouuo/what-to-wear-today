@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState, useEffect, FunctionComponent } from 'react';
 import Router from 'next/router';
 
 import Link from '@mui/material/Link';
@@ -9,7 +9,7 @@ import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
 import { Button } from '@/components/atoms';
 import { ArticleImage } from '@/components/molecules';
 
-const FeedContent = () => {
+const FeedContent: FunctionComponent = () => {
   const scrollAreaRef = useRef<HTMLDivElement>(null);
 
   const target = useRef<HTMLDivElement>(null);

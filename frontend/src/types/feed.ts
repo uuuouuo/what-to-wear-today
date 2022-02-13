@@ -2,14 +2,23 @@ import { UserProfileType } from './user';
 import { PhotoType } from './photo';
 
 interface FeedType {
-  no: number;
-  user: UserProfileType;
+  _no: number;
+  userId: string;
   content: string;
   createdAt: Date;
-  photoDate: Date;
+  updatedAt: Date;
+  regionId: number;
   weather: string;
   privateMode: boolean;
-  images?: PhotoType[];
+  deleteMode: boolean;
+  photoDate: Date;
 }
 
-export type { FeedType };
+interface StateType {
+  feed: FeedType;
+  loadFeedLoading: boolean;
+  loadFeedDone: boolean;
+  loadFeedError: Error | null;
+}
+
+export type { FeedType, StateType };
