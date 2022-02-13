@@ -18,6 +18,7 @@ import FollowingModal from '@/components/Following_modal/Following_modal';
 import DrawerMenu from '@/components/Drawer_menu/Drawer_menu';
 
 import MypageFeeds from '@/components/MypageFeeds/MypageFeeds';
+import MypageComments from '@/components/MypageComments/MypageComments';
 
 const User: NextPage = () => {
   const router = useRouter();
@@ -45,9 +46,8 @@ const User: NextPage = () => {
 
   const modifyProfile = () => {
     console.log(userId);
+    console.log(typeof userId);
   };
-
-  // console.log(content[value].content);
 
   return (
     <Styled.MainContainer>
@@ -88,7 +88,8 @@ const User: NextPage = () => {
       </Styled.rowContainer>
       <Styled.contentContainer></Styled.contentContainer>
       <Styled.contentContainer>
-        {value === 0 ? <MypageFeeds /> : value === 1 ? null : null}
+        {value === 0 && userId !== undefined ? <MypageFeeds userId={userId} /> : null}
+        {value === 2 && userId !== undefined ? <MypageComments userId={userId} /> : null}
       </Styled.contentContainer>
     </Styled.MainContainer>
   );
