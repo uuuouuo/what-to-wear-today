@@ -8,8 +8,6 @@ import Avatar from '@mui/material/Avatar';
 import SettingsIcon from '@mui/icons-material/Settings';
 import SearchIcon from '@mui/icons-material/Search';
 
-import { useRouter } from 'next/router';
-
 import Box from '@mui/material/Box';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
@@ -20,9 +18,11 @@ import DrawerMenu from '@/components/Drawer_menu/Drawer_menu';
 import MypageFeeds from '@/components/MypageFeeds/MypageFeeds';
 import MypageComments from '@/components/MypageComments/MypageComments';
 
-const User: NextPage = () => {
-  const router = useRouter();
-  const { userId } = router.query;
+interface Props {
+  userId: string;
+}
+
+const User: NextPage<Props> = ({ userId }) => {
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
