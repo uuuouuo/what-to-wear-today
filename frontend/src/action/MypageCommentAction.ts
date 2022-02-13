@@ -4,7 +4,7 @@ export const LOAD_MYPAGE_COMMENT_FAILURE = 'LOAD_MYPAGE_COMMENT_FAILURE';
 
 export const loadMypageCOMMENTsRequest = (userId: string) => ({
   type: LOAD_MYPAGE_COMMENT_REQUEST,
-  payload: userId,
+  userId: userId,
 });
 
 export const loadMypageCOMMENTsSuccess = () => ({
