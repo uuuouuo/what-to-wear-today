@@ -4,6 +4,7 @@ import UserTemplate from '@/template/user';
 import wrapper from '@/store/configureStore';
 import { END } from 'redux-saga';
 import { loadMypageFeedsRequest } from 'action/MypageFeedAction';
+import { loadMypageCOMMENTsRequest } from 'action/MypageCommentAction';
 
 interface Props {
   userId: string;
@@ -18,6 +19,7 @@ export const getServerSideProps = wrapper.getServerSideProps(
     async ({ req, res, params }) => {
       const data = params.userId;
       store.dispatch(loadMypageFeedsRequest(data));
+      store.dispatch(loadMypageCOMMENTsRequest(data));
       store.dispatch(END);
       await store.sagaTask.toPromise();
       return { props: { userId: data } };

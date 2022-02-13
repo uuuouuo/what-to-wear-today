@@ -20,7 +20,7 @@ function* loadMyComments(action: any) {
     const result: Promise<AxiosResponse<any[]>> = yield call(loadMyCommentsAPI, action.userId);
     yield put({
       type: LOAD_MYPAGE_COMMENT_SUCCESS,
-      data: result,
+      data: result.data,
     });
   } catch (err: any) {
     yield put({
