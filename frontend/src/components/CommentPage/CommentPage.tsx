@@ -11,7 +11,7 @@ import SendIcon from '@mui/icons-material/Send';
 import { UserImage } from '@/components/atoms/';
 import { useDispatch, useSelector } from 'react-redux';
 import { CommentType } from '@/types/comment';
-import { commentCreate } from '@/action/createCommentAction';
+import { commentCreate } from '@/action/commentAction';
 
 interface Props {
   feedNo: number;
@@ -20,6 +20,7 @@ interface Props {
 const CommentPage: FunctionComponent<Props> = ({ feedNo }) => {
   const { feed } = useSelector((state: RootState) => state.feed);
   const { comments } = useSelector((state: RootState) => state.comment);
+  console.log('코멘트다! : ', comments);
 
   const dispatch = useDispatch();
   const [text, setText] = useState('');
@@ -58,7 +59,7 @@ const CommentPage: FunctionComponent<Props> = ({ feedNo }) => {
                     variant="body2"
                     color="text.primary"
                   >
-                    {comment.content}
+                    {/* {comment.content} */}
                   </Typography>
                 }
               />
