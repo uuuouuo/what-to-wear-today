@@ -4,7 +4,7 @@ export const LOAD_MYPAGE_Feed_FAILURE = 'LOAD_MYPAGE_Feed_FAILURE';
 
 export const loadMypageFeedsRequest = (userId: string) => ({
   type: LOAD_MYPAGE_Feed_REQUEST,
-  payload: userId,
+  userId: userId,
 });
 
 export const loadMypageFeedsSuccess = () => ({
