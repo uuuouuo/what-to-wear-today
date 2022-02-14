@@ -1,5 +1,7 @@
 package com.ssafy.websns.model.dto.feed;
 
+import com.ssafy.websns.model.dto.user.UserProfileDto.UserProfileRes;
+import java.util.List;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -31,6 +33,17 @@ public class LikePersonDto {
       this.no = no;
       this.userNo = userNo;
       this.feedNo = feedNo;
+    }
+
+  }
+
+  @Getter
+  public static class LikePeopleRes {
+
+    List<UserProfileRes> likePeople;
+
+    public LikePeopleRes(List<UserProfileRes> likePeople) {
+      this.likePeople = likePeople;
     }
 
   }
