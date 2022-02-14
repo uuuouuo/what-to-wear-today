@@ -1,6 +1,8 @@
 package com.ssafy.websns.service.user;
 
 import com.ssafy.websns.config.auth.jwt.JwtTokenProvider;
+import com.ssafy.websns.model.dto.user.TypeInfoDto.UpdateTypeReq;
+import com.ssafy.websns.model.dto.user.TypeInfoDto.UpdateTypeRes;
 import com.ssafy.websns.model.dto.user.UserProfileDto.CreateReq;
 import com.ssafy.websns.model.dto.user.UserProfileDto.UserProfileReq;
 import com.ssafy.websns.model.dto.user.UserProfileDto.UserProfileRes;
@@ -27,7 +29,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 @Service
 @RequiredArgsConstructor
-public class UserProfileService {
+public class UserService {
 
   private final UserRepository userRepository;
   private final UserProfileRepository userProfileRepository;
@@ -143,4 +145,23 @@ public class UserProfileService {
 
   }
 
+
+  public UpdateTypeRes editType(String userId, UpdateTypeReq updateTypeReq) {
+
+    Optional<User> userOptional = userRepository.findByUserId(userId);
+    User user = validateExist.findUser(userOptional);
+
+    List<Integer> typeNos = updateTypeReq.getTypeNos();
+
+    typeNos.stream().forEach(typeNo -> {
+      Optional<Type> typeOptional = typeRepository.findByNo(typeNo);
+      if(typeOptional.isPresent()) {
+        TypeInfo typeInfo = new TypeInfo();
+        Type type = typeOptional.get();
+        typeInfo.createTypeInfo(user,type);
+        typeInfoRepsotory.save(typeInfo);
+      }
+    });
+
+  }
 }

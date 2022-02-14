@@ -1,6 +1,8 @@
 package com.ssafy.websns.controller;
 
 import com.ssafy.websns.config.auth.jwt.JwtProperties;
+import com.ssafy.websns.model.dto.user.TypeInfoDto.UpdateTypeReq;
+import com.ssafy.websns.model.dto.user.TypeInfoDto.UpdateTypeRes;
 import com.ssafy.websns.model.dto.user.UserDto.LoginRes;
 import com.ssafy.websns.model.dto.user.UserProfileDto.CreateReq;
 import com.ssafy.websns.model.dto.user.UserProfileDto.SignUpReq;
@@ -8,7 +10,7 @@ import com.ssafy.websns.model.dto.user.UserProfileDto.UserProfileReq;
 import com.ssafy.websns.model.dto.user.UserProfileDto.UserProfileRes;
 import com.ssafy.websns.model.dto.user.auth.AuthDto.AuthReq;
 import com.ssafy.websns.model.dto.user.auth.AuthDto.LoginAuthReq;
-import com.ssafy.websns.service.user.UserProfileService;
+import com.ssafy.websns.service.user.UserService;
 import com.ssafy.websns.service.user.auth.KakaoAuthService;
 import java.util.HashMap;
 import java.util.Map;
@@ -32,10 +34,10 @@ import org.springframework.web.multipart.MultipartFile;
 @RestController
 @RequestMapping("/user")
 @RequiredArgsConstructor
-public class AuthController {
+public class UserController {
 
   private final KakaoAuthService kakaoAuthService;
-  private final UserProfileService userProfileService;
+  private final UserService userService;
 
   @PostMapping(value = "/login/kakao")
   public ResponseEntity<Map<String,Boolean>> kakaoAuthRequest(@RequestBody LoginAuthReq authRequest, HttpServletResponse response) {
@@ -55,10 +57,9 @@ public class AuthController {
   public void signup(@RequestPart(value="request") SignUpReq signUpReq,
       @RequestPart(value="imageName") MultipartFile image, HttpServletRequest request) {
 
-    System.out.println("asdfasdfasdfewsdf");
     String jwtToken = request.getHeader("JWT");
     CreateReq createReq = new CreateReq(signUpReq, image,jwtToken);
-    userProfileService.signUp(createReq);
+    userService.signUp(createReq);
 
   }
 
@@ -91,7 +92,7 @@ public class AuthController {
   @GetMapping(value = "/{userId}")
   public ResponseEntity<UserProfileRes> findUser (@PathVariable("userId") String userId) {
 
-    UserProfileRes userProfileRes = userProfileService.searchUserProfile(userId);
+    UserProfileRes userProfileRes = userService.searchUserProfile(userId);
     return new ResponseEntity<>(userProfileRes, HttpStatus.OK);
 
   }
@@ -102,8 +103,16 @@ public class AuthController {
       @RequestPart(value="request") UserProfileReq request,
       @RequestPart(value="imageName") MultipartFile image) {
 
-    UserProfileRes userProfileRes = userProfileService.editUserProfile(userId, request, image);
+    UserProfileRes userProfileRes = userService.editUserProfile(userId, request, image);
     return new ResponseEntity<>(userProfileRes, HttpStatus.OK);
+
+  }
+
+  @PatchMapping(value = "/type/{userId}")
+  public ResponseEntity<UpdateTypeRes> updateType(@PathVariable("userId") String userId,
+      UpdateTypeReq updateTypeReq) {
+
+    userService.editType(updateTypeReq);
 
   }
 
