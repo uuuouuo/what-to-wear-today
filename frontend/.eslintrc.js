@@ -20,6 +20,7 @@ module.exports = {
     'import/order': 'off',
     'react/function-component-definition': 'off',
     'no-nested-ternary': 'off',
+    '@typescript-eslint/ban-ts-comment': 'off'
   },
   settings: {
     'import/resolver': {

@@ -1,6 +1,7 @@
 import React, { FunctionComponent } from 'react';
 import dynamic from 'next/dynamic';
-import { ImageEditor as ImageEditorType, EditorProps } from '@toast-ui/react-editor';
+// @ts-ignore
+import { ImageEditor as ImageEditorType, EditorProps } from '@toast-ui/react-image-editor';
 import { ImageEditorWithForwardedProps } from './ImageEditorWrapper';
 
 interface ImageEditorPropsWithHandlers extends EditorProps {
@@ -17,7 +18,7 @@ const ImageEditorWithForwardedRef = React.forwardRef<
   ImageEditorType | undefined,
   ImageEditorPropsWithHandlers
 >((props, ref) => (
-  <TuiImageEditor {...props} forwardedRef={ref as React.MutableRefObject<EditorType>} />
+  <TuiImageEditor {...props} forwardedRef={ref as React.MutableRefObject<ImageEditorType>} />
 ));
 
 interface Props extends ImageEditorType {

@@ -7,11 +7,11 @@ import { Feed } from '@/components/organisms';
 import { RegionType } from 'types/region';
 
 const interestRegions: RegionType[] = [
-  { no: 1, regionName: 'seoul', temperature: -3 },
-  { no: 2, regionName: 'gwangju', temperature: -1 },
-  { no: 3, regionName: 'ahnyang', temperature: 1 },
-  { no: 4, regionName: 'daejeon', temperature: 5 },
-  { no: 5, regionName: 'busan', temperature: 7 },
+  { no: 1, regionName: 'seoul', weather: '맑음' },
+  { no: 2, regionName: 'gwangju', weather: '맑음' },
+  { no: 3, regionName: 'ahnyang', weather: '맑음' },
+  { no: 4, regionName: 'daejeon', weather: '맑음' },
+  { no: 5, regionName: 'busan', weather: '맑음' },
 ];
 
 const feeds = [
@@ -24,8 +24,8 @@ const feeds = [
       profileImage: 'images/icon/blank_user.png',
     },
     content: '히히히ㅣㅎ #따뜻 #패딩 히히히힣',
-    createdAt: new Date('2022-02-09'),
-    photoDate: new Date('2020-02-09'),
+    createdAt: '2022-02-09',
+    photoDate: '2020-02-09',
     weather: '맑음',
     privateMode: false,
     images: [
@@ -51,8 +51,8 @@ const feeds = [
       profileImage: 'images/icon/blank_user.png',
     },
     content: '히히히ㅣㅎ #따뜻 #패딩 히히히힣',
-    createdAt: new Date('2022-02-09'),
-    photoDate: new Date('2020-02-09'),
+    createdAt: '2022-02-09',
+    photoDate: '2020-02-09',
     weather: '맑음',
     privateMode: false,
   },

@@ -20,25 +20,14 @@ const Feed: FunctionComponent<Props> = ({ feed }) => {
   return (
     <Styled.Feed>
       <FeedHeader
-        user={feed.user}
+        user={{ userId: feed.userId, nickname: feed.nickname, profileImage: feed.profileImage }}
         createdAt={feed.createdAt}
         weather={feed.weather}
-        temperature={-3}
       />
 
       {feed.images ? <ArticleImage images={feed.images} /> : <></>}
 
-      <Styled.FeedContent onClick={moveFeedDetail}>
-        {feed.content.split(/(#[^#\s]+|\n)/g).map((text, index) => {
-          if (text.match(/(#[^#\s]+)/)) {
-            return <Text className="hashtag" value={text} />;
-          }
-          if (text.match(/\n/)) {
-            return <br />;
-          }
-          return <Text value={text} />;
-        })}
-      </Styled.FeedContent>
+      <Styled.FeedContent onClick={moveFeedDetail}>{feed.content}</Styled.FeedContent>
 
       <FooterContainer>
         <Styled.Button onClick={moveFeedDetail} bgColor="transparent">

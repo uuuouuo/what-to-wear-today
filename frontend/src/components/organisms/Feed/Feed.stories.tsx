@@ -16,8 +16,8 @@ export const Default = () => {
       profileImage: 'images/icon/blank_user.png',
     },
     content: '히히히ㅣㅎ #따뜻 #패딩 히히히힣',
-    createdAt: new Date('2022-02-09'),
-    photoDate: new Date('2020-02-09'),
+    createdAt: '2022-02-09',
+    photoDate: '2020-02-09',
     weather: '맑음',
     privateMode: false,
     images: [

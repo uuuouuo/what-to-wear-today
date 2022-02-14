@@ -1,7 +1,7 @@
 interface RegionType {
   no: number;
   regionName: string;
-  temperature: number;
+  weather: string;
 }
 
 export type { RegionType };

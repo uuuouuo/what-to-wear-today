@@ -3,9 +3,10 @@ import Router from 'next/router';
 
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
+import LocalOfferOutlinedIcon from '@mui/icons-material/LocalOfferOutlined';
 
 import Styled from './FeedDetail.styled';
-import { Text, FooterContainer } from '@/components/atoms';
+import { FooterContainer, Tag } from '@/components/atoms';
 import { ArticleImage, FeedHeader } from '@/components/molecules';
 import { FeedType } from '@/types/feed';
 
@@ -20,25 +21,20 @@ const FeedDetail: FunctionComponent<Props> = ({ feed }) => {
   return (
     <Styled.FeedDetail>
       <FeedHeader
-        user={feed.user}
+        user={{ userId: feed.userId, nickname: feed.nickname, profileImage: feed.profileImage }}
         createdAt={feed.createdAt}
         weather={feed.weather}
-        temperature={-3}
       />
 
       {feed.images ? <ArticleImage images={feed.images} /> : <></>}
 
-      <Styled.FeedContent>
-        {feed.content.split(/(#[^#\s]+|\n)/g).map((text, index) => {
-          if (text.match(/(#[^#\s]+)/)) {
-            return <Text className="hashtag" value={text} />;
-          }
-          if (text.match(/\n/)) {
-            return <br />;
-          }
-          return <Text value={text} />;
-        })}
-      </Styled.FeedContent>
+      <Styled.FeedContent>{feed.content}</Styled.FeedContent>
+      <Styled.TagContainer>
+        <LocalOfferOutlinedIcon />
+        {feed.tags.map((tag) => (
+          <Tag key={tag} value={tag} />
+        ))}
+      </Styled.TagContainer>
 
       <FooterContainer>
         <Styled.Button onClick={moveFeedDetail} bgColor="transparent">

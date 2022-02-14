@@ -1,26 +1,20 @@
 import React, { FunctionComponent } from 'react';
 import Styled from './FeedHeader.styled';
 import { UserProfileWithInfo, Weather } from '@/components/molecules';
+import { UserProfileType } from '@/types/user';
 
 interface Props {
   className?: string;
-  user: UserType;
+  user: UserProfileType;
   createdAt: Date;
   weather: string;
-  temperature: number;
 }
 
-const FeedHeader: FunctionComponent<Props> = ({
-  className,
-  user,
-  createdAt,
-  weather,
-  temperature,
-}) => {
+const FeedHeader: FunctionComponent<Props> = ({ className, user, createdAt, weather }) => {
   return (
     <Styled.FeedHeader className={className}>
       <UserProfileWithInfo user={user} createdAt={createdAt} />
-      <Weather weather={weather} temperature={temperature} />
+      <Weather weather={weather} temperature={-3} />
     </Styled.FeedHeader>
   );
 };

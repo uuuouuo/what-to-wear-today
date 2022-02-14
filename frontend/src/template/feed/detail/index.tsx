@@ -1,56 +1,38 @@
-import React, { FunctionComponent } from 'react';
+import React from 'react';
 import Styled from './styled';
 import type { NextPage } from 'next';
 import type { RootState } from '@/reducers';
-import { useSelector } from 'react-redux';
-import Link from '@mui/material/Link';
-import { Header, FooterNavbar, Comment } from '@/components/molecules';
-
+import { useDispatch, useSelector } from 'react-redux';
+import { Header, FooterNavbar, Comment, CommentForm } from '@/components/molecules';
 import { FeedDetail } from '@/components/organisms';
+import { CommentType } from '@/types/comment';
 
-interface Props {
-  feedNo: number;
-}
+import { createCommentRequest } from '@/action/commentAction';
+import { useChange } from '@/hooks';
 
-const FeedDetailTemplate: NextPage<Props> = ({ feedNo }) => {
+const FeedDetailTemplate: NextPage<Props> = () => {
+  const dispatch = useDispatch();
   const { feed } = useSelector((state: RootState) => state.feed);
+  const { comments } = useSelector((state: RootState) => state.comment);
+
+  const [commentValue, setCommentValue, onCommentValueChange] = useChange('');
+  const sendComment = (e: React.MouseEvent) => {
+    e.preventDefault();
+    dispatch(createCommentRequest(commentValue, feed.no));
+    setCommentValue('');
+  };
 
   return (
     <Styled.MainContainer>
       <Header name="오늘 뭐 입지?" leftSide="pointer" rightSide="notification" />
-      {/* <Styled.TopArea> */}
-      {/* <Styled.ArticleArea>
-          <Styled.UserInfoArea>
-            <Link href="/feed/1" underline="none" sx={{ color: 'black' }}>
-              <UserImage />
-            </Link>
 
-            <Styled.UserId>
-              <Link href="/feed/1" underline="none" sx={{ color: 'black' }}>
-                <UserName value={user.name} />
-              </Link>
-              <UserId value="feed.userId" />
-            </Styled.UserId>
-          </Styled.UserInfoArea>
-          <Dropdown />
-        </Styled.ArticleArea>
-
-        <Styled.ArticleContent>
-          <ArticleContent value={feed[0].content} />
-          <HashTag value={[feed[0].tags]} />
-          <Styled.DateLine>
-            <ArticleDate value="feed.createdAt" />
-            <ReportForm />
-          </Styled.DateLine>
-        </Styled.ArticleContent>
-      </Styled.TopArea>
-      <CommentPage /> */}
       <Styled.ArticleArea>
         <FeedDetail feed={feed} />
         <div>
-          {/* {comments.map((comment) => (
+          <CommentForm value={commentValue} onChange={onCommentValueChange} onClick={sendComment} />
+          {comments.map((comment: CommentType) => (
             <Comment key={comment.no} comment={comment} />
-          ))} */}
+          ))}
         </div>
       </Styled.ArticleArea>
       <FooterNavbar />

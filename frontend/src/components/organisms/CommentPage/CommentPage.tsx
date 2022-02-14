@@ -9,14 +9,14 @@ import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Typography from '@mui/material/Typography';
 import SendIcon from '@mui/icons-material/Send';
 
-import { UserImage, Button, Input } from '@/components/atoms/';
+// import { UserImage, Button, Input } from '@/components/atoms/';
 import { useDispatch, useSelector } from 'react-redux';
 import { CommentType } from '@/types/comment';
 import {
   createCommentRequest,
   deleteCommentRequest,
   updateCommentRequest,
-} from '@/action/commentAction';
+} from 'action/commentAction';
 
 interface Props {
   feedNo: number;
@@ -69,6 +69,7 @@ const CommentPage: FunctionComponent<Props> = ({ feedNo }) => {
   return (
     <Styled.CommentPageLayout>
       <Styled.WriteArea>
+        hello
         {/* <UserProfile user={user} />
         <Styled.Input placeholder="댓글 달기..." value={text} onChange={inputValue} />
         <Styled.Button type="submit" onClick={action}>

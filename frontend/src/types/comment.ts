@@ -1,8 +1,8 @@
-import { UserProfileType } from './user';
-
 interface CommentType {
   no: number;
+  userId: string;
   nickname: string;
+  profileImage: string;
   feedNo: number;
   parent: number | null;
   content: string;

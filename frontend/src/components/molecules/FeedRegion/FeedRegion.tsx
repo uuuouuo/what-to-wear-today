@@ -30,7 +30,7 @@ const FeedRegion: FunctionComponent<Props> = ({ interestRegions }) => {
         <SwiperSlide key={region.no}>
           <Styled.SwiperSlideContainer>
             <Text value={region.regionName} />
-            <Weather weather="맑음" temperature={region.temperature} />
+            <Weather weather="맑음" temperature={-3} />
           </Styled.SwiperSlideContainer>
         </SwiperSlide>
       ))}

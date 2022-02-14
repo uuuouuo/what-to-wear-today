@@ -12,7 +12,8 @@ const Weather: FunctionComponent<Props> = ({ className, weather, temperature }) 
   return (
     <Styled.WeatherArea className={className}>
       <WbSunnyIcon />
-      <Styled.Text value={temperature} />
+      <Styled.Text value={weather} />
+      {/* <Styled.Text value={temperature} /> */}
     </Styled.WeatherArea>
   );
 };

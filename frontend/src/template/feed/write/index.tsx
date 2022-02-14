@@ -23,6 +23,10 @@ const FeedWriteTemplate: NextPage = () => {
     console.log('홈');
   };
 
+  const onChangeDate = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setDate(e.target.value);
+  };
+
   return (
     <MainContainer>
       <Title value="CREATE" />
@@ -40,7 +44,7 @@ const FeedWriteTemplate: NextPage = () => {
         <Styled.TextEditor value={value} onChange={onChange} />
         <Styled.InputContainer>
           <Styled.RowContainer>
-            <Styled.Input value={date} type="date" onChange={setDate} />
+            <Styled.Input type="date" onChange={onChangeDate} />
           </Styled.RowContainer>
           <Styled.RowContainer>
             <Styled.Input value={region} onChange={onRegionChange} placeholder="Region..." />

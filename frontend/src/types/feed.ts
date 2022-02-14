@@ -1,36 +1,32 @@
-import { UserProfileType } from './user';
-import { PhotoType } from './photo';
-import { CommentType } from './comment';
-
 interface FeedType {
-  _no: number;
+  no: string;
   userId: string;
+  nickname: string;
+  profileImage: string;
   content: string;
   createdAt: Date;
-  updatedAt: Date;
-  regionId: number;
+  photoDate: Date;
   weather: string;
   privateMode: boolean;
-  deleteMode: boolean;
-  photoDate: Date;
+  images: string[];
+  tags: string[];
 }
-
+interface FeedRequestType {
+  userId: string;
+  content: string;
+  region: string;
+  weather: string;
+  photoDate: string;
+  privateMode: boolean;
+  deleteMode: boolean;
+  images: string[];
+  tags: string[];
+}
 interface StateType {
   feed: FeedType;
   loadFeedLoading: boolean;
   loadFeedDone: boolean;
   loadFeedError: Error | null;
 }
-interface FeedDetailType {
-  no: number;
-  user: UserProfileType;
-  content: string;
-  createdAt: Date;
-  photoDate: Date;
-  weather: string;
-  privateMode: boolean;
-  images?: PhotoType[];
-  comments: CommentType[];
-}
 
-export type { FeedType, StateType, FeedDetailType };
+export type { FeedType, FeedRequestType, StateType };

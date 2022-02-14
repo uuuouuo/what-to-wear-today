@@ -95,7 +95,7 @@ function* updateComment(action: any) {
     const result: Promise<AxiosResponse<CommentType[]>> = yield call(updateCommentsAPI, action);
     yield put({
       type: UPDATE_COMMENT_SUCCESS,
-      data: action.commentNo,
+      data: result.data,
     });
   } catch (err: any) {
     yield put({

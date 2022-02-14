@@ -1,6 +1,7 @@
 import ArticleImage from './ArticleImage/ArticleImage';
 import CheckInputFormGroup from './CheckInputFormGroup/CheckInputFormGroup';
 import Comment from './Comment/Comment';
+import CommentForm from './CommentForm/CommentForm';
 import DrawerMenu from './DrawerMenu/DrawerMenu';
 import FeedHeader from './FeedHeader/FeedHeader';
 import FeedRegion from './FeedRegion/FeedRegion';
@@ -29,6 +30,7 @@ export {
   ArticleImage,
   CheckInputFormGroup,
   Comment,
+  CommentForm,
   DrawerMenu,
   FeedHeader,
   FeedRegion,

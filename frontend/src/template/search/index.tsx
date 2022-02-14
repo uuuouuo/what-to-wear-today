@@ -35,8 +35,8 @@ const SearchTemplate = () => {
           <Styled.Input value={value} onChange={onChange} placeholder="Search..." />
         </Styled.RowContainer>
         <Styled.RowContainer>
-          <Styled.Input value={startDate} type="date" onChange={setDate} />~
-          <Styled.Input value={endDate} type="date" onChange={setDate} />
+          <Styled.Input type="date" onChange={setDate} />~
+          <Styled.Input type="date" onChange={setDate} />
         </Styled.RowContainer>
         <Styled.RowContainer>
           <Styled.Input value={region} onChange={onRegionChange} placeholder="Region..." />

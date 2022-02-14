@@ -8,9 +8,8 @@ interface UserType {
 }
 
 interface UserProfileType {
-  no: string;
   userId: string;
-  nickName: string;
+  nickname: string;
   profileImage: string;
 }
 

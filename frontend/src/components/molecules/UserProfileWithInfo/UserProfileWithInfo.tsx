@@ -8,7 +8,7 @@ import Link from 'next/link';
 interface Props {
   className?: string;
   user: UserProfileType;
-  createdAt?: Date;
+  createdAt?: string | Date;
 }
 
 const UserProfileWithInfo: FunctionComponent<Props> = ({ className, user, createdAt }) => {
@@ -17,11 +17,11 @@ const UserProfileWithInfo: FunctionComponent<Props> = ({ className, user, create
       <UserProfile user={user} />
       <Styled.Info>
         <Link href={`/user/${user.userId}`}>
-          <Text value={user.nickName} />
+          <Text value={user.nickname} />
         </Link>
         {createdAt ? (
           <Styled.Sub>
-            <Text value={createdAt.toLocaleDateString()} color="#888" size="0.7rem" />
+            <Text value={createdAt} color="#888" size="0.7rem" />
           </Styled.Sub>
         ) : (
           <></>
