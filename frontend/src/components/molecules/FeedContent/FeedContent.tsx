@@ -1,10 +1,11 @@
 import React, { useRef, useState, useEffect, FunctionComponent } from 'react';
 import Router from 'next/router';
-
 import Link from '@mui/material/Link';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
-
+import type { RootState } from '@/reducers';
+import { useDispatch, useSelector } from 'react-redux';
+import { CommentType } from '@/types/comment';
 import Styled from './FeedContent.styled';
 import {
   Button,
@@ -19,8 +20,9 @@ import { ArticleImage } from '@/components/molecules';
 
 const FeedContent: FunctionComponent = () => {
   const scrollAreaRef = useRef<HTMLDivElement>(null);
-
   const target = useRef<HTMLDivElement>(null);
+
+  const { feeds } = useSelector((state: RootState) => state.feeds);
 
   const loadItems = () => {
     setData((prevState) => {
@@ -105,7 +107,7 @@ const FeedContent: FunctionComponent = () => {
 
   return (
     <Styled.Feed_content_box ref={scrollAreaRef}>
-      {datas.map((article, idx) => {
+      {feeds.map((article, idx) => {
         const lastEl = idx === datas.length - 1;
         return (
           <Styled.Feed_content key={idx} ref={lastEl ? target : null}>

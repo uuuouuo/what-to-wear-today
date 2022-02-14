@@ -49,9 +49,9 @@ export const loadFeedFailure = () => ({
   type: LOAD_FEED_FAILURE,
 });
 
-export const loadFeedsRequest = (feedNo: number) => ({
+export const loadFeedsRequest = (regionNo: number) => ({
   type: LOAD_FEEDS_REQUEST,
-  feedNo: feedNo,
+  regionNo: regionNo,
 });
 
 export const loadFeedsSuccess = () => ({

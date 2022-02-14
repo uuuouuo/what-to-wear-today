@@ -17,7 +17,8 @@ const Home: NextPage = () => {
           headers: {
             Authorization: 'KakaoAK 39e2904a8ec248d9db91d79d53358ab1',
           },
-        }).then((response) => console.log(response));
+        });
+        // .then((response) => console.log(response))
       });
     }
   });
