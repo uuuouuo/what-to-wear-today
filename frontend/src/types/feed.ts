@@ -1,16 +1,27 @@
 interface FeedType {
-  _no: number;
+  no: string;
   userId: string;
+  nickname: string;
+  profileImage: string;
   content: string;
   createdAt: Date;
-  updatedAt: Date;
-  regionId: number;
+  photoDate: Date;
   weather: string;
   privateMode: boolean;
-  deleteMode: boolean;
-  photoDate: Date;
+  images: string[];
+  tags: string[];
 }
-
+interface FeedRequestType {
+  userId: string;
+  content: string;
+  region: string;
+  weather: string;
+  photoDate: string;
+  privateMode: boolean;
+  deleteMode: boolean;
+  images: string[];
+  tags: string[];
+}
 interface StateType {
   feed: FeedType;
   loadFeedLoading: boolean;
@@ -18,4 +29,4 @@ interface StateType {
   loadFeedError: Error | null;
 }
 
-export type { FeedType, StateType };
+export type { FeedType, FeedRequestType, StateType };

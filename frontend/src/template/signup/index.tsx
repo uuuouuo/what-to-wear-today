@@ -11,7 +11,7 @@ import { ImageUpload, Title } from '@/components/molecules';
 
 import { useChange, useFileChange } from '@/hooks';
 
-const Signup: NextPage = () => {
+const SignupTemplate: NextPage = () => {
   const [value, , onChange] = useChange<HTMLInputElement>('');
   const [profileImg, , profileImgChange] = useFileChange(null);
 
@@ -44,4 +44,4 @@ const Signup: NextPage = () => {
   );
 };
 
-export default Signup;
+export default SignupTemplate;

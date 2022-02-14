@@ -3,7 +3,7 @@ import { NextPage } from 'next';
 import TypeTemplate from '@/template/type';
 
 const Type: NextPage = () => {
-  return <TypeTemplate></TypeTemplate>;
+  return <TypeTemplate />;
 };
 
 export default Type;

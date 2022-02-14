@@ -3,7 +3,7 @@ import { NextPage } from 'next';
 import NotificationTemplate from '@/template/notification';
 
 const Notification: NextPage = () => {
-  return <NotificationTemplate></NotificationTemplate>;
+  return <NotificationTemplate />;
 };
 
 export default Notification;

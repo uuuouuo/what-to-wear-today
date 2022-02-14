@@ -11,7 +11,7 @@ import {
   UPDATE_COMMENT_REQUEST,
   UPDATE_COMMENT_SUCCESS,
   UPDATE_COMMENT_FAILURE,
-} from '@/action/commentAction';
+} from '@/action/CommentAction';
 import { StateType } from '@/types/comment';
 
 export const initialState: StateType = {
@@ -32,8 +32,6 @@ export const initialState: StateType = {
 
 const reducer = (state = initialState, action: any) => {
   switch (action.type) {
-    //CREATE//
-
     case CREATE_COMMENT_REQUEST:
       return {
         ...state,
@@ -56,8 +54,6 @@ const reducer = (state = initialState, action: any) => {
         createCommentsAdding: false,
         createCommentError: action.error,
       };
-
-    //READ//
 
     case LOAD_COMMENTS_REQUEST:
       return {
@@ -82,8 +78,6 @@ const reducer = (state = initialState, action: any) => {
         loadCommentsError: action.error,
       };
 
-    //UPDATE//
-
     case UPDATE_COMMENT_REQUEST:
       return {
         ...state,
@@ -93,12 +87,13 @@ const reducer = (state = initialState, action: any) => {
       };
 
     case UPDATE_COMMENT_SUCCESS:
-      const updateComment = action.data.data;
       return {
         ...state,
         comments: state.comments.map((comment) => {
-          if (comment.no === updateComment.no) return { ...comment, ...updateComment };
-          else return comment;
+          if (comment === action.data.no) {
+            return { ...comment, ...action.data };
+          }
+          return comment;
         }),
         updateCommentUpdating: false,
         updateCommentDone: true,
@@ -110,8 +105,6 @@ const reducer = (state = initialState, action: any) => {
         updateCommentUpdating: false,
         updateCommentError: action.error,
       };
-
-    //DELETE//
 
     case DELETE_COMMENT_REQUEST:
       return {

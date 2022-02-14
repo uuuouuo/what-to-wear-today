@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
 import Styled from './styled';
-import { Title } from '@/components/molecules';
-import { Button } from 'components/atoms';
+import { FooterNavbar, Title } from '@/components/molecules';
 import { useChange } from '@/hooks';
 import SearchIcon from '@mui/icons-material/Search';
 
-const Search = () => {
-  const [value, setValue, onChange] = useChange<HTMLInputElement>('');
+const SearchTemplate = () => {
+  const [value, , onChange] = useChange<HTMLInputElement>('');
   const [startDate, setStartDate] = useState<Date | null>();
   const [endDate, setEndDate] = useState<Date | null>();
   const [region, setRegion] = useState('');
@@ -30,27 +29,35 @@ const Search = () => {
 
   return (
     <Styled.MainContainer>
-      <Title value="Search" />
-      <Styled.contentContainer>
-        <Styled.rowContainer>
-          <Styled.Input value={value} onChange={onChange} placeholder="Search..."></Styled.Input>
-          <Button onClick={handleSearch}>
+      <Title value="SEARCH" />
+      <Styled.ContentContainer>
+        <Styled.RowContainer>
+          <Styled.Input value={value} onChange={onChange} placeholder="Search..." />
+        </Styled.RowContainer>
+        <Styled.RowContainer>
+          <Styled.Input type="date" onChange={setDate} />~
+          <Styled.Input type="date" onChange={setDate} />
+        </Styled.RowContainer>
+        <Styled.RowContainer>
+          <Styled.Input value={region} onChange={onRegionChange} placeholder="Region..." />
+        </Styled.RowContainer>
+        <Styled.RowContainer>
+          <Styled.Input
+            type="number"
+            value={temperature}
+            onChange={onTemperatureChange}
+            placeholder="Temperature..."
+          />
+        </Styled.RowContainer>
+        <Styled.RowContainer>
+          <Styled.Button onClick={handleSearch}>
             <SearchIcon />
-          </Button>
-        </Styled.rowContainer>
-        <Styled.rowContainer>
-          기간 <input type="date" name="start" onChange={setDate}></input> ~{' '}
-          <input type="date" name="end" onChange={setDate}></input>
-        </Styled.rowContainer>
-        <Styled.rowContainer>
-          지역 <input type="text" name="region" onChange={onRegionChange}></input>
-        </Styled.rowContainer>
-        <Styled.rowContainer>
-          온도 <input type="number" name="regionStart" onChange={onTemperatureChange}></input>
-        </Styled.rowContainer>
-      </Styled.contentContainer>
+          </Styled.Button>
+        </Styled.RowContainer>
+      </Styled.ContentContainer>
+      <FooterNavbar />
     </Styled.MainContainer>
   );
 };
 
-export default Search;
+export default SearchTemplate;

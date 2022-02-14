@@ -3,7 +3,7 @@ import Styled from './Text.styled';
 
 interface Props {
   className?: string;
-  value: string;
+  value: number | string;
   color?: string;
   size?: string;
   weight?: number | string;

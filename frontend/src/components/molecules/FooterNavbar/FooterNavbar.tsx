@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, FunctionComponent } from 'react';
+import React, { useEffect, FunctionComponent } from 'react';
 import { BottomNavigation, Paper } from '@mui/material';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import HomeIcon from '@mui/icons-material/Home';
@@ -10,28 +10,28 @@ import { useRouter } from 'next/router';
 
 import Styled from './FooterNavbar.styled';
 
-const FooterNavbar: FunctionComponent = () => {
-  const current = useRouter().pathname.slice(1);
-  const [value, setValue] = React.useState(100);
+const FooterNavbar = () => {
+  const current = useRouter().asPath;
+  const [value, setValue] = React.useState(0);
 
   useEffect(() => {
-    if (current === '') {
+    if (current === '/') {
       setValue(0);
-    } else if (current === 'srarch') {
+    } else if (current.includes('search')) {
       setValue(1);
-    } else if (current === 'create') {
+    } else if (current.includes('write')) {
       setValue(2);
-    } else if (current === 'likefeed') {
+    } else if (current.includes('like')) {
       setValue(3);
-    } else if (current === 'mypage') {
+    } else if (current.includes('user')) {
       setValue(4);
     } else {
       setValue(10);
     }
-  });
+  }, [current]);
 
   return (
-    <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0 }} elevation={3}>
+    <Paper>
       <BottomNavigation
         showLabels
         value={value}
@@ -42,17 +42,31 @@ const FooterNavbar: FunctionComponent = () => {
         <Styled.BottomNavigationAction
           sx={{ pt: 0, pb: 0 }}
           icon={
-            <Link href={'/'}>
+            <Link href="/">
               <HomeIcon />
             </Link>
           }
         />
-        <Styled.BottomNavigationAction sx={{ pt: 0, pb: 0 }} icon={<SearchIcon />} />
-        <Styled.BottomNavigationAction sx={{ pt: 0, pb: 0 }} icon={<AddCircleIcon />} />
         <Styled.BottomNavigationAction
           sx={{ pt: 0, pb: 0 }}
           icon={
-            <Link href={'/likefeed'}>
+            <Link href="/search">
+              <SearchIcon />
+            </Link>
+          }
+        />
+        <Styled.BottomNavigationAction
+          sx={{ pt: 0, pb: 0 }}
+          icon={
+            <Link href="/feed/write">
+              <AddCircleIcon />
+            </Link>
+          }
+        />
+        <Styled.BottomNavigationAction
+          sx={{ pt: 0, pb: 0 }}
+          icon={
+            <Link href="/feed/like">
               <FavoriteIcon />
             </Link>
           }
@@ -60,7 +74,7 @@ const FooterNavbar: FunctionComponent = () => {
         <Styled.BottomNavigationAction
           sx={{ pt: 0, pb: 0 }}
           icon={
-            <Link href={'/user/1'}>
+            <Link href="/user/1">
               <PersonIcon />
             </Link>
           }

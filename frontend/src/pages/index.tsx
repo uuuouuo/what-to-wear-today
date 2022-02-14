@@ -6,7 +6,7 @@ import { loadFeedsRequest } from '@/action/feedAction';
 import { END } from 'redux-saga';
 
 const Home: NextPage = () => {
-  return <HomeTemplate></HomeTemplate>;
+  return <HomeTemplate />;
 };
 
 export const getServerSideProps = wrapper.getServerSideProps(

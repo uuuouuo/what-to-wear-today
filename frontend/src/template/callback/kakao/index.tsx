@@ -1,5 +1,5 @@
 import React, { useEffect, useCallback } from 'react';
-import type { NextPage, NextPageContext } from 'next';
+import type { NextPage } from 'next';
 import Styled from './styled';
 import Router from 'next/router';
 import CircularProgress from '@mui/material/CircularProgress';
@@ -13,7 +13,7 @@ interface Props {
   code: string | string[] | undefined;
 }
 
-const Kakao: NextPage<Props> = ({ code }) => {
+const KakaoTemplate: NextPage<Props> = ({ code }) => {
   const { myInfo } = useSelector((state: RootState) => state.user);
   const [open, , openModal, closeModal] = useDisplay(false);
   useEffect(() => {
@@ -45,7 +45,7 @@ const Kakao: NextPage<Props> = ({ code }) => {
       <Modal
         open={open}
         title="회원가입 필요(╬▔皿▔)╯"
-        content="회원가입 ㄱ?"
+        content="회원가입 할꺼냐능?"
         disagreeFunction={disagreeFunction}
         agreeFunction={agreeFunction}
       />
@@ -53,4 +53,4 @@ const Kakao: NextPage<Props> = ({ code }) => {
   );
 };
 
-export default Kakao;
+export default KakaoTemplate;

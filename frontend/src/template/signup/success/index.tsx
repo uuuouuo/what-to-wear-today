@@ -5,7 +5,7 @@ import Styled from './styled';
 import { Heading, Text, FooterContainer } from '@/components/atoms';
 import { Title, SuccessBadge } from '@/components/molecules';
 
-const Success: NextPage = () => {
+const SuccessTemplate: NextPage = () => {
   const nextFunction = useCallback(() => {
     Router.push('/');
   }, []);
@@ -24,4 +24,4 @@ const Success: NextPage = () => {
   );
 };
 
-export default Success;
+export default SuccessTemplate;

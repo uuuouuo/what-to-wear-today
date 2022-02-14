@@ -3,7 +3,7 @@ import { NextPage } from 'next';
 import InterestTemplate from '@/template/interest';
 
 const Interest: NextPage = () => {
-  return <InterestTemplate></InterestTemplate>;
+  return <InterestTemplate />;
 };
 
 export default Interest;

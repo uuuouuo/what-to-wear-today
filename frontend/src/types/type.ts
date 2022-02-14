@@ -1,5 +1,5 @@
 interface TypeType {
-  _type_no: number;
+  no: number;
   constitution: string;
   description: string;
 }

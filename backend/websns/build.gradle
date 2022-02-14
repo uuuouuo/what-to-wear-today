@@ -36,6 +36,10 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.security:spring-security-test'
 	runtimeOnly 'mysql:mysql-connector-java'
+<<<<<<< HEAD
+	implementation 'org.jsoup:jsoup:1.11.3' // crawling
+=======
+>>>>>>> cc46f12bd5c025f1b8f6ca8a7f9726469794eed4
 
 }
 

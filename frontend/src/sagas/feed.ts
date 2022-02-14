@@ -16,6 +16,7 @@ import {
   DELETE_FEED_FAILURE,
 } from '@/action/feedAction';
 import { FeedType } from '@/types/feed';
+import { LOAD_COMMENTS_SUCCESS } from '@/action/commentAction';
 
 const api = apiInstance();
 const authApi = authInstance();
@@ -48,7 +49,11 @@ function* loadFeed(action: any) {
     const result: Promise<AxiosResponse<FeedType>> = yield call(loadFeedAPI, action.feedNo);
     yield put({
       type: LOAD_FEED_SUCCESS,
-      data: result.data.content,
+      data: result.data.feedRes,
+    });
+    yield put({
+      type: LOAD_COMMENTS_SUCCESS,
+      data: result.data.commentRes,
     });
   } catch (err: any) {
     yield put({

@@ -9,7 +9,7 @@ import { CheckInputFormGroup as BaseCheckInputFormGroup } from '@/components/mol
 const MainContainer = styled(BaseMainContainer)`
   display: flex;
   flex-direction: column;
-  justify-content: safe;
+  justify-content: center;
 `;
 
 const ButtonContainer = styled(BaseFooterContainer)`

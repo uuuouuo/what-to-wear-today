@@ -13,11 +13,10 @@ export const DELETE_COMMENT_FAILURE = 'DELETE_COMMENT_FAILURE';
 
 export const createCommentRequest = (content: string, feed: any) => ({
   type: CREATE_COMMENT_REQUEST,
-  feedNo: feed[0].no,
   request: {
     userId: 'jdb',
     parent: -1,
-    content: content,
+    content,
     privateMode: 0,
     deleteMode: 0,
   },
@@ -46,16 +45,13 @@ export const loadCommentsFailure = () => ({
   type: LOAD_COMMENTS_FAILURE,
 });
 
-////
-
-export const updateCommentRequest = (commentNo: number, content: string, commentIdx: number) => ({
+export const updateCommentRequest = (commentNo: number, content: string) => ({
   type: UPDATE_COMMENT_REQUEST,
-  commentNo: commentNo,
+  commentNo,
   request: {
     content: content,
     privateMode: false,
   },
-  commentIdx: commentIdx,
 });
 
 export const updateCommentSuccess = () => ({

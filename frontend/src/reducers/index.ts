@@ -2,6 +2,8 @@ import { HYDRATE } from 'next-redux-wrapper';
 import user from './user';
 import comment from './comment';
 import feed from './feed';
+import mypageFeeds from './mypageFeeds';
+import mypageComments from './mypageComments';
 import { combineReducers } from 'redux';
 
 const rootReducer = (state: any, action: any) => {
@@ -14,6 +16,8 @@ const rootReducer = (state: any, action: any) => {
         user,
         comment,
         feed,
+        mypageFeeds,
+        mypageComments,
       });
       return combineReducer(state, action);
     }

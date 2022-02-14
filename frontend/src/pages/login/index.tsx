@@ -3,7 +3,7 @@ import { NextPage } from 'next';
 import LoginTemplate from '@/template/login';
 
 const Login: NextPage = () => {
-  return <LoginTemplate></LoginTemplate>;
+  return <LoginTemplate />;
 };
 
 export default Login;
