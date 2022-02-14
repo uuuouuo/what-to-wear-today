@@ -79,7 +79,7 @@ public class FeedController {
   @GetMapping("/details/{feedNo}")
   public ResponseEntity<FeedDetailRes> showFeedByNo(@PathVariable("feedNo") Integer feedNo) {
 
-    FeedRes feed = feedService.searchFeedByNo(feedNo);
+    FeedRes feed = feedService.showFeedDetailByNo(feedNo);
     List<CommentRes> comments = commentService.searchComments(feedNo);
 
     FeedDetailRes feedDetails = new FeedDetailRes(feed,comments);

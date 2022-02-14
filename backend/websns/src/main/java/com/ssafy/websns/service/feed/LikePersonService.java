@@ -8,8 +8,6 @@ import com.ssafy.websns.repository.feed.FeedRepository;
 import com.ssafy.websns.repository.feed.LikePersonRepository;
 import com.ssafy.websns.repository.user.UserRepository;
 import com.ssafy.websns.service.validation.ValidateExist;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -52,24 +50,24 @@ public class LikePersonService {
 
   }
 
-  public List<String> showLikePeople(Integer feedNo) {
-
-    Optional<Feed> feedOptional = feedRepository.findByNo(feedNo);
-    Feed feed = validateExist.findFeed(feedOptional);
-
-    Optional<List<LikePerson>> likePersonOptional = likePersonRepository.findByFeed(feed);
-    
-    List<LikePerson> likePeople = null;
-    List<String> response = null;
-
-    if(likePersonOptional.isPresent()) {
-      likePeople = likePersonOptional.get();
-
-      likePeople.stream().forEach(likePerson -> {
-        String userId = likePerson.getUser().getUserId();
-        response.add(userId);
-      });
-
-    }
-  }
+//  public List<String> showLikePeople(Integer feedNo) {
+//
+//    Optional<Feed> feedOptional = feedRepository.findByNo(feedNo);
+//    Feed feed = validateExist.findFeed(feedOptional);
+//
+//    Optional<List<LikePerson>> likePersonOptional = likePersonRepository.findByFeed(feed);
+//
+//    List<LikePerson> likePeople = null;
+//    List<String> response = null;
+//
+//    if(likePersonOptional.isPresent()) {
+//      likePeople = likePersonOptional.get();
+//
+//      likePeople.stream().forEach(likePerson -> {
+//        String userId = likePerson.getUser().getUserId();
+//        response.add(userId);
+//      });
+//
+//    }
+//  }
 }

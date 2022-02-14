@@ -11,11 +11,13 @@ import com.ssafy.websns.model.entity.feed.Image;
 import com.ssafy.websns.model.entity.feed.Tag;
 import com.ssafy.websns.model.entity.region.Region;
 import com.ssafy.websns.model.entity.user.User;
+import com.ssafy.websns.model.entity.user.UserProfile;
 import com.ssafy.websns.repository.feed.FeedRepository;
 import com.ssafy.websns.repository.feed.FeedTagRepository;
 import com.ssafy.websns.repository.feed.ImageRepository;
 import com.ssafy.websns.repository.feed.TagRepository;
 import com.ssafy.websns.repository.region.RegionRepository;
+import com.ssafy.websns.repository.user.UserProfileRepository;
 import com.ssafy.websns.repository.user.UserRepository;
 import com.ssafy.websns.service.validation.ValidateExist;
 import java.io.File;
@@ -42,6 +44,7 @@ public class FeedService {
   private final RegionRepository regionRepository;
   private final TagRepository tagRepository;
   private final UserRepository userRepository;
+  private final UserProfileRepository userProfileRepository;
   private final FeedTagRepository feedTagRepository;
 
   private ValidateExist validateExist = new ValidateExist();
@@ -55,6 +58,9 @@ public class FeedService {
     Optional<User> userOptional = userRepository.findByUserId(request.getUserId());
     User user = validateExist.findUser(userOptional);
 
+    Optional<UserProfile> profileOptional = userProfileRepository.findByUser(user);
+    UserProfile userProfile = validateExist.findUserProfile(profileOptional);
+
     feed.createFeed(user, request.getContent(), region,
         request.getPhotoDate(), request.getWeather(), request.getPrivateMode(),
         request.getDeleteMode());
@@ -67,7 +73,6 @@ public class FeedService {
     StringBuilder sb = new StringBuilder();
     List<Image> imageList = new ArrayList<>();
 
-    // file image 가 없을 경우
     if (!imageNames.isEmpty()) {
       for (MultipartFile imageName : imageNames) {
         sb.append(date.getTime());
@@ -108,7 +113,7 @@ public class FeedService {
     List<String> resTags = feedTags.stream().map(tag -> tag.getTagNo().getTagName())
         .collect(Collectors.toList());
 
-    FeedRes response = new FeedRes(feed, resImages, resTags);
+    FeedRes response = new FeedRes(userProfile, feed, resImages, resTags);
 
     return response;
 
@@ -118,21 +123,19 @@ public class FeedService {
   public UpdateRes editFeed(Integer feedNo, UpdateReq request) {
 
     Optional<Feed> optional = feedRepository.findByNo(feedNo);
-
-    // 피드 정보 찾기
     Feed feed = validateExist.findFeed(optional);
-    // 피드에 수정된 지역 정보 찾기
+
     Region region = regionRepository.findByRegionNameContaining(request.getRegion()).get(0);
 
-    // 수정된 내용 저장
+    Optional<UserProfile> profileOptional = userProfileRepository.findByUser(feed.getUser());
+    UserProfile userProfile = validateExist.findUserProfile(profileOptional);
+
     feed.updateFeed(request.getContent(), region, request.getPhotoDate(),
         request.getWeather(), request.getPrivateMode());
 
-    // 원래 이미지 삭제
     imageRepository.deleteByFeed(feed);
     feedTagRepository.deleteFeedTagByFeed(feed);
 
-    // 수정된 이미지 이름 리스트
     List<MultipartFile> imageNames = request.getImageNames();
 
     Date date = new Date();
@@ -140,7 +143,6 @@ public class FeedService {
 
     List<Image> imageList = new ArrayList<>();
 
-    // file image 가 없을 경우
     if (!imageNames.isEmpty()) {
       for (MultipartFile imageName : imageNames) {
         sb.append(date.getTime());
@@ -158,7 +160,6 @@ public class FeedService {
       }
     }
 
-    // 수정된 이미지 저장
     List<Image> savedImages = imageRepository.saveAll(imageList);
 
     List<String> tagNames = request.getTags();
@@ -184,8 +185,7 @@ public class FeedService {
     List<String> resTags = feedTags.stream().map(tag -> tag.getTagNo().getTagName())
         .collect(Collectors.toList());
 
-    // response DTO 에 담기
-    UpdateRes response = new UpdateRes(feed, resImages, resTags);
+    UpdateRes response = new UpdateRes(userProfile, feed, resImages, resTags);
 
     return response;
 
@@ -200,6 +200,7 @@ public class FeedService {
     feed.deleteFeed();
   }
 
+  // 설정 지역 내 피드 보기
   public List<FeedRes> showFeedsByRegion(Integer regionNo, Pageable pageable) {
 
     Page<Feed> feeds = feedRepository.findAllByRegion(regionNo, pageable);
@@ -215,6 +216,7 @@ public class FeedService {
 
   }
 
+  // 마이페이지 내 피드 보기
   public List<FeedRes> showFeedsById(String userId) {
 
     Optional<User> userOptional = userRepository.findByUserId(userId);
@@ -234,7 +236,8 @@ public class FeedService {
 
   }
 
-  public FeedRes searchFeedByNo(Integer feedNo) {
+  // 피드 상세정보 보기
+  public FeedRes showFeedDetailByNo(Integer feedNo) {
 
     Optional<Feed> feedOptional = feedRepository.findByNo(feedNo);
     Feed feed = validateExist.findFeed(feedOptional);
@@ -257,7 +260,10 @@ public class FeedService {
     List<String> resTags = feedTags.stream().map(tag -> tag.getTagNo().getTagName())
         .collect(Collectors.toList());
 
-    FeedRes feedRes = new FeedRes(feed, resImages, resTags);
+    Optional<UserProfile> profileOptional = userProfileRepository.findByUser(feed.getUser());
+    UserProfile userProfile = validateExist.findUserProfile(profileOptional);
+
+    FeedRes feedRes = new FeedRes(userProfile, feed, resImages, resTags);
 
     return feedRes;
 

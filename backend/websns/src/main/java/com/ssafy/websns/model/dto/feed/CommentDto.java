@@ -34,7 +34,9 @@ public class CommentDto {
   public static class CommentRes {
 
     private Integer no;
+    private String userId;
     private String nickname;
+    private String profileImg;
     private Integer feedNo;
     private Integer parent;
     private String content;
@@ -42,7 +44,9 @@ public class CommentDto {
 
     public CommentRes(UserProfile userProfile, Comment comment){
       this.no = comment.getNo();
+      this.userId = userProfile.getUser().getUserId();
       this.nickname = userProfile.getNickname();
+      this.profileImg = userProfile.getProfileImg();
       this.feedNo = comment.getFeed().getNo();
       this.parent = comment.getParent() != null ? comment.getParent().getNo() : null;
       this.content= comment.getContent();
@@ -73,6 +77,7 @@ public class CommentDto {
 
     private Integer no;
     private String nickname;
+    private String profileImg;
     private String content;
     private Boolean privateMode;
     private LocalDateTime updateAt;
@@ -80,6 +85,7 @@ public class CommentDto {
     public UpdateRes(UserProfile userProfile, Comment comment) {
       this.no = comment.getNo();
       this.nickname = userProfile.getNickname();
+      this.profileImg = userProfile.getProfileImg();
       this.content = comment.getContent();
       this.privateMode = comment.getPrivateMode();
       this.updateAt = comment.getUpdatedAt();
