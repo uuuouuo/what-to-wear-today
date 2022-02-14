@@ -24,7 +24,7 @@ public class KakaoAuthService { // public class GoogleAuthService
   @Transactional
   public LoginRes login(LoginAuthReq authRequest) {
 
-    User user = clientKakao.getUserData(authRequest.getAccessToken()); // userData 담기
+    User user = clientKakao.getUserData(authRequest.getCode()); // userData 담기
 
     String socialId = user.getUserId();
 

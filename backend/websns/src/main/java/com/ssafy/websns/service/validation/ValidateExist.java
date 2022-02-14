@@ -1,16 +1,15 @@
 package com.ssafy.websns.service.validation;
 
-import com.ssafy.websns.model.dto.feed.CommentDto.CommentRes;
 import com.ssafy.websns.model.entity.feed.Comment;
 import com.ssafy.websns.model.entity.feed.Feed;
 import com.ssafy.websns.model.entity.feed.FeedTag;
 import com.ssafy.websns.model.entity.feed.Image;
 import com.ssafy.websns.model.entity.feed.Tag;
+import com.ssafy.websns.model.entity.type.Type;
 import com.ssafy.websns.model.entity.user.User;
 import com.ssafy.websns.model.entity.user.UserProfile;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 public class ValidateExist {
 
@@ -62,7 +61,6 @@ public class ValidateExist {
       return null;
     }
 
-
   }
 
   public Comment findComment(Optional<Comment> optional) {
@@ -79,13 +77,24 @@ public class ValidateExist {
 
   }
 
-  public List<CommentRes> findComments(Optional<List<Comment>> optional) {
+  public Type findTypeNo(Optional<Type> optional) {
 
-    List<CommentRes> comments = null;
+    Type type = null;
+
+    if(optional.isPresent()) {
+      type = optional.get();
+    }
+
+    return type;
+
+  }
+
+  public List<Comment> findComments(Optional<List<Comment>> optional) {
+
+    List<Comment> comments = null;
 
     if (optional.isPresent()) {
-      comments = optional.get().stream().map(CommentRes::new)
-          .collect(Collectors.toList());
+      comments = optional.get();
     }
 
     return comments;
