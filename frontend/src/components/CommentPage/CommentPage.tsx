@@ -8,10 +8,11 @@ import ListItemText from '@mui/material/ListItemText';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Typography from '@mui/material/Typography';
 import SendIcon from '@mui/icons-material/Send';
+import Button from '@mui/material/Button';
 import { UserImage } from '@/components/atoms/';
 import { useDispatch, useSelector } from 'react-redux';
 import { CommentType } from '@/types/comment';
-import { commentCreate } from '@/action/commentAction';
+import { createCommentRequest, deleteCommentRequest } from '@/action/commentAction';
 
 interface Props {
   feedNo: number;
@@ -20,8 +21,6 @@ interface Props {
 const CommentPage: FunctionComponent<Props> = ({ feedNo }) => {
   const { feed } = useSelector((state: RootState) => state.feed);
   const { comments } = useSelector((state: RootState) => state.comment);
-  console.log('코멘트다! : ', comments);
-
   const dispatch = useDispatch();
   const [text, setText] = useState('');
 
@@ -30,8 +29,12 @@ const CommentPage: FunctionComponent<Props> = ({ feedNo }) => {
   };
 
   const action = (e: React.MouseEvent<Element, MouseEvent>) => {
-    dispatch(commentCreate(text, feed));
+    dispatch(createCommentRequest(text, feed));
     setText('');
+  };
+
+  const deleteAction = (comment: any) => {
+    dispatch(deleteCommentRequest(comment.comment.no));
   };
 
   return (
@@ -46,11 +49,9 @@ const CommentPage: FunctionComponent<Props> = ({ feedNo }) => {
           <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }} key={idx}>
             <ListItem alignItems="flex-start">
               <ListItemAvatar>
-                {/* 유저 이미지 */}
                 <UserImage />
               </ListItemAvatar>
               <ListItemText
-                // 유저 아이디 부분
                 primary={comment.userId}
                 secondary={
                   <Typography
@@ -59,10 +60,11 @@ const CommentPage: FunctionComponent<Props> = ({ feedNo }) => {
                     variant="body2"
                     color="text.primary"
                   >
-                    {/* {comment.content} */}
+                    {comment.content}
                   </Typography>
                 }
               />
+              <Button onClick={() => deleteAction({ comment })} children={<p>삭제</p>} />
             </ListItem>
             <Divider variant="inset" component="li" />
           </List>

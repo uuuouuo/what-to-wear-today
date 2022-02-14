@@ -41,7 +41,6 @@ public class CommentService {
 //    ValidateExist validateExist = new ValidateExist(commentRepository, feedRepository, null);
 
     Optional<Feed> feedOptional = feedRepository.findByNo(feedNo);
-
     User user = userRepository.findByUserId(request.getUserId());
     Feed feed = validateExist.findFeedByNo(feedOptional);
 

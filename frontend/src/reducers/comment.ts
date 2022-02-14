@@ -2,9 +2,12 @@ import {
   LOAD_COMMENTS_REQUEST,
   LOAD_COMMENTS_SUCCESS,
   LOAD_COMMENTS_FAILURE,
-  COMMENT_CREATE,
-  COMMENT_CREATE_SUCCESS,
-  COMMENT_CREATE_FAILURE,
+  CREATE_COMMENT_REQUEST,
+  CREATE_COMMENT_SUCCESS,
+  CREATE_COMMENT_FAILURE,
+  DELETE_COMMENT_REQUEST,
+  DELETE_COMMENT_SUCCESS,
+  DELETE_COMMENT_FAILURE,
 } from 'action/commentAction';
 import { StateType } from '@/types/comment';
 
@@ -13,9 +16,12 @@ export const initialState: StateType = {
   loadCommentsLoading: false,
   loadCommentsDone: false,
   loadCommentsError: null,
-  CommentAdding: false,
+  createCommentAdding: false,
   createCommentDone: false,
   createCommentError: null,
+  deleteCommentDeleting: false,
+  deleteCommentDone: false,
+  deleteCommentError: null,
 };
 
 const reducer = (state = initialState, action: any) => {
@@ -43,27 +49,54 @@ const reducer = (state = initialState, action: any) => {
         loadCommentsError: action.error,
       };
 
-    case COMMENT_CREATE:
+    ////
+
+    case CREATE_COMMENT_REQUEST:
       return {
         ...state,
-        CommentsAdding: true,
+        createCommentsAdding: true,
         createCommentError: null,
         createCommentDone: false,
       };
 
-    case COMMENT_CREATE_SUCCESS:
+    case CREATE_COMMENT_SUCCESS:
       return {
         ...state,
-        CommentsAdding: false,
-        comments: action.data,
+        createCommentsAdding: false,
+        comments: [...state.comments, action.data],
         createCommentDone: true,
       };
 
-    case COMMENT_CREATE_FAILURE:
+    case CREATE_COMMENT_FAILURE:
       return {
         ...state,
-        CommentsAdding: false,
+        createCommentsAdding: false,
         createCommentError: action.error.status,
+      };
+
+    ////
+
+    case DELETE_COMMENT_REQUEST:
+      return {
+        ...state,
+        deleteCommentDeleting: true,
+        deleteCommentDone: false,
+        deleteCommentError: null,
+      };
+
+    case DELETE_COMMENT_SUCCESS:
+      return {
+        ...state,
+        deleteCommentDeleting: false,
+        comments: [...state.comments],
+        deleteCommentDone: true,
+      };
+
+    case DELETE_COMMENT_FAILURE:
+      return {
+        ...state,
+        deleteCommentDeleting: false,
+        deleteCommentError: action.error.status,
       };
 
     default:
