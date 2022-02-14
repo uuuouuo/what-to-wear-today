@@ -13,4 +13,6 @@ public interface CommentRepository extends JpaRepository<Comment, Integer> {
 
   Optional<List<Comment>> findByFeedAndDeleteModeIsFalse(Feed feed);
 
+  Optional<List<Comment>> findByUser(User user);
+
 }

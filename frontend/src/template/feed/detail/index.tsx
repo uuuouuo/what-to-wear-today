@@ -37,7 +37,7 @@ const FeedDetailTemplate: NextPage<Props> = ({ feedNo }) => {
 
         <Styled.ArticleContent>
           <ArticleContent value={feed[0].content} />
-          <HashTag value={['feed.tags']} />
+          <HashTag value={[feed[0].tags]} />
           <Styled.DateLine>
             <ArticleDate value="feed.createdAt" />
             <ReportForm />

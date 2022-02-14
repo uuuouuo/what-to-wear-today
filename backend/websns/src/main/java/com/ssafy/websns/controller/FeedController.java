@@ -10,7 +10,6 @@ import com.ssafy.websns.model.dto.feed.FeedDto.UpdateRes;
 import com.ssafy.websns.service.feed.CommentService;
 import com.ssafy.websns.service.feed.FeedService;
 import java.util.List;
-import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -27,6 +26,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -39,8 +40,10 @@ public class FeedController {
   private final FeedService feedService;
   private final CommentService commentService;
 
-  @PostMapping
-  public ResponseEntity<FeedRes> createFeed(@RequestBody CreateReq request){
+  @PostMapping(consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
+  public ResponseEntity<FeedRes> createFeed(
+      @RequestPart(value="request") FeedReq request,
+      @RequestPart(value="imageNames")List<MultipartFile> images){
 
     CreateReq createReq = new CreateReq(request,images);
 
@@ -66,42 +69,34 @@ public class FeedController {
   }
 
   @GetMapping("/{regionNo}")
-  public ResponseEntity<Page<FeedRes>> showFeeds(@PathVariable("regionNo")Integer regionNo, @PageableDefault(size = 20) Pageable pageable) {
+  public ResponseEntity<Page<FeedRes>> findFeedsByRegion(@PathVariable("regionNo")Integer regionNo, @PageableDefault(size = 20) Pageable pageable) {
 
-    List<FeedRes> feeds = feedService.showFeedsWithPage(regionNo, pageable);
+    List<FeedRes> feeds = feedService.showFeedsByRegion(regionNo, pageable);
     Page<FeedRes> pageRes = new PageImpl<>(feeds, pageable, feeds.size());
 
-    return new ResponseEntity<>(pageRes,HttpStatus.OK);
+    return new ResponseEntity<>(pageRes, HttpStatus.OK);
 
   }
 
   @GetMapping("/details/{feedNo}")
-  public ResponseEntity<FeedDetails> showFeed(@PathVariable("feedNo")Integer feedNo) {
+  public ResponseEntity<FeedDetailRes> showFeedByNo(@PathVariable("feedNo")Integer feedNo) {
 
-    FeedRes feed = feedService.showFeed(feedNo);
+    FeedRes feed = feedService.searchFeedByNo(feedNo);
     List<CommentRes> comments = commentService.searchComments(feedNo);
 
-    FeedDetails feedDetails = new FeedDetails(feed,comments);
+    FeedDetailRes feedDetails = new FeedDetailRes(feed,comments);
 
-    return new ResponseEntity<>(feedDetails,HttpStatus.OK);
+    return new ResponseEntity<>(feedDetails, HttpStatus.OK);
 
   }
 
+  @GetMapping("/mypage")
+  public ResponseEntity<List<FeedRes>> showFeedById(@RequestParam String userId) {
 
-  @Data
-  private class FeedDetails {
+    List<FeedRes> feedRes = feedService.showFeedsById(userId);
 
-    private FeedRes feedRes;
-    private List<CommentRes> commentRes;
+    return new ResponseEntity<>(feedRes, HttpStatus.OK);
 
-    public FeedDetails() {
-
-    }
-
-    public FeedDetails(FeedRes feedRes,
-        List<CommentRes> commentRes) {
-      this.feedRes = feedRes;
-      this.commentRes = commentRes;
-    }
   }
+
 }

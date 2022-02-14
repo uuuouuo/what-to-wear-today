@@ -22,5 +22,10 @@ public interface FeedRepository extends JpaRepository<Feed,Integer> {
 
   @Query("select f from Feed f where f.content like %:content% and f.deleteMode = false")
   Optional<List<Feed>> findFeedsByContent(@Param("content") String keyword);
+<<<<<<< HEAD
+=======
+
+  Optional<List<Feed>> findByUser(User user);
+>>>>>>> cc46f12bd5c025f1b8f6ca8a7f9726469794eed4
 
 }

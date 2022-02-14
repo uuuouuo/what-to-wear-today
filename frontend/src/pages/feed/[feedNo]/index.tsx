@@ -2,11 +2,11 @@ import React, { useEffect } from 'react';
 import type { NextPage, NextPageContext } from 'next';
 import FeedDetailTemplate from '@/template/feed/detail';
 import wrapper from '@/store/configureStore';
+import { loadFeedRequest } from '@/action/feedAction';
+import { loadCommentsRequest, LOAD_COMMENTS_REQUEST } from '@/action/commentAction';
 import { END } from 'redux-saga';
 import { RootState } from 'reducers';
 import { useDispatch, useSelector } from 'react-redux';
-import { loadFeedRequest } from '@/action/feedAction';
-import { LOAD_COMMENTS_REQUEST } from '@/action/commentAction';
 
 interface Props {
   feedNo: number;
@@ -62,6 +62,7 @@ export const getServerSideProps = wrapper.getServerSideProps(
     async ({ req, res, params }) => {
       const data = Number(params.feedNo);
       store.dispatch(loadFeedRequest(data));
+      store.dispatch(loadCommentsRequest(data));
       store.dispatch(END);
       await store.sagaTask.toPromise();
 

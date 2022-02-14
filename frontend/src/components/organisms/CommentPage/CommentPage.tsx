@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { FunctionComponent, useState } from 'react';
 import Styled from './CommentPage.styled';
 import type { RootState } from '@/reducers';
 import List from '@mui/material/List';
@@ -8,53 +8,82 @@ import ListItemText from '@mui/material/ListItemText';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Typography from '@mui/material/Typography';
 import SendIcon from '@mui/icons-material/Send';
-import { UserProfile } from '@/components/molecules';
+
+import { UserImage, Button, Input } from '@/components/atoms/';
 import { useDispatch, useSelector } from 'react-redux';
 import { CommentType } from '@/types/comment';
-import { UserProfileType } from '@/types/user';
+import {
+  createCommentRequest,
+  deleteCommentRequest,
+  updateCommentRequest,
+} from '@/action/commentAction';
 
-const user: UserProfileType = {
-  no: 'a123456789',
-  userId: 'ssafy',
-  nickName: '장다비',
-  profileImage: './images/icon/blank_user.png',
-};
+interface Props {
+  feedNo: number;
+}
 
-const action = () => {
-  console.log('action에 넣을 함수');
-};
-
-const CommentPage = () => {
-  const dispatch = useDispatch();
+const CommentPage: FunctionComponent<Props> = ({ feedNo }) => {
+  const { feed } = useSelector((state: RootState) => state.feed);
   const { comments } = useSelector((state: RootState) => state.comment);
-
-  // input값 받는 함수
+  const dispatch = useDispatch();
   const [text, setText] = useState('');
+  const [commentText, setCommentText] = useState('');
+  const [update, setUpdate] = useState(Array.from({ length: comments.length }, () => false));
+
   const inputValue = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setText(e.target.value);
+    setText((text) => e.target.value);
+  };
+
+  const action = (e: React.MouseEvent<Element, MouseEvent>) => {
+    dispatch(createCommentRequest(text, feed));
+    setText('');
+  };
+
+  const deleteAction = (e: React.MouseEvent<Element, MouseEvent>) => {
+    dispatch(deleteCommentRequest(e.target.attributes[0].value));
+  };
+
+  const changeContent = (e: ChangeEvent<HTMLInputElement>) => {
+    setCommentText(e.target.value);
+  };
+
+  const updateAction = (e: React.MouseEvent<Element, MouseEvent>) => {
+    update[e.target.attributes[0].value] = false;
+    dispatch(updateCommentRequest(e.target.attributes[0].value, commentText));
+  };
+
+  const updateClick = (e: ChangeEvent<HTMLInputElement>) => {
+    if (update[e.target.attributes[1].value] === false) {
+      setCommentText(e.target.attributes[0].value);
+      let newUpdate = [...update];
+      newUpdate[e.target.attributes[1].value] = true;
+      setUpdate(newUpdate);
+    } else {
+      let newUpdate = [...update];
+      newUpdate[e.target.attributes[1].value] = false;
+      setUpdate(newUpdate);
+      updateAction;
+    }
   };
 
   return (
     <Styled.CommentPageLayout>
       <Styled.WriteArea>
-        <UserProfile user={user} />
+        {/* <UserProfile user={user} />
         <Styled.Input placeholder="댓글 달기..." value={text} onChange={inputValue} />
         <Styled.Button type="submit" onClick={action}>
           <SendIcon />
         </Styled.Button>
       </Styled.WriteArea>
-      <>
-        hello
-        {/* {comments.map((comment: CommentType) => (
-          <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
+      <React.Fragment>
+        {comments.map((comment: CommentType, idx: number) => (
+          <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }} key={idx}>
             <ListItem alignItems="flex-start">
               <ListItemAvatar>
-                유저 이미지
-                <UserImage user={user} />
+                <UserImage />
               </ListItemAvatar>
               <ListItemText
-                // 유저 아이디 부분
-                primary="dobby"
+                primary={comment.userId}
                 secondary={
                   <Typography
                     sx={{ display: 'inline' }}
@@ -62,15 +91,39 @@ const CommentPage = () => {
                     variant="body2"
                     color="text.primary"
                   >
-                    {'d'}
+                    {update[idx] ? (
+                      <Input value={commentText} onChange={changeContent} />
+                    ) : (
+                      <span>{comment.content}</span>
+                    )}
                   </Typography>
                 }
               />
+              {update[idx] ? (
+                <Button
+                  onClick={updateAction}
+                  children={
+                    <p data-commentNo={comment.no} data-commentIdx={idx}>
+                      완료
+                    </p>
+                  }
+                />
+              ) : (
+                <Button
+                  onClick={updateClick}
+                  children={
+                    <p data-commentContent={comment.content} data-commentIdx={idx}>
+                      수정
+                    </p>
+                  }
+                />
+              )}
+              <Button onClick={deleteAction} children={<p data-commentNo={comment.no}>삭제</p>} />
             </ListItem>
             <Divider variant="inset" component="li" />
           </List>
-        ))} */}
-      </>
+        ))} } */}
+      {/* </> */}
     </Styled.CommentPageLayout>
   );
 };

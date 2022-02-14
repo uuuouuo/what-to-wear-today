@@ -22,7 +22,7 @@ public class ImageDto {
     private byte[] imgFile;
     private Integer feedNo;
 
-    public CreateImage(Image image) {
+    public ImageFile(Image image) {
       this.no = image.getNo();
       this.imgUrl = image.getImgUrl();
       this.feedNo = image.getFeed().getNo();
