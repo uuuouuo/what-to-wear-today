@@ -1,6 +1,7 @@
 package com.ssafy.websns.model.dto.feed;
 
 import com.ssafy.websns.model.entity.feed.Comment;
+import com.ssafy.websns.model.entity.user.UserProfile;
 import java.time.LocalDateTime;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -33,15 +34,15 @@ public class CommentDto {
   public static class CommentRes {
 
     private Integer no;
-    private String userId;
+    private String nickname;
     private Integer feedNo;
     private Integer parent;
     private String content;
     private LocalDateTime createdAt;
 
-    public CommentRes(Comment comment){
+    public CommentRes(UserProfile userProfile, Comment comment){
       this.no = comment.getNo();
-      this.userId = comment.getUser().getUserId();
+      this.nickname = userProfile.getNickname();
       this.feedNo = comment.getFeed().getNo();
       this.parent = comment.getParent() != null ? comment.getParent().getNo() : null;
       this.content= comment.getContent();
@@ -71,16 +72,17 @@ public class CommentDto {
   public static class UpdateRes {
 
     private Integer no;
+    private String nickname;
     private String content;
     private Boolean privateMode;
     private LocalDateTime updateAt;
 
-    public UpdateRes(Integer no, String content,
-        Boolean privateMode, LocalDateTime updateAt) {
-      this.no = no;
-      this.content = content;
-      this.privateMode = privateMode;
-      this.updateAt = updateAt;
+    public UpdateRes(UserProfile userProfile, Comment comment) {
+      this.no = comment.getNo();
+      this.nickname = userProfile.getNickname();
+      this.content = comment.getContent();
+      this.privateMode = comment.getPrivateMode();
+      this.updateAt = comment.getUpdatedAt();
     }
 
   }

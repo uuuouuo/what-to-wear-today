@@ -7,6 +7,7 @@ import com.ssafy.websns.model.entity.feed.FeedTag;
 import com.ssafy.websns.model.entity.feed.Image;
 import com.ssafy.websns.model.entity.feed.Tag;
 import com.ssafy.websns.model.entity.user.User;
+import com.ssafy.websns.model.entity.user.UserProfile;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -14,6 +15,7 @@ import java.util.stream.Collectors;
 public class ValidateExist {
 
   public User findUser(Optional<User> optional) {
+
     User user;
     if (optional.isPresent()) {
       user = optional.get();
@@ -21,6 +23,18 @@ public class ValidateExist {
       throw new IllegalStateException("존재하지 않은 회원입니다.");
     }
     return user;
+  }
+
+  public UserProfile findUserProfile(Optional<UserProfile> optional) {
+
+    UserProfile userProfile;
+
+    if (optional.isPresent()) {
+      userProfile = optional.get();
+    } else {
+      throw new IllegalStateException("존재하지 않은 프로필입니다.");
+    }
+    return userProfile;
   }
 
   public Feed findFeed(Optional<Feed> optional) {

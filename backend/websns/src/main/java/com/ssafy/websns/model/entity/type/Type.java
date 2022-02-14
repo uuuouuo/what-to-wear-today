@@ -1,6 +1,5 @@
-package com.ssafy.websns.model.entity.interest;
+package com.ssafy.websns.model.entity.type;
 
-import io.swagger.annotations.ApiModel;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,14 +9,14 @@ import lombok.Getter;
 
 @Entity
 @Getter
-@ApiModel(value = "관심사", description = "관심사들을 나타냅니다.")
-public class Interest {
+public class Type {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name = "INTEREST_NO")
+  @Column(name = "TYPE_NO")
   private Integer no;
 
-  private String interestName;
+  String constitution;
 
+  String description;
 }
