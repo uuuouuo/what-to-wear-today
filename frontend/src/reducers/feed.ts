@@ -5,6 +5,9 @@ import {
   LOAD_FEED_REQUEST,
   LOAD_FEED_SUCCESS,
   LOAD_FEED_FAILURE,
+  LOAD_FEEDS_REQUEST,
+  LOAD_FEEDS_SUCCESS,
+  LOAD_FEEDS_FAILURE,
   UPDATE_FEED_REQUEST,
   UPDATE_FEED_SUCCESS,
   UPDATE_FEED_FAILURE,
@@ -22,6 +25,9 @@ export const initialState: StateType = {
   loadFeedLoading: false,
   loadFeedDone: false,
   loadFeedError: null,
+  loadFeedsLoading: false,
+  loadFeedsDone: false,
+  loadFeedsError: null,
   updateFeedLoading: false,
   updateFeedDone: false,
   updateFeedError: null,
@@ -81,6 +87,29 @@ const reducer = (state = initialState, action: any) => {
         ...state,
         loadFeedLoading: false,
         loadFeedError: action.error,
+      };
+
+    case LOAD_FEEDS_REQUEST:
+      return {
+        ...state,
+        loadFeedsLoading: true,
+        loadFeedsError: null,
+        loadFeedsDone: false,
+      };
+
+    case LOAD_FEEDS_SUCCESS:
+      return {
+        ...state,
+        loadFeedsLoading: false,
+        feed: [action.data],
+        loadFeedsDone: true,
+      };
+
+    case LOAD_FEEDS_FAILURE:
+      return {
+        ...state,
+        loadFeedsLoading: false,
+        loadFeedsError: action.error,
       };
 
     //UPDATE//

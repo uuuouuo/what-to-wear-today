@@ -2,12 +2,15 @@ import { all, fork, put, takeLatest, call } from 'redux-saga/effects';
 import { apiInstance, authInstance } from '@/libs/axios';
 import { AxiosResponse } from 'axios';
 import {
-  LOAD_FEED_REQUEST,
-  LOAD_FEED_SUCCESS,
-  LOAD_FEED_FAILURE,
   CREATE_FEED_REQUEST,
   CREATE_FEED_SUCCESS,
   CREATE_FEED_FAILURE,
+  LOAD_FEED_REQUEST,
+  LOAD_FEED_SUCCESS,
+  LOAD_FEED_FAILURE,
+  LOAD_FEEDS_REQUEST,
+  LOAD_FEEDS_SUCCESS,
+  LOAD_FEEDS_FAILURE,
   UPDATE_FEED_REQUEST,
   UPDATE_FEED_SUCCESS,
   UPDATE_FEED_FAILURE,
@@ -59,6 +62,25 @@ function* loadFeed(action: any) {
 }
 
 function loadFeedAPI(feedNo: number): Promise<AxiosResponse<FeedType>> {
+  return api.get(`/feed/details/${feedNo}`);
+}
+
+function* loadsFeed(action: any) {
+  try {
+    const result: Promise<AxiosResponse<FeedType[]>> = yield call(loadFeedsAPI, action.feedNo);
+    yield put({
+      type: LOAD_FEEDS_SUCCESS,
+      data: result.data.content,
+    });
+  } catch (err: any) {
+    yield put({
+      type: LOAD_FEEDS_FAILURE,
+      error: err.name,
+    });
+  }
+}
+
+function loadFeedsAPI(feedNo: number): Promise<AxiosResponse<FeedType[]>> {
   return api.get(`/feed/${feedNo}`);
 }
 
@@ -112,6 +134,9 @@ function* watchCreateFeed() {
 function* watchLoadFeed() {
   yield takeLatest(LOAD_FEED_REQUEST, loadFeed);
 }
+function* watchLoadFeeds() {
+  yield takeLatest(LOAD_FEEDS_REQUEST, loadFeeds);
+}
 function* watchUpdateFeed() {
   yield takeLatest(UPDATE_FEED_REQUEST, updateFeed);
 }
@@ -123,6 +148,7 @@ export default function* feedSaga() {
   yield all([
     fork(watchCreateFeed),
     fork(watchLoadFeed),
+    fork(watchLoadFeeds),
     fork(watchUpdateFeed),
     fork(watchDeleteFeed),
   ]);

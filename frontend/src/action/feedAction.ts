@@ -4,6 +4,9 @@ export const CREATE_FEED_FAILURE = 'CREATE_FEED_FAILURE';
 export const LOAD_FEED_REQUEST = 'LOAD_FEED_REQUEST';
 export const LOAD_FEED_SUCCESS = 'LOAD_FEED_SUCCESS';
 export const LOAD_FEED_FAILURE = 'LOAD_FEED_FAILURE';
+export const LOAD_FEEDS_REQUEST = 'LOAD_FEEDS_REQUEST';
+export const LOAD_FEEDS_SUCCESS = 'LOAD_FEEDS_SUCCESS';
+export const LOAD_FEEDS_FAILURE = 'LOAD_FEEDS_FAILURE';
 export const UPDATE_FEED_REQUEST = 'UPDATE_FEED_REQUEST';
 export const UPDATE_FEED_SUCCESS = 'UPDATE_FEED_SUCCESS';
 export const UPDATE_FEED_FAILURE = 'UPDATE_FEED_FAILURE';
@@ -44,6 +47,19 @@ export const loadFeedSuccess = () => ({
 
 export const loadFeedFailure = () => ({
   type: LOAD_FEED_FAILURE,
+});
+
+export const loadFeedsRequest = (feedNo: number) => ({
+  type: LOAD_FEEDS_REQUEST,
+  feedNo: feedNo,
+});
+
+export const loadFeedsSuccess = () => ({
+  type: LOAD_FEEDS_SUCCESS,
+});
+
+export const loadFeedsFailure = () => ({
+  type: LOAD_FEEDS_FAILURE,
 });
 
 ////
