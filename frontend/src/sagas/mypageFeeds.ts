@@ -8,16 +8,18 @@ import {
   LOAD_MYPAGE_Feed_FAILURE,
 } from '@/action/MypageFeedAction';
 
+import { FeedType } from 'types/myPageFeeds';
+
 const api = apiInstance();
 
-function loadMyFeedsAPI(userId: string): Promise<AxiosResponse<any[]>> {
+function loadMyFeedsAPI(userId: string): Promise<AxiosResponse<FeedType[]>> {
   return api.get(`/feed/mypage?userId=${userId}`);
 }
 
 // todo: type 설정 필요
 function* loadMyFeeds(action: any) {
   try {
-    const result: Promise<AxiosResponse<any[]>> = yield call(loadMyFeedsAPI, action.userId);
+    const result: Promise<AxiosResponse<FeedType[]>> = yield call(loadMyFeedsAPI, action.userId);
     yield put({
       type: LOAD_MYPAGE_Feed_SUCCESS,
       data: result.data,
