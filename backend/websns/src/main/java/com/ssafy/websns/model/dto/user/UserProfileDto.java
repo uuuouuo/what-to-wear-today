@@ -61,12 +61,12 @@ public class UserProfileDto {
   public static class UserProfileRes {
 
     String userId;
-    String nickName;
+    String nickname;
     String profileImg;
 
     public UserProfileRes(UserProfile userProfile) {
       this.userId = userProfile.getUser().getUserId();
-      this.nickName = userProfile.getNickname();
+      this.nickname = userProfile.getNickname();
       this.profileImg = userProfile.getProfileImg();
     }
 
