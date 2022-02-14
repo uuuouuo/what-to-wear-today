@@ -11,4 +11,5 @@ public interface RegionRepository extends JpaRepository<Region,Integer> {
 
   Region findByPointCode(Integer pointCode);
 
+  List<Region> findBy();
 }
