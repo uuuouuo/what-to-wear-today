@@ -31,4 +31,9 @@ public class LikePerson {
   @JoinColumn
   private Feed feed;
 
+  public void createLikePerson(User user, Feed feed) {
+    this.user = user;
+    this.feed = feed;
+  }
+
 }
