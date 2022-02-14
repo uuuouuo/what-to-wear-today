@@ -11,10 +11,10 @@ public class AuthDto {
   @Setter
   @NoArgsConstructor(access = AccessLevel.PROTECTED)
   public static class LoginAuthReq{
-    String accessToken;
+    String code;
 
-    public LoginAuthReq(String accessToken) {
-      this.accessToken = accessToken;
+    public LoginAuthReq(String code) {
+      this.code = code;
     }
   }
 

@@ -12,9 +12,11 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Getter
+@NoArgsConstructor
 @ApiModel(value = "관심 지역", description = "관심 지역을 나타냅니다.")
 public class InterestRegion {
 
@@ -31,4 +33,8 @@ public class InterestRegion {
   @JoinColumn(name = "REGION_NO")
   private Region region;
 
+  public void createInterestRegion(User user, Region region) {
+    this.user = user;
+    this.region = region;
+  }
 }

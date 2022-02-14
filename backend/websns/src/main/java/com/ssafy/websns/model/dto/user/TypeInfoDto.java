@@ -1,5 +1,6 @@
 package com.ssafy.websns.model.dto.user;
 
+import com.ssafy.websns.model.entity.type.Type;
 import java.util.List;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -21,9 +22,9 @@ public class TypeInfoDto {
   @Getter
   public static class UpdateTypeRes {
     private String userId;
-    private Integer typeNo;
+    private List<Type> typeNo;
 
-    public UpdateTypeRes(String userId, Integer typeNo) {
+    public UpdateTypeRes(String userId, List<Type> typeNo) {
       this.userId = userId;
       this.typeNo = typeNo;
     }

@@ -1,6 +1,8 @@
 package com.ssafy.websns.controller;
 
 import com.ssafy.websns.config.auth.jwt.JwtProperties;
+import com.ssafy.websns.model.dto.region.RegionDto.UpdateRegionReq;
+import com.ssafy.websns.model.dto.region.RegionDto.UpdateRegionRes;
 import com.ssafy.websns.model.dto.user.TypeInfoDto.UpdateTypeReq;
 import com.ssafy.websns.model.dto.user.TypeInfoDto.UpdateTypeRes;
 import com.ssafy.websns.model.dto.user.UserDto.LoginRes;
@@ -112,7 +114,8 @@ public class UserController {
   public ResponseEntity<UpdateTypeRes> updateType(@PathVariable("userId") String userId,
       UpdateTypeReq updateTypeReq) {
 
-    userService.editType(updateTypeReq);
+    UpdateTypeRes updateTypeRes = userService.editType(userId, updateTypeReq);
+    return new ResponseEntity<>(updateTypeRes, HttpStatus.OK);
 
   }
 

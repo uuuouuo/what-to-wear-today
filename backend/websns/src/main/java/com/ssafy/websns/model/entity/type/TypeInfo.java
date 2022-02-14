@@ -21,13 +21,13 @@ public class TypeInfo {
   private Integer no;
 
   @ManyToOne(fetch = LAZY)
-  private User userNo;
+  private User user;
 
   @ManyToOne(fetch = LAZY)
   private Type typeNo;
 
   public void createTypeInfo(User user, Type typeNo) {
-    this.userNo = user;
+    this.user = user;
     this.typeNo = typeNo;
   }
 

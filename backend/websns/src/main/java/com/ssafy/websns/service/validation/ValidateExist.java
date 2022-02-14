@@ -61,7 +61,6 @@ public class ValidateExist {
       return null;
     }
 
-
   }
 
   public Comment findComment(Optional<Comment> optional) {
@@ -75,6 +74,18 @@ public class ValidateExist {
     }
 
     return comment;
+
+  }
+
+  public Type findTypeNo(Optional<Type> optional) {
+
+    Type type = null;
+
+    if(optional.isPresent()) {
+      type = optional.get();
+    }
+
+    return type;
 
   }
 
@@ -123,18 +134,6 @@ public class ValidateExist {
     }
 
     return feedTags;
-
-  }
-
-  public List<Type> findTypeNos(Optional<List<Type>> optional) {
-
-    List<Type> types = null;
-
-    if(optional.isPresent()) {
-      types = optional.get();
-    }
-
-    return types;
 
   }
 
