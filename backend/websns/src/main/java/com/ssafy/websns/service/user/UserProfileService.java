@@ -1,6 +1,6 @@
 package com.ssafy.websns.service.user;
 
-import com.ssafy.websns.config.jwt.JwtTokenProvider;
+import com.ssafy.websns.config.auth.jwt.JwtTokenProvider;
 import com.ssafy.websns.model.dto.user.UserProfileDto.CreateReq;
 import com.ssafy.websns.model.dto.user.UserProfileDto.UserProfileRes;
 import com.ssafy.websns.model.entity.interest.Interest;

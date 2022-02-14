@@ -1,6 +1,6 @@
 package com.ssafy.websns.model.entity.user;
 
-import com.ssafy.websns.config.oauth.provider.ClientKakao.UserResponse;
+import com.ssafy.websns.config.auth.provider.ClientKakao.UserResponse;
 import io.swagger.annotations.ApiModel;
 import javax.persistence.Column;
 import javax.persistence.Entity;

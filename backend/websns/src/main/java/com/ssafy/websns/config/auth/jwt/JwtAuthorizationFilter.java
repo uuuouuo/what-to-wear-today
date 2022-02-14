@@ -1,6 +1,6 @@
-package com.ssafy.websns.config.jwt;
+package com.ssafy.websns.config.auth.jwt;
 
-import com.ssafy.websns.config.auth.PrincipalDetails;
+import com.ssafy.websns.config.auth.security.PrincipalDetails;
 import com.ssafy.websns.model.entity.user.User;
 import com.ssafy.websns.repository.user.UserRepository;
 import java.io.IOException;

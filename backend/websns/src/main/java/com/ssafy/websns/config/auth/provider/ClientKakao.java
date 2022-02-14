@@ -1,4 +1,4 @@
-package com.ssafy.websns.config.oauth.provider;
+package com.ssafy.websns.config.auth.provider;
 
 import com.ssafy.websns.model.entity.user.User;
 import java.util.Map;

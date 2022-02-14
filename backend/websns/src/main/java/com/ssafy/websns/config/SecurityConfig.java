@@ -1,8 +1,8 @@
 package com.ssafy.websns.config;
 
-import com.ssafy.websns.config.jwt.JwtAuthenticationFilter;
-import com.ssafy.websns.config.jwt.JwtAuthorizationFilter;
-import com.ssafy.websns.config.jwt.JwtTokenProvider;
+import com.ssafy.websns.config.auth.jwt.JwtAuthenticationFilter;
+import com.ssafy.websns.config.auth.jwt.JwtAuthorizationFilter;
+import com.ssafy.websns.config.auth.jwt.JwtTokenProvider;
 import com.ssafy.websns.exception.CustomAuthenticationEntryPoint;
 import com.ssafy.websns.repository.user.UserRepository;
 import lombok.RequiredArgsConstructor;
