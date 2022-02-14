@@ -1,6 +1,8 @@
 package com.ssafy.websns.controller;
 
 import com.ssafy.websns.config.auth.jwt.JwtProperties;
+import com.ssafy.websns.model.dto.interest.InterestDto.InterestReq;
+import com.ssafy.websns.model.dto.interest.InterestDto.InterestRes;
 import com.ssafy.websns.model.dto.region.RegionDto.UpdateRegionReq;
 import com.ssafy.websns.model.dto.region.RegionDto.UpdateRegionRes;
 import com.ssafy.websns.model.dto.user.TypeInfoDto.UpdateTypeReq;
@@ -115,6 +117,24 @@ public class UserController {
       UpdateTypeReq updateTypeReq) {
 
     UpdateTypeRes updateTypeRes = userService.editType(userId, updateTypeReq);
+    return new ResponseEntity<>(updateTypeRes, HttpStatus.OK);
+
+  }
+
+  @PatchMapping(value = "/region/{userId}")
+  public ResponseEntity<UpdateRegionRes> updateRegion(@PathVariable("userId") String userId,
+      UpdateRegionReq updateRegionReq) {
+
+    UpdateRegionRes updateTypeRes = userService.setupRegion(userId, updateRegionReq);
+    return new ResponseEntity<>(updateTypeRes, HttpStatus.OK);
+
+  }
+
+  @PatchMapping(value = "/interest/{userId}")
+  public ResponseEntity<InterestRes> updateInterest(@PathVariable("userId") String userId,
+      InterestReq request) {
+
+    InterestRes updateTypeRes = userService.setupInterest(userId, request);
     return new ResponseEntity<>(updateTypeRes, HttpStatus.OK);
 
   }

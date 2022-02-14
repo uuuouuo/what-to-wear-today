@@ -20,4 +20,7 @@ public class Interest {
 
   private String interestName;
 
+  public void creatInterest(String interestName) {
+    this.interestName = interestName;
+  }
 }

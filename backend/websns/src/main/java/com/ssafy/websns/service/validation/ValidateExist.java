@@ -5,6 +5,7 @@ import com.ssafy.websns.model.entity.feed.Feed;
 import com.ssafy.websns.model.entity.feed.FeedTag;
 import com.ssafy.websns.model.entity.feed.Image;
 import com.ssafy.websns.model.entity.feed.Tag;
+import com.ssafy.websns.model.entity.interest.Interest;
 import com.ssafy.websns.model.entity.type.Type;
 import com.ssafy.websns.model.entity.user.User;
 import com.ssafy.websns.model.entity.user.UserProfile;
@@ -86,6 +87,18 @@ public class ValidateExist {
     }
 
     return type;
+
+  }
+
+  public Interest findInterest(Optional<Interest> optional) {
+
+    Interest interest = null;
+
+    if(optional.isPresent()) {
+      interest = optional.get();
+    }
+
+    return interest;
 
   }
 

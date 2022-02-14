@@ -1,6 +1,8 @@
 package com.ssafy.websns.service.user;
 
 import com.ssafy.websns.config.auth.jwt.JwtTokenProvider;
+import com.ssafy.websns.model.dto.interest.InterestDto.InterestReq;
+import com.ssafy.websns.model.dto.interest.InterestDto.InterestRes;
 import com.ssafy.websns.model.dto.region.RegionDto.UpdateRegionReq;
 import com.ssafy.websns.model.dto.region.RegionDto.UpdateRegionRes;
 import com.ssafy.websns.model.dto.user.TypeInfoDto.UpdateTypeReq;
@@ -27,6 +29,7 @@ import com.ssafy.websns.repository.user.UserRepository;
 import com.ssafy.websns.service.validation.ValidateExist;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
@@ -56,9 +59,8 @@ public class UserService {
     List<Integer> interestNos = request.getInterestNos();
     List<Integer> typeNos = request.getTypeNos();
 
-    Optional<User> userOptional = userRepository.findByUserId(userId);
+    User user = getUser(userId);
 
-    User user = validateExist.findUser(userOptional);
     String nickname = request.getNickname();
 
     MultipartFile image = request.getImage();
@@ -109,8 +111,7 @@ public class UserService {
 
   public UserProfileRes searchUserProfile(String userId) {
 
-    Optional<User> userOptional = userRepository.findByUserId(userId);
-    User user = validateExist.findUser(userOptional);
+    User user = getUser(userId);
 
     Optional<UserProfile> profileOptional = userProfileRepository.findByUser(user);
     UserProfile userProfile = validateExist.findUserProfile(profileOptional);
@@ -122,8 +123,7 @@ public class UserService {
 
   public UserProfileRes editUserProfile(String userId, UserProfileReq userProfileReq, MultipartFile image) {
 
-    Optional<User> userOptional = userRepository.findByUserId(userId);
-    User user = validateExist.findUser(userOptional);
+    User user = getUser(userId);
 
     Optional<UserProfile> profileOptional = userProfileRepository.findByUser(user);
     UserProfile userProfile = validateExist.findUserProfile(profileOptional);
@@ -156,9 +156,7 @@ public class UserService {
 
   public UpdateTypeRes editType(String userId, UpdateTypeReq updateTypeReq) {
 
-    Optional<User> userOptional = userRepository.findByUserId(userId);
-    User user = validateExist.findUser(userOptional);
-
+    User user = getUser(userId);
     typeInfoRepository.deleteByUser(user);
 
     List<Integer> typeNos = updateTypeReq.getTypeNos();
@@ -182,12 +180,12 @@ public class UserService {
 
   public UpdateRegionRes setupRegion(String userId, UpdateRegionReq request) {
 
-    Optional<User> userOptional = userRepository.findByUserId(userId);
-    User user = validateExist.findUser(userOptional);
-
+    User user = getUser(userId);
     interestRegionRepository.deleteByUser(user);
 
     List<String> regionNames = request.getRegions();
+    List<Region> interestRegions;
+
     if(!regionNames.isEmpty()) {
       regionNames.stream().forEach(regionName -> {
         Region region = regionRepository.findByRegionNameContaining(regionName).get(0);
@@ -198,11 +196,48 @@ public class UserService {
       });
     }
 
-    List<Region> interestRegions = interestRegionRepository.findByUser(user);
-
+    interestRegions = interestRegionRepository.findByUser(user);
     UpdateRegionRes response = new UpdateRegionRes(interestRegions);
 
     return response;
+
+  }
+
+  public InterestRes setupInterest(String userId, InterestReq request) {
+    User user = getUser(userId);
+
+    List<String> interestNames = request.getInterestNames();
+    List<PersonalInterest> personalInterests = new ArrayList<>();
+
+    if(!interestNames.isEmpty()) {
+      interestNames.stream().forEach(interestName -> {
+        Optional<Interest> interestOptional = interestRepository.findByInterestName(interestName);
+        Interest interest = validateExist.findInterest(interestOptional);
+
+        if(interest == null) {
+          interest.creatInterest(interestName);
+          interestRepository.save(interest);
+        }
+
+        PersonalInterest personalInterest = new PersonalInterest();
+        personalInterest.createPersonalInterest(user, interest);
+        personalInterestRepository.save(personalInterest);
+
+        personalInterests.add(personalInterest);
+      });
+    }
+    InterestRes response = new InterestRes(personalInterests);
+
+    return response;
+
+  }
+
+  private User getUser(String userId) {
+
+    Optional<User> userOptional = userRepository.findByUserId(userId);
+    User user = validateExist.findUser(userOptional);
+
+    return user;
 
   }
 
