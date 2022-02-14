@@ -7,8 +7,10 @@ import com.ssafy.websns.model.dto.feed.CommentDto.UpdateRes;
 import com.ssafy.websns.model.entity.feed.Comment;
 import com.ssafy.websns.model.entity.feed.Feed;
 import com.ssafy.websns.model.entity.user.User;
+import com.ssafy.websns.model.entity.user.UserProfile;
 import com.ssafy.websns.repository.feed.CommentRepository;
 import com.ssafy.websns.repository.feed.FeedRepository;
+import com.ssafy.websns.repository.user.UserProfileRepository;
 import com.ssafy.websns.repository.user.UserRepository;
 import com.ssafy.websns.service.validation.ValidateExist;
 import java.util.List;
@@ -25,6 +27,7 @@ public class CommentService {
   private final CommentRepository commentRepository;
   private final FeedRepository feedRepository;
   private final UserRepository userRepository;
+  private final UserProfileRepository userProfileRepository;
 
   private ValidateExist validateExist = new ValidateExist();
 
@@ -36,6 +39,9 @@ public class CommentService {
 
     User user = validateExist.findUser(userOptional);
     Feed feed = validateExist.findFeed(feedOptional);
+
+    Optional<UserProfile> profileOptional = userProfileRepository.findByUser(user);
+    UserProfile userProfile = validateExist.findUserProfile(profileOptional);
 
     Integer parentNo = request.getParent();
     Comment parentComment = null;
@@ -51,7 +57,7 @@ public class CommentService {
 
     Comment saveComment = commentRepository.save(comment);
 
-    CommentRes response = new CommentRes(saveComment);
+    CommentRes response = new CommentRes(userProfile, saveComment);
 
     return response;
 
@@ -61,11 +67,13 @@ public class CommentService {
   public UpdateRes editComment(Integer commentNo, UpdateReq request) {
 
     Optional<Comment> optional = commentRepository.findByNo(commentNo);
-
     Comment comment = validateExist.findComment(optional);
     comment.updateComment(request.getContent(), request.getPrivateMode());
 
-    UpdateRes response = new UpdateRes(comment);
+    Optional<UserProfile> profileOptional = userProfileRepository.findByUser(comment.getUser());
+    UserProfile userProfile = validateExist.findUserProfile(profileOptional);
+
+    UpdateRes response = new UpdateRes(userProfile, comment);
 
     return response;
 
