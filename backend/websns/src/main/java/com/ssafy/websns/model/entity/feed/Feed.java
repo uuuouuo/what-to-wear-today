@@ -44,10 +44,6 @@ public class Feed extends BaseEntity {
 
   private Boolean deleteMode;
 
-<<<<<<< HEAD
-=======
-  // test
->>>>>>> cc46f12bd5c025f1b8f6ca8a7f9726469794eed4
   public Feed(User user, Region region, String content, LocalDateTime photoDate,
       String weather, Boolean privateMode, Boolean deleteMode) {
     this.user = user;
