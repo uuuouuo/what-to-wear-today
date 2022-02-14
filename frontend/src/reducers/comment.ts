@@ -16,46 +16,23 @@ import { StateType } from '@/types/comment';
 
 export const initialState: StateType = {
   comments: [],
-  loadCommentsLoading: false,
-  loadCommentsDone: false,
-  loadCommentsError: null,
   createCommentAdding: false,
   createCommentDone: false,
   createCommentError: null,
   deleteCommentDeleting: false,
-  deleteCommentDone: false,
-  deleteCommentError: null,
+  loadCommentsLoading: false,
+  loadCommentsDone: false,
+  loadCommentsError: null,
   updateCommentUpdating: false,
   updateCommentDone: false,
   updateCommentError: null,
+  deleteCommentDone: false,
+  deleteCommentError: null,
 };
 
 const reducer = (state = initialState, action: any) => {
   switch (action.type) {
-    case LOAD_COMMENTS_REQUEST:
-      return {
-        ...state,
-        loadCommentsLoading: true,
-        loadCommentsError: null,
-        loadCommentsDone: false,
-      };
-
-    case LOAD_COMMENTS_SUCCESS:
-      return {
-        ...state,
-        loadCommentsLoading: false,
-        comments: action.data,
-        loadCommentsDone: true,
-      };
-
-    case LOAD_COMMENTS_FAILURE:
-      return {
-        ...state,
-        loadCommentsLoading: false,
-        loadCommentsError: action.error,
-      };
-
-    ////
+    //CREATE//
 
     case CREATE_COMMENT_REQUEST:
       return {
@@ -80,32 +57,32 @@ const reducer = (state = initialState, action: any) => {
         createCommentError: action.error,
       };
 
-    ////
+    //READ//
 
-    case DELETE_COMMENT_REQUEST:
+    case LOAD_COMMENTS_REQUEST:
       return {
         ...state,
-        deleteCommentDeleting: true,
-        deleteCommentDone: false,
-        deleteCommentError: null,
+        loadCommentsLoading: true,
+        loadCommentsError: null,
+        loadCommentsDone: false,
       };
 
-    case DELETE_COMMENT_SUCCESS:
+    case LOAD_COMMENTS_SUCCESS:
       return {
         ...state,
-        comments: state.comments.filter((comment) => comment.no != action.data),
-        deleteCommentDeleting: false,
-        deleteCommentDone: true,
+        loadCommentsLoading: false,
+        comments: action.data,
+        loadCommentsDone: true,
       };
 
-    case DELETE_COMMENT_FAILURE:
+    case LOAD_COMMENTS_FAILURE:
       return {
         ...state,
-        deleteCommentDeleting: false,
-        deleteCommentError: action.error,
+        loadCommentsLoading: false,
+        loadCommentsError: action.error,
       };
 
-    ////
+    //UPDATE//
 
     case UPDATE_COMMENT_REQUEST:
       return {
@@ -132,6 +109,31 @@ const reducer = (state = initialState, action: any) => {
         ...state,
         updateCommentUpdating: false,
         updateCommentError: action.error,
+      };
+
+    //DELETE//
+
+    case DELETE_COMMENT_REQUEST:
+      return {
+        ...state,
+        deleteCommentDeleting: true,
+        deleteCommentDone: false,
+        deleteCommentError: null,
+      };
+
+    case DELETE_COMMENT_SUCCESS:
+      return {
+        ...state,
+        comments: state.comments.filter((comment) => comment.no != action.data),
+        deleteCommentDeleting: false,
+        deleteCommentDone: true,
+      };
+
+    case DELETE_COMMENT_FAILURE:
+      return {
+        ...state,
+        deleteCommentDeleting: false,
+        deleteCommentError: action.error,
       };
 
     default:
