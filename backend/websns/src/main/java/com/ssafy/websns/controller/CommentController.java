@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -51,12 +52,17 @@ public class CommentController {
   }
 
   @GetMapping("/{feedNo}")
-  public ResponseEntity<List<CommentRes>> getCommentList(@PathVariable("feedNo") Integer feedNo) {
+  public ResponseEntity<List<CommentRes>> getCommentListByFeed(@PathVariable("feedNo") Integer feedNo) {
 
     List<CommentRes> response = commentService.searchComments(feedNo);
     return new ResponseEntity<>(response, HttpStatus.OK);
   }
 
+  @GetMapping("/mypage")
+  public ResponseEntity<List<CommentRes>> getCommentListById(@RequestParam String userId) {
 
+    List<CommentRes> response = commentService.showCommentsById(userId);
+    return new ResponseEntity<>(response, HttpStatus.OK);
+  }
 
 }

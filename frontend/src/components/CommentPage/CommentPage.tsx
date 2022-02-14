@@ -90,7 +90,7 @@ const CommentPage: FunctionComponent<Props> = ({ feedNo }) => {
                     color="text.primary"
                   >
                     {update[idx] ? (
-                      <Input value={commentText} onChange={changeContent} on></Input>
+                      <Input value={commentText} onChange={changeContent} />
                     ) : (
                       <span>{comment.content}</span>
                     )}

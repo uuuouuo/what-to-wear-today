@@ -14,6 +14,7 @@ function authInstance() {
     baseURL: API_BASE_URL,
     headers: {
       'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': '*',
     },
   });
   return instance;

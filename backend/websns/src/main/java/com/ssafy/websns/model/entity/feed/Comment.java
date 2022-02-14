@@ -41,6 +41,7 @@ public class Comment extends BaseEntity {
 
   private Boolean deleteMode;
 
+  // test
   public Comment(User user, Feed feed, Comment parent, String content, Boolean privateMode,
       Boolean deleteMode) {
     this.user = user;

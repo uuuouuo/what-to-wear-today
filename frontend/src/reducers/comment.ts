@@ -77,7 +77,7 @@ const reducer = (state = initialState, action: any) => {
       return {
         ...state,
         createCommentsAdding: false,
-        createCommentError: action.error.status,
+        createCommentError: action.error,
       };
 
     ////

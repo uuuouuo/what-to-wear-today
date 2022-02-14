@@ -4,7 +4,7 @@ interface CommentType {
   feedNo: number;
   parent: number | null;
   content: string;
-  date: Date;
+  createdAt: Date;
 }
 interface CommentRequestType {
   userId: string;
