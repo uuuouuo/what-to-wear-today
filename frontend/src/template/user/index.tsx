@@ -2,13 +2,11 @@ import React, { useEffect, useState } from 'react';
 import type { NextPage } from 'next';
 
 import Styled from './styled';
-import { FooterNavbar, Title, TabMenu, FollowingModal } from '@/components/molecules';
 import { Button, Text } from '@/components/atoms';
+import { FooterNavbar, Title, TabMenu, FollowingModal } from '@/components/molecules';
+import { MypageFeeds, MypageComments } from '@/components/organisms';
 import Avatar from '@mui/material/Avatar';
 import SettingsIcon from '@mui/icons-material/Settings';
-
-import MypageFeeds from '@/components/MypageFeeds/MypageFeeds';
-import MypageComments from 'components/organisms/MypageComments/MypageComments';
 
 interface Props {
   userId: string;
