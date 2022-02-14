@@ -4,7 +4,9 @@ import {
   LOAD_MYPAGE_COMMENT_FAILURE,
 } from '@/action/MypageCommentAction';
 
-export const initialState: any = {
+import { StateType } from 'types/myPageComments';
+
+export const initialState: StateType = {
   myComments: [],
   loadMyCommentsLoading: false,
   loadMyCommentsDone: false,

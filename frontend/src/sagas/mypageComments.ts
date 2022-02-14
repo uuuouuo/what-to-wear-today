@@ -8,16 +8,21 @@ import {
   LOAD_MYPAGE_COMMENT_FAILURE,
 } from '@/action/MypageCommentAction';
 
+import { CommentType } from 'types/myPageComments';
+
 const api = apiInstance();
 
-function loadMyCommentsAPI(userId: string): Promise<AxiosResponse<any[]>> {
+function loadMyCommentsAPI(userId: string): Promise<AxiosResponse<CommentType[]>> {
   return api.get(`/comment/mypage?userId=${userId}`);
 }
 
 // todo: type 설정 필요
 function* loadMyComments(action: any) {
   try {
-    const result: Promise<AxiosResponse<any[]>> = yield call(loadMyCommentsAPI, action.userId);
+    const result: Promise<AxiosResponse<CommentType[]>> = yield call(
+      loadMyCommentsAPI,
+      action.userId,
+    );
     yield put({
       type: LOAD_MYPAGE_COMMENT_SUCCESS,
       data: result.data,
