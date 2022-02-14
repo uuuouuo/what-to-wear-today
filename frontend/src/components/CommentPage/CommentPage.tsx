@@ -8,11 +8,15 @@ import ListItemText from '@mui/material/ListItemText';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Typography from '@mui/material/Typography';
 import SendIcon from '@mui/icons-material/Send';
-import Button from '@mui/material/Button';
-import { UserImage } from '@/components/atoms/';
+
+import { UserImage, Button, Input } from '@/components/atoms/';
 import { useDispatch, useSelector } from 'react-redux';
 import { CommentType } from '@/types/comment';
-import { createCommentRequest, deleteCommentRequest } from '@/action/commentAction';
+import {
+  createCommentRequest,
+  deleteCommentRequest,
+  updateCommentRequest,
+} from '@/action/commentAction';
 
 interface Props {
   feedNo: number;
@@ -23,9 +27,11 @@ const CommentPage: FunctionComponent<Props> = ({ feedNo }) => {
   const { comments } = useSelector((state: RootState) => state.comment);
   const dispatch = useDispatch();
   const [text, setText] = useState('');
+  const [commentText, setCommentText] = useState('');
+  const [update, setUpdate] = useState(Array.from({ length: comments.length }, () => false));
 
   const inputValue = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setText(e.target.value);
+    setText((text) => e.target.value);
   };
 
   const action = (e: React.MouseEvent<Element, MouseEvent>) => {
@@ -33,8 +39,31 @@ const CommentPage: FunctionComponent<Props> = ({ feedNo }) => {
     setText('');
   };
 
-  const deleteAction = (comment: any) => {
-    dispatch(deleteCommentRequest(comment.comment.no));
+  const deleteAction = (e: React.MouseEvent<Element, MouseEvent>) => {
+    dispatch(deleteCommentRequest(e.target.attributes[0].value));
+  };
+
+  const changeContent = (e: ChangeEvent<HTMLInputElement>) => {
+    setCommentText(e.target.value);
+  };
+
+  const updateAction = (e: React.MouseEvent<Element, MouseEvent>) => {
+    update[e.target.attributes[0].value] = false;
+    dispatch(updateCommentRequest(e.target.attributes[0].value, commentText));
+  };
+
+  const updateClick = (e: ChangeEvent<HTMLInputElement>) => {
+    if (update[e.target.attributes[1].value] === false) {
+      setCommentText(e.target.attributes[0].value);
+      let newUpdate = [...update];
+      newUpdate[e.target.attributes[1].value] = true;
+      setUpdate(newUpdate);
+    } else {
+      let newUpdate = [...update];
+      newUpdate[e.target.attributes[1].value] = false;
+      setUpdate(newUpdate);
+      updateAction;
+    }
   };
 
   return (
@@ -60,11 +89,34 @@ const CommentPage: FunctionComponent<Props> = ({ feedNo }) => {
                     variant="body2"
                     color="text.primary"
                   >
-                    {comment.content}
+                    {update[idx] ? (
+                      <Input value={commentText} onChange={changeContent} on></Input>
+                    ) : (
+                      <span>{comment.content}</span>
+                    )}
                   </Typography>
                 }
               />
-              <Button onClick={() => deleteAction({ comment })} children={<p>삭제</p>} />
+              {update[idx] ? (
+                <Button
+                  onClick={updateAction}
+                  children={
+                    <p data-commentNo={comment.no} data-commentIdx={idx}>
+                      완료
+                    </p>
+                  }
+                />
+              ) : (
+                <Button
+                  onClick={updateClick}
+                  children={
+                    <p data-commentContent={comment.content} data-commentIdx={idx}>
+                      수정
+                    </p>
+                  }
+                />
+              )}
+              <Button onClick={deleteAction} children={<p data-commentNo={comment.no}>삭제</p>} />
             </ListItem>
             <Divider variant="inset" component="li" />
           </List>

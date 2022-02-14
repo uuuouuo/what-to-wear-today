@@ -7,6 +7,9 @@ export const CREATE_COMMENT_FAILURE = 'CREATE_COMMENT_FAILURE';
 export const DELETE_COMMENT_REQUEST = 'DELETE_COMMENT_REQUEST';
 export const DELETE_COMMENT_SUCCESS = 'DELETE_COMMENT_SUCCESS';
 export const DELETE_COMMENT_FAILURE = 'DELETE_COMMENT_FAILURE';
+export const UPDATE_COMMENT_REQUEST = 'UPDATE_COMMENT_REQUEST';
+export const UPDATE_COMMENT_SUCCESS = 'UPDATE_COMMENT_SUCCESS';
+export const UPDATE_COMMENT_FAILURE = 'UPDATE_COMMENT_FAILURE';
 
 export const loadCommentsRequest = (feedNo: number) => ({
   type: LOAD_COMMENTS_REQUEST,
@@ -56,4 +59,22 @@ export const deleteCommentSuccess = () => ({
 
 export const deleteCommentFailure = () => ({
   type: DELETE_COMMENT_FAILURE,
+});
+
+///////////////////////////////
+
+export const updateCommentRequest = (commentNo: number, content: string) => ({
+  type: UPDATE_COMMENT_REQUEST,
+  commentNo: commentNo,
+  request: {
+    content: content,
+  },
+});
+
+export const updateCommentSuccess = () => ({
+  type: UPDATE_COMMENT_SUCCESS,
+});
+
+export const updateCommentFailure = () => ({
+  type: UPDATE_COMMENT_FAILURE,
 });

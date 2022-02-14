@@ -1,10 +1,17 @@
 interface CommentType {
-  _no: number;
-  userId: string;
-  content: string;
-  createdAt: Date;
+  no: number;
+  nickname: string;
   feedNo: number;
+  parent: number | null;
+  content: string;
+  date: Date;
+}
+interface CommentRequestType {
+  userId: string;
   parent: number;
+  content: string;
+  privateMode: boolean;
+  deleteMode: boolean;
 }
 
 interface StateType {
@@ -18,6 +25,9 @@ interface StateType {
   deleteCommentDeleting: boolean;
   deleteCommentDone: boolean;
   deleteCommentError: Error | null;
+  updateCommentUpdating: boolean;
+  updateCommentDone: boolean;
+  updateCommentError: Error | null;
 }
 
-export type { CommentType, StateType };
+export type { CommentType, CommentRequestType, StateType };

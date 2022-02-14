@@ -12,6 +12,9 @@ import {
   DELETE_COMMENT_REQUEST,
   DELETE_COMMENT_SUCCESS,
   DELETE_COMMENT_FAILURE,
+  UPDATE_COMMENT_REQUEST,
+  UPDATE_COMMENT_SUCCESS,
+  UPDATE_COMMENT_FAILURE,
 } from 'action/commentAction';
 
 import { CommentType } from '@/types/comment';
@@ -29,6 +32,10 @@ function createCommentsAPI(action: any): Promise<AxiosResponse<CommentType[]>> {
 
 function deleteCommentsAPI(commentNo: number): Promise<AxiosResponse<CommentType[]>> {
   return authApi.delete(`/comment/${commentNo}`);
+}
+
+function updateCommentsAPI(action: number): Promise<AxiosResponse<CommentType[]>> {
+  return authApi.put(`/comment/${action.commentNo}`, action.request);
 }
 
 function* loadComments(action: any) {
@@ -71,14 +78,28 @@ function* deleteComment(action: any) {
       deleteCommentsAPI,
       action.commentNo,
     );
-
     yield put({
       type: DELETE_COMMENT_SUCCESS,
-      data: result.data,
+      data: action.commentNo,
     });
   } catch (err: any) {
     yield put({
       type: DELETE_COMMENT_FAILURE,
+      error: err.response,
+    });
+  }
+}
+
+function* updateComment(action: any) {
+  try {
+    const result: Promise<AxiosResponse<CommentType[]>> = yield call(updateCommentsAPI, action);
+    yield put({
+      type: UPDATE_COMMENT_SUCCESS,
+      data: action.commentNo,
+    });
+  } catch (err: any) {
+    yield put({
+      type: UPDATE_COMMENT_FAILURE,
       error: err.response,
     });
   }
@@ -96,6 +117,15 @@ function* watchDeleteComment() {
   yield takeLatest(DELETE_COMMENT_REQUEST, deleteComment);
 }
 
+function* watchUpdateComment() {
+  yield takeLatest(UPDATE_COMMENT_REQUEST, updateComment);
+}
+
 export default function* commentSaga() {
-  yield all([fork(watchLoadComments), fork(watchCreateComment), fork(watchDeleteComment)]);
+  yield all([
+    fork(watchLoadComments),
+    fork(watchCreateComment),
+    fork(watchDeleteComment),
+    fork(watchUpdateComment),
+  ]);
 }
