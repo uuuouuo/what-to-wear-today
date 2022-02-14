@@ -2,12 +2,10 @@ package com.ssafy.websns.controller;
 
 import com.ssafy.websns.model.dto.feed.LikePersonDto.LikePersonRes;
 import com.ssafy.websns.service.feed.LikePersonService;
-import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -36,10 +34,10 @@ public class LikePersonController {
 
   }
 
-  @GetMapping(value = "/{feedNo}")
-  public List<String> findLikePeople(@PathVariable("feedNo") Integer feedNo) {
-
-    likePersonService.showLikePeople(feedNo);
-  }
+//  @GetMapping(value = "/{feedNo}")
+//  public List<String> findLikePeople(@PathVariable("feedNo") Integer feedNo) {
+//
+//    likePersonService.showLikePeople(feedNo);
+//  }
 
 }

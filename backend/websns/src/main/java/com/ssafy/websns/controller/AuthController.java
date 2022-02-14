@@ -5,7 +5,6 @@ import com.ssafy.websns.config.oauth.KakaoAuthService;
 import com.ssafy.websns.model.dto.user.UserDto.LoginRes;
 import com.ssafy.websns.model.dto.user.UserProfileDto.CreateReq;
 import com.ssafy.websns.model.dto.user.UserProfileDto.SignUpReq;
-import com.ssafy.websns.model.dto.user.UserProfileDto.UserProfileReq;
 import com.ssafy.websns.model.dto.user.UserProfileDto.UserProfileRes;
 import com.ssafy.websns.model.dto.user.auth.AuthDto.AuthReq;
 import com.ssafy.websns.model.dto.user.auth.AuthDto.LoginAuthReq;
@@ -19,7 +18,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -100,13 +98,13 @@ public class AuthController {
 
   }
   
-  @PatchMapping(value = "/{userId}", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
-  public ResponseEntity<UserProfileRes> updateUser (
-      @PathVariable("userId") String userId,
-      @RequestPart(value="request") UserProfileReq request,
-      @RequestPart(value="imageName") MultipartFile image) {
-    userProfileService.editUserProfile(userId, request, image);
-  }
+//  @PatchMapping(value = "/{userId}", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
+//  public ResponseEntity<UserProfileRes> updateUser (
+//      @PathVariable("userId") String userId,
+//      @RequestPart(value="request") UserProfileReq request,
+//      @RequestPart(value="imageName") MultipartFile image) {
+//    userProfileService.editUserProfile(userId, request, image);
+//  }
 
 
 }
