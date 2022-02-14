@@ -9,10 +9,11 @@ import { useDispatch } from 'react-redux';
 import { deleteCommentRequest, updateCommentRequest } from 'action/commentAction';
 
 interface Props {
+  className?: string;
   comment: CommentType;
 }
 
-const Comment: FunctionComponent<Props> = ({ comment }) => {
+const Comment: FunctionComponent<Props> = ({ className, comment }) => {
   const dispatch = useDispatch();
   const [display, , openDisplay, closeDisplay] = useDisplay(true);
   const [commentValue, setCommentValue, onCommentValueChange] = useChange(comment.content);
@@ -37,7 +38,7 @@ const Comment: FunctionComponent<Props> = ({ comment }) => {
   };
 
   return (
-    <Styled.Container>
+    <Styled.Container className={className}>
       <UserProfileWithInfo
         user={{
           userId: comment.userId,

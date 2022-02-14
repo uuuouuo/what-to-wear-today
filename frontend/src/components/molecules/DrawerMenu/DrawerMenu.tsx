@@ -7,15 +7,16 @@ import Button from '@mui/material/Button';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
+import MenuIcon from '@mui/icons-material/Menu';
 
 type Anchor = 'top' | 'left' | 'bottom' | 'right';
 
 interface Props {
-  // string[]는 에러로 추가
+  className?: className;
   userId: string | string[];
 }
 
-const TemporaryDrawer: FunctionComponent<Props> = ({ userId }) => {
+const TemporaryDrawer: FunctionComponent<Props> = ({ className, userId }) => {
   const [state, setState] = React.useState({
     top: false,
     left: false,
@@ -61,10 +62,12 @@ const TemporaryDrawer: FunctionComponent<Props> = ({ userId }) => {
   );
 
   return (
-    <div>
+    <div className={className}>
       {(['right'] as const).map((anchor) => (
         <React.Fragment key={anchor}>
-          <Button onClick={toggleDrawer(anchor, true)}>햄버거</Button>
+          <Button onClick={toggleDrawer(anchor, true)}>
+            <MenuIcon fontSize="large" />
+          </Button>
           <Drawer anchor={anchor} open={state[anchor]} onClose={toggleDrawer(anchor, false)}>
             {list(anchor)}
           </Drawer>

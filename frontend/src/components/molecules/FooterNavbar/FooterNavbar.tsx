@@ -74,7 +74,7 @@ const FooterNavbar = () => {
         <Styled.BottomNavigationAction
           sx={{ pt: 0, pb: 0 }}
           icon={
-            <Link href="/user/1">
+            <Link href="/user/jdb">
               <PersonIcon />
             </Link>
           }
