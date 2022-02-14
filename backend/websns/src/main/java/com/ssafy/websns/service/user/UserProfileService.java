@@ -68,6 +68,7 @@ public class UserProfileService {
         e.printStackTrace();
       }
     }
+
     UserProfile userProfile = new UserProfile();
     userProfile.createUserProfile(user,nickname,imageUrl);
 
@@ -118,9 +119,7 @@ public class UserProfileService {
 
     userProfileRepository.deleteByNo(userProfile.getNo());
 
-    String nickname = "";
     String imageUrl = "";
-
     if(image.isEmpty()){
       imageUrl = "C://images/profile/basic_profile.png";
     }
@@ -137,7 +136,10 @@ public class UserProfileService {
       }
     }
 
-    userProfile.createUserProfile(user, userProfileReq.getNickname(), image);
+    userProfile.createUserProfile(user, userProfileReq.getNickname(), imageUrl);
+    UserProfileRes userProfileRes = new UserProfileRes(userProfile);
+
+    return userProfileRes;
 
   }
 

@@ -52,10 +52,8 @@ public class AuthController {
 
   @PostMapping(value = "/kakao",consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
   @ResponseStatus(value = HttpStatus.OK)
-  public void signup(
-      @RequestPart(value="request") SignUpReq signUpReq,
-      @RequestPart(value="imageName") MultipartFile image,
-      HttpServletRequest request) {
+  public void signup(@RequestPart(value="request") SignUpReq signUpReq,
+      @RequestPart(value="imageName") MultipartFile image, HttpServletRequest request) {
 
     System.out.println("asdfasdfasdfewsdf");
     String jwtToken = request.getHeader("JWT");
@@ -63,7 +61,6 @@ public class AuthController {
     userProfileService.signUp(createReq);
 
   }
-
 
   @PostMapping(value = "/logout")
   public ResponseEntity<String> logout(@RequestBody AuthReq authRequest, HttpServletResponse response) {
@@ -95,7 +92,6 @@ public class AuthController {
   public ResponseEntity<UserProfileRes> findUser (@PathVariable("userId") String userId) {
 
     UserProfileRes userProfileRes = userProfileService.searchUserProfile(userId);
-
     return new ResponseEntity<>(userProfileRes, HttpStatus.OK);
 
   }
@@ -105,9 +101,11 @@ public class AuthController {
       @PathVariable("userId") String userId,
       @RequestPart(value="request") UserProfileReq request,
       @RequestPart(value="imageName") MultipartFile image) {
-    userProfileService.editUserProfile(userId, request, image);
-  }
 
+    UserProfileRes userProfileRes = userProfileService.editUserProfile(userId, request, image);
+    return new ResponseEntity<>(userProfileRes, HttpStatus.OK);
+
+  }
 
 }
 
