@@ -10,27 +10,25 @@ public class AuthDto {
   @Getter
   @Setter
   @NoArgsConstructor(access = AccessLevel.PROTECTED)
-  public static class AuthReq{
+  public static class LoginAuthReq{
     String accessToken;
 
-    public AuthReq(String accessToken) {
+    public LoginAuthReq(String accessToken) {
       this.accessToken = accessToken;
     }
   }
 
   @Getter
   @NoArgsConstructor(access = AccessLevel.PROTECTED)
-  public static class RefreshAuthReq{
+  public static class AuthReq {
     String userId;
 
-    public RefreshAuthReq(String userId) {
+    public AuthReq(String userId) {
       this.userId = userId;
     }
   }
 
-
   @Getter
-  @Setter
   @NoArgsConstructor
   public static class AuthRes {
     boolean isMember;
@@ -38,5 +36,6 @@ public class AuthDto {
     public AuthRes(boolean isMember) {
       this.isMember = isMember;
     }
+
   }
 }

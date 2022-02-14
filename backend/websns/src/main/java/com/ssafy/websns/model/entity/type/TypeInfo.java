@@ -1,34 +1,34 @@
-package com.ssafy.websns.model.entity.region;
+package com.ssafy.websns.model.entity.type;
 
 import static javax.persistence.FetchType.LAZY;
 
 import com.ssafy.websns.model.entity.user.User;
-import io.swagger.annotations.ApiModel;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import lombok.Getter;
 
 @Entity
 @Getter
-@ApiModel(value = "관심 지역", description = "관심 지역을 나타냅니다.")
-public class InterestRegion {
+public class TypeInfo {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name = "INTEREST_REGION_NO")
+  @Column(name = "TYPE_INFO_NO")
   private Integer no;
 
   @ManyToOne(fetch = LAZY)
-  @JoinColumn(name = "USER_NO")
-  private User user;
+  private User userNo;
 
   @ManyToOne(fetch = LAZY)
-  @JoinColumn(name = "REGION_NO")
-  private Region region;
+  private Type typeNo;
+
+  public void createTypeInfo(User user, Type typeNo) {
+    this.userNo = user;
+    this.typeNo = typeNo;
+  }
 
 }

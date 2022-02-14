@@ -10,6 +10,7 @@ import java.time.format.DateTimeFormatter;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -22,7 +23,7 @@ import lombok.NoArgsConstructor;
 public class Feed extends BaseEntity {
 
   @Id
-  @GeneratedValue
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "FEED_NO")
   private Integer no;
 
@@ -44,6 +45,7 @@ public class Feed extends BaseEntity {
 
   private Boolean deleteMode;
 
+  // test
   public Feed(User user, Region region, String content, LocalDateTime photoDate,
       String weather, Boolean privateMode, Boolean deleteMode) {
     this.user = user;

@@ -2,8 +2,11 @@ package com.ssafy.websns.config.oauth;
 
 import com.ssafy.websns.config.jwt.JwtTokenProvider;
 import com.ssafy.websns.config.oauth.provider.ClientKakao;
-import com.ssafy.websns.model.dto.user.auth.AuthDto.AuthReq;
+import com.ssafy.websns.model.dto.user.UserDto.LoginRes;
+import com.ssafy.websns.model.dto.user.auth.AuthDto.LoginAuthReq;
 import com.ssafy.websns.model.entity.user.User;
+import com.ssafy.websns.model.entity.user.UserProfile;
+import com.ssafy.websns.repository.user.UserProfileRepository;
 import com.ssafy.websns.repository.user.UserRepository;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
@@ -17,18 +20,16 @@ public class KakaoAuthService { // public class GoogleAuthService
   private final ClientKakao clientKakao; // private final ClientGoogle clientGoogle;
   private final JwtTokenProvider jwtTokenProvider;
   private final UserRepository userRepository;
-
+  private final UserProfileRepository userProfileRepository;
   @Transactional
-  public String login(AuthReq authRequest) {
+  public LoginRes login(LoginAuthReq authRequest) {
 
     User user = clientKakao.getUserData(authRequest.getAccessToken()); // userData 담기
 
     String socialId = user.getUserId();
 
     System.out.println(socialId);
-
     Optional<User> findUser = userRepository.findByUserId(socialId);
-
 
     //JWT 토큰 생성
 //    String jwtToken = JWT.create()
@@ -40,12 +41,25 @@ public class KakaoAuthService { // public class GoogleAuthService
 
     String jwtToken = jwtTokenProvider.create(user);
     System.out.println(jwtToken);
-//    AuthToken appToken = authTokenProvider.createUserAppToken(socialId); // 신규 토큰 생성
+
+    LoginRes loginRes = new LoginRes();
+    loginRes.setJwtToken(jwtToken);
 
     if (findUser.isEmpty()) {
       userRepository.save(user);
+      loginRes.setIsMember(false);
     }
-    return jwtToken;
+    else {
+
+      Optional<UserProfile> userProfileOptional = userProfileRepository.findByUser(findUser.get());
+      if(userProfileOptional.isEmpty()) {
+        loginRes.setIsMember(false);
+      }
+      else {
+        loginRes.setIsMember(true);
+      }
+    }
+    return loginRes;
   }
 
   public String updateToken(String userId) {
@@ -59,6 +73,22 @@ public class KakaoAuthService { // public class GoogleAuthService
     }
 
     return newJwtToken;
+
+  }
+
+  public String logout(String userId) {
+
+    Optional<User> userOptional = userRepository.findByUserId(userId);
+
+    String newJwtToken = null;
+    System.out.println("2 : " + userOptional.isPresent());
+    if(userOptional.isPresent()) {
+      User user = userOptional.get();
+      newJwtToken = jwtTokenProvider.logout(user);
+    }
+    return newJwtToken;
+
+//    clientKakao.logout(authRequest.getAccessToken());
 
   }
 
