@@ -34,7 +34,7 @@ function deleteCommentsAPI(commentNo: number): Promise<AxiosResponse<CommentType
   return authApi.delete(`/comment/${commentNo}`);
 }
 
-function updateCommentsAPI(action: number): Promise<AxiosResponse<CommentType[]>> {
+function updateCommentsAPI(action: any): Promise<AxiosResponse<CommentType[]>> {
   return authApi.put(`/comment/${action.commentNo}`, action.request);
 }
 
@@ -95,7 +95,7 @@ function* updateComment(action: any) {
     const result: Promise<AxiosResponse<CommentType[]>> = yield call(updateCommentsAPI, action);
     yield put({
       type: UPDATE_COMMENT_SUCCESS,
-      data: action.commentNo,
+      data: result,
     });
   } catch (err: any) {
     yield put({

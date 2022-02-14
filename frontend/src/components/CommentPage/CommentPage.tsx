@@ -49,7 +49,9 @@ const CommentPage: FunctionComponent<Props> = ({ feedNo }) => {
 
   const updateAction = (e: React.MouseEvent<Element, MouseEvent>) => {
     update[e.target.attributes[0].value] = false;
-    dispatch(updateCommentRequest(e.target.attributes[0].value, commentText));
+    dispatch(
+      updateCommentRequest(e.target.attributes[1].value, commentText, e.target.attributes[0].value),
+    );
   };
 
   const updateClick = (e: ChangeEvent<HTMLInputElement>) => {
@@ -81,7 +83,7 @@ const CommentPage: FunctionComponent<Props> = ({ feedNo }) => {
                 <UserImage />
               </ListItemAvatar>
               <ListItemText
-                primary={comment.userId}
+                primary={comment.nickname}
                 secondary={
                   <Typography
                     sx={{ display: 'inline' }}
@@ -98,25 +100,18 @@ const CommentPage: FunctionComponent<Props> = ({ feedNo }) => {
                 }
               />
               {update[idx] ? (
-                <Button
-                  onClick={updateAction}
-                  children={
-                    <p data-commentNo={comment.no} data-commentIdx={idx}>
-                      완료
-                    </p>
-                  }
-                />
+                <Button onClick={updateAction} children={<p data-commentno={comment.no}>완료</p>} />
               ) : (
                 <Button
                   onClick={updateClick}
                   children={
-                    <p data-commentContent={comment.content} data-commentIdx={idx}>
+                    <p data-commentcontent={comment.content} data-commentidx={idx}>
                       수정
                     </p>
                   }
                 />
               )}
-              <Button onClick={deleteAction} children={<p data-commentNo={comment.no}>삭제</p>} />
+              <Button onClick={deleteAction} children={<p data-commentno={comment.no}>삭제</p>} />
             </ListItem>
             <Divider variant="inset" component="li" />
           </List>

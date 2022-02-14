@@ -63,12 +63,14 @@ export const deleteCommentFailure = () => ({
 
 ///////////////////////////////
 
-export const updateCommentRequest = (commentNo: number, content: string) => ({
+export const updateCommentRequest = (commentNo: number, content: string, commentIdx: number) => ({
   type: UPDATE_COMMENT_REQUEST,
   commentNo: commentNo,
   request: {
     content: content,
+    privateMode: false,
   },
+  commentIdx: commentIdx,
 });
 
 export const updateCommentSuccess = () => ({

@@ -11,7 +11,7 @@ import {
   UPDATE_COMMENT_REQUEST,
   UPDATE_COMMENT_SUCCESS,
   UPDATE_COMMENT_FAILURE,
-} from 'action/commentAction';
+} from '@/action/commentAction';
 import { StateType } from '@/types/comment';
 
 export const initialState: StateType = {
@@ -116,9 +116,13 @@ const reducer = (state = initialState, action: any) => {
       };
 
     case UPDATE_COMMENT_SUCCESS:
+      const updateComment = action.data.data;
       return {
         ...state,
-        comments: state.comments.filter((comment) => comment),
+        comments: state.comments.map((comment) => {
+          if (comment.no === updateComment.no) return { ...comment, ...updateComment };
+          else return comment;
+        }),
         updateCommentUpdating: false,
         updateCommentDone: true,
       };
