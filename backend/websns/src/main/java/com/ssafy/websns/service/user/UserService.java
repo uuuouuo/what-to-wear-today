@@ -5,8 +5,9 @@ import com.ssafy.websns.model.dto.interest.InterestDto.InterestReq;
 import com.ssafy.websns.model.dto.interest.InterestDto.InterestRes;
 import com.ssafy.websns.model.dto.region.RegionDto.UpdateRegionReq;
 import com.ssafy.websns.model.dto.region.RegionDto.UpdateRegionRes;
-import com.ssafy.websns.model.dto.user.TypeInfoDto.UpdateTypeReq;
-import com.ssafy.websns.model.dto.user.TypeInfoDto.UpdateTypeRes;
+import com.ssafy.websns.model.dto.type.TypeDto.TypeRes;
+import com.ssafy.websns.model.dto.type.TypeInfoDto.UpdateTypeInfoReq;
+import com.ssafy.websns.model.dto.type.TypeInfoDto.UpdateTypeRes;
 import com.ssafy.websns.model.dto.user.UserProfileDto.CreateReq;
 import com.ssafy.websns.model.dto.user.UserProfileDto.UserProfileReq;
 import com.ssafy.websns.model.dto.user.UserProfileDto.UserProfileRes;
@@ -34,6 +35,7 @@ import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 @Service
@@ -121,6 +123,7 @@ public class UserService {
 
   }
 
+  @Transactional
   public UserProfileRes editUserProfile(String userId, UserProfileReq userProfileReq, MultipartFile image) {
 
     User user = getUser(userId);
@@ -154,41 +157,46 @@ public class UserService {
 
   }
 
-  public UpdateTypeRes editType(String userId, UpdateTypeReq updateTypeReq) {
+  @Transactional
+  public UpdateTypeRes editType(String userId, UpdateTypeInfoReq updateTypeInfoReq) {
 
     User user = getUser(userId);
     typeInfoRepository.deleteByUser(user);
 
-    List<Integer> typeNos = updateTypeReq.getTypeNos();
+    List<Integer> typeNos = updateTypeInfoReq.getTypeNos();
+
+    List<TypeRes> typeList = new ArrayList<>();
     if(!typeNos.isEmpty()) {
       typeNos.stream().forEach(typeNo -> {
         Optional<Type> typeOptional = typeRepository.findByNo(typeNo);
         Type type = validateExist.findTypeNo(typeOptional);
-
+        typeList.add(new TypeRes(type));
         TypeInfo typeInfo = new TypeInfo();
-        typeInfo.createTypeInfo(user,type);
+        typeInfo.createTypeInfo(user, type);
+        typeInfo.getType();
         typeInfoRepository.save(typeInfo);
       });
     }
 
-    List<Type> types = typeInfoRepository.findByUser(user);
-    UpdateTypeRes updateTypeRes = new UpdateTypeRes(userId, types);
+    UpdateTypeRes updateTypeRes = new UpdateTypeRes(userId, typeList);
 
     return updateTypeRes;
 
   }
 
+  @Transactional
   public UpdateRegionRes setupRegion(String userId, UpdateRegionReq request) {
 
     User user = getUser(userId);
     interestRegionRepository.deleteByUser(user);
 
     List<String> regionNames = request.getRegions();
-    List<Region> interestRegions;
+    List<Region> regions = new ArrayList<>();
 
     if(!regionNames.isEmpty()) {
       regionNames.stream().forEach(regionName -> {
-        Region region = regionRepository.findByRegionNameContaining(regionName).get(0);
+        Region region = regionRepository.findByRegionName(regionName);
+        regions.add(region);
 
         InterestRegion interestRegion = new InterestRegion();
         interestRegion.createInterestRegion(user, region);
@@ -196,28 +204,24 @@ public class UserService {
       });
     }
 
-    interestRegions = interestRegionRepository.findByUser(user);
-    UpdateRegionRes response = new UpdateRegionRes(interestRegions);
+    UpdateRegionRes response = new UpdateRegionRes(regions);
 
     return response;
 
   }
 
+  @Transactional
   public InterestRes setupInterest(String userId, InterestReq request) {
+
     User user = getUser(userId);
 
-    List<String> interestNames = request.getInterestNames();
+    List<Integer> interestNos = request.getInterestNos();
     List<PersonalInterest> personalInterests = new ArrayList<>();
 
-    if(!interestNames.isEmpty()) {
-      interestNames.stream().forEach(interestName -> {
-        Optional<Interest> interestOptional = interestRepository.findByInterestName(interestName);
+    if(!interestNos.isEmpty()) {
+      interestNos.stream().forEach(interestNo -> {
+        Optional<Interest> interestOptional = interestRepository.findByNo(interestNo);
         Interest interest = validateExist.findInterest(interestOptional);
-
-        if(interest == null) {
-          interest.creatInterest(interestName);
-          interestRepository.save(interest);
-        }
 
         PersonalInterest personalInterest = new PersonalInterest();
         personalInterest.createPersonalInterest(user, interest);

@@ -16,8 +16,8 @@ public class Type {
   @Column(name = "TYPE_NO")
   private Integer no;
 
-  String constitution;
+  private String constitution;
 
-  String description;
+  private String description;
 
 }

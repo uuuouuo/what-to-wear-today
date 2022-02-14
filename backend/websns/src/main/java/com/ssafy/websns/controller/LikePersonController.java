@@ -1,9 +1,9 @@
 package com.ssafy.websns.controller;
 
+import com.ssafy.websns.model.dto.feed.LikePersonDto.LikePeopleRes;
+import com.ssafy.websns.model.dto.feed.LikePersonDto.LikePersonReq;
 import com.ssafy.websns.model.dto.feed.LikePersonDto.LikePersonRes;
-import com.ssafy.websns.model.dto.user.UserProfileDto.UserProfileRes;
 import com.ssafy.websns.service.feed.LikePersonService;
-import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,26 +22,27 @@ public class LikePersonController {
 
   private final LikePersonService likePersonService;
 
-  @PostMapping(value = "/{userId}/{feedNo}")
-  public ResponseEntity<LikePersonRes> createLike(@RequestBody String userId, @RequestBody Integer feedNo) {
+  @PostMapping(value = "/{feedNo}")
+  public ResponseEntity<LikePersonRes> createLike(@RequestBody LikePersonReq request, @PathVariable("feedNo") Integer feedNo) {
 
-    LikePersonRes response = likePersonService.createLike(userId, feedNo);
+    LikePersonRes response = likePersonService.createLike(request.getUserId(), feedNo);
     return new ResponseEntity<>(response, HttpStatus.OK);
 
   }
 
   @DeleteMapping(value = "/{likeNo}")
-  public void deleteLike(@PathVariable("likeNo") Integer likeNo) {
+  public Integer deleteLike(@PathVariable("likeNo") Integer likeNo) {
 
-    likePersonService.cancelLike(likeNo);
+    Integer response = likePersonService.cancelLike(likeNo);
+    return response;
 
   }
 
   @GetMapping(value = "/{feedNo}")
-  public ResponseEntity<List<UserProfileRes>> findLikePeople(@PathVariable("feedNo") Integer feedNo) {
+  public ResponseEntity<LikePeopleRes> findLikePeople(@PathVariable("feedNo") Integer feedNo) {
 
-    List<UserProfileRes> likePeople = likePersonService.showLikePeople(feedNo);
-    return new ResponseEntity<>(likePeople, HttpStatus.OK);
+    LikePeopleRes response = likePersonService.showLikePeople(feedNo);
+    return new ResponseEntity<>(response, HttpStatus.OK);
 
   }
 

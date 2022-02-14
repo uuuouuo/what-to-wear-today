@@ -6,12 +6,14 @@ import com.ssafy.websns.model.dto.feed.FeedDto.UpdateReq;
 import com.ssafy.websns.model.dto.feed.FeedDto.UpdateRes;
 import com.ssafy.websns.model.dto.feed.ImageDto.ImageFile;
 import com.ssafy.websns.model.entity.feed.Feed;
+import com.ssafy.websns.model.entity.feed.FeedLikeCnt;
 import com.ssafy.websns.model.entity.feed.FeedTag;
 import com.ssafy.websns.model.entity.feed.Image;
 import com.ssafy.websns.model.entity.feed.Tag;
 import com.ssafy.websns.model.entity.region.Region;
 import com.ssafy.websns.model.entity.user.User;
 import com.ssafy.websns.model.entity.user.UserProfile;
+import com.ssafy.websns.repository.feed.FeedLikeCntRepository;
 import com.ssafy.websns.repository.feed.FeedRepository;
 import com.ssafy.websns.repository.feed.FeedTagRepository;
 import com.ssafy.websns.repository.feed.ImageRepository;
@@ -46,14 +48,14 @@ public class FeedService {
   private final UserRepository userRepository;
   private final UserProfileRepository userProfileRepository;
   private final FeedTagRepository feedTagRepository;
+  private final FeedLikeCntRepository feedLikeCntRepository;
 
   private ValidateExist validateExist = new ValidateExist();
 
   @Transactional
   public FeedRes postFeed(CreateReq request) {
 
-    Feed feed = new Feed();
-    Region region = regionRepository.findByRegionNameContaining(request.getRegion()).get(0);
+    Region region = regionRepository.findByRegionName(request.getRegion());
 
     Optional<User> userOptional = userRepository.findByUserId(request.getUserId());
     User user = validateExist.findUser(userOptional);
@@ -61,11 +63,16 @@ public class FeedService {
     Optional<UserProfile> profileOptional = userProfileRepository.findByUser(user);
     UserProfile userProfile = validateExist.findUserProfile(profileOptional);
 
+    Feed feed = new Feed();
     feed.createFeed(user, request.getContent(), region,
         request.getPhotoDate(), request.getWeather(), request.getPrivateMode(),
         request.getDeleteMode());
 
     Feed savedFeed = feedRepository.save(feed);
+
+    FeedLikeCnt feedLikeCnt = new FeedLikeCnt();
+    feedLikeCnt.createFeedLikeCnt(feed);
+    feedLikeCntRepository.save(feedLikeCnt);
 
     List<MultipartFile> imageNames = request.getImageNames();
 
@@ -125,7 +132,7 @@ public class FeedService {
     Optional<Feed> optional = feedRepository.findByNo(feedNo);
     Feed feed = validateExist.findFeed(optional);
 
-    Region region = regionRepository.findByRegionNameContaining(request.getRegion()).get(0);
+    Region region = regionRepository.findByRegionName(request.getRegion());
 
     Optional<UserProfile> profileOptional = userProfileRepository.findByUser(feed.getUser());
     UserProfile userProfile = validateExist.findUserProfile(profileOptional);
@@ -198,6 +205,7 @@ public class FeedService {
     Feed feed = validateExist.findFeed(optional);
 
     feed.deleteFeed();
+
   }
 
   // 설정 지역 내 피드 보기

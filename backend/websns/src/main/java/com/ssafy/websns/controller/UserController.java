@@ -5,8 +5,8 @@ import com.ssafy.websns.model.dto.interest.InterestDto.InterestReq;
 import com.ssafy.websns.model.dto.interest.InterestDto.InterestRes;
 import com.ssafy.websns.model.dto.region.RegionDto.UpdateRegionReq;
 import com.ssafy.websns.model.dto.region.RegionDto.UpdateRegionRes;
-import com.ssafy.websns.model.dto.user.TypeInfoDto.UpdateTypeReq;
-import com.ssafy.websns.model.dto.user.TypeInfoDto.UpdateTypeRes;
+import com.ssafy.websns.model.dto.type.TypeInfoDto.UpdateTypeInfoReq;
+import com.ssafy.websns.model.dto.type.TypeInfoDto.UpdateTypeRes;
 import com.ssafy.websns.model.dto.user.UserDto.LoginRes;
 import com.ssafy.websns.model.dto.user.UserProfileDto.CreateReq;
 import com.ssafy.websns.model.dto.user.UserProfileDto.SignUpReq;
@@ -114,25 +114,25 @@ public class UserController {
 
   @PatchMapping(value = "/type/{userId}")
   public ResponseEntity<UpdateTypeRes> updateType(@PathVariable("userId") String userId,
-      UpdateTypeReq updateTypeReq) {
+      @RequestBody UpdateTypeInfoReq updateTypeInfoReq) {
 
-    UpdateTypeRes updateTypeRes = userService.editType(userId, updateTypeReq);
+    UpdateTypeRes updateTypeRes = userService.editType(userId, updateTypeInfoReq);
     return new ResponseEntity<>(updateTypeRes, HttpStatus.OK);
 
   }
 
   @PatchMapping(value = "/region/{userId}")
   public ResponseEntity<UpdateRegionRes> updateRegion(@PathVariable("userId") String userId,
-      UpdateRegionReq updateRegionReq) {
+      @RequestBody UpdateRegionReq updateRegionReq) {
 
-    UpdateRegionRes updateTypeRes = userService.setupRegion(userId, updateRegionReq);
-    return new ResponseEntity<>(updateTypeRes, HttpStatus.OK);
+    UpdateRegionRes response = userService.setupRegion(userId, updateRegionReq);
+    return new ResponseEntity<>(response, HttpStatus.OK);
 
   }
 
   @PatchMapping(value = "/interest/{userId}")
   public ResponseEntity<InterestRes> updateInterest(@PathVariable("userId") String userId,
-      InterestReq request) {
+      @RequestBody InterestReq request) {
 
     InterestRes updateTypeRes = userService.setupInterest(userId, request);
     return new ResponseEntity<>(updateTypeRes, HttpStatus.OK);

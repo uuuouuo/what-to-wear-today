@@ -11,10 +11,10 @@ public class InterestDto {
   @Getter
   @NoArgsConstructor(access = AccessLevel.PROTECTED)
   public static class InterestReq {
-    private List<String> interestNames;
+    private List<Integer> interestNos;
 
-    public InterestReq(List<String> interestNames) {
-      this.interestNames = interestNames;
+    public InterestReq(List<Integer> interestNo) {
+      this.interestNos = interestNos;
     }
 
   }

@@ -10,7 +10,7 @@ public class RegionDto {
 
   @Getter
   @NoArgsConstructor(access = AccessLevel.PROTECTED)
-  public class CreateRegionReq {
+  public static class CreateRegionReq {
 
     private String name;
     private Integer pointCode;
@@ -24,7 +24,7 @@ public class RegionDto {
 
   @Getter
   @NoArgsConstructor(access = AccessLevel.PROTECTED)
-  public class UpdateRegionReq {
+  public static class UpdateRegionReq {
 
     private List<String> regions;
 
