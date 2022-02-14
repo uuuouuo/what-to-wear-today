@@ -2,6 +2,7 @@ package com.ssafy.websns.service.user;
 
 import com.ssafy.websns.config.auth.jwt.JwtTokenProvider;
 import com.ssafy.websns.model.dto.user.UserProfileDto.CreateReq;
+import com.ssafy.websns.model.dto.user.UserProfileDto.UserProfileReq;
 import com.ssafy.websns.model.dto.user.UserProfileDto.UserProfileRes;
 import com.ssafy.websns.model.entity.interest.Interest;
 import com.ssafy.websns.model.entity.interest.PersonalInterest;
@@ -107,37 +108,37 @@ public class UserProfileService {
 
   }
 
-//  public UserProfileRes editUserProfile(String userId, UserProfileReq userProfileReq, MultipartFile image) {
-//
-//    Optional<User> userOptional = userRepository.findByUserId(userId);
-//    User user = validateExist.findUser(userOptional);
-//
-//    Optional<UserProfile> profileOptional = userProfileRepository.findByUser(user);
-//    UserProfile userProfile = validateExist.findUserProfile(profileOptional);
-//
-//    userProfileRepository.deleteByNo(userProfile.getNo());
-//
-//    String nickname = "";
-//    String imageUrl = "";
-//
-//    if(image.isEmpty()){
-//      imageUrl = "C://images/profile/basic_profile.png";
-//    }
-//    else {
-//      String fileName = "C://images/profile/" + userId + image.getOriginalFilename();
-//      File dest = new File(fileName);
-//      try {
-//        image.transferTo(dest);
-//        imageUrl = fileName;
-//      } catch (IllegalStateException e) {
-//        e.printStackTrace();
-//      } catch (IOException e) {
-//        e.printStackTrace();
-//      }
-//    }
-//
-//    userProfile.createUserProfile(user, userProfileReq.getNickname(), image);
-//
-//  }
+  public UserProfileRes editUserProfile(String userId, UserProfileReq userProfileReq, MultipartFile image) {
+
+    Optional<User> userOptional = userRepository.findByUserId(userId);
+    User user = validateExist.findUser(userOptional);
+
+    Optional<UserProfile> profileOptional = userProfileRepository.findByUser(user);
+    UserProfile userProfile = validateExist.findUserProfile(profileOptional);
+
+    userProfileRepository.deleteByNo(userProfile.getNo());
+
+    String nickname = "";
+    String imageUrl = "";
+
+    if(image.isEmpty()){
+      imageUrl = "C://images/profile/basic_profile.png";
+    }
+    else {
+      String fileName = "C://images/profile/" + userId + image.getOriginalFilename();
+      File dest = new File(fileName);
+      try {
+        image.transferTo(dest);
+        imageUrl = fileName;
+      } catch (IllegalStateException e) {
+        e.printStackTrace();
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+    }
+
+    userProfile.createUserProfile(user, userProfileReq.getNickname(), image);
+
+  }
 
 }
