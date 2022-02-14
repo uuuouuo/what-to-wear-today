@@ -1,6 +1,4 @@
 import React, { useCallback, useState } from 'react';
-// @ts-ignore
-import _ from 'lodash';
 
 const useFileChange = (
   initalState: File[] | null,
@@ -13,12 +11,12 @@ const useFileChange = (
 ] => {
   const [files, setFile] = useState(initalState);
 
-  const onChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    // setFile([_.spread((e.target as HTMLInputElement).files]));
+  const onChange = useCallback((e: React.ChangeEvent<HTMLInputElement>): void => {
+    setFile([...e.target.files]);
   }, []);
 
   const appendFile = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    // setFile([...(files || []), ..(.e.target as HTMLInputElement).files]);
+    setFile([...(files || []), ...e.target.files]);
   }, []);
 
   const removeFile = useCallback((file: File) => {}, []);

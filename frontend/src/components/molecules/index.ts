@@ -2,7 +2,7 @@ import ArticleImage from './ArticleImage/ArticleImage';
 import CheckInputFormGroup from './CheckInputFormGroup/CheckInputFormGroup';
 import Comment from './Comment/Comment';
 import DrawerMenu from './DrawerMenu/DrawerMenu';
-import Feed from './Feed/Feed';
+import FeedHeader from './FeedHeader/FeedHeader';
 import FeedRegion from './FeedRegion/FeedRegion';
 import FollowingModal from './FollowingModal/FollowingModal';
 import FooterNavbar from './FooterNavbar/FooterNavbar';
@@ -21,15 +21,16 @@ import TagList from './TagList/TagList';
 import TextEditor from './TextEditor/TextEditor';
 import Title from './Title/Title';
 import UserProfile from './UserProfile/UserProfile';
-import UserProfileWithNickname from './UserProfileWithNickname/UserProfileWithNickname';
+import UserProfileWithInfo from './UserProfileWithInfo/UserProfileWithInfo';
 import ReportForm from './ReportForm/ReportForm';
+import Weather from './Weather/Weather';
 
 export {
   ArticleImage,
   CheckInputFormGroup,
   Comment,
   DrawerMenu,
-  Feed,
+  FeedHeader,
   FeedRegion,
   FollowingModal,
   FooterNavbar,
@@ -49,5 +50,6 @@ export {
   TextEditor,
   Title,
   UserProfile,
-  UserProfileWithNickname,
+  UserProfileWithInfo,
+  Weather,
 };

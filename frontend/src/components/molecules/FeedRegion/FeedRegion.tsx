@@ -3,11 +3,11 @@ import Styled from './FeedRegion.styled';
 import { Text } from '@/components/atoms';
 import { RegionType } from '@/types/region';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import WbSunnyIcon from '@mui/icons-material/WbSunny';
 import SwiperCore, { Pagination } from 'swiper';
 
 import 'swiper/swiper-bundle.min.css';
 import 'swiper/swiper.min.css';
+import { Weather } from '@/components/molecules';
 
 SwiperCore.use([Pagination]);
 
@@ -15,7 +15,7 @@ interface Props {
   interestRegions: RegionType[];
 }
 
-const RegionFilter: FunctionComponent<Props> = ({ interestRegions }) => {
+const FeedRegion: FunctionComponent<Props> = ({ interestRegions }) => {
   return (
     <Swiper
       direction="vertical"
@@ -30,10 +30,7 @@ const RegionFilter: FunctionComponent<Props> = ({ interestRegions }) => {
         <SwiperSlide key={region.no}>
           <Styled.SwiperSlideContainer>
             <Text value={region.regionName} />
-            <Styled.WeatherArea>
-              <WbSunnyIcon />
-              <Text value={region.temperature} />
-            </Styled.WeatherArea>
+            <Weather weather="맑음" temperature={region.temperature} />
           </Styled.SwiperSlideContainer>
         </SwiperSlide>
       ))}

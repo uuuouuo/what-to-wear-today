@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { Heading as BaseHeading } from '@/components/atoms';
 
-const Header = styled.div`
+const Header = styled.header`
   display: flex;
   flex-flow: row nowrap;
   justify-content: space-between;

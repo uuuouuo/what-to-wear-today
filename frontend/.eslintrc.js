@@ -19,6 +19,7 @@ module.exports = {
     'react/prop-types': 0,
     'import/order': 'off',
     'react/function-component-definition': 'off',
+    'no-nested-ternary': 'off',
   },
   settings: {
     'import/resolver': {

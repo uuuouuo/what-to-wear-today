@@ -7,14 +7,4 @@ const SwiperSlideContainer = styled.div`
   padding: 2vh;
 `;
 
-const WeatherArea = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-
-  & span {
-    margin-left: 2vw;
-  }
-`;
-
-export default { SwiperSlideContainer, WeatherArea };
+export default { SwiperSlideContainer };

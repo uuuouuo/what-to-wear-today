@@ -15,21 +15,21 @@ const ProfileContainer = styled.div`
   /* margin: 5vh; */
 `;
 
-const rowContainer = styled.div`
+const RowContainer = styled.div`
   display: flex;
   justify-content: space-around;
   align-items: center;
   width: 100%;
 `;
 
-const columnContainer = styled.div`
+const ColumnContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 100%;
 `;
 
-const contentContainer = styled.div`
+const ContentContainer = styled.div`
   margin-top: 25px;
   display: flex;
   flex-direction: column;
@@ -37,4 +37,4 @@ const contentContainer = styled.div`
   width: 100%;
 `;
 
-export default { MainContainer, ProfileContainer, rowContainer, columnContainer, contentContainer };
+export default { MainContainer, ProfileContainer, RowContainer, ColumnContainer, ContentContainer };

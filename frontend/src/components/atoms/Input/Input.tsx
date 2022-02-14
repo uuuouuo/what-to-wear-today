@@ -4,7 +4,7 @@ import Styled from './Input.styled';
 interface Props {
   className?: string;
   placeholder?: string;
-  value: string;
+  value: string | number | Date;
   type?: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }

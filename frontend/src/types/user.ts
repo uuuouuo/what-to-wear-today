@@ -1,9 +1,9 @@
 interface UserType {
-  _user_no: string;
+  no: string;
   id: string;
   password: string | undefined;
   platform: number;
-  age_range: string | undefined;
+  ageRange: string | undefined;
   gender: boolean | undefined;
 }
 

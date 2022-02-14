@@ -4,25 +4,27 @@ import Router from 'next/router';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
 
-import Styled from './Feed.styled';
+import Styled from './FeedDetail.styled';
 import { Text, FooterContainer } from '@/components/atoms';
-import { ArticleImage, UserProfileWithNickname } from '@/components/molecules';
+import { ArticleImage, FeedHeader } from '@/components/molecules';
 import { FeedType } from '@/types/feed';
 
 interface Props {
   feed: FeedType;
 }
 
-const Feed: FunctionComponent<Props> = ({ feed }) => {
+const FeedDetail: FunctionComponent<Props> = ({ feed }) => {
   const moveFeedDetail = (e: React.MouseEvent) => {
     Router.push(`feed/${feed.no}`);
   };
   return (
-    <Styled.Feed onClick={moveFeedDetail}>
-      <Styled.FeedHeader>
-        <UserProfileWithNickname user={feed.user} />
-        <Text value={feed.createdAt.toLocaleDateString()} />
-      </Styled.FeedHeader>
+    <Styled.FeedDetail>
+      <FeedHeader
+        user={feed.user}
+        createdAt={feed.createdAt}
+        weather={feed.weather}
+        temperature={-3}
+      />
 
       {feed.images ? <ArticleImage images={feed.images} /> : <></>}
 
@@ -46,8 +48,8 @@ const Feed: FunctionComponent<Props> = ({ feed }) => {
           <FavoriteBorderIcon />
         </Styled.Button>
       </FooterContainer>
-    </Styled.Feed>
+    </Styled.FeedDetail>
   );
 };
 
-export default Feed;
+export default FeedDetail;

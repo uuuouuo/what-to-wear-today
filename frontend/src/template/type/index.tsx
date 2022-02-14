@@ -31,7 +31,7 @@ const questions: TypeType[][] = [
   ],
 ];
 
-const Type: NextPage = () => {
+const TypeTemplate: NextPage = () => {
   const QUESTIONS = questions.length;
   const [idx, setIdx] = useState(0);
   const [question, setQuestion] = useState(questions[idx]);
@@ -60,6 +60,7 @@ const Type: NextPage = () => {
         {question.map((type) => {
           return (
             <Styled.CheckInputFormGroup
+              key={type._type_no}
               value={type.constitution}
               type="radio"
               checked={value === type.constitution}
@@ -89,4 +90,4 @@ const Type: NextPage = () => {
   );
 };
 
-export default Type;
+export default TypeTemplate;

@@ -3,7 +3,7 @@ import type { NextPage } from 'next';
 import { Image, FooterContainer } from '@/components/atoms';
 import Styled from './styled';
 
-const Login: NextPage = () => {
+const LoginTemplate: NextPage = () => {
   return (
     <Styled.MainContainer>
       <Styled.Heading level={1}>
@@ -17,4 +17,4 @@ const Login: NextPage = () => {
   );
 };
 
-export default Login;
+export default LoginTemplate;

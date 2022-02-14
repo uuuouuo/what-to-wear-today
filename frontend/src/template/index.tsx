@@ -2,7 +2,8 @@ import React from 'react';
 import Styled from './styled';
 import type { NextPage } from 'next';
 
-import { Header, FeedRegion, TabMenu, FooterNavbar, Feed } from '@/components/molecules';
+import { Header, FeedRegion, TabMenu, FooterNavbar } from '@/components/molecules';
+import { Feed } from '@/components/organisms';
 import { RegionType } from 'types/region';
 
 const interestRegions: RegionType[] = [
@@ -68,7 +69,7 @@ const Home: NextPage = () => {
       </Styled.FeedNavbar>
       <Styled.FeedContent>
         {feeds.map((feed) => (
-          <Feed feed={feed} />
+          <Feed key={feed.no} feed={feed} />
         ))}
       </Styled.FeedContent>
       <FooterNavbar />

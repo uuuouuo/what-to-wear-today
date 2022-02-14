@@ -10,10 +10,7 @@ import com.ssafy.websns.model.dto.feed.FeedDto.UpdateRes;
 import com.ssafy.websns.service.feed.CommentService;
 import com.ssafy.websns.service.feed.FeedService;
 import java.util.List;
-<<<<<<< HEAD
-=======
 import lombok.Data;
->>>>>>> 0245625ad8b79b22b0626e1f9520a29739014d14
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;

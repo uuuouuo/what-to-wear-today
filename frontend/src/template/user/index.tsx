@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import type { NextPage } from 'next';
 
 import Styled from './styled';
-import { Title } from '@/components/molecules';
+import { FooterNavbar, Title } from '@/components/molecules';
 import { Label, Button, Text } from '@/components/atoms';
 import Avatar from '@mui/material/Avatar';
 import SettingsIcon from '@mui/icons-material/Settings';
@@ -11,8 +11,8 @@ import Box from '@mui/material/Box';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 
-import FollowingModal from 'components/molecules/FollowingModal/FollowingModal';
-import DrawerMenu from 'components/DrawerMenu/DrawerMenu';
+// import FollowingModal from 'components/molecules/FollowingModal/FollowingModal';
+// import DrawerMenu from 'components/DrawerMenu/DrawerMenu';
 
 import MypageFeeds from '@/components/MypageFeeds/MypageFeeds';
 import MypageComments from '@/components/MypageComments/MypageComments';
@@ -21,7 +21,7 @@ interface Props {
   userId: string;
 }
 
-const User: NextPage<Props> = ({ userId }) => {
+const UserTemplate: NextPage<Props> = ({ userId }) => {
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
@@ -36,11 +36,11 @@ const User: NextPage<Props> = ({ userId }) => {
   return (
     <Styled.MainContainer>
       <Title value="Profile" />
-      <DrawerMenu userId={userId} />
+      {/* <DrawerMenu userId={userId} /> */}
       <Styled.ProfileContainer>
         <Avatar src="/images/icon/blank_user.png" sx={{ width: 100, height: 100 }} />
-        <Styled.columnContainer>
-          <Styled.rowContainer>
+        <Styled.ColumnContainer>
+          <Styled.RowContainer>
             <Label>{userId}</Label>
             {Number(userId) === 1 ? (
               <Button onClick={modifyProfile}>
@@ -51,31 +51,32 @@ const User: NextPage<Props> = ({ userId }) => {
                 <Text value="Follow" />
               </Button>
             )}
-          </Styled.rowContainer>
-          <Styled.rowContainer>
+          </Styled.RowContainer>
+          <Styled.RowContainer>
             <Label>더위를 잘 타는 타입</Label>
-          </Styled.rowContainer>
-          <Styled.rowContainer>
-            <FollowingModal title="팔로워" />
-            <FollowingModal title="팔로잉" />
-          </Styled.rowContainer>
-        </Styled.columnContainer>
+          </Styled.RowContainer>
+          <Styled.RowContainer>
+            {/* <FollowingModal title="팔로워" /> */}
+            {/* <FollowingModal title="팔로잉" /> */}
+          </Styled.RowContainer>
+        </Styled.ColumnContainer>
       </Styled.ProfileContainer>
-      <Styled.rowContainer>
+      <Styled.RowContainer>
         <Box sx={{ width: '100%', bgcolor: 'background.paper' }}>
           <Tabs value={value} onChange={handleChange} centered>
             <Tab label="Feeds" />
             <Tab label="Comments" />
           </Tabs>
         </Box>
-      </Styled.rowContainer>
-      <Styled.contentContainer />
-      <Styled.contentContainer>
+      </Styled.RowContainer>
+      <Styled.ContentContainer />
+      <Styled.ContentContainer>
         {value === 0 && userId !== undefined ? <MypageFeeds userId={userId} /> : null}
         {value === 1 && userId !== undefined ? <MypageComments userId={userId} /> : null}
-      </Styled.contentContainer>
+      </Styled.ContentContainer>
+      <FooterNavbar />
     </Styled.MainContainer>
   );
 };
 
-export default User;
+export default UserTemplate;

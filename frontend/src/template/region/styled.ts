@@ -41,11 +41,11 @@ const RegionBox = styled.div`
   border-radius: 5px;
 `;
 
-const columnContainer = styled.div`
+const ColumnContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 100%;
 `;
 
-export default { MainContainer, FormGroup, SearchContainer, Button, RegionBox, columnContainer };
+export default { MainContainer, FormGroup, SearchContainer, Button, RegionBox, ColumnContainer };

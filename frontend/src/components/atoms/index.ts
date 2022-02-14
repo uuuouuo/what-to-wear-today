@@ -10,6 +10,7 @@ import Label from './Label/Label';
 import MainContainer from './MainContainer/MainContainer';
 import Text from './Text/Text';
 import Textarea from './Textarea/Textarea';
+import Toggle from './Toggle/Toggle';
 
 export {
   Button,
@@ -24,4 +25,5 @@ export {
   MainContainer,
   Text,
   Textarea,
+  Toggle,
 };

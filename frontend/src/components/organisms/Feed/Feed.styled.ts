@@ -12,15 +12,6 @@ const Feed = styled.div`
   filter: drop-shadow(0px 50px 25px rgba(0, 0, 0, 0.15));
 `;
 
-const FeedHeader = styled.div`
-  display: flex;
-  flex-flow: row nowrap;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  padding: 1vh;
-`;
-
 const FeedContent = styled.div`
   width: 100%;
   text-align: left;
@@ -40,7 +31,6 @@ const Button = styled(BaseButton)`
 
 export default {
   Feed,
-  FeedHeader,
   FeedContent,
   Button,
 };

@@ -1,45 +1,35 @@
 import styled from '@emotion/styled';
 
-const NotificationContainer = styled.div`
-  display: flex;
-  flex-flow: column nowrap;
-  align-items: center;
-  overflow: auto;
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
-  &::-webkit-scrollbar {
-    display: none; /* Chrome, Safari, Opera*/
-  }
-`;
-
-const UserImageContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: gray;
-`;
-
 const Notification = styled.div`
+  filter: drop-shadow(0px 20px 10px rgba(0, 0, 0, 0.15));
+  background-color: #ffffff;
   display: flex;
-  flex-flow: row nowrap;
+  padding: 2vh 2vw;
+  width: 100%;
   justify-content: space-between;
-  margin: 0.5vh 0;
+  align-items: center;
+  margin: 0 3.5vh 3.5vh;
 `;
 
 const ContentContainer = styled.div`
   display: flex;
   flex-flow: column nowrap;
-  justify-content: space-between;
+  flex: 1;
+  margin-left: 1vh;
 `;
 
 const UserName = styled.a`
   font-weight: bold;
 `;
 
+const Content = styled.div`
+  margin-top: 1vh;
+  color: #888;
+`;
+
 export default {
-  NotificationContainer,
-  UserImageContainer,
   Notification,
   ContentContainer,
   UserName,
+  Content,
 };

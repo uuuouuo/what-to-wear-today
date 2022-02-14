@@ -1,35 +1,25 @@
-import React from 'react';
+import React, { FunctionComponent } from 'react';
 import Styled from './styled';
 import type { NextPage } from 'next';
 import type { RootState } from '@/reducers';
 import { useSelector } from 'react-redux';
 import Link from '@mui/material/Link';
-import { Header, FooterNavbar } from '@/components/molecules';
-// import CommentPage from '@/components/CommentPage/CommentPage';
-import Dropdown from 'components/atoms/Dropdown/Dropdown';
-import ReportForm from 'components/molecules/ReportForm/ReportForm';
+import { Header, FooterNavbar, Comment } from '@/components/molecules';
 
-import {
-  UserImage,
-  UserName,
-  UserId,
-  HashTag,
-  ArticleContent,
-  ArticleDate,
-} from '@/components/atoms';
+import { FeedDetail } from '@/components/organisms';
 
 interface Props {
   feedNo: number;
 }
 
-const FeedDetail: NextPage<Props> = ({ feedNo }) => {
+const FeedDetailTemplate: NextPage<Props> = ({ feedNo }) => {
   const { feed } = useSelector((state: RootState) => state.feed);
 
   return (
-    <Styled.DetailPageLayout>
+    <Styled.MainContainer>
       <Header name="오늘 뭐 입지?" leftSide="pointer" rightSide="notification" />
-      <Styled.TopArea>
-        <Styled.ArticleArea>
+      {/* <Styled.TopArea> */}
+      {/* <Styled.ArticleArea>
           <Styled.UserInfoArea>
             <Link href="/feed/1" underline="none" sx={{ color: 'black' }}>
               <UserImage />
@@ -54,10 +44,18 @@ const FeedDetail: NextPage<Props> = ({ feedNo }) => {
           </Styled.DateLine>
         </Styled.ArticleContent>
       </Styled.TopArea>
-      {/* <CommentPage /> */}
+      <CommentPage /> */}
+      <Styled.ArticleArea>
+        <FeedDetail feed={feed} />
+        <div>
+          {/* {comments.map((comment) => (
+            <Comment key={comment.no} comment={comment} />
+          ))} */}
+        </div>
+      </Styled.ArticleArea>
       <FooterNavbar />
-    </Styled.DetailPageLayout>
+    </Styled.MainContainer>
   );
 };
 
-export default FeedDetail;
+export default FeedDetailTemplate;

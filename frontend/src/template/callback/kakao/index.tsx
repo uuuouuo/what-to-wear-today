@@ -13,7 +13,7 @@ interface Props {
   code: string | string[] | undefined;
 }
 
-const Kakao: NextPage<Props> = ({ code }) => {
+const KakaoTemplate: NextPage<Props> = ({ code }) => {
   const { myInfo } = useSelector((state: RootState) => state.user);
   const [open, , openModal, closeModal] = useDisplay(false);
   useEffect(() => {
@@ -53,4 +53,4 @@ const Kakao: NextPage<Props> = ({ code }) => {
   );
 };
 
-export default Kakao;
+export default KakaoTemplate;
