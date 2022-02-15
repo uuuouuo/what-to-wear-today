@@ -27,6 +27,18 @@ interface StateType {
   loadFeedLoading: boolean;
   loadFeedDone: boolean;
   loadFeedError: Error | null;
+  loadFeedsLoading: boolean;
+  loadFeedsDone: boolean;
+  loadFeedsError: Error | null;
+  updateFeedUpdating: boolean;
+  updateFeedDone: boolean;
+  updateFeedError: Error | null;
+  createFeedCreating: boolean;
+  createFeedDone: boolean;
+  createFeedError: Error | null;
+  deleteFeedDeleting: boolean;
+  deleteFeedDone: boolean;
+  deleteFeedError: Error | null;
 }
 
 export type { FeedType, FeedRequestType, StateType };
