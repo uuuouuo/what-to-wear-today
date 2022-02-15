@@ -49,11 +49,9 @@ public class UserProfileDto {
   public static class UserProfileReq {
 
     String nickname;
-    String profileImg;
 
-    public UserProfileReq(String nickname, String profileImg) {
+    public UserProfileReq(String nickname) {
       this.nickname = nickname;
-      this.profileImg = profileImg;
     }
   }
 

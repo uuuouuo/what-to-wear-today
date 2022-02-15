@@ -24,11 +24,11 @@ public class LikePerson {
   private Integer no;
 
   @ManyToOne(fetch = LAZY)
-  @JoinColumn
+  @JoinColumn(name = "USER_NO")
   private User user;
 
   @ManyToOne(fetch = LAZY)
-  @JoinColumn
+  @JoinColumn(name = "FEED_NO")
   private Feed feed;
 
   public void createLikePerson(User user, Feed feed) {

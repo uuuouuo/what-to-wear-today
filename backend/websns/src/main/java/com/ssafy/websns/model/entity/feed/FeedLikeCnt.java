@@ -28,4 +28,16 @@ public class FeedLikeCnt {
 
   private Integer likeCnt;
 
+  public void createFeedLikeCnt(Feed feed) {
+    this.feed = feed;
+    this.likeCnt = 0;
+  }
+
+  public void increaseFeedLikeCnt() {
+    this.likeCnt++;
+  }
+
+  public void decreaseFeedLikeCnt() {
+    this.likeCnt--;
+  }
 }

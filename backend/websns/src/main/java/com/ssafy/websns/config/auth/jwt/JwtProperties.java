@@ -1,4 +1,4 @@
-package com.ssafy.websns.config.jwt;
+package com.ssafy.websns.config.auth.jwt;
 
 public interface JwtProperties {
   String SECRET = "Quokkacola";

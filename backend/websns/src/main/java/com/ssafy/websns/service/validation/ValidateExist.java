@@ -1,10 +1,13 @@
 package com.ssafy.websns.service.validation;
 
+import com.ssafy.websns.model.dto.feed.CommentDto.CommentRes;
 import com.ssafy.websns.model.entity.feed.Comment;
 import com.ssafy.websns.model.entity.feed.Feed;
 import com.ssafy.websns.model.entity.feed.FeedTag;
 import com.ssafy.websns.model.entity.feed.Image;
+import com.ssafy.websns.model.entity.feed.LikePerson;
 import com.ssafy.websns.model.entity.feed.Tag;
+import com.ssafy.websns.model.entity.interest.Interest;
 import com.ssafy.websns.model.entity.type.Type;
 import com.ssafy.websns.model.entity.user.User;
 import com.ssafy.websns.model.entity.user.UserProfile;
@@ -50,6 +53,17 @@ public class ValidateExist {
 
   }
 
+  public LikePerson findLike(Optional<LikePerson> optional) {
+
+    LikePerson likePerson;
+    if (optional.isPresent()) {
+      likePerson = optional.get();
+    } else {
+      throw new IllegalStateException("존재하지 않은 좋아요입니다.");
+    }
+    return likePerson;
+  }
+
   public Tag findTag(Optional<Tag> optional) {
 
     Tag tag;
@@ -60,6 +74,7 @@ public class ValidateExist {
     } else {
       return null;
     }
+
 
   }
 
@@ -86,6 +101,20 @@ public class ValidateExist {
     }
 
     return type;
+
+  }
+
+  public Interest findInterest(Optional<Interest> optional) {
+
+    Interest interest = null;
+
+    if(optional.isPresent()) {
+      interest = optional.get();
+    } else {
+      throw new IllegalStateException("존재하지 않은 관심사입니다.");
+    }
+
+    return interest;
 
   }
 

@@ -1,4 +1,4 @@
-package com.ssafy.websns.config.jwt;
+package com.ssafy.websns.config.auth.jwt;
 
 import com.auth0.jwt.exceptions.SignatureVerificationException;
 import com.auth0.jwt.exceptions.TokenExpiredException;
