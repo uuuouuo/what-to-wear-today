@@ -15,9 +15,18 @@ interface Props {
 }
 
 const FeedDetail: FunctionComponent<Props> = ({ feed }) => {
-  const moveFeedDetail = (e: React.MouseEvent) => {
-    Router.push(`feed/${feed.no}`);
-  };
+  const currentUrl = window.location.href;
+  const parseUrl = `http://localhost:3000/feed/${feed}`;
+  if (currentUrl === parseUrl) {
+    const moveFeedDetail = (e: React.MouseEvent) => {
+      e.preventDefault();
+    };
+  } else {
+    const moveFeedDetail = (e: React.MouseEvent) => {
+      Router.push(`feed/${feed.no}`);
+    };
+  }
+
   return (
     <Styled.FeedDetail>
       <FeedHeader
