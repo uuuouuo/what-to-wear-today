@@ -27,7 +27,6 @@ const authApi = authInstance();
 function* createComment(action: any) {
   try {
     const result: Promise<AxiosResponse<CommentType[]>> = yield call(createCommentsAPI, action);
-    console.log('sagaa!!!', result);
     yield put({
       type: CREATE_COMMENT_SUCCESS,
       data: result.data,
@@ -74,6 +73,7 @@ function loadCommentsAPI(feedNo: number): Promise<AxiosResponse<CommentType[]>> 
 function* updateComment(action: any) {
   try {
     const result: Promise<AxiosResponse<CommentType[]>> = yield call(updateCommentsAPI, action);
+    console.log('result!!!', result);
     yield put({
       type: UPDATE_COMMENT_SUCCESS,
       data: result.data,

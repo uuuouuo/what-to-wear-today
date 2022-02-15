@@ -16,7 +16,7 @@ import {
   DELETE_FEED_FAILURE,
 } from '@/action/feedAction';
 import { FeedType } from '@/types/feed';
-import { LOAD_COMMENTS_SUCCESS } from '@/action/commentAction';
+import { LOAD_COMMENTS_SUCCESS } from '@/action/CommentAction';
 
 const api = apiInstance();
 const authApi = authInstance();
@@ -24,6 +24,7 @@ const authApi = authInstance();
 //CREATE//
 
 function* createFeed(action: any) {
+  console.log('사가스 피드 생성 액션', action);
   try {
     const result: Promise<AxiosResponse<FeedType>> = yield call(createFeedAPI, action);
     yield put({

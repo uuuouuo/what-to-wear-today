@@ -1,13 +1,18 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import Styled from './styled';
 import type { NextPage } from 'next';
 import axios from 'axios';
 import type { RootState } from '@/reducers';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { LOAD_FEEDS_REQUEST } from '@/action/feedsAction';
+
+// key값 env에 넣기
+import { KAKAO_MAP_APIKEY } from '@/config';
 
 import { Header, FeedRegion, TabMenu, FooterNavbar } from '@/components/molecules';
 import { Feed } from '@/components/organisms';
 import { RegionType } from 'types/region';
+import { END } from 'redux-saga';
 
 const interestRegions: RegionType[] = [
   { no: 1, regionName: 'seoul', weather: '맑음' },
@@ -17,94 +22,12 @@ const interestRegions: RegionType[] = [
   { no: 5, regionName: 'busan', weather: '맑음' },
 ];
 
-const feeds = [
-  {
-    no: 1,
-    user: {
-      no: 'a123456789',
-      userId: 'ssafy',
-      nickName: '장다빈',
-      profileImage: 'images/icon/blank_user.png',
-    },
-    content: '히히히ㅣㅎ #따뜻 #패딩 히히히힣',
-    createdAt: '2022-02-09',
-    photoDate: '2020-02-09',
-    weather: '맑음',
-    privateMode: false,
-    images: [
-      {
-        no: 1,
-        imgUrl: '/images/profileIMG/sample.jpg',
-        feedNo: 1,
-      },
-      {
-        no: 2,
-        imgUrl:
-          'https://images.unsplash.com/photo-1538032746644-0212e812a9e7?auto=format&fit=crop&w=400&h=250&q=60',
-        feedNo: 1,
-      },
-    ],
-  },
-  {
-    no: 2,
-    user: {
-      no: 'a123456789',
-      userId: 'ssafy',
-      nickName: '장다빈',
-      profileImage: 'images/icon/blank_user.png',
-    },
-    content: '히히히ㅣㅎ #따뜻 #패딩 히히히힣',
-    createdAt: '2022-02-09',
-    photoDate: '2020-02-09',
-    weather: '맑음',
-    privateMode: false,
-  },
-  {
-    no: 3,
-    user: {
-      no: 'a123456789',
-      userId: 'ssafy',
-      nickName: '장다빈',
-      profileImage: 'images/icon/blank_user.png',
-    },
-    content: '히히히ㅣㅎ #따뜻 #패딩 히히히힣',
-    createdAt: '2022-02-09',
-    photoDate: '2020-02-09',
-    weather: '맑음',
-    privateMode: false,
-  },
-  {
-    no: 4,
-    user: {
-      no: 'a123456789',
-      userId: 'ssafy',
-      nickName: '장다빈',
-      profileImage: 'images/icon/blank_user.png',
-    },
-    content: '히히히ㅣㅎ #따뜻 #패딩 히히히힣',
-    createdAt: '2022-02-09',
-    photoDate: '2020-02-09',
-    weather: '맑음',
-    privateMode: false,
-  },
-  {
-    no: 5,
-    user: {
-      no: 'a123456789',
-      userId: 'ssafy',
-      nickName: '장다빈',
-      profileImage: 'images/icon/blank_user.png',
-    },
-    content: '히히히ㅣㅎ #따뜻 #패딩 히히히힣',
-    createdAt: '2022-02-09',
-    photoDate: '2020-02-09',
-    weather: '맑음',
-    privateMode: false,
-  },
-];
-
 const Home: NextPage = () => {
-  // const { feeds } = useSelector((state: RootState) => state.feeds);
+  const dispatch = useDispatch();
+  const { feeds, loadFeedsLoading, loadFeedsDone } = useSelector((state: RootState) => state.feeds);
+  const [pageNum, setPageNum] = useState(2);
+  const viewport = useRef(null);
+  const target = useRef(null);
 
   useEffect(() => {
     if (navigator) {
@@ -115,14 +38,49 @@ const Home: NextPage = () => {
           method: 'get',
           url: `https://dapi.kakao.com/v2/local/geo/coord2regioncode.json?x=${longitude}&y=${latitude}`,
           headers: {
-            Authorization: 'KakaoAK 39e2904a8ec248d9db91d79d53358ab1',
-            // 키 옮기기!
+            Authorization: `${KAKAO_MAP_APIKEY}`,
           },
-        });
-        // .then((response) => console.log(response))
+        }).then((response) => console.log(response.data.documents[1].address_name));
       });
     }
-  });
+  }, []);
+
+  useEffect(() => {
+    const options = {
+      root: viewport.current,
+      threshold: 0.5,
+    };
+
+    const handleIntersection: IntersectionObserverCallback = (entries, observer) => {
+      entries.forEach((entry) => {
+        if (entry.intersectionRatio > 0.6) {
+          return;
+        }
+
+        if (!entry.isIntersecting && !loadFeedsLoading) {
+          return;
+        }
+        if (!loadFeedsLoading) {
+          dispatch({
+            type: LOAD_FEEDS_REQUEST,
+            regionNo: pageNum,
+          });
+          // 지역 값 설정 로직 작성 필요
+          setPageNum(pageNum + 1);
+          observer.unobserve(entry.target);
+          return;
+        }
+      });
+    };
+
+    const io = new IntersectionObserver(handleIntersection, options);
+
+    if (target.current) {
+      io.observe(target.current);
+    }
+
+    return () => io && io.disconnect();
+  }, [viewport, target, loadFeedsLoading, feeds]);
 
   return (
     <Styled.MainContainer>
@@ -130,12 +88,17 @@ const Home: NextPage = () => {
 
       <Styled.FeedNavbar>
         <FeedRegion interestRegions={interestRegions} />
-        {/* <TabMenu tabList={['추천순', '인기순', '좋아요순', '최신순']} /> */}
+        <TabMenu tabList={['추천순', '인기순', '좋아요순', '최신순']} />
       </Styled.FeedNavbar>
-      <Styled.FeedContent>
-        {feeds.map((feed) => (
-          <Feed key={feed.no} feed={feed} />
-        ))}
+      <Styled.FeedContent ref={viewport}>
+        {feeds.map((feed, idx) => {
+          const lastEl = idx === feeds.length - 1;
+          return (
+            <div ref={lastEl ? target : null}>
+              <Feed key={feed.no} feed={feed} />;
+            </div>
+          );
+        })}
       </Styled.FeedContent>
       <FooterNavbar />
     </Styled.MainContainer>

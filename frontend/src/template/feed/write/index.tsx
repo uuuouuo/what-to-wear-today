@@ -23,10 +23,10 @@ const FeedWriteTemplate: NextPage = () => {
   const [temperature, , onTemperatureChange] = useChange('');
 
   const createFeedAction = (e: React.MouseEvent) => {
-    dispatch(createFeedRequest(value, files, date, privateMode, region, temperature, display));
+    dispatch(createFeedRequest(value, files, date, privateMode, region, temperature));
   };
 
-  const onChangeDate = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const onChangeDate = (e: React.ChangeEvent<HTMLInputElement>) => {
     setDate(e.target.value);
   };
 

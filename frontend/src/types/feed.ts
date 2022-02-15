@@ -27,9 +27,6 @@ interface StateType {
   loadFeedLoading: boolean;
   loadFeedDone: boolean;
   loadFeedError: Error | null;
-  loadFeedsLoading: boolean;
-  loadFeedsDone: boolean;
-  loadFeedsError: Error | null;
   updateFeedUpdating: boolean;
   updateFeedDone: boolean;
   updateFeedError: Error | null;

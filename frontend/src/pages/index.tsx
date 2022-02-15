@@ -2,7 +2,7 @@ import React from 'react';
 import { NextPage } from 'next';
 import HomeTemplate from '@/template';
 import wrapper from '@/store/configureStore';
-import { loadFeedsRequest } from '@/action/feedAction';
+import { loadFeedsRequest } from '@/action/feedsAction';
 import { END } from 'redux-saga';
 
 const Home: NextPage = () => {
