@@ -94,10 +94,19 @@ public class CommentService {
     Optional<Feed> optional = feedRepository.findByNo(feedNo);
     Feed feed = validateExist.findFeed(optional);
 
-    Optional<List<Comment>> commentOptional = commentRepository.findByFeedAndDeleteModeIsFalse(feed);
-    List<CommentRes> comments = validateExist.findComments(commentOptional);
 
-    return comments;
+    Optional<List<Comment>> commentOptional = commentRepository.findByFeedAndDeleteModeIsFalse(feed);
+    List<Comment> comments = validateExist.findComments(commentOptional);
+
+    List<CommentRes> response = null;
+    comments.stream().forEach(comment -> {
+      Optional<UserProfile> profileOptional = userProfileRepository.findByUser(comment.getUser());
+      UserProfile userProfile = validateExist.findUserProfile(profileOptional);
+      CommentRes commentRes = new CommentRes(userProfile, comment);
+      response.add(commentRes);
+    });
+
+    return response;
 
   }
 
@@ -107,9 +116,17 @@ public class CommentService {
     User user = validateExist.findUser(userOptional);
 
     Optional<List<Comment>> commentOptional = commentRepository.findByUser(user);
-    List<CommentRes> comments = validateExist.findComments(commentOptional);
+    List<Comment> comments = validateExist.findComments(commentOptional);
 
-    return comments;
+    List<CommentRes> response = null;
+    comments.stream().forEach(comment -> {
+      Optional<UserProfile> profileOptional = userProfileRepository.findByUser(user);
+      UserProfile userProfile = validateExist.findUserProfile(profileOptional);
+      CommentRes commentRes = new CommentRes(userProfile, comment);
+      response.add(commentRes);
+    });
+
+    return response;
 
   }
 
