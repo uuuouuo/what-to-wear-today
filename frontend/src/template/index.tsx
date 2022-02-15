@@ -2,6 +2,8 @@ import React, { useEffect } from 'react';
 import Styled from './styled';
 import type { NextPage } from 'next';
 import axios from 'axios';
+import type { RootState } from '@/reducers';
+import { useSelector } from 'react-redux';
 
 import { Header, FeedRegion, TabMenu, FooterNavbar } from '@/components/molecules';
 import { Feed } from '@/components/organisms';
@@ -57,9 +59,53 @@ const feeds = [
     weather: '맑음',
     privateMode: false,
   },
+  {
+    no: 3,
+    user: {
+      no: 'a123456789',
+      userId: 'ssafy',
+      nickName: '장다빈',
+      profileImage: 'images/icon/blank_user.png',
+    },
+    content: '히히히ㅣㅎ #따뜻 #패딩 히히히힣',
+    createdAt: '2022-02-09',
+    photoDate: '2020-02-09',
+    weather: '맑음',
+    privateMode: false,
+  },
+  {
+    no: 4,
+    user: {
+      no: 'a123456789',
+      userId: 'ssafy',
+      nickName: '장다빈',
+      profileImage: 'images/icon/blank_user.png',
+    },
+    content: '히히히ㅣㅎ #따뜻 #패딩 히히히힣',
+    createdAt: '2022-02-09',
+    photoDate: '2020-02-09',
+    weather: '맑음',
+    privateMode: false,
+  },
+  {
+    no: 5,
+    user: {
+      no: 'a123456789',
+      userId: 'ssafy',
+      nickName: '장다빈',
+      profileImage: 'images/icon/blank_user.png',
+    },
+    content: '히히히ㅣㅎ #따뜻 #패딩 히히히힣',
+    createdAt: '2022-02-09',
+    photoDate: '2020-02-09',
+    weather: '맑음',
+    privateMode: false,
+  },
 ];
 
 const Home: NextPage = () => {
+  // const { feeds } = useSelector((state: RootState) => state.feeds);
+
   useEffect(() => {
     if (navigator) {
       navigator.geolocation.getCurrentPosition((position: any) => {
@@ -70,6 +116,7 @@ const Home: NextPage = () => {
           url: `https://dapi.kakao.com/v2/local/geo/coord2regioncode.json?x=${longitude}&y=${latitude}`,
           headers: {
             Authorization: 'KakaoAK 39e2904a8ec248d9db91d79d53358ab1',
+            // 키 옮기기!
           },
         });
         // .then((response) => console.log(response))
@@ -83,7 +130,7 @@ const Home: NextPage = () => {
 
       <Styled.FeedNavbar>
         <FeedRegion interestRegions={interestRegions} />
-        <TabMenu tabList={['추천순', '인기순', '좋아요순', '최신순']} />
+        {/* <TabMenu tabList={['추천순', '인기순', '좋아요순', '최신순']} /> */}
       </Styled.FeedNavbar>
       <Styled.FeedContent>
         {feeds.map((feed) => (
