@@ -100,12 +100,10 @@ public class CommentService {
 
     List<CommentRes> response = null;
     comments.stream().forEach(comment -> {
-      if (comment.getDeleteMode() == false) {
         Optional<UserProfile> profileOptional = userProfileRepository.findByUser(comment.getUser());
         UserProfile userProfile = validateExist.findUserProfile(profileOptional);
         CommentRes commentRes = new CommentRes(userProfile, comment);
         response.add(commentRes);
-      }
     });
 
     return response;
@@ -117,17 +115,15 @@ public class CommentService {
     Optional<User> userOptional = userRepository.findByUserId(userId);
     User user = validateExist.findUser(userOptional);
 
-    Optional<List<Comment>> commentOptional = commentRepository.findByUser(user);
+    Optional<List<Comment>> commentOptional = commentRepository.findByUserAndDeleteModeIsFalse(user);
     List<Comment> comments = validateExist.findComments(commentOptional);
 
     List<CommentRes> response = null;
     comments.stream().forEach(comment -> {
-      if (comment.getDeleteMode() == false) {
         Optional<UserProfile> profileOptional = userProfileRepository.findByUser(user);
         UserProfile userProfile = validateExist.findUserProfile(profileOptional);
         CommentRes commentRes = new CommentRes(userProfile, comment);
         response.add(commentRes);
-      }
     });
 
     return response;
