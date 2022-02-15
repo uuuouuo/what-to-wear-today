@@ -1,6 +1,6 @@
-import { createStore, applyMiddleware, Middleware, StoreEnhancer } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
 import rootReducer from '@/reducers';
-import { MakeStore, createWrapper, Context } from 'next-redux-wrapper';
+import { MakeStore, createWrapper } from 'next-redux-wrapper';
 import createSagaMiddleware from 'redux-saga';
 import rootSaga from '@/sagas';
 import { RootState } from '@/reducers/index';

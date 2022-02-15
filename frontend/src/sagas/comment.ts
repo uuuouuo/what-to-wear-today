@@ -26,21 +26,6 @@ import { CommentType } from '@/types/comment';
 const api = apiInstance();
 const authApi = authInstance();
 
-function* createComment(action: ReturnType<typeof createCommentRequest>) {
-  try {
-    const result = yield call(createCommentsAPI, action);
-    yield put({
-      type: CREATE_COMMENT_SUCCESS,
-      data: result.data,
-    });
-  } catch (err: any) {
-    yield put({
-      type: CREATE_COMMENT_FAILURE,
-      error: err.response,
-    });
-  }
-}
-
 function loadCommentsAPI(feedNo: number): Promise<AxiosResponse<CommentType[]>> {
   return api.get(`/comment/${feedNo}`);
 }
@@ -102,6 +87,21 @@ function* updateComment(action: ReturnType<typeof updateCommentRequest>) {
   } catch (err: any) {
     yield put({
       type: UPDATE_COMMENT_FAILURE,
+      error: err.response,
+    });
+  }
+}
+
+function* createComment(action: ReturnType<typeof createCommentRequest>) {
+  try {
+    const result = yield call(createCommentsAPI, action);
+    yield put({
+      type: CREATE_COMMENT_SUCCESS,
+      data: result.data,
+    });
+  } catch (err: any) {
+    yield put({
+      type: CREATE_COMMENT_FAILURE,
       error: err.response,
     });
   }

@@ -6,7 +6,7 @@ import { CommentType } from '@/types/comment';
 import { useChange, useDisplay } from '@/hooks';
 
 import { useDispatch } from 'react-redux';
-import { deleteCommentRequest, updateCommentRequest } from '@/action/CommentAction';
+import { deleteCommentRequest, updateCommentRequest } from '@/action/commentAction';
 
 interface Props {
   className?: string;

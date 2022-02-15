@@ -28,6 +28,7 @@ function* createFeed(action: any) {
   console.log('사가스 피드 생성 액션', action);
   try {
     const result: Promise<AxiosResponse<FeedType>> = yield call(createFeedAPI, action);
+    console.log('답이온다', result);
     yield put({
       type: CREATE_FEED_SUCCESS,
       data: result,

@@ -11,7 +11,7 @@ import {
   UPDATE_COMMENT_REQUEST,
   UPDATE_COMMENT_SUCCESS,
   UPDATE_COMMENT_FAILURE,
-} from '@/action/CommentAction';
+} from '@/action/commentAction';
 import { StateType } from '@/types/comment';
 
 export const initialState: StateType = {

@@ -14,16 +14,14 @@ export const DELETE_FEED_FAILURE = 'DELETE_FEED_FAILURE';
 export const createFeedRequest = (value, files, date, privateMode, region, temperature) => ({
   type: CREATE_FEED_REQUEST,
   request: {
-    userId: 'a123456789',
+    userId: '도라지',
     content: value,
-    // value: value,
     region: region,
     weather: temperature,
-    // temperature: temperature,
-    files: files,
     photoDate: date,
-    // date: date,
     privateMode: privateMode,
+    tags: [],
+    imageNames: files,
   },
 });
 
@@ -53,14 +51,7 @@ export const loadFeedFailure = () => ({
 
 export const updateFeedRequest = (value, files, date, privateMode, region, temperature) => ({
   type: UPDATE_FEED_REQUEST,
-  request: {
-    content: feedInfo,
-    reg_date: feedInfo,
-    region: feedInfo,
-    weather: feedInfo,
-    private_mode: feedInfo,
-    images: feedInfo,
-  },
+  request: {},
 });
 
 export const updateFeedSuccess = () => ({

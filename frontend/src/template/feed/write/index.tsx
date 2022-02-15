@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import type { NextPage } from 'next';
-import Router from 'next/router';
 import Styled from './styled';
 
 import { MainContainer, Text, Toggle } from 'components/atoms';

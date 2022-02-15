@@ -13,7 +13,7 @@ interface Props {
   feed: FeedType;
 }
 
-const Feed: FunctionComponent<Props> = ({ feed, idx }) => {
+const Feed: FunctionComponent<Props> = ({ feed }) => {
   const moveFeedDetail = (e: React.MouseEvent) => {
     Router.push(`feed/${feed.no}`);
   };

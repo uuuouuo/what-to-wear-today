@@ -47,7 +47,7 @@ const Home: NextPage = () => {
   useEffect(() => {
     const options = {
       root: viewport.current,
-      threshold: 0.5,
+      threshold: 0.3,
     };
 
     const handleIntersection: IntersectionObserverCallback = (entries, observer) => {
