@@ -14,15 +14,23 @@ export const DELETE_FEED_REQUEST = 'DELETE_FEED_REQUEST';
 export const DELETE_FEED_SUCCESS = 'DELETE_FEED_SUCCESS';
 export const DELETE_FEED_FAILURE = 'DELETE_FEED_FAILURE';
 
-export const createFeedRequest = (feedInfo: object) => ({
+export const createFeedRequest = (
+  value,
+  files,
+  date,
+  privateMode,
+  region,
+  temperature,
+  display,
+) => ({
   type: CREATE_FEED_REQUEST,
   request: {
-    content: feedInfo,
-    reg_date: feedInfo,
-    region: feedInfo,
-    weather: feedInfo,
-    private_mode: feedInfo,
-    images: feedInfo,
+    // content: feedInfo,
+    // reg_date: feedInfo,
+    // region: feedInfo,
+    // weather: feedInfo,
+    // private_mode: feedInfo,
+    // images: feedInfo,
   },
 });
 

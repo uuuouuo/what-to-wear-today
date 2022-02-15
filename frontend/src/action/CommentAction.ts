@@ -11,8 +11,9 @@ export const DELETE_COMMENT_REQUEST = 'DELETE_COMMENT_REQUEST';
 export const DELETE_COMMENT_SUCCESS = 'DELETE_COMMENT_SUCCESS';
 export const DELETE_COMMENT_FAILURE = 'DELETE_COMMENT_FAILURE';
 
-export const createCommentRequest = (content: string, feed: any) => ({
+export const createCommentRequest = (content: string, feedNo: any) => ({
   type: CREATE_COMMENT_REQUEST,
+  feedNo: feedNo,
   request: {
     userId: 'jdb',
     parent: -1,
