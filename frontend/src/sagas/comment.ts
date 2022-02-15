@@ -15,7 +15,7 @@ import {
   DELETE_COMMENT_REQUEST,
   DELETE_COMMENT_SUCCESS,
   DELETE_COMMENT_FAILURE,
-} from 'action/commentAction';
+} from '@/action/CommentAction';
 
 import { CommentType } from '@/types/comment';
 
@@ -27,6 +27,7 @@ const authApi = authInstance();
 function* createComment(action: any) {
   try {
     const result: Promise<AxiosResponse<CommentType[]>> = yield call(createCommentsAPI, action);
+    console.log('sagaa!!!', result);
     yield put({
       type: CREATE_COMMENT_SUCCESS,
       data: result.data,
@@ -75,7 +76,7 @@ function* updateComment(action: any) {
     const result: Promise<AxiosResponse<CommentType[]>> = yield call(updateCommentsAPI, action);
     yield put({
       type: UPDATE_COMMENT_SUCCESS,
-      data: result,
+      data: result.data,
     });
   } catch (err: any) {
     yield put({
