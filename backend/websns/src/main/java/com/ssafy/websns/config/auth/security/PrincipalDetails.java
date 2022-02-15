@@ -1,4 +1,4 @@
-package com.ssafy.websns.config.auth;
+package com.ssafy.websns.config.auth.security;
 
 import com.ssafy.websns.model.entity.user.User;
 import java.util.Collection;

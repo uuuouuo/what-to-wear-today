@@ -7,6 +7,7 @@ import com.ssafy.websns.weather.WeatherDto;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequiredArgsConstructor
 @CrossOrigin(origins = "http://localhost:3000")
-public class WeatherController {
+public class ApiController {
 
   private final RegionRepository regionRepository;
 
@@ -28,11 +29,11 @@ public class WeatherController {
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.M.d.HH:mm");
     LocalDateTime dateTime = LocalDateTime.parse(date, formatter);
 
-    List<Region> regionList = regionRepository.findByRegionNameContaining(region);
+    Region regionList = regionRepository.findByRegionName(region);
 
     Weather weather = null;
     if(regionList != null){
-      Region region1 = regionList.get(0);
+      Region region1 = regionList;
       WeatherDto weatherDto = new WeatherDto(dateTime,region1.getPointCode());
       weather = weatherDto.crawling();
     }
@@ -44,5 +45,13 @@ public class WeatherController {
 
   }
 
+  @GetMapping("/region")
+  public ResponseEntity<List<String>> region(){
+    List<Region> regions = regionRepository.findBy();
+    List<String> regionNames = regions.stream().map(region -> region.getRegionName())
+        .collect(Collectors.toList());
+
+    return new ResponseEntity<>(regionNames,HttpStatus.OK);
+  }
 
 }

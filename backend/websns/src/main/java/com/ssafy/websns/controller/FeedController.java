@@ -53,7 +53,7 @@ public class FeedController {
   }
 
   @PutMapping("/{feedNo}")
-  public ResponseEntity<UpdateRes> updateFeed(@PathVariable("feedNo")Integer feedNo,
+  public ResponseEntity<UpdateRes> updateFeed(@PathVariable("feedNo") Integer feedNo,
       @RequestBody UpdateReq request) {
 
     UpdateRes response = feedService.editFeed(feedNo, request);
@@ -62,14 +62,14 @@ public class FeedController {
   }
 
   @DeleteMapping("/{feedNo}")
-  public void deleteFeed(@PathVariable("feedNo")Integer feedNo) {
+  public void deleteFeed(@PathVariable("feedNo") Integer feedNo) {
 
     feedService.cancelFeed(feedNo);
 
   }
 
   @GetMapping("/{regionNo}")
-  public ResponseEntity<Page<FeedRes>> findFeedsByRegion(@PathVariable("regionNo")Integer regionNo, @PageableDefault(size = 20) Pageable pageable) {
+  public ResponseEntity<Page<FeedRes>> findFeedsByRegion(@PathVariable("regionNo") Integer regionNo, @PageableDefault(size = 20) Pageable pageable) {
 
     List<FeedRes> feeds = feedService.showFeedsByRegion(regionNo, pageable);
     Page<FeedRes> pageRes = new PageImpl<>(feeds, pageable, feeds.size());
@@ -79,9 +79,9 @@ public class FeedController {
   }
 
   @GetMapping("/details/{feedNo}")
-  public ResponseEntity<FeedDetailRes> showFeedByNo(@PathVariable("feedNo")Integer feedNo) {
+  public ResponseEntity<FeedDetailRes> showFeedByNo(@PathVariable("feedNo") Integer feedNo) {
 
-    FeedRes feed = feedService.searchFeedByNo(feedNo);
+    FeedRes feed = feedService.showFeedDetailByNo(feedNo);
     List<CommentRes> comments = commentService.searchComments(feedNo);
 
     FeedDetailRes feedDetails = new FeedDetailRes(feed,comments);
@@ -100,3 +100,4 @@ public class FeedController {
   }
 
 }
+
