@@ -24,12 +24,25 @@ public class FollowDto {
   @Getter
   public static class FollowRes {
 
-    private UserFollowCnt FollowerUser;
-    private UserFollowCnt FollowingUser;
+    private UserFollowCnt followerUser;
+    private UserFollowCnt followingUser;
 
-    public FollowRes(UserFollowCnt FollowerUser, UserFollowCnt FollowingUser) {
-      this.FollowerUser = FollowerUser;
-      this.FollowingUser = FollowingUser;
+    public FollowRes(UserFollowCnt followerUser, UserFollowCnt followingUser) {
+      this.followerUser = followerUser;
+      this.followingUser = followingUser;
+    }
+
+  }
+
+  @Getter
+  public static class DeleteFollowRes {
+
+    private String followerId;
+    private String followingId;
+
+    public DeleteFollowRes(String followerId, String followingId) {
+      this.followerId = followerId;
+      this.followingId = followingId;
     }
 
   }

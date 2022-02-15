@@ -40,7 +40,6 @@ public class UserFollowCnt {
     this.followerCnt++;
   }
 
-
   public void plusFollowing() {
     this.followingCnt++;
   }
