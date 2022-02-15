@@ -1,5 +1,6 @@
-import React, { useState, useEffect, FunctionComponent } from 'react';
-import { apiInstance } from '@/libs/axios';
+import React, { useState, useEffect, FunctionComponent, useCallback } from 'react';
+import { apiInstance, authInstance } from '@/libs/axios';
+import Router from 'next/router';
 
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
@@ -7,8 +8,12 @@ import Autocomplete from '@mui/material/Autocomplete';
 import Chip from '@mui/material/Chip';
 import Stack from '@mui/material/Stack';
 
-const RegionSearch: FunctionComponent = () => {
+import Styled from './styled';
+import { Text, FooterContainer } from '@/components/atoms';
+
+const RegionSearch: FunctionComponent = ({ userId }) => {
   const api = apiInstance();
+  const authApi = authInstance();
   const [regionList, setRegionList] = useState();
   const [interestRegion, setInterestRegion] = useState([]);
 
@@ -17,7 +22,7 @@ const RegionSearch: FunctionComponent = () => {
   }, []);
 
   const onChange = (event, value) => {
-    if (value) {
+    if (value && !interestRegion.includes(value)) {
       setInterestRegion([...interestRegion, value]);
     }
   };
@@ -27,6 +32,14 @@ const RegionSearch: FunctionComponent = () => {
       return idx !== i;
     });
     setInterestRegion(newRegionList);
+  };
+
+  const nextFunction = () => {
+    // Router.push(`/user/${userId}`);
+    authApi
+      .patch(`/user/region/${userId}`, { region: interestRegion })
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err));
   };
 
   return (
@@ -51,6 +64,11 @@ const RegionSearch: FunctionComponent = () => {
           );
         })}
       </Stack>
+      <FooterContainer>
+        <Styled.Button bgColor="#fff" onClick={nextFunction}>
+          <Text value="SAVE" />
+        </Styled.Button>
+      </FooterContainer>
     </>
   );
 };
