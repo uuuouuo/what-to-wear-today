@@ -3,6 +3,7 @@ package com.ssafy.websns.model.dto.feed;
 import com.ssafy.websns.model.dto.feed.CommentDto.CommentRes;
 import com.ssafy.websns.model.dto.feed.ImageDto.ImageFile;
 import com.ssafy.websns.model.entity.feed.Feed;
+import com.ssafy.websns.model.entity.user.UserProfile;
 import java.time.LocalDateTime;
 import java.util.List;
 import lombok.AccessLevel;
@@ -66,31 +67,6 @@ public class FeedDto {
 
     }
 
-    public CreateReq(String userId, String content, String region, String weather,
-        String photoDate, Boolean privateMode, Boolean deleteMode, List<MultipartFile> imageNames, List<String> tags) {
-      this.userId = userId;
-      this.content = content;
-      this.region = region;
-      this.weather = weather;
-      this.photoDate = photoDate;
-      this.privateMode = privateMode;
-      this.deleteMode = deleteMode;
-      this.imageNames = imageNames;
-      this.tags = tags;
-    }
-
-    public CreateReq(String userId, String content, String region, String weather,
-        String photoDate, Boolean privateMode, Boolean deleteMode, List<MultipartFile> imageNames) {
-      this.userId = userId;
-      this.content = content;
-      this.region = region;
-      this.weather = weather;
-      this.photoDate = photoDate;
-      this.privateMode = privateMode;
-      this.deleteMode = deleteMode;
-      this.imageNames = imageNames;
-    }
-
   }
 
   @Getter
@@ -98,6 +74,8 @@ public class FeedDto {
 
     private Integer no;
     private String userId;
+    private String nickname;
+    private String profileImg;
     private String content;
     private LocalDateTime createdAt;
     private LocalDateTime photoDate;
@@ -106,9 +84,11 @@ public class FeedDto {
     private List<ImageFile> images;
     private List<String> tags;
 
-    public FeedRes(Feed feed, List<ImageFile> images, List<String> tags) {
+    public FeedRes(UserProfile userProfile, Feed feed, List<ImageFile> images, List<String> tags) {
       this.no = feed.getNo();
       this.userId = feed.getUser().getUserId();
+      this.nickname = userProfile.getNickname();
+      this.profileImg = userProfile.getProfileImg();
       this.content = feed.getContent();
       this.createdAt = feed.getCreatedAt();
       this.photoDate = feed.getPhotoDate();
@@ -118,16 +98,6 @@ public class FeedDto {
       this.tags = tags;
     }
 
-    public FeedRes(Feed feed, List<ImageFile> images) {
-      this.no = feed.getNo();
-      this.userId = feed.getUser().getUserId();
-      this.content = feed.getContent();
-      this.createdAt = feed.getCreatedAt();
-      this.photoDate = feed.getPhotoDate();
-      this.weather = feed.getWeather();
-      this.privateMode = feed.getPrivateMode();
-      this.images = images;
-    }
   }
 
   @Getter
@@ -159,6 +129,8 @@ public class FeedDto {
   public static class UpdateRes {
 
     private Integer no;
+    private String nickname;
+    private String profileImg;
     private String content;
     private Integer regionNo;
     private String weather;
@@ -168,8 +140,10 @@ public class FeedDto {
     private List<ImageFile> images;
     private List<String> tags;
 
-    public UpdateRes(Feed feed, List<ImageFile> images, List<String> tags) {
+    public UpdateRes(UserProfile userProfile, Feed feed, List<ImageFile> images, List<String> tags) {
       this.no = feed.getNo();
+      this.nickname = userProfile.getNickname();
+      this.profileImg = userProfile.getProfileImg();
       this.content = feed.getContent();
       this.regionNo = feed.getRegion().getNo();
       this.photoDate = feed.getPhotoDate();
