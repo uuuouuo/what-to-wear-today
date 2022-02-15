@@ -28,6 +28,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestPart;
@@ -112,7 +113,7 @@ public class UserController {
 
   }
 
-  @PatchMapping(value = "/type/{userId}")
+  @PutMapping(value = "/type/{userId}")
   public ResponseEntity<UpdateTypeRes> updateType(@PathVariable("userId") String userId,
       @RequestBody UpdateTypeInfoReq updateTypeInfoReq) {
 
@@ -121,7 +122,7 @@ public class UserController {
 
   }
 
-  @PatchMapping(value = "/region/{userId}")
+  @PutMapping(value = "/region/{userId}")
   public ResponseEntity<UpdateRegionRes> updateRegion(@PathVariable("userId") String userId,
       @RequestBody UpdateRegionReq updateRegionReq) {
 
@@ -130,7 +131,7 @@ public class UserController {
 
   }
 
-  @PatchMapping(value = "/interest/{userId}")
+  @PutMapping(value = "/interest/{userId}")
   public ResponseEntity<InterestRes> updateInterest(@PathVariable("userId") String userId,
       @RequestBody InterestReq request) {
 
