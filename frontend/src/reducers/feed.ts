@@ -28,10 +28,10 @@ export const initialState: StateType = {
   loadFeedsLoading: false,
   loadFeedsDone: false,
   loadFeedsError: null,
-  updateFeedLoading: false,
+  updateFeedUpdating: false,
   updateFeedDone: false,
   updateFeedError: null,
-  deleteFeedLoading: false,
+  deleteFeedDeleting: false,
   deleteFeedDone: false,
   deleteFeedError: null,
 };
@@ -41,6 +41,8 @@ const reducer = (state = initialState, action: any) => {
     //CREATE//
 
     case CREATE_FEED_REQUEST:
+      console.log('reducer!!', action);
+
       return {
         ...state,
         createFeedCreating: true,
@@ -49,6 +51,7 @@ const reducer = (state = initialState, action: any) => {
       };
 
     case CREATE_FEED_SUCCESS:
+      console.log('reducer!!', action);
       return {
         ...state,
         loadFeedDone: true,
@@ -98,6 +101,7 @@ const reducer = (state = initialState, action: any) => {
       };
 
     case LOAD_FEEDS_SUCCESS:
+      console.log('reducer 액션', action);
       return {
         ...state,
         loadFeedsLoading: false,

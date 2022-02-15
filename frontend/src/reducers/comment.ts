@@ -90,7 +90,7 @@ const reducer = (state = initialState, action: any) => {
       return {
         ...state,
         comments: state.comments.map((comment) => {
-          if (comment === action.data.no) {
+          if (comment.no === action.data.no) {
             return { ...comment, ...action.data };
           }
           return comment;
