@@ -13,7 +13,7 @@ const WeatherAPI: FunctionComponent<Props> = ({ region, date }) => {
     const weather: Promise<any> = api
       .get(`/weather?region=${region}&date=${date}`)
       .then((res) => setWeatherData(res));
-  }, []);
+  }, [weatherData]);
 
   return (
     <div>
