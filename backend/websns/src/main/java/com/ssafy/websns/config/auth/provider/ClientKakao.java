@@ -1,4 +1,4 @@
-package com.ssafy.websns.config.auth.provider;
+package com.ssafy.websns.config.oauth.provider;
 
 import com.ssafy.websns.model.entity.user.User;
 import java.util.Map;
@@ -13,17 +13,19 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
 
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class Res {
+  String accessToken;
+}
 @Component
 public class ClientKakao implements ClientProxy {
-  @Data
-  @NoArgsConstructor
-  @AllArgsConstructor
-  public static class Res {
-    String access_token;
-  }
 
   // TODO ADMIN 유저 생성 시 getAdminUserData 메소드 생성 필요
+  public User getUserData(String code) {
 
+//    System.out.println("access : " + accessToken);
   public User getUserData(String code) {
 
 //    System.out.println("access : " + accessToken);
@@ -49,6 +51,7 @@ public class ClientKakao implements ClientProxy {
         .bodyToMono(Res.class) // KAKAO의 유저 정보를 넣을 Dto 클래스
         .block();
 
+    System.out.println("Asdfadsf : " +res.access_token);
     String accessToken = res.getAccess_token();
     UserResponse userResponse = WebClient.builder().build().get()
         .uri("https://kapi.kakao.com/v2/user/me") // KAKAO의 유저 정보 받아오는 url
