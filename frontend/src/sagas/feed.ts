@@ -1,19 +1,28 @@
 import { all, fork, put, takeLatest, call } from 'redux-saga/effects';
 import { apiInstance } from '@/libs/axios';
-import { AxiosResponse } from 'axios';
-import { LOAD_FEED_REQUEST, LOAD_FEED_SUCCESS, LOAD_FEED_FAILURE } from '@/action/feedAction';
 import { FeedType } from '@/types/feed';
+import { CommentType } from '@/types/comment';
+import {
+  loadFeedRequest,
+  LOAD_FEED_REQUEST,
+  LOAD_FEED_SUCCESS,
+  LOAD_FEED_FAILURE,
+} from '@/action/feedAction';
+
 import { LOAD_COMMENTS_SUCCESS } from '@/action/commentAction';
+import { AxiosResponse } from 'axios';
 
 const api = apiInstance();
 
-function loadFeedAPI(feedNo: number): Promise<AxiosResponse<FeedType>> {
+function loadFeedAPI(
+  feedNo: number,
+): Promise<AxiosResponse<{ feedRes: FeedType; commentRes: CommentType[] }>> {
   return api.get(`/feed/details/${feedNo}`);
 }
 
-function* loadFeed(action: any) {
+function* loadFeed(action: ReturnType<typeof loadFeedRequest>) {
   try {
-    const result: Promise<AxiosResponse<FeedType>> = yield call(loadFeedAPI, action.feedNo);
+    const result = yield call(loadFeedAPI, action.feedNo);
     yield put({
       type: LOAD_FEED_SUCCESS,
       data: result.data.feedRes,

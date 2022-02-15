@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Styled from './styled';
 import type { NextPage } from 'next';
 
@@ -17,55 +17,47 @@ const interestRegions: RegionType[] = [
 const feeds = [
   {
     no: 1,
-    user: {
-      no: 'a123456789',
-      userId: 'ssafy',
-      nickName: '장다빈',
-      profileImage: 'images/icon/blank_user.png',
-    },
+    userId: 'ssafy',
+    nickname: '장다빈',
+    profileImage: 'images/icon/blank_user.png',
     content: '히히히ㅣㅎ #따뜻 #패딩 히히히힣',
-    createdAt: '2022-02-09',
-    photoDate: '2020-02-09',
+    createdAt: new Date(),
+    photoDate: new Date(),
     weather: '맑음',
     privateMode: false,
     images: [
-      {
-        no: 1,
-        imgUrl: '/images/profileIMG/sample.jpg',
-        feedNo: 1,
-      },
-      {
-        no: 2,
-        imgUrl:
-          'https://images.unsplash.com/photo-1538032746644-0212e812a9e7?auto=format&fit=crop&w=400&h=250&q=60',
-        feedNo: 1,
-      },
+      '/images/profileIMG/sample.jpg',
+      'https://images.unsplash.com/photo-1538032746644-0212e812a9e7?auto=format&fit=crop&w=400&h=250&q=60',
     ],
+    tags: ['#패딩', '#코트'],
   },
   {
     no: 2,
-    user: {
-      no: 'a123456789',
-      userId: 'ssafy',
-      nickName: '장다빈',
-      profileImage: 'images/icon/blank_user.png',
-    },
+    userId: 'ssafy',
+    nickname: '장다빈',
+    profileImage: 'images/icon/blank_user.png',
     content: '히히히ㅣㅎ #따뜻 #패딩 히히히힣',
-    createdAt: '2022-02-09',
-    photoDate: '2020-02-09',
+    createdAt: new Date(),
+    photoDate: new Date(),
     weather: '맑음',
     privateMode: false,
+    tags: ['#따뜻', '#얼죽아'],
   },
 ];
 
 const Home: NextPage = () => {
+  const [value, setValue] = useState(0);
   return (
     <Styled.MainContainer>
       <Header leftSide="logo" name="오늘 뭐 입지?" rightSide="notification" />
 
       <Styled.FeedNavbar>
         <FeedRegion interestRegions={interestRegions} />
-        <TabMenu tabList={['추천순', '인기순', '좋아요순', '최신순']} />
+        <TabMenu
+          tabList={['추천순', '인기순', '좋아요순', '최신순']}
+          value={value}
+          setValue={setValue}
+        />
       </Styled.FeedNavbar>
       <Styled.FeedContent>
         {feeds.map((feed) => (

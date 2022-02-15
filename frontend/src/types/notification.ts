@@ -9,4 +9,4 @@ interface NotificationType {
   feed?: FeedType;
 }
 
-export { NotificationType };
+export type { NotificationType };

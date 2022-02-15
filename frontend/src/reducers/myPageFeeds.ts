@@ -1,8 +1,8 @@
 import {
-  LOAD_MYPAGE_Feed_REQUEST,
-  LOAD_MYPAGE_Feed_SUCCESS,
-  LOAD_MYPAGE_Feed_FAILURE,
-} from '@/action/MypageFeedAction';
+  LOAD_MYPAGE_FEED_REQUEST,
+  LOAD_MYPAGE_FEED_SUCCESS,
+  LOAD_MYPAGE_FEED_FAILURE,
+} from '@/action/myPageFeedAction';
 
 import { StateType } from 'types/myPageFeeds';
 
@@ -15,7 +15,7 @@ export const initialState: StateType = {
 
 const reducer = (state = initialState, action: any) => {
   switch (action.type) {
-    case LOAD_MYPAGE_Feed_REQUEST:
+    case LOAD_MYPAGE_FEED_REQUEST:
       return {
         ...state,
         loadMyFeedsLoading: true,
@@ -23,7 +23,7 @@ const reducer = (state = initialState, action: any) => {
         loadMyFeedsDone: false,
       };
 
-    case LOAD_MYPAGE_Feed_SUCCESS:
+    case LOAD_MYPAGE_FEED_SUCCESS:
       return {
         ...state,
         loadMyFeedsLoading: false,
@@ -31,7 +31,7 @@ const reducer = (state = initialState, action: any) => {
         loadMyFeedsDone: true,
       };
 
-    case LOAD_MYPAGE_Feed_FAILURE:
+    case LOAD_MYPAGE_FEED_FAILURE:
       return {
         ...state,
         loadMyFeedsLoading: false,

@@ -1,5 +1,6 @@
 import React, { FunctionComponent } from 'react';
 import Styled from './ArticleDate.styled';
+
 interface Props {
   value: string;
 }

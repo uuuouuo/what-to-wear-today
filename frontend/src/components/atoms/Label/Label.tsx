@@ -7,8 +7,12 @@ interface Props {
   color?: string;
 }
 
-const Label: FunctionComponent<Props> = ({ className, children }) => {
-  return <Styled.Label className={className}>{children}</Styled.Label>;
+const Label: FunctionComponent<Props> = ({ className, children, color }) => {
+  return (
+    <Styled.Label className={className} color={color}>
+      {children}
+    </Styled.Label>
+  );
 };
 
 export default Label;

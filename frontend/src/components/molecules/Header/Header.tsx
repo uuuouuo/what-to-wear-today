@@ -10,7 +10,6 @@ interface Props {
   leftSide?: string;
   name: string;
   rightSide?: string;
-  userId?: string;
 }
 
 const Header: FunctionComponent<Props> = ({ leftSide, name, rightSide }) => {

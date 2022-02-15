@@ -28,8 +28,10 @@ const TextEditor = styled(BaseTextEditor)`
   z-index: 0;
   width: 325px;
   box-sizing: border-box;
+  background-color: #fff;
   height: 25vh;
   padding-top: 5vh;
+  transform: translate(7vw, -5vh);
 `;
 
 const InputContainer = styled.div`

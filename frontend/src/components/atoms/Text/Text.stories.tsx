@@ -1,4 +1,5 @@
 import React from 'react';
+// @ts-ignore
 import { text } from '@storybook/addon-knobs';
 
 import Text from './Text';

@@ -14,6 +14,7 @@ export const Defalut = () => {
   const [values, , onChange] = useCheck(['123', '345']);
   return values.map((value) => (
     <CheckInputFormGroup
+      key={value}
       value={value}
       type="checkbox"
       checked={values.filter((v: string) => v === value).length > 0}
