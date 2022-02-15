@@ -10,7 +10,7 @@ const RegionTemplate: NextPage = ({ userId }) => {
     <Styled.MainContainer>
       <Title value="관심 지역 설정" />
       <Styled.SearchContainer>
-        <RegionSearch />
+        <RegionSearch userId={userId} />
       </Styled.SearchContainer>
     </Styled.MainContainer>
   );
