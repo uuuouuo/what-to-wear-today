@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import type { NextPage } from 'next';
 import Styled from './styled';
 import { Title } from '@/components/molecules';
-import { useChange } from '@/hooks';
 
 import RegionSearch from '@/components/RegionSearch/RegionSearch';
 
