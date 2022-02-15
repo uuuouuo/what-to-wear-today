@@ -30,9 +30,9 @@ public class Follow {
   @JoinColumn(name = "USER_NO")
   private User userFollowingNo;
 
-  public void createFollow(Integer no, User userFollowerNo, User userFollowingNo) {
-    this.no = no;
+  public void createFollow(User userFollowerNo, User userFollowingNo) {
     this.userFollowerNo = userFollowerNo;
     this.userFollowingNo = userFollowingNo;
   }
+
 }

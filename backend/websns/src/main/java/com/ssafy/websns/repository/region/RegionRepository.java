@@ -7,7 +7,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface RegionRepository extends JpaRepository<Region,Integer> {
 
   Region findByRegionName(String regionName);
-
   Region findByPointCode(Integer pointCode);
 
   List<Region> findBy();
