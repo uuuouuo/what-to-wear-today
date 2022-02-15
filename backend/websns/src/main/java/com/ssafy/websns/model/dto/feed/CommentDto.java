@@ -1,7 +1,7 @@
 package com.ssafy.websns.model.dto.feed;
 
 import com.ssafy.websns.model.entity.feed.Comment;
-import com.ssafy.websns.model.entity.user.User;
+import com.ssafy.websns.model.entity.user.UserProfile;
 import java.time.LocalDateTime;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -13,51 +13,44 @@ public class CommentDto {
   @NoArgsConstructor(access = AccessLevel.PROTECTED)
   public static class CreateReq {
 
-    private Integer no;
-    private String userNo;
+    private String userId;
     private Integer parent;
     private String content;
     private Boolean privateMode;
     private Boolean deleteMode;
-    private LocalDateTime createAt;
 
-    public CreateReq(Integer no, String userNo, Integer parent, String content,
-        Boolean privateMode, Boolean deleteMode, LocalDateTime createAt) {
-      this.no = no;
-      this.userNo = userNo;
+    public CreateReq(String userId, Integer parent, String content,
+        Boolean privateMode, Boolean deleteMode) {
+      this.userId = userId;
       this.parent = parent;
       this.content = content;
       this.privateMode = privateMode;
       this.deleteMode = deleteMode;
-      this.createAt = createAt;
     }
 
   }
 
   @Getter
-  public static class Res {
+  public static class CommentRes {
 
-    private User user;
-    private String content;
+    private Integer no;
+    private String userId;
+    private String nickname;
+    private String profileImg;
     private Integer feedNo;
-    private Comment parent;
-    private LocalDateTime createAt;
+    private Integer parent;
+    private String content;
+    private LocalDateTime createdAt;
 
-    public Res(User user, Integer feedNo, Comment parent, String content,
-        LocalDateTime createAt) {
-      this.user = user;
-      this.feedNo = feedNo;
-      this.parent = parent;
-      this.content = content;
-      this.createAt = createAt;
-    }
-
-    public Res(Comment comment){
-      this.user = comment.getUser();
-      this.feedNo = comment.getNo();
-      this.parent = comment.getParent();
+    public CommentRes(UserProfile userProfile, Comment comment){
+      this.no = comment.getNo();
+      this.userId = userProfile.getUser().getUserId();
+      this.nickname = userProfile.getNickname();
+      this.profileImg = userProfile.getProfileImg();
+      this.feedNo = comment.getFeed().getNo();
+      this.parent = comment.getParent() != null ? comment.getParent().getNo() : null;
       this.content= comment.getContent();
-      this.createAt = comment.getCreateAt();
+      this.createdAt = comment.getCreatedAt();
     }
 
   }
@@ -81,19 +74,23 @@ public class CommentDto {
 
   @Getter
   public static class UpdateRes {
-    
+
+    private Integer no;
+    private String nickname;
+    private String profileImg;
     private String content;
     private Boolean privateMode;
     private LocalDateTime updateAt;
 
-    public UpdateRes(String content,
-        Boolean privateMode, LocalDateTime updateAt) {
-      this.content = content;
-      this.privateMode = privateMode;
-      this.updateAt = updateAt;
+    public UpdateRes(UserProfile userProfile, Comment comment) {
+      this.no = comment.getNo();
+      this.nickname = userProfile.getNickname();
+      this.profileImg = userProfile.getProfileImg();
+      this.content = comment.getContent();
+      this.privateMode = comment.getPrivateMode();
+      this.updateAt = comment.getUpdatedAt();
     }
 
   }
-
 
 }

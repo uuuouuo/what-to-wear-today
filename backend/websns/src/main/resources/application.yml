@@ -1,17 +1,45 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+
 spring:
   datasource:
     url: jdbc:mysql://localhost:3306/websns?serverTimezone=UTC&characterEncoding=UTF-8
-    username: ssafy
+    username: root
     password: ssafy
     driver-class-name: com.mysql.cj.jdbc.Driver
 
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
   properties:
     hibernate:
       # show_sql: true
       format_sql: true
+
+  security:
+    oauth2:
+      client:
+        registration:
+          kakao:
+            client-id: 4ca88cff70d82a3237621b0b3da584a7
+            scope: profile_nickname, account_email, gender, age_range
+            redirect-uri: "http://localhost:8080/login/oauth2/code/kakao"
+            authorization-grant-type: authorization_code
+            client-name: kakao
+            client-authentication-method: POST
+
+        provider:
+          kakao:
+            authorization-uri: https://kauth.kakao.com/oauth/authorize
+            token-uri: https://kauth.kakao.com/oauth/token
+            user-info-uri: https://kapi.kakao.com/v2/user/me
+            user-name-attribute: id
 
 logging.level:
   org.hibernate.SQL: debug

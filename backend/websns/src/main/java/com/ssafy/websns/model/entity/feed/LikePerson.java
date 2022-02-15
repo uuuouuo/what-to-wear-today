@@ -7,6 +7,7 @@ import io.swagger.annotations.ApiModel;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -18,16 +19,21 @@ import lombok.Getter;
 public class LikePerson {
 
   @Id
-  @GeneratedValue
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "LIKE_NO")
   private Integer no;
 
   @ManyToOne(fetch = LAZY)
-  @JoinColumn(name = "USER_NO")
+  @JoinColumn
   private User user;
 
   @ManyToOne(fetch = LAZY)
-  @JoinColumn(name = "FEED_NO")
+  @JoinColumn
   private Feed feed;
+
+  public void createLikePerson(User user, Feed feed) {
+    this.user = user;
+    this.feed = feed;
+  }
 
 }
