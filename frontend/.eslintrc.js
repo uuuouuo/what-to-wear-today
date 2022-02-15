@@ -20,7 +20,12 @@ module.exports = {
     'import/order': 'off',
     'react/function-component-definition': 'off',
     'no-nested-ternary': 'off',
-    '@typescript-eslint/ban-ts-comment': 'off'
+    '@typescript-eslint/ban-ts-comment': 'off',
+    'import/prefer-default-export': 'off',
+    'react/jsx-no-useless-fragment': 'off',
+    'react/jsx-props-no-spreading': 'off',
+    'react/require-default-props': 'off',
+    'import/no-extraneous-dependencies': 'off',
   },
   settings: {
     'import/resolver': {

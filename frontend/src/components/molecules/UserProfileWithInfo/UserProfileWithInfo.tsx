@@ -21,7 +21,7 @@ const UserProfileWithInfo: FunctionComponent<Props> = ({ className, user, create
         </Link>
         {createdAt ? (
           <Styled.Sub>
-            <Text value={createdAt} color="#888" size="0.7rem" />
+            <Text value={createdAt.toString()} color="#888" size="0.7rem" />
           </Styled.Sub>
         ) : (
           <></>

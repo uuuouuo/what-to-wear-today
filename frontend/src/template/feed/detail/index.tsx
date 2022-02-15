@@ -10,7 +10,7 @@ import { CommentType } from '@/types/comment';
 import { createCommentRequest } from '@/action/commentAction';
 import { useChange } from '@/hooks';
 
-const FeedDetailTemplate: NextPage<Props> = () => {
+const FeedDetailTemplate: NextPage = () => {
   const dispatch = useDispatch();
   const { feed } = useSelector((state: RootState) => state.feed);
   const { comments } = useSelector((state: RootState) => state.comment);

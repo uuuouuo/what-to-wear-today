@@ -12,8 +12,8 @@ import MenuIcon from '@mui/icons-material/Menu';
 type Anchor = 'top' | 'left' | 'bottom' | 'right';
 
 interface Props {
-  className?: className;
-  userId: string | string[];
+  className?: string;
+  userId: string;
 }
 
 const TemporaryDrawer: FunctionComponent<Props> = ({ className, userId }) => {

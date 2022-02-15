@@ -1,5 +1,5 @@
 interface FeedType {
-  no: string;
+  no: number;
   userId: string;
   nickname: string;
   profileImage: string;
@@ -8,8 +8,8 @@ interface FeedType {
   photoDate: Date;
   weather: string;
   privateMode: boolean;
-  images: string[];
-  tags: string[];
+  images?: string[];
+  tags?: string[];
 }
 interface FeedRequestType {
   userId: string;
@@ -19,9 +19,10 @@ interface FeedRequestType {
   photoDate: string;
   privateMode: boolean;
   deleteMode: boolean;
-  images: string[];
-  tags: string[];
+  images?: string[];
+  tags?: string[];
 }
+
 interface StateType {
   feed: FeedType;
   loadFeedLoading: boolean;

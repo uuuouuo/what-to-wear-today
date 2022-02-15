@@ -11,16 +11,16 @@ interface Props {
 const AuthProvider: NextPage<Props> = ({ children }) => {
   const router = useRouter();
   const { myInfo } = useSelector((state: RootState) => state.user);
-  if (
-    router.pathname.includes('login') ||
-    router.pathname.includes('callback') ||
-    router.pathname.includes('sginup') ||
-    router.pathname.includes('interest') ||
-    router.pathname.includes('type')
-  )
-    return <>{children}</>;
+  // if (
+  //   router.pathname.includes('login') ||
+  //   router.pathname.includes('callback') ||
+  //   router.pathname.includes('sginup') ||
+  //   router.pathname.includes('interest') ||
+  //   router.pathname.includes('type')
+  // )
+  //   return <>{children}</>;
 
-  if (!myInfo) router.push('/login');
+  // if (!myInfo) router.push('/login');
 
   return <>{children}</>;
 };

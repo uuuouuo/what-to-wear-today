@@ -9,38 +9,38 @@ import { useCheck } from '@/hooks';
 import { InterestType } from '@/types/interest';
 
 const dummy: InterestType[] = [
-  { _interest_no: 0, interest_name: '여행' },
-  { _interest_no: 1, interest_name: '비즈니스' },
-  { _interest_no: 2, interest_name: '히히히' },
-  { _interest_no: 3, interest_name: '헤헤' },
-  { _interest_no: 4, interest_name: '오오오오오오' },
-  { _interest_no: 5, interest_name: '하위이이잉' },
-  { _interest_no: 6, interest_name: '안농' },
-  { _interest_no: 7, interest_name: '읭' },
-  { _interest_no: 8, interest_name: '이이ㅣ이' },
-  { _interest_no: 9, interest_name: '섹 시 우 먼' },
-  { _interest_no: 10, interest_name: '공부공부' },
-  { _interest_no: 11, interest_name: '공부' },
-  { _interest_no: 12, interest_name: '화이팅' },
-  { _interest_no: 13, interest_name: '새해 복' },
-  { _interest_no: 14, interest_name: '힛' },
-  { _interest_no: 15, interest_name: '겨울' },
-  { _interest_no: 16, interest_name: '여행' },
-  { _interest_no: 17, interest_name: '비즈니스' },
-  { _interest_no: 18, interest_name: '히히히' },
-  { _interest_no: 19, interest_name: '헤헤' },
-  { _interest_no: 20, interest_name: '오오오오오오' },
-  { _interest_no: 21, interest_name: '하위이이잉' },
-  { _interest_no: 22, interest_name: '안농' },
-  { _interest_no: 23, interest_name: '읭' },
-  { _interest_no: 24, interest_name: '이이ㅣ이' },
-  { _interest_no: 25, interest_name: '섹 시 우 먼' },
-  { _interest_no: 26, interest_name: '공부공부' },
-  { _interest_no: 27, interest_name: '공부' },
-  { _interest_no: 28, interest_name: '화이팅' },
-  { _interest_no: 29, interest_name: '새해 복' },
-  { _interest_no: 30, interest_name: '힛' },
-  { _interest_no: 31, interest_name: '겨울' },
+  { no: 0, interestName: '여행' },
+  { no: 1, interestName: '비즈니스' },
+  { no: 2, interestName: '히히히' },
+  { no: 3, interestName: '헤헤' },
+  { no: 4, interestName: '오오오오오오' },
+  { no: 5, interestName: '하위이이잉' },
+  { no: 6, interestName: '안농' },
+  { no: 7, interestName: '읭' },
+  { no: 8, interestName: '이이ㅣ이' },
+  { no: 9, interestName: '섹 시 우 먼' },
+  { no: 10, interestName: '공부공부' },
+  { no: 11, interestName: '공부' },
+  { no: 12, interestName: '화이팅' },
+  { no: 13, interestName: '새해 복' },
+  { no: 14, interestName: '힛' },
+  { no: 15, interestName: '겨울' },
+  { no: 16, interestName: '여행' },
+  { no: 17, interestName: '비즈니스' },
+  { no: 18, interestName: '히히히' },
+  { no: 19, interestName: '헤헤' },
+  { no: 20, interestName: '오오오오오오' },
+  { no: 21, interestName: '하위이이잉' },
+  { no: 22, interestName: '안농' },
+  { no: 23, interestName: '읭' },
+  { no: 24, interestName: '이이ㅣ이' },
+  { no: 25, interestName: '섹 시 우 먼' },
+  { no: 26, interestName: '공부공부' },
+  { no: 27, interestName: '공부' },
+  { no: 28, interestName: '화이팅' },
+  { no: 29, interestName: '새해 복' },
+  { no: 30, interestName: '힛' },
+  { no: 31, interestName: '겨울' },
 ];
 
 const InterestTemplate: NextPage = () => {
@@ -48,7 +48,7 @@ const InterestTemplate: NextPage = () => {
 
   const isChecked = useCallback(
     (interest: number): boolean => {
-      return interests.filter((item: string) => parseInt(item) === interest).length > 0;
+      return interests.filter((item: string) => parseInt(item, 10) === interest).length > 0;
     },
     [interests],
   );
@@ -67,14 +67,14 @@ const InterestTemplate: NextPage = () => {
       <Styled.InterestContainer>
         {dummy.map((interest) => (
           <Styled.CheckInputFormGroup
-            key={interest._interest_no}
+            key={interest.no}
             type="checkbox"
-            value={interest._interest_no}
-            checked={isChecked(interest._interest_no)}
+            value={interest.no}
+            checked={isChecked(interest.no)}
             name="interest"
             onChange={onChangeInterest}
           >
-            <Text value={interest.interest_name} />
+            <Text value={interest.interestName} />
           </Styled.CheckInputFormGroup>
         ))}
       </Styled.InterestContainer>

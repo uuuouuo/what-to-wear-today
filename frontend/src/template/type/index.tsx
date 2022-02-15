@@ -10,24 +10,24 @@ import { TypeType } from '@/types/type';
 
 const questions: TypeType[][] = [
   [
-    { _type_no: 0, constitution: '수족냉', description: '손발이 찬가' },
-    { _type_no: 1, constitution: '수족온', description: '손발이 따뜻한가' },
+    { no: 0, constitution: '수족냉', description: '손발이 찬가' },
+    { no: 1, constitution: '수족온', description: '손발이 따뜻한가' },
   ],
   [
-    { _type_no: 2, constitution: '오열', description: '더위를 싫어하는가' },
-    { _type_no: 3, constitution: '오한', description: '추위를 싫어하는가' },
+    { no: 2, constitution: '오열', description: '더위를 싫어하는가' },
+    { no: 3, constitution: '오한', description: '추위를 싫어하는가' },
   ],
   [
-    { _type_no: 4, constitution: '이차자', description: '이불을 차내고 자는가' },
-    { _type_no: 5, constitution: '이덮자', description: '이불을 엎고 자는가' },
+    { no: 4, constitution: '이차자', description: '이불을 차내고 자는가' },
+    { no: 5, constitution: '이덮자', description: '이불을 엎고 자는가' },
   ],
   [
-    { _type_no: 6, constitution: '물많마', description: '물을 많이 마시는가' },
-    { _type_no: 7, constitution: '물적마', description: '물을 적게 마시는가' },
+    { no: 6, constitution: '물많마', description: '물을 많이 마시는가' },
+    { no: 7, constitution: '물적마', description: '물을 적게 마시는가' },
   ],
   [
-    { _type_no: 8, constitution: '찬음', description: '찬 음식을 좋아 하는가' },
-    { _type_no: 9, constitution: '뜨음', description: '뜨거운 음식을 좋아 하는가' },
+    { no: 8, constitution: '찬음', description: '찬 음식을 좋아 하는가' },
+    { no: 9, constitution: '뜨음', description: '뜨거운 음식을 좋아 하는가' },
   ],
 ];
 
@@ -49,7 +49,7 @@ const TypeTemplate: NextPage = () => {
   const nextFunction = useCallback(() => {
     setValue('');
     setIdx(idx + 1);
-    if (idx + 1 == QUESTIONS) Router.push('/signup/success');
+    if (idx + 1 === QUESTIONS) Router.push('/signup/success');
     else setQuestion(questions[idx + 1]);
   }, [idx]);
 
@@ -60,7 +60,7 @@ const TypeTemplate: NextPage = () => {
         {question.map((type) => {
           return (
             <Styled.CheckInputFormGroup
-              key={type._type_no}
+              key={type.no}
               value={type.constitution}
               type="radio"
               checked={value === type.constitution}

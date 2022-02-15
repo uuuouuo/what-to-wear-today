@@ -15,16 +15,12 @@ const FeedWriteTemplate: NextPage = () => {
   const [file, setFile] = useFileChange(null);
   const [files, , , appendFile] = useFileChange(null);
   const [display, , openDisplay, closeDisplay] = useDisplay(false);
-  const [date, setDate] = useState<Date | null>();
+  const [date, , onChangeDate] = useChange('');
   const [region, , onRegionChange] = useChange('');
   const [temperature, , onTemperatureChange] = useChange('');
 
   const onClick = (e: React.MouseEvent) => {
     console.log('홈');
-  };
-
-  const onChangeDate = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setDate(e.target.value);
   };
 
   return (

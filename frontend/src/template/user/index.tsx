@@ -65,7 +65,7 @@ const UserTemplate: NextPage<Props> = ({ userId }) => {
             id="simple-tabpanel-0"
             aria-labelledby="simple-tab-0"
           >
-            {userId !== undefined ? <MypageFeeds userId={userId} /> : null}
+            {userId !== undefined ? <MypageFeeds /> : null}
           </Styled.TabPanel>
           <Styled.TabPanel
             role="tabpanel"
@@ -73,7 +73,7 @@ const UserTemplate: NextPage<Props> = ({ userId }) => {
             id="simple-tabpanel-1"
             aria-labelledby="simple-tab-1"
           >
-            {userId !== undefined ? <MypageComments userId={userId} /> : null}
+            {userId !== undefined ? <MypageComments /> : null}
           </Styled.TabPanel>
         </Styled.ContentContainer>
       </Styled.ProfileContainer>

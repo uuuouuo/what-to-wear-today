@@ -30,47 +30,47 @@ const CommentPage: FunctionComponent<Props> = ({ feedNo }) => {
   const [commentText, setCommentText] = useState('');
   const [update, setUpdate] = useState(Array.from({ length: comments.length }, () => false));
 
-  const inputValue = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setText((text) => e.target.value);
-  };
+  // const inputValue = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   setText((text) => e.target.value);
+  // };
 
-  const action = (e: React.MouseEvent<Element, MouseEvent>) => {
-    dispatch(createCommentRequest(text, feed));
-    setText('');
-  };
+  // const action = (e: React.MouseEvent<Element, MouseEvent>) => {
+  //   dispatch(createCommentRequest(text, feed));
+  //   setText('');
+  // };
 
-  const deleteAction = (e: React.MouseEvent<Element, MouseEvent>) => {
-    dispatch(deleteCommentRequest(e.target.attributes[0].value));
-  };
+  // const deleteAction = (e: React.MouseEvent<Element, MouseEvent>) => {
+  //   dispatch(deleteCommentRequest(e.target.attributes[0].value));
+  // };
 
-  const changeContent = (e: ChangeEvent<HTMLInputElement>) => {
-    setCommentText(e.target.value);
-  };
+  // const changeContent = (e: ChangeEvent<HTMLInputElement>) => {
+  //   setCommentText(e.target.value);
+  // };
 
-  const updateAction = (e: React.MouseEvent<Element, MouseEvent>) => {
-    update[e.target.attributes[0].value] = false;
-    dispatch(updateCommentRequest(e.target.attributes[0].value, commentText));
-  };
+  // const updateAction = (e: React.MouseEvent<Element, MouseEvent>) => {
+  //   update[e.target.attributes[0].value] = false;
+  //   dispatch(updateCommentRequest(e.target.attributes[0].value, commentText));
+  // };
 
-  const updateClick = (e: ChangeEvent<HTMLInputElement>) => {
-    if (update[e.target.attributes[1].value] === false) {
-      setCommentText(e.target.attributes[0].value);
-      let newUpdate = [...update];
-      newUpdate[e.target.attributes[1].value] = true;
-      setUpdate(newUpdate);
-    } else {
-      let newUpdate = [...update];
-      newUpdate[e.target.attributes[1].value] = false;
-      setUpdate(newUpdate);
-      updateAction;
-    }
-  };
+  // const updateClick = (e: ChangeEvent<HTMLInputElement>) => {
+  //   if (update[e.target.attributes[1].value] === false) {
+  //     setCommentText(e.target.attributes[0].value);
+  //     let newUpdate = [...update];
+  //     newUpdate[e.target.attributes[1].value] = true;
+  //     setUpdate(newUpdate);
+  //   } else {
+  //     let newUpdate = [...update];
+  //     newUpdate[e.target.attributes[1].value] = false;
+  //     setUpdate(newUpdate);
+  //     updateAction;
+  //   }
+  // };
 
   return (
     <Styled.CommentPageLayout>
-      <Styled.WriteArea>
-        hello
-        {/* <UserProfile user={user} />
+      hello
+      {/* <Styled.WriteArea>
+         <UserProfile user={user} />
         <Styled.Input placeholder="댓글 달기..." value={text} onChange={inputValue} />
         <Styled.Button type="submit" onClick={action}>
           <SendIcon />
@@ -123,8 +123,8 @@ const CommentPage: FunctionComponent<Props> = ({ feedNo }) => {
             </ListItem>
             <Divider variant="inset" component="li" />
           </List>
-        ))} } */}
-      {/* </> */}
+        ))} } 
+       </> */}
     </Styled.CommentPageLayout>
   );
 };

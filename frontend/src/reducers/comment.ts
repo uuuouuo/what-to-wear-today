@@ -30,7 +30,7 @@ export const initialState: StateType = {
   updateCommentError: null,
 };
 
-const reducer = (state = initialState, action: any) => {
+const reducer = (state: StateType = initialState, action: any) => {
   switch (action.type) {
     case LOAD_COMMENTS_REQUEST:
       return {
