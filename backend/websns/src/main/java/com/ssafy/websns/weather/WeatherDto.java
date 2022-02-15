@@ -25,8 +25,8 @@ public class WeatherDto {
     LocalDateTime date = this.date;
     Integer stn = this.stn;
 
-    String searchDate = date.format(DateTimeFormatter.ofPattern("yyyy.M.d.H:mm"));
-    String formatDate = date.format(DateTimeFormatter.ofPattern("d.H")) + "H";
+    String searchDate = date.format(DateTimeFormatter.ofPattern("yyyy.M.d.HH:mm"));
+    String formatDate = date.format(DateTimeFormatter.ofPattern("d.HH")) + "H";
     String url = "https://www.weather.go.kr/w/obs-climate/land/city-obs.do?tm=" + searchDate
         + "&type=t99&mode=0&reg=100&auto_man=m&stn=" + stn;
     
@@ -47,6 +47,7 @@ public class WeatherDto {
 
             for (int i = 0; i < 12; i++) {
               String tmp = tds.get(i).text();
+              System.out.println(tds.toString()+" : "+tmp);
               if (i == 0) {
                 weather.setMonHour(tmp);
               }
@@ -59,25 +60,25 @@ public class WeatherDto {
               if (i == 3) {
                 weather.setLowerCloudiness(tmp);
               }
-              if (i == 4) {
+              if (i == 5) {
                 weather.setTemperatures(tmp);
               }
-              if (i == 5) {
+              if (i == 6) {
                 weather.setDewPointTemp(tmp);
               }
-              if (i == 6) {
+              if (i == 7) {
                 weather.setSensibleTemp(tmp);
               }
-              if (i == 7) {
+              if (i == 8) {
                 weather.setDayPrecipitation(tmp);
               }
-              if (i == 8) {
+              if (i == 9) {
                 weather.setDaySnow(tmp);
               }
-              if (i == 9) {
+              if (i == 10) {
                 weather.setHumidity(tmp);
               }
-              if (i == 10) {
+              if (i == 11) {
                 weather.setWindDirection(tmp);
               }
 

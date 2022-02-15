@@ -6,7 +6,9 @@ import io.swagger.annotations.ApiModel;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import lombok.Getter;
 
@@ -16,14 +18,23 @@ import lombok.Getter;
 public class Follow {
 
   @Id
-  @GeneratedValue
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "FOLLOW_NO")
   private Integer no;
 
   @ManyToOne(fetch = LAZY)
+  @JoinColumn(name = "USER_FOLLOWER_NO")
+//  @Column(name = "USER_FOLLOWER_NO")
   private User userFollowerNo;
 
   @ManyToOne(fetch = LAZY)
+  @JoinColumn(name = "USER_FOLLOWING_NO")
+//  @Column(name = "USER_FOLLOWING_NO")
   private User userFollowingNo;
+
+  public void createFollow(User userFollowerNo, User userFollowingNo) {
+    this.userFollowerNo = userFollowerNo;
+    this.userFollowingNo = userFollowingNo;
+  }
 
 }
