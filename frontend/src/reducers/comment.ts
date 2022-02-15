@@ -30,7 +30,7 @@ export const initialState: StateType = {
   deleteCommentError: null,
 };
 
-const reducer = (state = initialState, action: any) => {
+const reducer = (state: StateType = initialState, action: any) => {
   switch (action.type) {
     case CREATE_COMMENT_REQUEST:
       return {

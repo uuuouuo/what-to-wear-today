@@ -10,5 +10,9 @@ export default {
 
 export const Default = () => {
   const [value, , onChange] = useChange('');
-  return <CommentForm value={value} onChange={onChange} />;
+  const onClick = (e: React.MouseEvent) => {
+    console.log('click');
+  };
+
+  return <CommentForm value={value} onChange={onChange} onClick={onClick} />;
 };

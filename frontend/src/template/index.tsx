@@ -12,7 +12,6 @@ import { KAKAO_MAP_APIKEY } from '@/config';
 import { Header, FeedRegion, TabMenu, FooterNavbar } from '@/components/molecules';
 import { Feed } from '@/components/organisms';
 import { RegionType } from 'types/region';
-import { END } from 'redux-saga';
 
 const interestRegions: RegionType[] = [
   { no: 1, regionName: 'seoul', weather: '맑음' },
@@ -24,7 +23,7 @@ const interestRegions: RegionType[] = [
 
 const Home: NextPage = () => {
   const dispatch = useDispatch();
-  const { feeds, loadFeedsLoading, loadFeedsDone } = useSelector((state: RootState) => state.feeds);
+  const { feeds, loadFeedsLoading } = useSelector((state: RootState) => state.feeds);
   const [pageNum, setPageNum] = useState(2);
   const viewport = useRef(null);
   const target = useRef(null);
@@ -88,7 +87,11 @@ const Home: NextPage = () => {
 
       <Styled.FeedNavbar>
         <FeedRegion interestRegions={interestRegions} />
-        <TabMenu tabList={['추천순', '인기순', '좋아요순', '최신순']} />
+        <TabMenu
+          tabList={['추천순', '인기순', '좋아요순', '최신순']}
+          value={value}
+          setValue={setValue}
+        />
       </Styled.FeedNavbar>
       <Styled.FeedContent ref={viewport}>
         {feeds.map((feed, idx) => {

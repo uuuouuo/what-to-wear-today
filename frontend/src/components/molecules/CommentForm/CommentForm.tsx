@@ -4,7 +4,7 @@ import SendIcon from '@mui/icons-material/Send';
 
 interface Props {
   value: string;
-  onChange: (e: React.ChangeEvent) => void;
+  onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
   onClick: (e: React.MouseEvent) => void;
 }
 

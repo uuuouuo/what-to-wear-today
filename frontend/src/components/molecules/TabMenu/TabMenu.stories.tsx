@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import TabMenu from './TabMenu';
 
@@ -8,5 +8,6 @@ export default {
 };
 
 export const Default = () => {
-  return <TabMenu tabList={['최신순', '추천순', '인기순']} />;
+  const [value, setValue] = useState(0);
+  return <TabMenu tabList={['최신순', '추천순', '인기순']} value={value} setValue={setValue} />;
 };

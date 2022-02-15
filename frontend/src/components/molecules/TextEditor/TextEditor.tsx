@@ -74,22 +74,6 @@ const TextEditor: FunctionComponent<Props> = ({ className, value, onChange }) =>
         setCurrentSelection={setCurrentSelection}
         tag={tag}
       />
-      <Styled.Highlights ref={ref}>
-        {value ? (
-          value.split(/(#[^#\s]+|\n)/g).map((v) => {
-            if (v.match(/(#[^#\s]+)/)) {
-              return <Text className="hashtag" value={v} />;
-            }
-            if (v.match(/\n/)) {
-              return <br />;
-            }
-            return <Text value={v} />;
-          })
-        ) : (
-          <Text value="Write something..." color="#aaa" />
-        )}
-        <br />
-      </Styled.Highlights>
     </Styled.Container>
   );
 };

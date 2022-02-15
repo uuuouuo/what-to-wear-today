@@ -15,7 +15,7 @@ export const Default = () => {
     nickname: '장다비',
     profileImage: 'images/profileIMG/sample.jpg',
     content: 'h2h2dfgdfsgdsf gsasdfasdfg sgregfadsf',
-    createdAt: '2022-02-03',',
+    createdAt: new Date(),
     feedNo: 1,
     parent: null,
   };

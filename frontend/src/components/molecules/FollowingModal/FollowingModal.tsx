@@ -19,11 +19,11 @@ const FollowingModal: FunctionComponent<Props> = ({ title }) => {
   const [scroll, setScroll] = React.useState<DialogProps['scroll']>('paper');
 
   const dummyUser = [
-    { profileImg: '/images/icon/blank_user.png', nickname: '유저1' },
-    { profileImg: '/images/icon/blank_user.png', nickname: '유저2' },
-    { profileImg: '/images/icon/blank_user.png', nickname: '유저3' },
-    { profileImg: '/images/icon/blank_user.png', nickname: '유저4' },
-    { profileImg: '/images/icon/blank_user.png', nickname: '유저5' },
+    { userId: '123', profileImg: '/images/icon/blank_user.png', nickname: '유저1' },
+    { userId: '234', profileImg: '/images/icon/blank_user.png', nickname: '유저2' },
+    { userId: '345', profileImg: '/images/icon/blank_user.png', nickname: '유저3' },
+    { userId: '567', profileImg: '/images/icon/blank_user.png', nickname: '유저4' },
+    { userId: '789', profileImg: '/images/icon/blank_user.png', nickname: '유저5' },
   ];
 
   const handleClickOpen = (scrollType: DialogProps['scroll']) => () => {
@@ -63,9 +63,9 @@ const FollowingModal: FunctionComponent<Props> = ({ title }) => {
             ref={descriptionElementRef}
             tabIndex={-1}
           >
-            {dummyUser.map((person, idx) => {
+            {dummyUser.map((person) => {
               return (
-                <Styled.RowContainer key={idx}>
+                <Styled.RowContainer key={person.userId}>
                   <Avatar src={person.profileImg} sx={{ width: 50, height: 50 }} />
                   <Text value={person.nickname} />
                 </Styled.RowContainer>

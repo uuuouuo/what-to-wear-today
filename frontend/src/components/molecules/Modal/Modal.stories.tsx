@@ -16,7 +16,7 @@ export const Default = () => {
   return (
     <Modal
       open={open}
-      content={'안농~~~~~'}
+      content="안농~~~~~"
       agreeFunction={agreeFunction}
       disagreeFunction={disagreeFunction}
     />

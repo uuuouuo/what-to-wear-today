@@ -1,10 +1,9 @@
 import { all, fork, put, takeLatest, call } from 'redux-saga/effects';
-import { apiInstance, authInstance } from '@/libs/axios';
-import { AxiosResponse } from 'axios';
+import { apiInstance } from '@/libs/axios';
+import { FeedType } from '@/types/feed';
+import { CommentType } from '@/types/comment';
 import {
-  CREATE_FEED_REQUEST,
-  CREATE_FEED_SUCCESS,
-  CREATE_FEED_FAILURE,
+  loadFeedRequest,
   LOAD_FEED_REQUEST,
   LOAD_FEED_SUCCESS,
   LOAD_FEED_FAILURE,
@@ -14,9 +13,13 @@ import {
   DELETE_FEED_REQUEST,
   DELETE_FEED_SUCCESS,
   DELETE_FEED_FAILURE,
+  CREATE_FEED_REQUEST,
+  CREATE_FEED_SUCCESS,
+  CREATE_FEED_FAILURE,
 } from '@/action/feedAction';
-import { FeedType } from '@/types/feed';
-import { LOAD_COMMENTS_SUCCESS } from '@/action/CommentAction';
+
+import { LOAD_COMMENTS_SUCCESS } from '@/action/commentAction';
+import { AxiosResponse } from 'axios';
 
 const api = apiInstance();
 const authApi = authInstance();
@@ -45,9 +48,9 @@ function createFeedAPI(action: any): Promise<AxiosResponse<FeedType>> {
 
 //READ//
 
-function* loadFeed(action: any) {
+function* loadFeed(action: ReturnType<typeof loadFeedRequest>) {
   try {
-    const result: Promise<AxiosResponse<FeedType>> = yield call(loadFeedAPI, action.feedNo);
+    const result = yield call(loadFeedAPI, action.feedNo);
     yield put({
       type: LOAD_FEED_SUCCESS,
       data: result.data.feedRes,
@@ -64,7 +67,9 @@ function* loadFeed(action: any) {
   }
 }
 
-function loadFeedAPI(feedNo: number): Promise<AxiosResponse<FeedType>> {
+function loadFeedAPI(
+  feedNo: number,
+): Promise<AxiosResponse<{ feedRes: FeedType; commentRes: CommentType[] }>> {
   return api.get(`/feed/details/${feedNo}`);
 }
 

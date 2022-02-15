@@ -3,12 +3,19 @@ import { apiInstance, authInstance } from '@/libs/axios';
 import { AxiosResponse } from 'axios';
 
 import {
-  CREATE_COMMENT_REQUEST,
-  CREATE_COMMENT_SUCCESS,
-  CREATE_COMMENT_FAILURE,
+  loadCommentsRequest,
   LOAD_COMMENTS_REQUEST,
   LOAD_COMMENTS_SUCCESS,
   LOAD_COMMENTS_FAILURE,
+  createCommentRequest,
+  CREATE_COMMENT_REQUEST,
+  CREATE_COMMENT_SUCCESS,
+  CREATE_COMMENT_FAILURE,
+  deleteCommentRequest,
+  DELETE_COMMENT_REQUEST,
+  DELETE_COMMENT_SUCCESS,
+  DELETE_COMMENT_FAILURE,
+  updateCommentRequest,
   UPDATE_COMMENT_REQUEST,
   UPDATE_COMMENT_SUCCESS,
   UPDATE_COMMENT_FAILURE,
@@ -17,40 +24,47 @@ import {
   DELETE_COMMENT_FAILURE,
 } from '@/action/CommentAction';
 
-import { CommentType } from '@/types/comment';
+import { CommentRequestType, CommentType } from '@/types/comment';
 
 const api = apiInstance();
 const authApi = authInstance();
 
 //CREATE//
 
-function* createComment(action: any) {
+function* createComment(action: ReturnType<typeof createCommentRequest>) {
   try {
-    const result: Promise<AxiosResponse<CommentType[]>> = yield call(createCommentsAPI, action);
+    const result = yield call(createCommentsAPI, action);
     yield put({
-      type: CREATE_COMMENT_SUCCESS,
+      type: UPDATE_COMMENT_SUCCESS,
       data: result.data,
     });
   } catch (err: any) {
     yield put({
-      type: CREATE_COMMENT_FAILURE,
+      type: UPDATE_COMMENT_FAILURE,
       error: err.response,
     });
   }
 }
 
-function createCommentsAPI(action: any): Promise<AxiosResponse<CommentType[]>> {
+function createCommentsAPI(
+  action: ReturnType<typeof createCommentRequest>,
+): Promise<AxiosResponse<CommentType[]>> {
   return authApi.post(`/comment/${action.feedNo}`, action.request);
 }
 
-//READ//
+function deleteCommentsAPI(commentNo: number): Promise<AxiosResponse<CommentType[]>> {
+  return authApi.delete(`/comment/${commentNo}`);
+}
 
-function* loadComments(action: any) {
+function updateCommentsAPI(
+  action: ReturnType<typeof updateCommentRequest>,
+): Promise<AxiosResponse<CommentType[]>> {
+  return authApi.put(`/comment/${action.commentNo}`, action.request);
+}
+
+function* loadComments(action: ReturnType<typeof loadCommentsRequest>) {
   try {
-    const result: Promise<AxiosResponse<CommentType[]>> = yield call(
-      loadCommentsAPI,
-      action.feedNo,
-    );
+    const result = yield call(loadCommentsAPI, action.feedNo);
 
     yield put({
       type: LOAD_COMMENTS_SUCCESS,
@@ -64,40 +78,9 @@ function* loadComments(action: any) {
   }
 }
 
-function loadCommentsAPI(feedNo: number): Promise<AxiosResponse<CommentType[]>> {
-  return api.get(`/comment/${feedNo}`);
-}
-
-//UPDATE//
-
-function* updateComment(action: any) {
+function* deleteComment(action: ReturnType<typeof deleteCommentRequest>) {
   try {
-    const result: Promise<AxiosResponse<CommentType[]>> = yield call(updateCommentsAPI, action);
-    console.log('result!!!', result);
-    yield put({
-      type: UPDATE_COMMENT_SUCCESS,
-      data: result.data,
-    });
-  } catch (err: any) {
-    yield put({
-      type: UPDATE_COMMENT_FAILURE,
-      error: err.response,
-    });
-  }
-}
-
-function updateCommentsAPI(action: any): Promise<AxiosResponse<CommentType[]>> {
-  return authApi.put(`/comment/${action.commentNo}`, action.request);
-}
-
-//DELETE//
-
-function* deleteComment(action: any) {
-  try {
-    const result: Promise<AxiosResponse<CommentType[]>> = yield call(
-      deleteCommentsAPI,
-      action.commentNo,
-    );
+    const result = yield call(deleteCommentsAPI, action.commentNo);
     yield put({
       type: DELETE_COMMENT_SUCCESS,
       data: action.commentNo,
@@ -110,8 +93,19 @@ function* deleteComment(action: any) {
   }
 }
 
-function deleteCommentsAPI(commentNo: number): Promise<AxiosResponse<CommentType[]>> {
-  return authApi.delete(`/comment/${commentNo}`);
+function* updateComment(action: ReturnType<typeof updateCommentRequest>) {
+  try {
+    const result = yield call(updateCommentsAPI, action);
+    yield put({
+      type: UPDATE_COMMENT_SUCCESS,
+      data: result.data,
+    });
+  } catch (err: any) {
+    yield put({
+      type: UPDATE_COMMENT_FAILURE,
+      error: err.response,
+    });
+  }
 }
 
 //TAKELATEST//

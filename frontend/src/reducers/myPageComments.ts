@@ -2,7 +2,7 @@ import {
   LOAD_MYPAGE_COMMENT_REQUEST,
   LOAD_MYPAGE_COMMENT_SUCCESS,
   LOAD_MYPAGE_COMMENT_FAILURE,
-} from '@/action/MypageCommentAction';
+} from '@/action/myPageCommentAction';
 
 export const initialState: any = {
   myComments: [],

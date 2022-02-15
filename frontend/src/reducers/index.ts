@@ -3,8 +3,8 @@ import user from './user';
 import comment from './comment';
 import feed from './feed';
 import feeds from './feeds';
-import mypageFeeds from './mypageFeeds';
-import mypageComments from './mypageComments';
+import myPageFeeds from './myPageFeeds';
+import myPageComments from './myPageComments';
 import { combineReducers } from 'redux';
 
 const rootReducer = (state: any, action: any) => {
@@ -18,8 +18,8 @@ const rootReducer = (state: any, action: any) => {
         comment,
         feed,
         feeds,
-        mypageFeeds,
-        mypageComments,
+        myPageFeeds,
+        myPageComments,
       });
       return combineReducer(state, action);
     }

@@ -1,11 +1,11 @@
-import React, { useEffect } from 'react';
-import type { NextPage, NextPageContext } from 'next';
+import React from 'react';
+import type { NextPage } from 'next';
 import FeedDetailTemplate from '@/template/feed/detail';
 import wrapper from '@/store/configureStore';
 import { loadFeedRequest } from '@/action/feedAction';
 import { END } from 'redux-saga';
 
-const FeedDetail: NextPage<Props> = () => {
+const FeedDetail: NextPage = () => {
   return <FeedDetailTemplate />;
 };
 

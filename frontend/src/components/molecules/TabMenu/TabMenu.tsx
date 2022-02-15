@@ -7,6 +7,8 @@ import { Text } from '@/components/atoms';
 
 interface Props {
   tabList: string[];
+  value: number;
+  setValue: React.Dispatch<React.SetStateAction<number>>;
 }
 
 function a11yProps(index: number) {
@@ -16,9 +18,8 @@ function a11yProps(index: number) {
   };
 }
 
-const TabMenu: FunctionComponent<Props> = ({ tabList }) => {
+const TabMenu: FunctionComponent<Props> = ({ tabList, value, setValue }) => {
   const classes = Styled.useStyles();
-  const [value, setValue] = React.useState(0);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
