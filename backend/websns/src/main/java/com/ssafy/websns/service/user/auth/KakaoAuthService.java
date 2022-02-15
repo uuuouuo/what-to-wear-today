@@ -1,7 +1,7 @@
-package com.ssafy.websns.config.oauth;
+package com.ssafy.websns.service.user.auth;
 
-import com.ssafy.websns.config.jwt.JwtTokenProvider;
-import com.ssafy.websns.config.oauth.provider.ClientKakao;
+import com.ssafy.websns.config.auth.jwt.JwtTokenProvider;
+import com.ssafy.websns.config.auth.provider.ClientKakao;
 import com.ssafy.websns.model.dto.user.UserDto.LoginRes;
 import com.ssafy.websns.model.dto.user.auth.AuthDto.LoginAuthReq;
 import com.ssafy.websns.model.entity.user.User;

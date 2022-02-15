@@ -25,14 +25,14 @@ public class PersonalInterest {
 
   @ManyToOne(fetch = LAZY)
   @JoinColumn(name = "USER_NO")
-  private User userNo;
+  private User user;
 
   @ManyToOne(fetch = LAZY)
   @JoinColumn(name = "INTEREST_NO")
   private Interest interest;
 
   public void createPersonalInterest(User user, Interest interest) {
-    this.userNo = user;
+    this.user = user;
     this.interest = interest;
   }
 

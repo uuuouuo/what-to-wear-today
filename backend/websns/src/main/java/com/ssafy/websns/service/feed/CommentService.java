@@ -100,10 +100,12 @@ public class CommentService {
 
     List<CommentRes> response = null;
     comments.stream().forEach(comment -> {
-      Optional<UserProfile> profileOptional = userProfileRepository.findByUser(comment.getUser());
-      UserProfile userProfile = validateExist.findUserProfile(profileOptional);
-      CommentRes commentRes = new CommentRes(userProfile, comment);
-      response.add(commentRes);
+      if (comment.getDeleteMode() == false) {
+        Optional<UserProfile> profileOptional = userProfileRepository.findByUser(comment.getUser());
+        UserProfile userProfile = validateExist.findUserProfile(profileOptional);
+        CommentRes commentRes = new CommentRes(userProfile, comment);
+        response.add(commentRes);
+      }
     });
 
     return response;
@@ -120,10 +122,12 @@ public class CommentService {
 
     List<CommentRes> response = null;
     comments.stream().forEach(comment -> {
-      Optional<UserProfile> profileOptional = userProfileRepository.findByUser(user);
-      UserProfile userProfile = validateExist.findUserProfile(profileOptional);
-      CommentRes commentRes = new CommentRes(userProfile, comment);
-      response.add(commentRes);
+      if (comment.getDeleteMode() == false) {
+        Optional<UserProfile> profileOptional = userProfileRepository.findByUser(user);
+        UserProfile userProfile = validateExist.findUserProfile(profileOptional);
+        CommentRes commentRes = new CommentRes(userProfile, comment);
+        response.add(commentRes);
+      }
     });
 
     return response;

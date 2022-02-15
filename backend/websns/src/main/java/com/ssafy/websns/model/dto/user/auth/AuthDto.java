@@ -13,8 +13,8 @@ public class AuthDto {
   public static class LoginAuthReq{
     String code;
 
-    public LoginAuthReq(String accessToken) {
-      this.code = accessToken;
+    public LoginAuthReq(String code) {
+      this.code = code;
     }
   }
 

@@ -12,4 +12,6 @@ public interface LikePersonRepository extends JpaRepository<LikePerson, Integer>
 
   Optional<List<LikePerson>> findByFeed(Feed feed);
 
+  Optional<LikePerson> findByNo(Integer likeNo);
+
 }

@@ -29,4 +29,11 @@ public class UserFollowCnt {
   private Integer followingCnt;
 
   private Integer followerCnt;
+
+  public void createFollowCnt(Integer no, User user, Integer followingCnt, Integer followerCnt) {
+    this.no = no;
+    this.user = user;
+    this.followingCnt = 0;
+    this.followerCnt = 0;
+  }
 }

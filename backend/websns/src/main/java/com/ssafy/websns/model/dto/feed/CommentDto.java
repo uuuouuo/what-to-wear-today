@@ -42,14 +42,14 @@ public class CommentDto {
     private String content;
     private LocalDateTime createdAt;
 
-    public CommentRes(UserProfile userProfile, Comment comment){
+    public CommentRes(UserProfile userProfile, Comment comment) {
       this.no = comment.getNo();
       this.userId = userProfile.getUser().getUserId();
       this.nickname = userProfile.getNickname();
       this.profileImg = userProfile.getProfileImg();
       this.feedNo = comment.getFeed().getNo();
       this.parent = comment.getParent() != null ? comment.getParent().getNo() : null;
-      this.content= comment.getContent();
+      this.content = comment.getContent();
       this.createdAt = comment.getCreatedAt();
     }
 
