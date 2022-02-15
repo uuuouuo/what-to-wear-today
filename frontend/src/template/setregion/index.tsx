@@ -4,10 +4,12 @@ import Styled from './styled';
 import { useRouter } from 'next/router';
 import { Title } from '@/components/molecules';
 import { useChange } from '@/hooks';
-import { Text, Button } from '@/components/atoms';
+import { Text } from '@/components/atoms';
 
 import Chip from '@mui/material/Chip';
 import Stack from '@mui/material/Stack';
+
+import RegionSearch from '@/components/RegionSearch/RegionSearch';
 
 const SetRegion: NextPage = () => {
   const router = useRouter();
@@ -32,12 +34,13 @@ const SetRegion: NextPage = () => {
   const deleteRegion = () => {};
   return (
     <Styled.MainContainer>
-      <Title value="지역 설정" />
+      <Title value="관심 지역 설정" />
       <Styled.SearchContainer>
-        <Styled.FormGroup label={'지역명'} value={value} onChange={onChange}></Styled.FormGroup>
+        <RegionSearch />
+        {/* <Styled.FormGroup label={'지역명'} value={value} onChange={onChange}></Styled.FormGroup>
         <Styled.Button onClick={addRegion}>
           <Text value="+" />
-        </Styled.Button>
+        </Styled.Button> */}
       </Styled.SearchContainer>
       <Styled.columnContainer>
         <Stack direction="column" spacing={1}>
