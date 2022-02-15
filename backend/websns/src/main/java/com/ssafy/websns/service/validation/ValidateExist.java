@@ -1,5 +1,6 @@
 package com.ssafy.websns.service.validation;
 
+import com.ssafy.websns.model.dto.feed.CommentDto.CommentRes;
 import com.ssafy.websns.model.entity.feed.Comment;
 import com.ssafy.websns.model.entity.feed.Feed;
 import com.ssafy.websns.model.entity.feed.FeedTag;
@@ -73,6 +74,7 @@ public class ValidateExist {
     } else {
       return null;
     }
+
 
   }
 
