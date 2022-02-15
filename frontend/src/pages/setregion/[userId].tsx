@@ -1,14 +1,13 @@
 import React from 'react';
 import { NextPage } from 'next';
-import SetRegionTemplate from '@/template/setregion';
+import SetRegionTemplate from '@/template/region';
 
 interface Props {
   userId: string;
 }
 
 const SetRegion: NextPage<Props> = ({ userId }) => {
-  console.log(userId);
-  return <SetRegionTemplate userId={userId}></SetRegionTemplate>;
+  return <SetRegionTemplate userId={userId} />;
 };
 
 export const getServerSideProps = async ({ params }) => {
