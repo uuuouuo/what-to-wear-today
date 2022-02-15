@@ -31,8 +31,6 @@ export const createCommentFailure = () => ({
   type: CREATE_COMMENT_FAILURE,
 });
 
-////
-
 export const loadCommentsRequest = (feedNo: number) => ({
   type: LOAD_COMMENTS_REQUEST,
   feedNo: feedNo,
@@ -63,8 +61,6 @@ export const updateCommentFailure = () => ({
   type: UPDATE_COMMENT_FAILURE,
 });
 
-////
-
 export const deleteCommentRequest = (commentNo: number) => ({
   type: DELETE_COMMENT_REQUEST,
   commentNo: commentNo,
@@ -77,5 +73,3 @@ export const deleteCommentSuccess = () => ({
 export const deleteCommentFailure = () => ({
   type: DELETE_COMMENT_FAILURE,
 });
-
-////

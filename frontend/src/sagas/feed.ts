@@ -1,5 +1,5 @@
 import { all, fork, put, takeLatest, call } from 'redux-saga/effects';
-import { apiInstance } from '@/libs/axios';
+import { apiInstance, authInstance } from '@/libs/axios';
 import { FeedType } from '@/types/feed';
 import { CommentType } from '@/types/comment';
 import {
@@ -24,8 +24,6 @@ import { AxiosResponse } from 'axios';
 const api = apiInstance();
 const authApi = authInstance();
 
-//CREATE//
-
 function* createFeed(action: any) {
   console.log('사가스 피드 생성 액션', action);
   try {
@@ -45,8 +43,6 @@ function* createFeed(action: any) {
 function createFeedAPI(action: any): Promise<AxiosResponse<FeedType>> {
   return authApi.post(`/feed`, action.request);
 }
-
-//READ//
 
 function* loadFeed(action: ReturnType<typeof loadFeedRequest>) {
   try {
@@ -73,8 +69,6 @@ function loadFeedAPI(
   return api.get(`/feed/details/${feedNo}`);
 }
 
-//UPDATE//
-
 function* updateFeed(action: any) {
   try {
     const result: Promise<AxiosResponse<FeedType>> = yield call(updateFeedAPI, action);
@@ -94,8 +88,6 @@ function updateFeedAPI(action: any): Promise<AxiosResponse<FeedType>> {
   return authApi.put(`/feed/${action.feedNo}`, action.request);
 }
 
-//DELETE//
-
 function* deleteFeed(action: any) {
   try {
     const result: Promise<AxiosResponse<FeedType>> = yield call(deleteFeedAPI, action);
@@ -114,8 +106,6 @@ function* deleteFeed(action: any) {
 function deleteFeedAPI(action: any): Promise<AxiosResponse<FeedType>> {
   return authApi.delete(`/feed/${action.feedNo}`);
 }
-
-//TAKELATEST //
 
 function* watchCreateFeed() {
   yield takeLatest(CREATE_FEED_REQUEST, createFeed);

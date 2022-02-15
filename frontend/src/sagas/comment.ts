@@ -12,9 +12,6 @@ import {
   CREATE_COMMENT_SUCCESS,
   CREATE_COMMENT_FAILURE,
   deleteCommentRequest,
-  DELETE_COMMENT_REQUEST,
-  DELETE_COMMENT_SUCCESS,
-  DELETE_COMMENT_FAILURE,
   updateCommentRequest,
   UPDATE_COMMENT_REQUEST,
   UPDATE_COMMENT_SUCCESS,
@@ -22,7 +19,7 @@ import {
   DELETE_COMMENT_REQUEST,
   DELETE_COMMENT_SUCCESS,
   DELETE_COMMENT_FAILURE,
-} from '@/action/CommentAction';
+} from '@/action/commentAction';
 
 import { CommentRequestType, CommentType } from '@/types/comment';
 
@@ -35,12 +32,12 @@ function* createComment(action: ReturnType<typeof createCommentRequest>) {
   try {
     const result = yield call(createCommentsAPI, action);
     yield put({
-      type: UPDATE_COMMENT_SUCCESS,
+      type: CREATE_COMMENT_SUCCESS,
       data: result.data,
     });
   } catch (err: any) {
     yield put({
-      type: UPDATE_COMMENT_FAILURE,
+      type: CREATE_COMMENT_FAILURE,
       error: err.response,
     });
   }
@@ -76,6 +73,9 @@ function* loadComments(action: ReturnType<typeof loadCommentsRequest>) {
       error: err.response,
     });
   }
+}
+function loadCommentsAPI(feedNo: number): Promise<AxiosResponse<CommentType[]>> {
+  return api.get(`/comment/${feedNo}`);
 }
 
 function* deleteComment(action: ReturnType<typeof deleteCommentRequest>) {
