@@ -11,7 +11,7 @@ interface Props {
 }
 
 const User: NextPage<Props> = ({ userId }) => {
-  return <UserTemplate userId={userId}></UserTemplate>;
+  return <UserTemplate userId={userId} />;
 };
 
 export const getServerSideProps = wrapper.getServerSideProps(

@@ -2,31 +2,19 @@ import React, { useEffect, useState } from 'react';
 import type { NextPage } from 'next';
 
 import Styled from './styled';
-import { Title } from '@/components/molecules';
-import { Label, Button, Text } from '@/components/atoms';
+import { Button, Text } from '@/components/atoms';
+import { FooterNavbar, Title, TabMenu, FollowingModal } from '@/components/molecules';
+import { MypageFeeds, MypageComments } from '@/components/organisms';
 import Avatar from '@mui/material/Avatar';
 import SettingsIcon from '@mui/icons-material/Settings';
-
-import Box from '@mui/material/Box';
-import Tabs from '@mui/material/Tabs';
-import Tab from '@mui/material/Tab';
-
-import FollowingModal from '@/components/Following_modal/Following_modal';
-import DrawerMenu from '@/components/Drawer_menu/Drawer_menu';
-
-import MypageFeeds from '@/components/MypageFeeds/MypageFeeds';
-import MypageComments from '@/components/MypageComments/MypageComments';
 
 interface Props {
   userId: string;
 }
 
-const User: NextPage<Props> = ({ userId }) => {
+const UserTemplate: NextPage<Props> = ({ userId }) => {
+  const classes = Styled.useStyles();
   const [value, setValue] = React.useState(0);
-
-  const handleChange = (event: React.SyntheticEvent, newValue: number) => {
-    setValue(newValue);
-  };
 
   const modifyProfile = () => {
     console.log(userId);
@@ -35,47 +23,63 @@ const User: NextPage<Props> = ({ userId }) => {
 
   return (
     <Styled.MainContainer>
-      <Title value="Profile" />
-      <DrawerMenu userId={userId} />
+      <Styled.DrawerMenu userId={userId} />
+      <Title value="PROFILE" />
       <Styled.ProfileContainer>
-        <Avatar src={'/images/icon/blank_user.png'} sx={{ width: 100, height: 100 }} />
-        <Styled.columnContainer>
-          <Styled.rowContainer>
-            <Label>{userId}</Label>
-            {Number(userId) === 1 ? (
-              <Button onClick={modifyProfile}>
+        <Avatar
+          classes={{
+            root: classes.root,
+          }}
+          src="/images/icon/blank_user.png"
+          sx={{ width: 100, height: 100 }}
+        />
+        <Styled.UserInfo>
+          <Styled.UserInfoHeader>
+            <Text className="username" size="1.3rem" weight="600" value={userId} />
+            {userId === 'jdb1' ? (
+              <Styled.Button className="btn setting" onClick={modifyProfile}>
                 <SettingsIcon />
-              </Button>
+              </Styled.Button>
             ) : (
-              <Button onClick={modifyProfile}>
+              <Styled.Button className="btn follow" onClick={modifyProfile}>
                 <Text value="Follow" />
-              </Button>
+              </Styled.Button>
             )}
-          </Styled.rowContainer>
-          <Styled.rowContainer>
-            <Label>더위를 잘 타는 타입</Label>
-          </Styled.rowContainer>
-          <Styled.rowContainer>
+          </Styled.UserInfoHeader>
+
+          <div>
+            <Text color="#777" value="얼죽아" />
+          </div>
+          <Styled.UserInfoFooter>
             <FollowingModal title="팔로워" />
             <FollowingModal title="팔로잉" />
-          </Styled.rowContainer>
-        </Styled.columnContainer>
+          </Styled.UserInfoFooter>
+        </Styled.UserInfo>
+        <Styled.TabContainer>
+          <TabMenu tabList={['FEEDS', 'COMMENTS']} value={value} setValue={setValue} />
+        </Styled.TabContainer>
+        <Styled.ContentContainer>
+          <Styled.TabPanel
+            role="tabpanel"
+            hidden={value !== 0}
+            id="simple-tabpanel-0"
+            aria-labelledby="simple-tab-0"
+          >
+            {userId !== undefined ? <MypageFeeds userId={userId} /> : null}
+          </Styled.TabPanel>
+          <Styled.TabPanel
+            role="tabpanel"
+            hidden={value !== 1}
+            id="simple-tabpanel-1"
+            aria-labelledby="simple-tab-1"
+          >
+            {userId !== undefined ? <MypageComments userId={userId} /> : null}
+          </Styled.TabPanel>
+        </Styled.ContentContainer>
       </Styled.ProfileContainer>
-      <Styled.rowContainer>
-        <Box sx={{ width: '100%', bgcolor: 'background.paper' }}>
-          <Tabs value={value} onChange={handleChange} centered>
-            <Tab label="Feeds" />
-            <Tab label="Comments" />
-          </Tabs>
-        </Box>
-      </Styled.rowContainer>
-      <Styled.contentContainer></Styled.contentContainer>
-      <Styled.contentContainer>
-        {value === 0 && userId !== undefined ? <MypageFeeds userId={userId} /> : null}
-        {value === 1 && userId !== undefined ? <MypageComments userId={userId} /> : null}
-      </Styled.contentContainer>
+      <FooterNavbar />
     </Styled.MainContainer>
   );
 };
 
-export default User;
+export default UserTemplate;

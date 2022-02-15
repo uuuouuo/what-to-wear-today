@@ -4,8 +4,8 @@ import Styled from './TextEditor.styled';
 import InputTrigger from 'react-input-trigger';
 
 import { Text } from '@/components/atoms';
-import { DropDown } from '@/components/molecules';
-import { useDisplay, useChange } from 'hooks';
+import { TagList } from '@/components/molecules';
+import { useDisplay, useChange } from '@/hooks';
 
 interface Props {
   className?: string;
@@ -13,7 +13,15 @@ interface Props {
   onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
 }
 
-const tags = ['Charmander', 'Squirtle', 'Bulbasaur', 'Pikachu'];
+const tags = [
+  {
+    no: 1,
+    tagName: 'Charmander',
+  },
+  { no: 2, tagName: 'Squirtle' },
+  { no: 3, tagName: 'Bulbasaur' },
+  { no: 4, tagName: 'Pikachu' },
+];
 
 const TextEditor: FunctionComponent<Props> = ({ className, value, onChange }) => {
   const ref = useRef(null);
@@ -58,22 +66,24 @@ const TextEditor: FunctionComponent<Props> = ({ className, value, onChange }) =>
       >
         <Styled.TextEditor value={value} onChange={onChange} onScroll={onScroll} />
       </InputTrigger>
-      <DropDown
+      <TagList
         display={display}
         position={{ top, left }}
         list={tags}
         currentSelection={currentSelection}
+        setCurrentSelection={setCurrentSelection}
+        tag={tag}
       />
       <Styled.Highlights ref={ref}>
         {value ? (
           value.split(/(#[^#\s]+|\n)/g).map((v) => {
             if (v.match(/(#[^#\s]+)/)) {
               return <Text className="hashtag" value={v} />;
-            } else if (v.match(/\n/)) {
-              return <br />;
-            } else {
-              return <Text value={v} />;
             }
+            if (v.match(/\n/)) {
+              return <br />;
+            }
+            return <Text value={v} />;
           })
         ) : (
           <Text value="Write something..." color="#aaa" />

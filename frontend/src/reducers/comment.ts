@@ -8,7 +8,10 @@ import {
   DELETE_COMMENT_REQUEST,
   DELETE_COMMENT_SUCCESS,
   DELETE_COMMENT_FAILURE,
-} from 'action/commentAction';
+  UPDATE_COMMENT_REQUEST,
+  UPDATE_COMMENT_SUCCESS,
+  UPDATE_COMMENT_FAILURE,
+} from '@/action/commentAction';
 import { StateType } from '@/types/comment';
 
 export const initialState: StateType = {
@@ -22,6 +25,9 @@ export const initialState: StateType = {
   deleteCommentDeleting: false,
   deleteCommentDone: false,
   deleteCommentError: null,
+  updateCommentUpdating: false,
+  updateCommentDone: false,
+  updateCommentError: null,
 };
 
 const reducer = (state = initialState, action: any) => {
@@ -49,8 +55,6 @@ const reducer = (state = initialState, action: any) => {
         loadCommentsError: action.error,
       };
 
-    ////
-
     case CREATE_COMMENT_REQUEST:
       return {
         ...state,
@@ -71,10 +75,8 @@ const reducer = (state = initialState, action: any) => {
       return {
         ...state,
         createCommentsAdding: false,
-        createCommentError: action.error.status,
+        createCommentError: action.error,
       };
-
-    ////
 
     case DELETE_COMMENT_REQUEST:
       return {
@@ -87,8 +89,8 @@ const reducer = (state = initialState, action: any) => {
     case DELETE_COMMENT_SUCCESS:
       return {
         ...state,
+        comments: state.comments.filter((comment) => comment.no !== action.data),
         deleteCommentDeleting: false,
-        comments: [...state.comments],
         deleteCommentDone: true,
       };
 
@@ -96,7 +98,35 @@ const reducer = (state = initialState, action: any) => {
       return {
         ...state,
         deleteCommentDeleting: false,
-        deleteCommentError: action.error.status,
+        deleteCommentError: action.error,
+      };
+
+    case UPDATE_COMMENT_REQUEST:
+      return {
+        ...state,
+        updateCommentUpdating: true,
+        updateCommentDone: false,
+        updateCommentError: null,
+      };
+
+    case UPDATE_COMMENT_SUCCESS:
+      return {
+        ...state,
+        comments: state.comments.map((comment) => {
+          if (comment === action.data.no) {
+            return { ...comment, ...action.data };
+          }
+          return comment;
+        }),
+        updateCommentUpdating: false,
+        updateCommentDone: true,
+      };
+
+    case UPDATE_COMMENT_FAILURE:
+      return {
+        ...state,
+        updateCommentUpdating: false,
+        updateCommentError: action.error,
       };
 
     default:

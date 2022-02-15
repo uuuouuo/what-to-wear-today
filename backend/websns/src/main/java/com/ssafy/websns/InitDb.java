@@ -18,7 +18,7 @@
 //  @PostConstruct
 //  void init() throws IOException {
 //    BufferedReader reader = new BufferedReader(
-//        new FileReader("C:\\Users\\Jang\\Desktop\\region.txt")
+//        new FileReader("C:\\Users\\somyu\\Desktop\\region.txt")
 //    );
 //    String str;
 //    while ((str = reader.readLine()) != null) {

@@ -4,7 +4,7 @@ import navAction from '@mui/material/BottomNavigationAction';
 const BottomNavigationAction = styled(navAction)`
   color: silver;
   &.Mui-selected {
-    color: purple;
+    color: #000;
   }
 `;
 

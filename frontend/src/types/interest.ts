@@ -1,6 +1,6 @@
 interface InterestType {
-  _interest_no: number;
-  interest_name: string;
+  no: number;
+  interestName: string;
 }
 
 export type { InterestType };

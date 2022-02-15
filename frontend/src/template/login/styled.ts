@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import {
   MainContainer as BaseMainContainer,
-  Heading as Heading,
+  Heading as BaseHeading,
   Text as BaseText,
   FooterContainer as BaseFooterContainer,
 } from '@/components/atoms';
@@ -12,7 +12,7 @@ const MainContainer = styled(BaseMainContainer)`
   text-align: center;
 `;
 
-const LogoContainer = styled(Heading)`
+const Heading = styled(BaseHeading)`
   margin-top: 15vh;
 `;
 
@@ -29,4 +29,4 @@ const KakaoButton = styled(BaseKakaoButton)`
   margin: 5vh;
 `;
 
-export default { MainContainer, LogoContainer, Title, KakaoButton };
+export default { MainContainer, Heading, Title, KakaoButton };

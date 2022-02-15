@@ -3,11 +3,12 @@ import { apiInstance } from '@/libs/axios';
 import { AxiosResponse } from 'axios';
 import { LOAD_FEED_REQUEST, LOAD_FEED_SUCCESS, LOAD_FEED_FAILURE } from '@/action/feedAction';
 import { FeedType } from '@/types/feed';
+import { LOAD_COMMENTS_SUCCESS } from '@/action/commentAction';
 
 const api = apiInstance();
 
 function loadFeedAPI(feedNo: number): Promise<AxiosResponse<FeedType>> {
-  return api.get(`/feed/${feedNo}`);
+  return api.get(`/feed/details/${feedNo}`);
 }
 
 function* loadFeed(action: any) {
@@ -15,7 +16,11 @@ function* loadFeed(action: any) {
     const result: Promise<AxiosResponse<FeedType>> = yield call(loadFeedAPI, action.feedNo);
     yield put({
       type: LOAD_FEED_SUCCESS,
-      data: result.data.content,
+      data: result.data.feedRes,
+    });
+    yield put({
+      type: LOAD_COMMENTS_SUCCESS,
+      data: result.data.commentRes,
     });
   } catch (err: any) {
     yield put({

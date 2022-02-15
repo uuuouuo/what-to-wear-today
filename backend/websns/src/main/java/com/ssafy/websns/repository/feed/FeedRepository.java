@@ -1,6 +1,7 @@
 package com.ssafy.websns.repository.feed;
 
 import com.ssafy.websns.model.entity.feed.Feed;
+import com.ssafy.websns.model.entity.user.User;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.data.domain.Page;
@@ -21,5 +22,10 @@ public interface FeedRepository extends JpaRepository<Feed,Integer> {
 
   @Query("select f from Feed f where f.content like %:content% and f.deleteMode = false")
   Optional<List<Feed>> findFeedsByContent(@Param("content") String keyword);
+<<<<<<< HEAD
+=======
+
+  Optional<List<Feed>> findByUser(User user);
+>>>>>>> cc46f12bd5c025f1b8f6ca8a7f9726469794eed4
 
 }

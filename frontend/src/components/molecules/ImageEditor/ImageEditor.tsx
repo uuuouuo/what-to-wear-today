@@ -1,44 +1,35 @@
-import React, { Dispatch, FunctionComponent, SetStateAction } from 'react';
-import Styled from './ImageEditor.styled';
-
+import React, { FunctionComponent } from 'react';
+import dynamic from 'next/dynamic';
 // @ts-ignore
-import TuiImageEditor from '@toast-ui/react-image-editor';
-import 'tui-image-editor/dist/tui-image-editor.css';
-interface Props {
-  className?: string;
+import { ImageEditor as ImageEditorType, EditorProps } from '@toast-ui/react-image-editor';
+import { ImageEditorWithForwardedProps } from './ImageEditorWrapper';
+
+interface ImageEditorPropsWithHandlers extends EditorProps {
   file: string;
 }
 
-const ImageEditor: FunctionComponent<Props> = ({ className, file }) => {
-  const myTheme = {
-    // Theme object to extends default dark theme.
-  };
+const TuiImageEditor = dynamic<ImageEditorWithForwardedProps>(
+  () => import('./ImageEditorWrapper'),
+  {
+    ssr: false,
+  },
+);
+const ImageEditorWithForwardedRef = React.forwardRef<
+  ImageEditorType | undefined,
+  ImageEditorPropsWithHandlers
+>((props, ref) => (
+  <TuiImageEditor {...props} forwardedRef={ref as React.MutableRefObject<ImageEditorType>} />
+));
 
+interface Props extends ImageEditorType {
+  file: string;
+}
+
+const ImageEditor: FunctionComponent<Props> = (props) => {
   return (
-    <></>
-    // <TuiImageEditor
-    //   includeUI={{
-    //     loadImage: {
-    //       path: file,
-    //       name: 'SampleImage',
-    //     },
-    //     theme: myTheme,
-    //     menu: ['shape', 'filter'],
-    //     initMenu: 'filter',
-    //     uiSize: {
-    //       width: '1000px',
-    //       height: '700px',
-    //     },
-    //     menuBarPosition: 'bottom',
-    //   }}
-    //   cssMaxHeight={document.documentElement.clientWidth}
-    //   cssMaxWidth={document.documentElement.clientHeight}
-    //   selectionStyle={{
-    //     cornerSize: 50,
-    //     rotatingPointOffset: 100,
-    //   }}
-    //   usageStatistics={true}
-    // />
+    <div>
+      <ImageEditorWithForwardedRef {...props} />
+    </div>
   );
 };
 export default ImageEditor;

@@ -1,10 +1,16 @@
 interface UserType {
-  _user_no: string;
+  no: string;
   id: string;
   password: string | undefined;
   platform: number;
-  age_range: string | undefined;
+  ageRange: string | undefined;
   gender: boolean | undefined;
+}
+
+interface UserProfileType {
+  userId: string;
+  nickname: string;
+  profileImage: string;
 }
 
 interface StateType {
@@ -14,4 +20,4 @@ interface StateType {
   kakaoLoginError: Error | null;
 }
 
-export type { UserType, StateType };
+export type { UserType, UserProfileType, StateType };

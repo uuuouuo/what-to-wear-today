@@ -2,65 +2,42 @@ import React from 'react';
 import Styled from './styled';
 import type { NextPage } from 'next';
 import type { RootState } from '@/reducers';
-import { useSelector } from 'react-redux';
-import Link from '@mui/material/Link';
-import { Header, FooterNavbar } from '@/components/molecules';
-import CommentPage from '@/components/CommentPage/CommentPage';
-import Dropdown from '@/components/Dropdown/Dropdown';
-import ReportForm from '@/components/ReportForm/ReportForm';
-import {
-  UserImage,
-  UserName,
-  UserId,
-  HashTag,
-  ArticleContent,
-  ArticleDate,
-} from '@/components/atoms';
+import { useDispatch, useSelector } from 'react-redux';
+import { Header, FooterNavbar, Comment, CommentForm } from '@/components/molecules';
+import { FeedDetail } from '@/components/organisms';
+import { CommentType } from '@/types/comment';
 
-interface Props {
-  feedNo: number;
-}
+import { createCommentRequest } from '@/action/commentAction';
+import { useChange } from '@/hooks';
 
-const FeedDetail: NextPage<Props> = ({ feedNo }) => {
+const FeedDetailTemplate: NextPage<Props> = () => {
+  const dispatch = useDispatch();
   const { feed } = useSelector((state: RootState) => state.feed);
+  const { comments } = useSelector((state: RootState) => state.comment);
+
+  const [commentValue, setCommentValue, onCommentValueChange] = useChange('');
+  const sendComment = (e: React.MouseEvent) => {
+    e.preventDefault();
+    dispatch(createCommentRequest(commentValue, feed.no));
+    setCommentValue('');
+  };
 
   return (
-    <Styled.DetailPageLayout>
-      <Header
-        name="오늘 뭐 입지?"
-        leftSide="pointer"
-        rightSide="notification"
-        userId={feed[0].userId}
-      />
-      <Styled.TopArea>
-        <Styled.ArticleArea>
-          <Styled.UserInfoArea>
-            <Link href={`/user/${feed[0].userId}`} underline="none" sx={{ color: 'black' }}>
-              <UserImage />
-            </Link>
+    <Styled.MainContainer>
+      <Header name="오늘 뭐 입지?" leftSide="pointer" rightSide="notification" />
 
-            <Styled.UserId>
-              <Link href={`/user/${feed[0].userId}`} underline="none" sx={{ color: 'black' }}>
-                <UserName value={feed[0].userId} />
-              </Link>
-            </Styled.UserId>
-          </Styled.UserInfoArea>
-          <Dropdown />
-        </Styled.ArticleArea>
-
-        <Styled.ArticleContent>
-          <ArticleContent value={feed[0].content} />
-          <HashTag value={[feed[0].tags]} />
-          <Styled.DateLine>
-            <ArticleDate value={feed[0].createdAt} />
-            <ReportForm />
-          </Styled.DateLine>
-        </Styled.ArticleContent>
-      </Styled.TopArea>
-      <CommentPage feedNo={feedNo} />
+      <Styled.ArticleArea>
+        <FeedDetail feed={feed} />
+        <div>
+          <CommentForm value={commentValue} onChange={onCommentValueChange} onClick={sendComment} />
+          {comments.map((comment: CommentType) => (
+            <Comment key={comment.no} comment={comment} />
+          ))}
+        </div>
+      </Styled.ArticleArea>
       <FooterNavbar />
-    </Styled.DetailPageLayout>
+    </Styled.MainContainer>
   );
 };
 
-export default FeedDetail;
+export default FeedDetailTemplate;

@@ -15,6 +15,7 @@ import lombok.Getter;
 @Entity
 @Getter
 @ApiModel(value = "좋아요", description = "좋아요에 관한 정보를 나타냅니다.")
+
 public class LikePerson {
 
   @Id
@@ -23,11 +24,13 @@ public class LikePerson {
   private Integer no;
 
   @ManyToOne(fetch = LAZY)
-  @JoinColumn(name = "USER_NO")
+  @JoinColumn
+//  @JoinColumn(name = "USER_NO")
   private User user;
 
   @ManyToOne(fetch = LAZY)
-  @JoinColumn(name = "FEED_NO")
+//  @JoinColumn(name = "FEED_NO")
+  @JoinColumn
   private Feed feed;
 
 }

@@ -43,7 +43,7 @@ const dummy: InterestType[] = [
   { _interest_no: 31, interest_name: '겨울' },
 ];
 
-const Interest: NextPage = () => {
+const InterestTemplate: NextPage = () => {
   const [interests, , onChangeInterest] = useCheck([]);
 
   const isChecked = useCallback(
@@ -67,6 +67,7 @@ const Interest: NextPage = () => {
       <Styled.InterestContainer>
         {dummy.map((interest) => (
           <Styled.CheckInputFormGroup
+            key={interest._interest_no}
             type="checkbox"
             value={interest._interest_no}
             checked={isChecked(interest._interest_no)}
@@ -89,4 +90,4 @@ const Interest: NextPage = () => {
   );
 };
 
-export default Interest;
+export default InterestTemplate;

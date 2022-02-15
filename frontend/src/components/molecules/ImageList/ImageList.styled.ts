@@ -1,24 +1,25 @@
 import styled from '@emotion/styled';
+import { ImageUpload as BaseImageUpload } from '@/components/molecules';
 
-const ImageList = styled.div`
-  display: flex;
-  overflow-x: scroll;
-  width: 100%;
+const SwipeableItem = styled.div``;
 
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
-
-  &::-webkit-scrollbar {
-    display: none; /* Chrome, Safari, Opera*/
-  }
+const ImageUpload = styled(BaseImageUpload)`
+  color: #fff;
+  margin: 0;
 `;
 
-const ImageContainer = styled.div`
-  flex: 1 0 100%;
-  margin: 0 1vw;
+const Container = styled.div`
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
+  width: 350px;
+  height: 255px;
+  background-color: #000;
+  z-index: 100;
 `;
 
-export default { ImageList, ImageContainer };
+export default {
+  SwipeableItem,
+  ImageUpload,
+  Container,
+};
