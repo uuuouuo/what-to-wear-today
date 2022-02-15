@@ -21,12 +21,10 @@ import {
   DELETE_COMMENT_FAILURE,
 } from '@/action/commentAction';
 
-import { CommentRequestType, CommentType } from '@/types/comment';
+import { CommentType } from '@/types/comment';
 
 const api = apiInstance();
 const authApi = authInstance();
-
-//CREATE//
 
 function* createComment(action: ReturnType<typeof createCommentRequest>) {
   try {
@@ -41,6 +39,10 @@ function* createComment(action: ReturnType<typeof createCommentRequest>) {
       error: err.response,
     });
   }
+}
+
+function loadCommentsAPI(feedNo: number): Promise<AxiosResponse<CommentType[]>> {
+  return api.get(`/comment/${feedNo}`);
 }
 
 function createCommentsAPI(
@@ -74,9 +76,6 @@ function* loadComments(action: ReturnType<typeof loadCommentsRequest>) {
     });
   }
 }
-function loadCommentsAPI(feedNo: number): Promise<AxiosResponse<CommentType[]>> {
-  return api.get(`/comment/${feedNo}`);
-}
 
 function* deleteComment(action: ReturnType<typeof deleteCommentRequest>) {
   try {
@@ -107,8 +106,6 @@ function* updateComment(action: ReturnType<typeof updateCommentRequest>) {
     });
   }
 }
-
-//TAKELATEST//
 
 function* watchCreateComment() {
   yield takeLatest(CREATE_COMMENT_REQUEST, createComment);

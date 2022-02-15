@@ -87,11 +87,11 @@ const Home: NextPage = () => {
 
       <Styled.FeedNavbar>
         <FeedRegion interestRegions={interestRegions} />
-        <TabMenu
+        {/* <TabMenu
           tabList={['추천순', '인기순', '좋아요순', '최신순']}
           value={value}
           setValue={setValue}
-        />
+        /> */}
       </Styled.FeedNavbar>
       <Styled.FeedContent ref={viewport}>
         {feeds.map((feed, idx) => {

@@ -7,7 +7,6 @@ import { FeedType } from '@/types/feed';
 const api = apiInstance();
 
 function* loadFeeds(action: any) {
-  console.log('되는건지 아닌지', action);
   try {
     const result: Promise<AxiosResponse<FeedType[]>> = yield call(loadFeedsAPI, action.regionNo);
     yield put({
