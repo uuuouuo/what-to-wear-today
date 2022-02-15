@@ -18,6 +18,7 @@ const FormGroup = styled(BaseFormGroup)`
 
 const SearchContainer = styled.div`
   display: flex;
+  flex-direction: column;
   align-items: center;
   transform: translateY(-5vh);
   margin: 5vh;

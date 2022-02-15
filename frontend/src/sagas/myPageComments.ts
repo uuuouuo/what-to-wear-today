@@ -10,6 +10,8 @@ import {
 } from '@/action/myPageCommentAction';
 import { CommentType } from 'types/comment';
 
+import { CommentType } from 'types/myPageComments';
+
 const api = apiInstance();
 
 function loadMyCommentsAPI(userId: string): Promise<AxiosResponse<CommentType[]>> {

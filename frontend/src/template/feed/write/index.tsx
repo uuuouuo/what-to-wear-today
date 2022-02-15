@@ -11,6 +11,9 @@ import { useDispatch } from 'react-redux';
 
 import CheckIcon from '@mui/icons-material/Check';
 
+import RegionFeed from '@/components/RegionSearch/RegionFeed';
+import WeatherAPI from '@/components/WeatherAPI/WeatherAPI';
+
 const FeedWriteTemplate: NextPage = () => {
   const dispatch = useDispatch();
   const [value, , onChange] = useChange('');
@@ -18,12 +21,21 @@ const FeedWriteTemplate: NextPage = () => {
   const [file, setFile] = useFileChange(null);
   const [files, , , appendFile] = useFileChange(null);
   const [display, , openDisplay, closeDisplay] = useDisplay(false);
-  const [date, , onChangeDate] = useChange('');
-  const [region, , onRegionChange] = useChange('');
+  const [date, setDate] = useState<string | null>();
+  const [region, onRegionChange] = useState();
   const [temperature, , onTemperatureChange] = useChange('');
 
   const createFeedAction = (e: React.MouseEvent) => {
     dispatch(createFeedRequest(value, files, date, privateMode, region, temperature));
+  };
+
+  const onChangeDate = (e: React.ChangeEvent<HTMLInputElement>) => {
+    // setDate(e.target.value);
+    setDate(
+      `${e.target.value.slice(0, 4)}.${e.target.value.slice(5, 7)}.${e.target.value.slice(
+        8,
+      )}.15:00`,
+    );
   };
 
   return (
@@ -46,7 +58,8 @@ const FeedWriteTemplate: NextPage = () => {
             <Styled.Input type="date" onChange={onChangeDate} />
           </Styled.RowContainer>
           <Styled.RowContainer>
-            <Styled.Input value={region} onChange={onRegionChange} placeholder="Region..." />
+            {/* <Styled.Input value={region} onChange={onRegionChange} placeholder="Region..." /> */}
+            <RegionFeed onChange={onRegionChange} />
           </Styled.RowContainer>
           <Styled.RowContainer>
             <Styled.Input
@@ -55,6 +68,7 @@ const FeedWriteTemplate: NextPage = () => {
               onChange={onTemperatureChange}
               placeholder="Temperature..."
             />
+            {date && region ? <WeatherAPI region={region} date={date} /> : null}
           </Styled.RowContainer>
         </Styled.InputContainer>
       </Styled.ContentContainer>

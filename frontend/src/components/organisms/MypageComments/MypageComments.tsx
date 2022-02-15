@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 import { Comment } from '@/components/molecules';
 
 const MypageComments = () => {
-  const { myComments } = useSelector((state: RootState) => state.mypageComments);
+  const { myComments } = useSelector((state: RootState) => state.myPageComments);
 
   return (
     <Styled.ContentContainer>

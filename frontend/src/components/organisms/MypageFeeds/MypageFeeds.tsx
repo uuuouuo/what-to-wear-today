@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 import { Feed } from '@/components/organisms';
 
 const MypageFeeds = () => {
-  const { myFeeds } = useSelector((state: RootState) => state.mypageFeeds);
+  const { myFeeds } = useSelector((state: RootState) => state.myPageFeeds);
 
   return (
     <Styled.ContentContainer>

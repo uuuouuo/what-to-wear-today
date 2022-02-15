@@ -4,7 +4,9 @@ import {
   LOAD_MYPAGE_FEED_FAILURE,
 } from '@/action/myPageFeedAction';
 
-export const initialState: any = {
+import { StateType } from 'types/myPageFeeds';
+
+export const initialState: StateType = {
   myFeeds: [],
   loadMyFeedsLoading: false,
   loadMyFeedsDone: false,
