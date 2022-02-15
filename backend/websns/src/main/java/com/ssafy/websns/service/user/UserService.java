@@ -18,6 +18,7 @@ import com.ssafy.websns.model.entity.region.Region;
 import com.ssafy.websns.model.entity.type.Type;
 import com.ssafy.websns.model.entity.type.TypeInfo;
 import com.ssafy.websns.model.entity.user.User;
+import com.ssafy.websns.model.entity.user.UserFollowCnt;
 import com.ssafy.websns.model.entity.user.UserProfile;
 import com.ssafy.websns.repository.Type.TypeInfoRepository;
 import com.ssafy.websns.repository.Type.TypeRepository;
@@ -25,6 +26,7 @@ import com.ssafy.websns.repository.interest.InterestRepository;
 import com.ssafy.websns.repository.interest.PersonalInterestRepsitory;
 import com.ssafy.websns.repository.region.InterestRegionRepository;
 import com.ssafy.websns.repository.region.RegionRepository;
+import com.ssafy.websns.repository.user.UserFollowCntRepository;
 import com.ssafy.websns.repository.user.UserProfileRepository;
 import com.ssafy.websns.repository.user.UserRepository;
 import com.ssafy.websns.service.validation.ValidateExist;
@@ -51,6 +53,7 @@ public class UserService {
   private final InterestRepository interestRepository;
   private final InterestRegionRepository interestRegionRepository;
   private final RegionRepository regionRepository;
+  private final UserFollowCntRepository userFollowCntRepository;
 
   private ValidateExist validateExist = new ValidateExist();
 
@@ -107,6 +110,9 @@ public class UserService {
       }
     });
 
+    UserFollowCnt userFollowCnt = new UserFollowCnt();
+    userFollowCnt.createFollowCnt(user);
+    userFollowCntRepository.save(userFollowCnt);
     userProfileRepository.save(userProfile);
 
   }

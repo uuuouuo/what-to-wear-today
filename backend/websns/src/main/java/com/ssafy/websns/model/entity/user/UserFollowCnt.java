@@ -26,14 +26,31 @@ public class UserFollowCnt {
   @JoinColumn(name = "USER_NO")
   private User user;
 
-  private Integer followingCnt;
-
   private Integer followerCnt;
 
-  public void createFollowCnt(Integer no, User user, Integer followingCnt, Integer followerCnt) {
-    this.no = no;
-    this.user = user;
-    this.followingCnt = 0;
-    this.followerCnt = 0;
+  private Integer followingCnt;
+
+  public void createFollowCnt(User user) {
+    this.user = user; // 나
+    this.followingCnt = 0; // 내가
+    this.followerCnt = 0; // 나를
   }
+
+  public void plusFollower() {
+    this.followerCnt++;
+  }
+
+
+  public void plusFollowing() {
+    this.followingCnt++;
+  }
+
+  public void minusFollower() {
+    this.followerCnt--;
+  }
+
+  public void minusFollowing() {
+    this.followingCnt--;
+  }
+
 }
