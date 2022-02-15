@@ -99,5 +99,24 @@ public class FeedController {
 
   }
 
+
+  @GetMapping
+  public ResponseEntity<Page<FeedRes>> searchFeed(
+      @RequestParam(value = "keyword") String keyword,
+      @RequestParam(value = "tag") String tag,
+      @RequestParam(value = "startDate") String startDate,
+      @RequestParam(value = "endDate") String endDate,
+      @RequestParam(value = "region") String region,
+      @RequestParam(value = "temperature") String temperature,
+      @RequestParam(value = "sort") String sort) {
+
+
+
+    return null;
+
+  }
+
+
+
 }
 

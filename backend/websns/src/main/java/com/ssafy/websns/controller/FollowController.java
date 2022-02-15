@@ -1,5 +1,6 @@
 package com.ssafy.websns.controller;
 
+import com.ssafy.websns.model.dto.user.FollowDto.DeleteFollowRes;
 import com.ssafy.websns.model.dto.user.FollowDto.FollowReq;
 import com.ssafy.websns.model.dto.user.FollowDto.FollowRes;
 import com.ssafy.websns.model.dto.user.UserProfileDto.UserProfileRes;
@@ -8,6 +9,7 @@ import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -28,15 +30,15 @@ public class FollowController {
 
   }
 
-  @GetMapping("/follow/{followNo}")
-  public ResponseEntity<FollowRes> deleteFollow(@PathVariable("followNo") Integer followNo) {
+  @DeleteMapping("/follow/{followNo}")
+  public ResponseEntity<DeleteFollowRes> deleteFollow(@PathVariable("followNo") Integer followNo) {
 
-    FollowRes response = followService.cancelFollow(followNo);
+    DeleteFollowRes response = followService.cancelFollow(followNo);
     return new ResponseEntity<>(response, HttpStatus.OK);
 
   }
 
-  @PostMapping("/follower/{userId}")
+  @GetMapping("/follower/{userId}")
   public ResponseEntity<List<UserProfileRes>> findFollowers(@PathVariable("userId") String userId) {
 
     List<UserProfileRes> response = followService.searchFollower(userId);
@@ -44,7 +46,7 @@ public class FollowController {
 
   }
 
-  @PostMapping("/following/{userId}")
+  @GetMapping("/following/{userId}")
   public ResponseEntity<List<UserProfileRes>> findFollowings(@PathVariable("userId") String userId) {
 
     List<UserProfileRes> response = followService.searchFollowing(userId);

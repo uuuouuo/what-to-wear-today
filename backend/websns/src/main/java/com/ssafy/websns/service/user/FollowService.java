@@ -1,5 +1,6 @@
 package com.ssafy.websns.service.user;
 
+import com.ssafy.websns.model.dto.user.FollowDto.DeleteFollowRes;
 import com.ssafy.websns.model.dto.user.FollowDto.FollowReq;
 import com.ssafy.websns.model.dto.user.FollowDto.FollowRes;
 import com.ssafy.websns.model.dto.user.UserProfileDto.UserProfileRes;
@@ -17,9 +18,11 @@ import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = false)
 public class FollowService {
 
   private final UserRepository userRepository;
@@ -29,6 +32,7 @@ public class FollowService {
 
   ValidateExist validateExist = new ValidateExist();
 
+  @Transactional
   public FollowRes createFollow(FollowReq request) {
 
     String userId = request.getUserId();
@@ -51,12 +55,14 @@ public class FollowService {
     followingUserCnt.plusFollower();
 
     FollowRes response = new FollowRes(userFollowCnt, followingUserCnt);
+//    FollowRes response = new FollowRes(userFollowCnt.getUser().getUserId(), followingUserCnt.getUser().getUserId());
 
     return response;
 
   }
 
-  public FollowRes cancelFollow(Integer followNo) {
+  @Transactional
+  public DeleteFollowRes cancelFollow(Integer followNo) {
 
     Follow follow = followRepository.findByNo(followNo);
     User userFollower = follow.getUserFollowerNo();
@@ -68,7 +74,7 @@ public class FollowService {
     userFollowCnt.minusFollowing();
     followingUserCnt.minusFollower();
 
-    FollowRes response = new FollowRes(userFollowCnt, followingUserCnt);
+    DeleteFollowRes response = new DeleteFollowRes(userFollower.getUserId(), userFollowing.getUserId());
 
     return response;
 

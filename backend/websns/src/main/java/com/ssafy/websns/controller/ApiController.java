@@ -29,11 +29,11 @@ public class ApiController {
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.M.d.HH:mm");
     LocalDateTime dateTime = LocalDateTime.parse(date, formatter);
 
-    List<Region> regionList = regionRepository.findByRegionNameContaining(region);
+    Region regionList = regionRepository.findByRegionName(region);
 
     Weather weather = null;
     if(regionList != null){
-      Region region1 = regionList.get(0);
+      Region region1 = regionList;
       WeatherDto weatherDto = new WeatherDto(dateTime,region1.getPointCode());
       weather = weatherDto.crawling();
     }
