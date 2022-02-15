@@ -7,7 +7,7 @@ import { Header, FooterNavbar, Comment, CommentForm } from '@/components/molecul
 import { FeedDetail } from '@/components/organisms';
 import { CommentType } from '@/types/comment';
 
-import { createCommentRequest } from '@/action/commentAction';
+import { createCommentRequest } from '@/action/CommentAction';
 import { useChange } from '@/hooks';
 
 const FeedDetailTemplate: NextPage = () => {

@@ -21,23 +21,12 @@ public class User {
 
   private String userId;
 
-  private String password;
-
-  private String platform;
+  private Integer platform;
 
   private String ageRange;
 
   private Boolean gender;
 
   private Boolean deleteMode;
-
-  public void createUser(String userId, String platform, String ageRange,
-      String gender) {
-
-    this.userId = userId;
-    this.platform = platform;
-    this.ageRange = ageRange;
-    this.gender = gender.equals("female") ? true : false;
-  }
 
 }

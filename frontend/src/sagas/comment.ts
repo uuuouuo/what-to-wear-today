@@ -12,19 +12,34 @@ import {
   CREATE_COMMENT_SUCCESS,
   CREATE_COMMENT_FAILURE,
   deleteCommentRequest,
-  DELETE_COMMENT_REQUEST,
-  DELETE_COMMENT_SUCCESS,
-  DELETE_COMMENT_FAILURE,
   updateCommentRequest,
   UPDATE_COMMENT_REQUEST,
   UPDATE_COMMENT_SUCCESS,
   UPDATE_COMMENT_FAILURE,
-} from 'action/commentAction';
+  DELETE_COMMENT_REQUEST,
+  DELETE_COMMENT_SUCCESS,
+  DELETE_COMMENT_FAILURE,
+} from '@/action/commentAction';
 
-import { CommentRequestType, CommentType } from '@/types/comment';
+import { CommentType } from '@/types/comment';
 
 const api = apiInstance();
 const authApi = authInstance();
+
+function* createComment(action: ReturnType<typeof createCommentRequest>) {
+  try {
+    const result = yield call(createCommentsAPI, action);
+    yield put({
+      type: CREATE_COMMENT_SUCCESS,
+      data: result.data,
+    });
+  } catch (err: any) {
+    yield put({
+      type: CREATE_COMMENT_FAILURE,
+      error: err.response,
+    });
+  }
+}
 
 function loadCommentsAPI(feedNo: number): Promise<AxiosResponse<CommentType[]>> {
   return api.get(`/comment/${feedNo}`);
@@ -62,21 +77,6 @@ function* loadComments(action: ReturnType<typeof loadCommentsRequest>) {
   }
 }
 
-function* createComment(action: ReturnType<typeof createCommentRequest>) {
-  try {
-    const result = yield call(createCommentsAPI, action);
-    yield put({
-      type: CREATE_COMMENT_SUCCESS,
-      data: result.data,
-    });
-  } catch (err: any) {
-    yield put({
-      type: CREATE_COMMENT_FAILURE,
-      error: err.response,
-    });
-  }
-}
-
 function* deleteComment(action: ReturnType<typeof deleteCommentRequest>) {
   try {
     const result = yield call(deleteCommentsAPI, action.commentNo);
@@ -107,27 +107,27 @@ function* updateComment(action: ReturnType<typeof updateCommentRequest>) {
   }
 }
 
-function* watchLoadComments() {
-  yield takeLatest(LOAD_COMMENTS_REQUEST, loadComments);
-}
-
 function* watchCreateComment() {
   yield takeLatest(CREATE_COMMENT_REQUEST, createComment);
 }
 
-function* watchDeleteComment() {
-  yield takeLatest(DELETE_COMMENT_REQUEST, deleteComment);
+function* watchLoadComments() {
+  yield takeLatest(LOAD_COMMENTS_REQUEST, loadComments);
 }
 
 function* watchUpdateComment() {
   yield takeLatest(UPDATE_COMMENT_REQUEST, updateComment);
 }
 
+function* watchDeleteComment() {
+  yield takeLatest(DELETE_COMMENT_REQUEST, deleteComment);
+}
+
 export default function* commentSaga() {
   yield all([
-    fork(watchLoadComments),
     fork(watchCreateComment),
-    fork(watchDeleteComment),
+    fork(watchLoadComments),
     fork(watchUpdateComment),
+    fork(watchDeleteComment),
   ]);
 }

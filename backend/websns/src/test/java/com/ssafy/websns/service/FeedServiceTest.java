@@ -1,66 +1,50 @@
-package com.ssafy.websns.service;
-
-
-import com.ssafy.websns.model.dto.feed.FeedDto.FeedRes;
-import com.ssafy.websns.repository.feed.FeedRepository;
-import com.ssafy.websns.repository.feed.ImageRepository;
-import com.ssafy.websns.repository.region.RegionRepository;
-import com.ssafy.websns.repository.user.UserRepository;
-import com.ssafy.websns.service.feed.FeedService;
-import java.util.List;
-import javax.persistence.EntityManager;
-import org.assertj.core.api.Assertions;
-import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.annotation.Rollback;
-import org.springframework.transaction.annotation.Transactional;
-
-@SpringBootTest
-@Transactional
-@Rollback(false)
-class FeedServiceTest {
-
-  @Autowired
-  FeedService feedService;
-  @Autowired
-  UserRepository userRepository;
-  @Autowired
-  RegionRepository regionRepository;
-  @Autowired
-  FeedRepository feedRepository;
-  @Autowired
-  ImageRepository imageRepository;
-
-  @Autowired
-  EntityManager em;
-
-  @Test
-  void 유저로피드찾기확인() throws Exception {
-    // given
-//    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.M.d.HH:mm");
-//    String photoDateString = LocalDateTime.now().format(formatter);
-//    LocalDateTime photoDate = LocalDateTime.parse(photoDateString, formatter);
-
-//    User user = new User("a12341234123", "jdb4497@gmail.com", "12341234", "kakao", "20 - 30", true, false);
-//    userRepository.save(user);
-//    em.flush();
-//    em.clear();
-//    Region region = new Region("서울", 100);
-//    regionRepository.save(region);
-//    Feed feed1 = new Feed(user, region, "오늘 덥네요 ;", photoDate, "핵더움", false, false);
-//    Feed feed2 = new Feed(user, region, "오늘 덥네요 ;", photoDate, "핵더움", false, false);
-//    feedRepository.save(feed1);
-//    feedRepository.save(feed2);
-
-    // when
-    List<FeedRes> feeds = feedService.showFeedsById("jdb4497@gmail.com");
-
-    // then
-    Assertions.assertThat(feeds.size()).isEqualTo(5);
-
-  }
-
+//package com.ssafy.websns.service;
+//
+//import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+//
+//import com.ssafy.websns.model.dto.feed.FeedDto.FeedRes;
+//import com.ssafy.websns.model.dto.feed.FeedDto.UpdateReq;
+//import com.ssafy.websns.model.dto.feed.FeedDto.UpdateRes;
+//import com.ssafy.websns.model.entity.feed.Feed;
+//import com.ssafy.websns.model.entity.feed.Image;
+//import com.ssafy.websns.model.entity.region.Region;
+//import com.ssafy.websns.model.entity.user.User;
+//import com.ssafy.websns.repository.feed.FeedRepository;
+//import com.ssafy.websns.repository.feed.ImageRepository;
+//import com.ssafy.websns.repository.region.RegionRepository;
+//import com.ssafy.websns.repository.user.UserRepository;
+//import com.ssafy.websns.service.feed.FeedService;
+//import java.time.LocalDateTime;
+//import java.time.format.DateTimeFormatter;
+//import java.util.ArrayList;
+//import java.util.List;
+//import javax.persistence.EntityManager;
+//import org.junit.jupiter.api.Test;
+//import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.boot.test.context.SpringBootTest;
+//import org.springframework.test.annotation.Rollback;
+//import org.springframework.transaction.annotation.Transactional;
+//
+//@SpringBootTest
+//@Transactional
+//@Rollback(false)
+//class FeedServiceTest {
+//
+//  @Autowired
+//  FeedService feedService;
+//  @Autowired
+//  UserRepository userRepository;
+//  @Autowired
+//  RegionRepository regionRepository;
+//  @Autowired
+//  FeedRepository feedRepository;
+//  @Autowired
+//  ImageRepository imageRepository;
+//
+//  @Autowired
+//  EntityManager em;
+////  @Autowired
+////  imageRepository imageRepository;
 //
 ////  @Test
 ////  void 피드생성확인() throws Exception {
@@ -127,23 +111,20 @@ class FeedServiceTest {
 //    assertThat(feed.getContent()).isEqualTo(updateRes.getContent());
 //    assertThat(testImages.size()).isEqualTo(3);
 //    testImages.stream().forEach(System.out::println);
-
 //
 //    }
-//
 //
 //    @Test
 //    void 피드삭제확인() throws Exception {
 //
 //      // when
-//      feedService.cancelFeed(49);
-//      Feed feed = feedRepository.findByNo(49).get();
+//      feedService.cancelFeed(41);
+//      Feed feed = feedRepository.findByNo(41).get();
 //
 //      // then
 //      assertThat(feed.getDeleteMode()).isTrue();
-//
 //      }
-
+//
 //      @Test
 //      void 피드검색확인() throws Exception {
 //        // given
@@ -158,4 +139,4 @@ class FeedServiceTest {
 //
 //        }
 //
-}
+//}

@@ -11,50 +11,27 @@ import {
   UPDATE_COMMENT_REQUEST,
   UPDATE_COMMENT_SUCCESS,
   UPDATE_COMMENT_FAILURE,
-} from '@/action/commentAction';
+} from '@/action/CommentAction';
 import { StateType } from '@/types/comment';
 
 export const initialState: StateType = {
   comments: [],
-  loadCommentsLoading: false,
-  loadCommentsDone: false,
-  loadCommentsError: null,
   createCommentAdding: false,
   createCommentDone: false,
   createCommentError: null,
   deleteCommentDeleting: false,
-  deleteCommentDone: false,
-  deleteCommentError: null,
+  loadCommentsLoading: false,
+  loadCommentsDone: false,
+  loadCommentsError: null,
   updateCommentUpdating: false,
   updateCommentDone: false,
   updateCommentError: null,
+  deleteCommentDone: false,
+  deleteCommentError: null,
 };
 
 const reducer = (state: StateType = initialState, action: any) => {
   switch (action.type) {
-    case LOAD_COMMENTS_REQUEST:
-      return {
-        ...state,
-        loadCommentsLoading: true,
-        loadCommentsError: null,
-        loadCommentsDone: false,
-      };
-
-    case LOAD_COMMENTS_SUCCESS:
-      return {
-        ...state,
-        loadCommentsLoading: false,
-        comments: action.data,
-        loadCommentsDone: true,
-      };
-
-    case LOAD_COMMENTS_FAILURE:
-      return {
-        ...state,
-        loadCommentsLoading: false,
-        loadCommentsError: action.error,
-      };
-
     case CREATE_COMMENT_REQUEST:
       return {
         ...state,
@@ -78,27 +55,27 @@ const reducer = (state: StateType = initialState, action: any) => {
         createCommentError: action.error,
       };
 
-    case DELETE_COMMENT_REQUEST:
+    case LOAD_COMMENTS_REQUEST:
       return {
         ...state,
-        deleteCommentDeleting: true,
-        deleteCommentDone: false,
-        deleteCommentError: null,
+        loadCommentsLoading: true,
+        loadCommentsError: null,
+        loadCommentsDone: false,
       };
 
-    case DELETE_COMMENT_SUCCESS:
+    case LOAD_COMMENTS_SUCCESS:
       return {
         ...state,
-        comments: state.comments.filter((comment) => comment.no !== action.data),
-        deleteCommentDeleting: false,
-        deleteCommentDone: true,
+        loadCommentsLoading: false,
+        comments: action.data,
+        loadCommentsDone: true,
       };
 
-    case DELETE_COMMENT_FAILURE:
+    case LOAD_COMMENTS_FAILURE:
       return {
         ...state,
-        deleteCommentDeleting: false,
-        deleteCommentError: action.error,
+        loadCommentsLoading: false,
+        loadCommentsError: action.error,
       };
 
     case UPDATE_COMMENT_REQUEST:
@@ -113,7 +90,7 @@ const reducer = (state: StateType = initialState, action: any) => {
       return {
         ...state,
         comments: state.comments.map((comment) => {
-          if (comment === action.data.no) {
+          if (comment.no === action.data.no) {
             return { ...comment, ...action.data };
           }
           return comment;
@@ -127,6 +104,29 @@ const reducer = (state: StateType = initialState, action: any) => {
         ...state,
         updateCommentUpdating: false,
         updateCommentError: action.error,
+      };
+
+    case DELETE_COMMENT_REQUEST:
+      return {
+        ...state,
+        deleteCommentDeleting: true,
+        deleteCommentDone: false,
+        deleteCommentError: null,
+      };
+
+    case DELETE_COMMENT_SUCCESS:
+      return {
+        ...state,
+        comments: state.comments.filter((comment) => comment.no != action.data),
+        deleteCommentDeleting: false,
+        deleteCommentDone: true,
+      };
+
+    case DELETE_COMMENT_FAILURE:
+      return {
+        ...state,
+        deleteCommentDeleting: false,
+        deleteCommentError: action.error,
       };
 
     default:

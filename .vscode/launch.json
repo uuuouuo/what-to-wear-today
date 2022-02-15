@@ -1,0 +1,14 @@
+{
+	"configurations": [
+		{
+			"type": "java",
+			"name": "Spring Boot-WebsnsApplication<websns>",
+			"request": "launch",
+			"cwd": "${workspaceFolder}",
+			"console": "internalConsole",
+			"mainClass": "com.ssafy.websns.WebsnsApplication",
+			"projectName": "websns",
+			"args": ""
+		}
+	]
+}

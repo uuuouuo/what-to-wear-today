@@ -6,6 +6,8 @@ import Styled from './styled';
 import { MainContainer, Text, Toggle } from 'components/atoms';
 import { Title, Modal, FooterNavbar, ImageList } from '@/components/molecules';
 import { useChange, useFileChange, useDisplay } from '@/hooks';
+import { createFeedRequest } from 'action/feedAction';
+import { useDispatch } from 'react-redux';
 
 import CheckIcon from '@mui/icons-material/Check';
 
@@ -13,6 +15,7 @@ import RegionFeed from '@/components/RegionSearch/RegionFeed';
 import WeatherAPI from '@/components/WeatherAPI/WeatherAPI';
 
 const FeedWriteTemplate: NextPage = () => {
+  const dispatch = useDispatch();
   const [value, , onChange] = useChange('');
   const [privateMode, setPrivateMode] = useState(false);
   const [file, setFile] = useFileChange(null);
@@ -22,8 +25,8 @@ const FeedWriteTemplate: NextPage = () => {
   const [region, onRegionChange] = useState();
   const [temperature, , onTemperatureChange] = useChange('');
 
-  const onClick = (e: React.MouseEvent) => {
-    console.log('홈');
+  const createFeedAction = (e: React.MouseEvent) => {
+    dispatch(createFeedRequest(value, files, date, privateMode, region, temperature));
   };
 
   const onChangeDate = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -44,7 +47,7 @@ const FeedWriteTemplate: NextPage = () => {
             <Text value="PRIVATE" color="#fff" />
             <Toggle value={privateMode} setValue={setPrivateMode} />
           </div>
-          <Styled.Button bgColor="transparent" onClick={(e) => console.log('작성!')}>
+          <Styled.Button bgColor="transparent" onClick={createFeedAction}>
             <CheckIcon />
           </Styled.Button>
         </Styled.ButtonContainer>
