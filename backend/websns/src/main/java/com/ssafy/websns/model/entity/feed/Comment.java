@@ -25,21 +25,25 @@ public class Comment extends BaseEntity {
   private Integer no;
 
   @ManyToOne(fetch = LAZY)
-  @JoinColumn(name = "USER_NO")
+  @JoinColumn(name = "USER_NO", nullable = false)
   private User user;
 
   @ManyToOne(fetch = LAZY)
-  @JoinColumn(name = "FEED_NO")
+  @JoinColumn(name = "FEED_NO", nullable = false)
   private Feed feed;
 
+//  @ColumnDefault("NULL")
   @ManyToOne(fetch = LAZY)
   @JoinColumn(name = "PARENT_NO")
   private Comment parent;
 
+  @Column(nullable = false, length = 300)
   private String content;
 
+  @Column(nullable = false)
   private Boolean privateMode;
 
+  @Column(nullable = false)
   private Boolean deleteMode;
 
   // test

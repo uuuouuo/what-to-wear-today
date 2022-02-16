@@ -11,9 +11,11 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Getter
+@NoArgsConstructor
 @ApiModel(value = "피드에 있는 태그정보", description = "피드에 있는 태그정보를 나타냅니다.")
 public class FeedTag {
 
@@ -23,16 +25,12 @@ public class FeedTag {
   private Integer no;
 
   @ManyToOne(fetch = LAZY)
-  @JoinColumn(name = "FEED_NO")
+  @JoinColumn(name = "FEED_NO", nullable = false)
   private Feed feed;
 
   @ManyToOne(fetch = LAZY)
-  @JoinColumn(name = "TAG_NO")
+  @JoinColumn(name = "TAG_NO", nullable = false)
   private Tag tagNo;
-
-  public FeedTag(){
-
-  }
 
   public FeedTag(Feed feed,Tag tagNo){
     this.feed = feed;

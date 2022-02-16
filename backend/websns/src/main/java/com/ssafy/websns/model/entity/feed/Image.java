@@ -22,11 +22,12 @@ public class Image {
   @Column(name = "IMAGE_NO")
   private Integer no;
 
-  private String imgUrl;
-
   @ManyToOne(fetch = LAZY)
-  @JoinColumn(name = "FEED_NO")
+  @JoinColumn(name = "FEED_NO", nullable = false)
   private Feed feed;
+
+  @Column(nullable = false, length = 100)
+  private String imgUrl;
 
   public Image(String imgUrl, Feed feed) {
     this.imgUrl = imgUrl;

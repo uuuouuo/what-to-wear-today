@@ -17,8 +17,11 @@ public class Faq {
   @Column(name = "FAQ_NO")
   private Integer no;
 
+  @Column(nullable = false, length = 45)
   private String subject;
 
+
+  @Column(nullable = false, length = 300)
   private String content;
 
 }

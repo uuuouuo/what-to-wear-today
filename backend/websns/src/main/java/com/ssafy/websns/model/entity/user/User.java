@@ -20,19 +20,25 @@ public class User {
   @GeneratedValue(generator = "no")
   @GenericGenerator(name = "no",
       strategy = "com.ssafy.websns.model.entity.UserNoGenerator")
-  @Column(name = "USER_NO")
+  @Column(name = "USER_NO", nullable = false, length = 19)
   private String no;
 
+  @Column(nullable = false, length = 45)
   private String userId;
 
+  @Column(length = 45)
   private String password;
 
+  @Column(nullable = false, length = 45)
   private String platform;
 
+  @Column(length = 45)
   private String ageRange;
 
+  @Column(length = 45)
   private Boolean gender;
 
+  @Column(nullable = false)
   private Boolean deleteMode;
 
   public void createUser(User user) {

@@ -26,11 +26,11 @@ public class InterestRegion {
   private Integer no;
 
   @ManyToOne(fetch = LAZY)
-  @JoinColumn(name = "USER_NO")
+  @JoinColumn(name = "USER_NO", nullable = false)
   private User user;
 
   @ManyToOne(fetch = LAZY)
-  @JoinColumn(name = "REGION_NO")
+  @JoinColumn(name = "REGION_NO", nullable = false)
   private Region region;
 
   public void createInterestRegion(User user, Region region) {

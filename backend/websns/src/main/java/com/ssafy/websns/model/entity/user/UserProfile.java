@@ -23,11 +23,13 @@ public class UserProfile {
   private Integer no;
 
   @ManyToOne(fetch = LAZY)
-  @JoinColumn(name = "USER_NO")
+  @JoinColumn(name = "USER_NO", nullable = false)
   private User user;
 
+  @Column(nullable = false, length = 10)
   private String nickname;
 
+  @Column(nullable = false, length = 100)
   private String profileImg;
 
   public void createUserProfile(User user, String nickname, String profileImg) {
