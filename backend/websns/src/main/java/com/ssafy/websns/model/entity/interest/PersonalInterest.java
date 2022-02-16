@@ -7,6 +7,7 @@ import io.swagger.annotations.ApiModel;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -18,16 +19,21 @@ import lombok.Getter;
 public class PersonalInterest {
 
   @Id
-  @GeneratedValue
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "PERSONAL_INTEREST_NO")
   private Integer no;
 
   @ManyToOne(fetch = LAZY)
-  @JoinColumn(name = "USER_NO")
+  @JoinColumn(name = "USER_NO", nullable = false)
   private User user;
 
   @ManyToOne(fetch = LAZY)
-  @JoinColumn(name = "INTEREST_NO")
+  @JoinColumn(name = "INTEREST_NO", nullable = false)
   private Interest interest;
+
+  public void createPersonalInterest(User user, Interest interest) {
+    this.user = user;
+    this.interest = interest;
+  }
 
 }

@@ -1,30 +1,76 @@
 package com.ssafy.websns.service;
 
-import com.ssafy.websns.repository.feed.CommentRepository;
-import com.ssafy.websns.repository.feed.FeedRepository;
-import com.ssafy.websns.repository.region.RegionRepository;
-import com.ssafy.websns.repository.user.UserRepository;
-import com.ssafy.websns.service.feed.CommentService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.annotation.Rollback;
-import org.springframework.transaction.annotation.Transactional;
-
-@SpringBootTest
-@Transactional
-@Rollback(false)
-public class CommentServiceTest {
-
-  @Autowired
-  UserRepository userRepository;
-  @Autowired
-  FeedRepository feedRepository;
-  @Autowired
-  RegionRepository regionRepository;
-  @Autowired
-  CommentService commentService;
-  @Autowired
-  CommentRepository commentRepository;
+//import com.ssafy.websns.model.dto.feed.CommentDto.CommentRes;
+//import com.ssafy.websns.model.entity.feed.Comment;
+//import com.ssafy.websns.model.entity.feed.Feed;
+//import com.ssafy.websns.model.entity.region.Region;
+//import com.ssafy.websns.model.entity.user.User;
+//import com.ssafy.websns.repository.feed.CommentRepository;
+//import com.ssafy.websns.repository.feed.FeedRepository;
+//import com.ssafy.websns.repository.feed.ImageRepository;
+//import com.ssafy.websns.repository.region.RegionRepository;
+//import com.ssafy.websns.repository.user.UserRepository;
+//import com.ssafy.websns.service.feed.CommentService;
+//import java.time.LocalDateTime;
+//import java.time.format.DateTimeFormatter;
+//import java.util.List;
+//import javax.persistence.EntityManager;
+//import org.assertj.core.api.Assertions;
+//import org.junit.jupiter.api.Test;
+//import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.boot.test.context.SpringBootTest;
+//import org.springframework.test.annotation.Rollback;
+//import org.springframework.transaction.annotation.Transactional;
+//
+//@SpringBootTest
+//@Transactional
+//@Rollback(false)
+//public class CommentServiceTest {
+//
+//  @Autowired
+//  UserRepository userRepository;
+//  @Autowired
+//  FeedRepository feedRepository;
+//  @Autowired
+//  RegionRepository regionRepository;
+//  @Autowired
+//  CommentService commentService;
+//  @Autowired
+//  CommentRepository commentRepository;
+//  @Autowired
+//  ImageRepository imageRepository;
+//  @Autowired
+//  EntityManager em;
+//
+//  @Test
+//  void 유저로댓글찾기확인() throws Exception {
+//    // given
+//    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.M.d.HH:mm");
+//    String photoDateString = LocalDateTime.now().format(formatter);
+//    LocalDateTime photoDate = LocalDateTime.parse(photoDateString, formatter);
+//
+//    User user = new User("a12341234123", "jdb4497@gmail.com", "12341234", "kakao", "20 - 30", true, false);
+//    userRepository.save(user);
+//    em.flush();
+//    em.clear();
+//    Region region = new Region("서울", 100);
+//    regionRepository.save(region);
+//    Feed feed = new Feed(user, region, "오늘 덥네요 ;", photoDate, "핵더움", false, false);
+//    feedRepository.save(feed);
+//    Comment comment1 = new Comment(user, feed, null, "ㅇㅈ", false, false);
+//    commentRepository.save(comment1);
+//    Comment comment2 = new Comment(user, feed, null, "ㅇㅈ", false, false);
+//    commentRepository.save(comment2);
+//
+//    String l = String.valueOf(System.currentTimeMillis());
+//    System.out.println(l);
+//    // when
+//    List<CommentRes> commentRes = commentService.showCommentsById(user.getUserId());
+//
+//    // then
+//    Assertions.assertThat(commentRes.size()).isEqualTo(2);
+//
+//  }
 
 //  @Test
 //  void 댓글생성확인() throws Exception {
@@ -115,4 +161,4 @@ public class CommentServiceTest {
 //
 //        }
 
-}
+//}

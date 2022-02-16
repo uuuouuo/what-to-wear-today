@@ -4,6 +4,7 @@ import io.swagger.annotations.ApiModel;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,12 +16,14 @@ import lombok.NoArgsConstructor;
 public class Region {
 
   @Id
-  @GeneratedValue
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "REGION_NO")
   private Integer no;
 
+  @Column(nullable = false, length = 45)
   private String regionName;
 
+  @Column(nullable = false)
   private Integer pointCode;
 
   public Region(String regionName, Integer pointCode) {
