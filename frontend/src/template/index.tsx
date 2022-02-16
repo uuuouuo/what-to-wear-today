@@ -31,8 +31,8 @@ const Home: NextPage = () => {
   useEffect(() => {
     if (navigator) {
       navigator.geolocation.getCurrentPosition((position: any) => {
-        const latitude: number = position.coords.latitude;
-        const longitude: number = position.coords.longitude;
+        const { latitude } = position.coords;
+        const { longitude } = position.coords;
         axios({
           method: 'get',
           url: `https://dapi.kakao.com/v2/local/geo/coord2regioncode.json?x=${longitude}&y=${latitude}`,
@@ -67,7 +67,6 @@ const Home: NextPage = () => {
           // 지역 값 설정 로직 작성 필요
           setPageNum(pageNum + 1);
           observer.unobserve(entry.target);
-          return;
         }
       });
     };
@@ -97,8 +96,8 @@ const Home: NextPage = () => {
         {feeds.map((feed, idx) => {
           const lastEl = idx === feeds.length - 1;
           return (
-            <div ref={lastEl ? target : null}>
-              <Feed key={feed.no} feed={feed} />;
+            <div key={feed.no} ref={lastEl ? target : null}>
+              <Feed feed={feed} />
             </div>
           );
         })}

@@ -12,7 +12,7 @@ const Home: NextPage = () => {
 export const getServerSideProps = wrapper.getServerSideProps(
   (store) =>
     async ({ req, res, params }) => {
-      const data = 1; //region_no 값
+      const data = 1; // region_no 값
       store.dispatch(loadFeedsRequest(data));
       store.dispatch(END);
       await store.sagaTask.toPromise();

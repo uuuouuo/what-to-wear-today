@@ -13,7 +13,7 @@ const api = apiInstance();
 
 function* loadFeeds(action: ReturnType<typeof loadFeedsRequest>) {
   try {
-    const result: Promise<AxiosResponse<FeedType[]>> = yield call(loadFeedsAPI, action.regionNo);
+    const result = yield call(loadFeedsAPI, action.regionNo);
     yield put({
       type: LOAD_FEEDS_SUCCESS,
       data: result.data,

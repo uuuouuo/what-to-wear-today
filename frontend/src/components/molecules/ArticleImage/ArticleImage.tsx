@@ -28,7 +28,7 @@ const ArticleImage: FunctionComponent<Props> = ({ images }) => {
         enableMouseEvents
       >
         {images.map((step, index) => (
-          <div key={index}>
+          <div key={step}>
             {Math.abs(activeStep - index) <= 2 ? (
               <Box
                 component="img"

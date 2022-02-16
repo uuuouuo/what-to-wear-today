@@ -7,7 +7,7 @@ interface Props {
 }
 
 const SetRegion: NextPage<Props> = ({ userId }) => {
-  return <SetRegionTemplate userId={userId} />;
+  return <SetRegionTemplate />;
 };
 
 export const getServerSideProps = async ({ params }) => {

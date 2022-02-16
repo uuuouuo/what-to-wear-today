@@ -1,4 +1,4 @@
-interface FeedType {
+interface MyFeedType {
   _no: number;
   userId: string;
   content: string;
@@ -12,10 +12,9 @@ interface FeedType {
 }
 
 interface StateType {
-  feed: FeedType;
+  myFeeds: MyFeedType[];
   loadMyFeedsLoading: boolean;
   loadMyFeedsDone: boolean;
   loadMyFeedsError: Error | null;
 }
-
-export type { FeedType, StateType };
+export type { MyFeedType, StateType };

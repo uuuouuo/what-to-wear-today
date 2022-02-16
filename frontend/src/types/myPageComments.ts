@@ -1,4 +1,4 @@
-interface CommentType {
+interface MyCommentType {
   no: number;
   nickname: string;
   feedNo: number;
@@ -6,7 +6,7 @@ interface CommentType {
   content: string;
   date: Date;
 }
-interface CommentRequestType {
+interface MyCommentRequestType {
   userId: string;
   parent: number;
   content: string;
@@ -14,9 +14,9 @@ interface CommentRequestType {
   deleteMode: boolean;
 }
 interface StateType {
-  myComments: CommentType[];
+  myComments: MyCommentType[];
   loadMyCommentsLoading: boolean;
   loadMyCommentsDone: boolean;
   loadMyCommentsError: Error | null;
 }
-export type { CommentType, CommentRequestType, StateType };
+export type { MyCommentType, MyCommentRequestType, StateType };

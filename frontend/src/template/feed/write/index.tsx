@@ -21,7 +21,7 @@ const FeedWriteTemplate: NextPage = () => {
   const [files, , , appendFile] = useFileChange(null);
   const [display, , openDisplay, closeDisplay] = useDisplay(false);
   const [date, setDate] = useState<string | null>();
-  const [region, onRegionChange] = useState();
+  const [region, onRegionChange] = useState('');
   const [temperature, , onTemperatureChange] = useChange('');
 
   const createFeedAction = (e: React.MouseEvent) => {

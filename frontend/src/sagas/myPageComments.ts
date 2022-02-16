@@ -8,13 +8,11 @@ import {
   LOAD_MYPAGE_COMMENT_SUCCESS,
   LOAD_MYPAGE_COMMENT_FAILURE,
 } from '@/action/myPageCommentAction';
-import { CommentType } from 'types/comment';
-
-import { CommentType } from 'types/myPageComments';
+import { MyCommentType } from '@/types/myPageComments';
 
 const api = apiInstance();
 
-function loadMyCommentsAPI(userId: string): Promise<AxiosResponse<CommentType[]>> {
+function loadMyCommentsAPI(userId: string): Promise<AxiosResponse<MyCommentType[]>> {
   return api.get(`/comment/mypage?userId=${userId}`);
 }
 

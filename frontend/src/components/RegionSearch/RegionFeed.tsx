@@ -7,7 +7,11 @@ import Autocomplete from '@mui/material/Autocomplete';
 // import Chip from '@mui/material/Chip';
 // import Stack from '@mui/material/Stack';
 
-const RegionSearch: FunctionComponent = ({ onChange }) => {
+interface Props {
+  onChange: React.Dispatch<React.SetStateAction<string>>;
+}
+
+const RegionSearch: FunctionComponent<Props> = ({ onChange }) => {
   const api = apiInstance();
   const [regionList, setRegionList] = useState();
   const [interestRegion, setInterestRegion] = useState('지역을 설정해 주세요');

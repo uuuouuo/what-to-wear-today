@@ -43,7 +43,7 @@ const RegionSearch: FunctionComponent = () => {
         {interestRegion.map((region, idx) => {
           return (
             <Chip
-              key={idx}
+              key={region}
               label={region}
               variant="outlined"
               onDelete={(e: React.MouseEvent) => handleDelete(e, idx)}

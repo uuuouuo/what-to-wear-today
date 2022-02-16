@@ -5,7 +5,7 @@ import { Title } from '@/components/molecules';
 
 import RegionSearch from '@/components/RegionSearch/RegionSearch';
 
-const RegionTemplate: NextPage = ({ userId }) => {
+const RegionTemplate: NextPage = () => {
   return (
     <Styled.MainContainer>
       <Title value="관심 지역 설정" />
