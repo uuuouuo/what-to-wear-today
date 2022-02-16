@@ -18,6 +18,7 @@ public class Interest {
   @Column(name = "INTEREST_NO")
   private Integer no;
 
+  @Column(nullable = false, length = 45)
   private String interestName;
 
   public void creatInterest(String interestName) {

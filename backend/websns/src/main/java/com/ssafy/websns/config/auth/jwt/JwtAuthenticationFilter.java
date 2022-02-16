@@ -50,7 +50,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         if (tokenProvider.validate(jwtToken)) { // token이 유효한지 확인
           Authentication authentication = tokenProvider.getAuthentication(jwtToken);
           SecurityContextHolder.getContext().setAuthentication(authentication); // token에 존재하는 authentication 정보 삽입
-          System.out.println("로그아웃 여기 들어옴");
+//          System.out.println("로그아웃 여기 들어옴");
           filterChain.doFilter(request, response);
         }
       } catch(TokenExpiredException e) {
