@@ -15,7 +15,7 @@ interface Props {
 
 const Feed: FunctionComponent<Props> = ({ feed, idx }) => {
   const moveFeedDetail = (e: React.MouseEvent) => {
-    Router.push(`feed/${feed.no}`);
+    Router.push(`/feed/${feed.no}`);
   };
   return (
     <Styled.Feed>
