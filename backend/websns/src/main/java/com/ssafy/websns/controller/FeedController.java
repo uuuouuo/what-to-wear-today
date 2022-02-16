@@ -5,10 +5,14 @@ import com.ssafy.websns.model.dto.feed.FeedDto.CreateReq;
 import com.ssafy.websns.model.dto.feed.FeedDto.FeedDetailRes;
 import com.ssafy.websns.model.dto.feed.FeedDto.FeedReq;
 import com.ssafy.websns.model.dto.feed.FeedDto.FeedRes;
+import com.ssafy.websns.model.dto.feed.FeedDto.SearchDto;
 import com.ssafy.websns.model.dto.feed.FeedDto.UpdateReq;
 import com.ssafy.websns.model.dto.feed.FeedDto.UpdateRes;
 import com.ssafy.websns.service.feed.CommentService;
 import com.ssafy.websns.service.feed.FeedService;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -100,21 +104,27 @@ public class FeedController {
 
   @GetMapping
   public ResponseEntity<Page<FeedRes>> searchFeed(
-      @RequestParam(value = "keyword") String keyword,
-      @RequestParam(value = "tag") String tag,
+      @RequestParam(value="tag") String[] tag,
       @RequestParam(value = "startDate") String startDate,
       @RequestParam(value = "endDate") String endDate,
       @RequestParam(value = "region") String region,
       @RequestParam(value = "temperature") String temperature,
-      @RequestParam(value = "sort") String sort) {
+      @PageableDefault(size = 20) Pageable pageable) {
 
 
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.M.d.HH:mm");
+    LocalDateTime startDateTime = LocalDateTime.parse(startDate, formatter);
+    LocalDateTime endDateTime = LocalDateTime.parse(endDate, formatter);
 
-    return null;
+    SearchDto searchDto = new SearchDto();
+
+    searchDto.create(Arrays.asList(tag),startDateTime,endDateTime,region,temperature);
+    List<FeedRes> feeds = feedService.searchFeeds(searchDto, pageable);
+    Page<FeedRes> pageRes = new PageImpl<>(feeds, pageable, feeds.size());
+
+    return new ResponseEntity<>(pageRes,HttpStatus.OK);
 
   }
-
-
 
 }
 

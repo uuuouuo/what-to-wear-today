@@ -1,7 +1,9 @@
 package com.ssafy.websns.service.feed;
 
+import com.ssafy.websns.model.dto.feed.FeedDto;
 import com.ssafy.websns.model.dto.feed.FeedDto.CreateReq;
 import com.ssafy.websns.model.dto.feed.FeedDto.FeedRes;
+import com.ssafy.websns.model.dto.feed.FeedDto.SearchDto;
 import com.ssafy.websns.model.dto.feed.FeedDto.UpdateReq;
 import com.ssafy.websns.model.dto.feed.FeedDto.UpdateRes;
 import com.ssafy.websns.model.dto.feed.ImageDto.ImageFile;
@@ -13,6 +15,7 @@ import com.ssafy.websns.model.entity.feed.Tag;
 import com.ssafy.websns.model.entity.region.Region;
 import com.ssafy.websns.model.entity.user.User;
 import com.ssafy.websns.model.entity.user.UserProfile;
+import com.ssafy.websns.repository.feed.CustomFeedRepositoryImpl;
 import com.ssafy.websns.repository.feed.FeedLikeCntRepository;
 import com.ssafy.websns.repository.feed.FeedRepository;
 import com.ssafy.websns.repository.feed.FeedTagRepository;
@@ -49,6 +52,7 @@ public class FeedService {
   private final UserProfileRepository userProfileRepository;
   private final FeedTagRepository feedTagRepository;
   private final FeedLikeCntRepository feedLikeCntRepository;
+  private final CustomFeedRepositoryImpl customFeedRepository;
 
   private ValidateExist validateExist = new ValidateExist();
 
@@ -274,6 +278,21 @@ public class FeedService {
     FeedRes feedRes = new FeedRes(userProfile, feed, resImages, resTags);
 
     return feedRes;
+
+  }
+
+  public List<FeedRes> searchFeeds(SearchDto searchDto, Pageable pageable) {
+
+    List<Feed> feeds = customFeedRepository.search(searchDto, pageable);
+
+    List<FeedRes> response = new ArrayList<>();
+
+    feeds.stream().forEach(feed -> {
+      FeedRes feedRes = getFeedRes(feed);
+      response.add(feedRes);
+    });
+
+    return response;
 
   }
 

@@ -7,6 +7,8 @@ import com.ssafy.websns.model.entity.user.UserProfile;
 import java.time.LocalDateTime;
 import java.util.List;
 import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.web.multipart.MultipartFile;
@@ -165,6 +167,27 @@ public class FeedDto {
     public FeedDetailRes(FeedRes feedRes, List<CommentRes> commentRes) {
       this.feedRes = feedRes;
       this.commentRes = commentRes;
+    }
+
+  }
+
+  @Data
+  @NoArgsConstructor
+  @AllArgsConstructor
+  public static class SearchDto {
+
+    private List<String> tag;
+    private LocalDateTime startDate;
+    private LocalDateTime endDate;
+    private String region;
+    private String temperature;
+
+    public void create(List<String> tag, LocalDateTime startDate, LocalDateTime endDate, String region, String temperature) {
+      this.tag = tag;
+      this.startDate = startDate;
+      this.endDate = endDate;
+      this.region = region;
+      this.temperature = temperature;
     }
 
   }

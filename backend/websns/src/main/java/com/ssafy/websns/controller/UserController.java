@@ -71,7 +71,6 @@ public class UserController {
   @PostMapping(value = "/logout")
   public ResponseEntity<String> logout(@RequestBody AuthReq authRequest, HttpServletResponse response) {
 
-    System.out.println("여기에 들어옴 !!!!!");
     String jwtToken = kakaoAuthService.logout(authRequest.getUserId());
     response.addHeader(JwtProperties.HEADER_STRING,JwtProperties.TOKEN_PREFIX +jwtToken);
 
@@ -84,11 +83,8 @@ public class UserController {
   @PostMapping(value = "/refresh")
   public ResponseEntity<String> refresh(@RequestBody AuthReq authRequest, HttpServletResponse response) {
 
-    System.out.println("여기에 들어옴 !!!!!");
     String jwtToken = kakaoAuthService.updateToken(authRequest.getUserId());
     response.addHeader(JwtProperties.HEADER_STRING,JwtProperties.TOKEN_PREFIX +jwtToken);
-
-    System.out.println("jwt 토큰 " + jwtToken);
 
     return ResponseEntity.ok().body("JWT 재생성 완료");
 
@@ -102,7 +98,7 @@ public class UserController {
 
   }
 
-  @PatchMapping(value = "/{userId}", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
+  @PutMapping(value = "/{userId}", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
   public ResponseEntity<UserProfileRes> updateUser (
       @PathVariable("userId") String userId,
       @RequestPart(value="request") UserProfileReq request,
