@@ -1,12 +1,17 @@
 import { all, fork, put, takeLatest, call } from 'redux-saga/effects';
 import { apiInstance } from '@/libs/axios';
 import { AxiosResponse } from 'axios';
-import { LOAD_FEEDS_REQUEST, LOAD_FEEDS_SUCCESS, LOAD_FEEDS_FAILURE } from '@/action/feedsAction';
+import {
+  loadFeedsRequest,
+  LOAD_FEEDS_REQUEST,
+  LOAD_FEEDS_SUCCESS,
+  LOAD_FEEDS_FAILURE,
+} from '@/action/feedsAction';
 import { FeedType } from '@/types/feed';
 
 const api = apiInstance();
 
-function* loadFeeds(action: any) {
+function* loadFeeds(action: ReturnType<typeof loadFeedsRequest>) {
   try {
     const result: Promise<AxiosResponse<FeedType[]>> = yield call(loadFeedsAPI, action.regionNo);
     yield put({

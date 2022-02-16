@@ -1,4 +1,4 @@
-import { all, fork, put, takeLatest, call } from 'redux-saga/effects';
+import { all, fork, put, takeLatest, call, getContext } from 'redux-saga/effects';
 import { apiInstance, authInstance } from '@/libs/axios';
 import { FeedType } from '@/types/feed';
 import { CommentType } from '@/types/comment';
@@ -7,12 +7,15 @@ import {
   LOAD_FEED_REQUEST,
   LOAD_FEED_SUCCESS,
   LOAD_FEED_FAILURE,
+  updateFeedRequest,
   UPDATE_FEED_REQUEST,
   UPDATE_FEED_SUCCESS,
   UPDATE_FEED_FAILURE,
+  deleteFeedRequest,
   DELETE_FEED_REQUEST,
   DELETE_FEED_SUCCESS,
   DELETE_FEED_FAILURE,
+  createFeedRequest,
   CREATE_FEED_REQUEST,
   CREATE_FEED_SUCCESS,
   CREATE_FEED_FAILURE,
@@ -24,11 +27,10 @@ import { AxiosResponse } from 'axios';
 const api = apiInstance();
 const authApi = authInstance();
 
-function* createFeed(action: any) {
+function* createFeed(action: ReturnType<typeof createFeedRequest>) {
   console.log('사가스 피드 생성 액션', action);
   try {
     const result: Promise<AxiosResponse<FeedType>> = yield call(createFeedAPI, action);
-    console.log('답이온다', result);
     yield put({
       type: CREATE_FEED_SUCCESS,
       data: result,
@@ -41,7 +43,9 @@ function* createFeed(action: any) {
   }
 }
 
-function createFeedAPI(action: any): Promise<AxiosResponse<FeedType>> {
+function createFeedAPI(
+  action: ReturnType<typeof createFeedRequest>,
+): Promise<AxiosResponse<FeedType>> {
   return authApi.post(`/feed`, action.request);
 }
 
@@ -70,7 +74,7 @@ function loadFeedAPI(
   return api.get(`/feed/details/${feedNo}`);
 }
 
-function* updateFeed(action: any) {
+function* updateFeed(action: ReturnType<typeof updateFeedRequest>) {
   try {
     const result: Promise<AxiosResponse<FeedType>> = yield call(updateFeedAPI, action);
     yield put({
@@ -85,17 +89,21 @@ function* updateFeed(action: any) {
   }
 }
 
-function updateFeedAPI(action: any): Promise<AxiosResponse<FeedType>> {
-  return authApi.put(`/feed/${action.feedNo}`, action.request);
+function updateFeedAPI(
+  action: ReturnType<typeof updateFeedRequest>,
+): Promise<AxiosResponse<FeedType>> {
+  return authApi.put(`/feed/${action}`, action.request);
 }
 
-function* deleteFeed(action: any) {
+function* deleteFeed(action: ReturnType<typeof deleteFeedRequest>) {
   try {
     const result: Promise<AxiosResponse<FeedType>> = yield call(deleteFeedAPI, action);
     yield put({
       type: DELETE_FEED_SUCCESS,
       data: result,
     });
+    const history = yield getContext('history');
+    history.push('/');
   } catch (err: any) {
     yield put({
       type: DELETE_FEED_FAILURE,
