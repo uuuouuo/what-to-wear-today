@@ -65,8 +65,8 @@ public class CustomFeedRepositoryImpl implements CustomFeedRepository {
       System.out.println("asdfad "+startDate);
       System.out.println("asdfsdf2 " + endDate);
 
-      LocalDateTime startDateTime = LocalDateTime.parse(startDate, formatter);
-      LocalDateTime endDateTime = LocalDateTime.parse(endDate, formatter);
+      LocalDateTime startDateTime = LocalDate.parse(startDate, formatter).atStartOfDay();
+      LocalDateTime endDateTime = LocalDate.parse(endDate, formatter).atStartOfDay();
 
       booleanBuilder.and(feed.photoDate.between(startDateTime, endDateTime));
     }
