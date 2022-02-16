@@ -9,6 +9,7 @@ import { ArticleImage, FeedHeader } from '@/components/molecules';
 import { FeedType } from '@/types/feed';
 import { deleteFeedRequest } from '@/action/feedAction';
 import { useDispatch } from 'react-redux';
+import Link from 'next/link';
 
 interface Props {
   feed: FeedType;
@@ -28,7 +29,6 @@ const FeedDetail: FunctionComponent<Props> = ({ feed }) => {
   const [isUser, setIsUser] = useState(true);
   const viewUDBtn = isDetail && isUser;
 
-  console.log(isDetail);
   const moveFeedDetail = (e: React.MouseEvent) => {
     if (isDetail) {
       e.preventDefault();
@@ -37,10 +37,21 @@ const FeedDetail: FunctionComponent<Props> = ({ feed }) => {
     }
   };
 
+  const updateFeedLink = (e: React.MouseEvent) => {
+    e.preventDefault();
+    Router.replace({
+      pathname: '/write',
+      query: {
+        '': feed.no,
+      },
+    });
+  };
+
   const deleteFeedAction = (e: React.MouseEvent) => {
     e.preventDefault();
     const feedNo = Number(feed.no);
     dispatch(deleteFeedRequest(feedNo));
+    Router.push('/');
   };
 
   return (
@@ -68,7 +79,8 @@ const FeedDetail: FunctionComponent<Props> = ({ feed }) => {
       <FooterContainer>
         {viewUDBtn ? (
           <>
-            <Button bgColor="#000" onClick={moveFeedDetail}>
+            <Link href={`/feed/feedUpdate/${feed.no}`}>고고</Link>
+            <Button bgColor="#000" onClick={updateFeedLink}>
               <Text color="#fff" value="수정" />
             </Button>
             <Button bgColor="#fe7b45" onClick={deleteFeedAction}>

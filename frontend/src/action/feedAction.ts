@@ -14,15 +14,15 @@ export const DELETE_FEED_FAILURE = 'DELETE_FEED_FAILURE';
 export const createFeedRequest = (value, files, date, privateMode, region, temperature) => ({
   type: CREATE_FEED_REQUEST,
   request: {
-    userId: '도라지',
+    userId: 'jdb',
     content: value,
     region: region,
     weather: temperature,
     photoDate: date,
     privateMode: privateMode,
     tags: [],
-    imageNames: files,
   },
+  images: files,
 });
 
 export const createFeedSuccess = () => ({
@@ -49,9 +49,9 @@ export const loadFeedFailure = () => ({
 });
 ////
 
-export const updateFeedRequest = (value, files, date, privateMode, region, temperature) => ({
+export const updateFeedRequest = (feedNo) => ({
   type: UPDATE_FEED_REQUEST,
-  request: {},
+  feedNo: feedNo,
 });
 
 export const updateFeedSuccess = () => ({

@@ -1,5 +1,5 @@
 import { all, fork, put, takeLatest, call, getContext } from 'redux-saga/effects';
-import { apiInstance, authInstance } from '@/libs/axios';
+import { apiInstance, authInstance, fileInstance } from '@/libs/axios';
 import { FeedType } from '@/types/feed';
 import { CommentType } from '@/types/comment';
 import {
@@ -26,6 +26,7 @@ import { AxiosResponse } from 'axios';
 
 const api = apiInstance();
 const authApi = authInstance();
+const fileApi = fileInstance();
 
 function* createFeed(action: ReturnType<typeof createFeedRequest>) {
   console.log('사가스 피드 생성 액션', action);
@@ -38,7 +39,7 @@ function* createFeed(action: ReturnType<typeof createFeedRequest>) {
   } catch (err: any) {
     yield put({
       type: CREATE_FEED_FAILURE,
-      error: err.name,
+      error: err,
     });
   }
 }
@@ -46,7 +47,11 @@ function* createFeed(action: ReturnType<typeof createFeedRequest>) {
 function createFeedAPI(
   action: ReturnType<typeof createFeedRequest>,
 ): Promise<AxiosResponse<FeedType>> {
-  return authApi.post(`/feed`, action.request);
+  let images = new FormData();
+  action.images.forEach((file) => images.append('images', file));
+
+  images.append('images', action.images);
+  return fileApi.post(`/feed`, { request: action.request });
 }
 
 function* loadFeed(action: ReturnType<typeof loadFeedRequest>) {
@@ -92,7 +97,7 @@ function* updateFeed(action: ReturnType<typeof updateFeedRequest>) {
 function updateFeedAPI(
   action: ReturnType<typeof updateFeedRequest>,
 ): Promise<AxiosResponse<FeedType>> {
-  return authApi.put(`/feed/${action}`, action.request);
+  return authApi.put(`/feed/${action}`, action);
 }
 
 function* deleteFeed(action: ReturnType<typeof deleteFeedRequest>) {
