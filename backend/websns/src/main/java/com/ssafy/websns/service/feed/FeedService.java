@@ -124,7 +124,7 @@ public class FeedService {
     List<String> resTags = feedTags.stream().map(tag -> tag.getTagNo().getTagName())
         .collect(Collectors.toList());
 
-    FeedRes response = new FeedRes(userProfile, feed, resImages, resTags);
+    FeedRes response = new FeedRes(userProfile, feed, resTags);
 
     return response;
 
@@ -275,15 +275,15 @@ public class FeedService {
     Optional<UserProfile> profileOptional = userProfileRepository.findByUser(feed.getUser());
     UserProfile userProfile = validateExist.findUserProfile(profileOptional);
 
-    FeedRes feedRes = new FeedRes(userProfile, feed, resImages, resTags);
+    FeedRes feedRes = new FeedRes(userProfile, feed, resTags);
 
     return feedRes;
 
   }
 
-  public List<FeedRes> searchFeeds(SearchDto searchDto, Pageable pageable) {
+  public List<FeedRes> searchFeeds(SearchDto searchDto) {
 
-    List<Feed> feeds = customFeedRepository.search(searchDto, pageable);
+    List<Feed> feeds = customFeedRepository.search(searchDto);
 
     List<FeedRes> response = new ArrayList<>();
 

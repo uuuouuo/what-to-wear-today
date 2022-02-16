@@ -39,6 +39,7 @@ public class Feed extends BaseEntity {
   @Column(nullable = false, length = 1000)
   private String content;
 
+  @Column(columnDefinition = " TIMESTAMP NULL DEFAULT NULL")
   private LocalDateTime photoDate;
 
   @Column(nullable = false, length = 45)

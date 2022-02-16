@@ -83,10 +83,9 @@ public class FeedDto {
     private LocalDateTime photoDate;
     private String weather;
     private Boolean privateMode;
-    private List<ImageFile> images;
     private List<String> tags;
 
-    public FeedRes(UserProfile userProfile, Feed feed, List<ImageFile> images, List<String> tags) {
+    public FeedRes(UserProfile userProfile, Feed feed, List<String> tags) {
       this.no = feed.getNo();
       this.userId = feed.getUser().getUserId();
       this.nickname = userProfile.getNickname();
@@ -96,7 +95,6 @@ public class FeedDto {
       this.photoDate = feed.getPhotoDate();
       this.weather = feed.getWeather();
       this.privateMode = feed.getPrivateMode();
-      this.images = images;
       this.tags = tags;
     }
 
@@ -177,12 +175,12 @@ public class FeedDto {
   public static class SearchDto {
 
     private List<String> tag;
-    private LocalDateTime startDate;
-    private LocalDateTime endDate;
+    private String startDate;
+    private String endDate;
     private String region;
     private String temperature;
 
-    public void create(List<String> tag, LocalDateTime startDate, LocalDateTime endDate, String region, String temperature) {
+    public void create(List<String> tag, String startDate, String endDate, String region, String temperature) {
       this.tag = tag;
       this.startDate = startDate;
       this.endDate = endDate;

@@ -15,6 +15,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -104,22 +105,45 @@ public class FeedController {
 
   @GetMapping
   public ResponseEntity<Page<FeedRes>> searchFeed(
-      @RequestParam(value="tag") String[] tag,
-      @RequestParam(value = "startDate") String startDate,
-      @RequestParam(value = "endDate") String endDate,
-      @RequestParam(value = "region") String region,
-      @RequestParam(value = "temperature") String temperature,
+      @RequestParam(value= "tag",required = false) String[] tag,
+      @RequestParam(value = "startDate",required = false) String startDate,
+      @RequestParam(value = "endDate",required = false) String endDate,
+      @RequestParam(value = "region",required = false) String region,
+      @RequestParam(value = "temperature",required = false) String temperature,
       @PageableDefault(size = 20) Pageable pageable) {
 
 
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.M.d.HH:mm");
-    LocalDateTime startDateTime = LocalDateTime.parse(startDate, formatter);
-    LocalDateTime endDateTime = LocalDateTime.parse(endDate, formatter);
+
+    System.out.println(startDate);
+    System.out.println(endDate);
+    System.out.println(region);
+    System.out.println(temperature);
+
 
     SearchDto searchDto = new SearchDto();
 
-    searchDto.create(Arrays.asList(tag),startDateTime,endDateTime,region,temperature);
-    List<FeedRes> feeds = feedService.searchFeeds(searchDto, pageable);
+    if(tag!=null){
+      Arrays.asList(tag).stream().forEach(System.out::println);
+      System.out.println("size : " + Arrays.asList(tag).size());
+      searchDto.setTag(Arrays.asList(tag));
+    }
+
+    if(StringUtils.isNotEmpty(startDate)) {
+      searchDto.setStartDate(startDate);
+    }
+    if(StringUtils.isNotEmpty(endDate)) {
+      searchDto.setEndDate(endDate);
+    }
+
+    if(StringUtils.isNotEmpty(region)) {
+      searchDto.setRegion(region);
+    }
+
+    if(StringUtils.isNotEmpty(temperature)) {
+      searchDto.setTemperature(temperature);
+    }
+
+    List<FeedRes> feeds = feedService.searchFeeds(searchDto);
     Page<FeedRes> pageRes = new PageImpl<>(feeds, pageable, feeds.size());
 
     return new ResponseEntity<>(pageRes,HttpStatus.OK);
