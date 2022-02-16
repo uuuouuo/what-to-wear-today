@@ -1,10 +1,8 @@
 import React, { FunctionComponent, useEffect, useState } from 'react';
 import Router from 'next/router';
-
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
 import LocalOfferOutlinedIcon from '@mui/icons-material/LocalOfferOutlined';
-
 import Styled from './FeedDetail.styled';
 import { FooterContainer, Tag, Button, Text } from '@/components/atoms';
 import { ArticleImage, FeedHeader } from '@/components/molecules';
@@ -18,7 +16,7 @@ interface Props {
 
 const FeedDetail: FunctionComponent<Props> = ({ feed }) => {
   useEffect(() => {
-    if (window.location.href === `http://localhost:3000/${feed.no}`) {
+    if (window.location.href === `http://localhost:3000/feed/${feed.no}`) {
       setIsDetail(true);
     } else {
       setIsDetail(false);
@@ -27,14 +25,20 @@ const FeedDetail: FunctionComponent<Props> = ({ feed }) => {
 
   const dispatch = useDispatch();
   const [isDetail, setIsDetail] = useState(false);
+  const [isUser, setIsUser] = useState(true);
+  const viewUDBtn = isDetail && isUser;
 
+  console.log(isDetail);
   const moveFeedDetail = (e: React.MouseEvent) => {
-    Router.push(`feed/${feed.no}`);
+    if (isDetail) {
+      e.preventDefault();
+    } else {
+      Router.push(`feed/${feed.no}`);
+    }
   };
 
   const deleteFeedAction = (e: React.MouseEvent) => {
     e.preventDefault();
-    Router.push('/');
     const feedNo = Number(feed.no);
     dispatch(deleteFeedRequest(feedNo));
   };
@@ -62,16 +66,7 @@ const FeedDetail: FunctionComponent<Props> = ({ feed }) => {
       </Styled.TagContainer>
 
       <FooterContainer>
-        {isDetail ? (
-          <>
-            <Styled.Button onClick={moveFeedDetail} bgColor="transparent">
-              <ChatBubbleOutlineIcon />
-            </Styled.Button>
-            <Styled.Button onClick={moveFeedDetail} bgColor="transparent">
-              <FavoriteBorderIcon />
-            </Styled.Button>
-          </>
-        ) : (
+        {viewUDBtn ? (
           <>
             <Button bgColor="#000" onClick={moveFeedDetail}>
               <Text color="#fff" value="수정" />
@@ -79,6 +74,18 @@ const FeedDetail: FunctionComponent<Props> = ({ feed }) => {
             <Button bgColor="#fe7b45" onClick={deleteFeedAction}>
               <Text color="#fff" value="삭제" />
             </Button>
+            <Styled.Button onClick={moveFeedDetail} bgColor="transparent">
+              <FavoriteBorderIcon />
+            </Styled.Button>
+          </>
+        ) : (
+          <>
+            <Styled.Button onClick={moveFeedDetail} bgColor="transparent">
+              <ChatBubbleOutlineIcon />
+            </Styled.Button>
+            <Styled.Button onClick={moveFeedDetail} bgColor="transparent">
+              <FavoriteBorderIcon />
+            </Styled.Button>
           </>
         )}
       </FooterContainer>
