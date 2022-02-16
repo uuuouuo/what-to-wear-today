@@ -1,26 +1,28 @@
 import React, { useState } from 'react';
 import type { NextPage } from 'next';
 import Styled from './styled';
+import type { RootState } from '@/reducers';
 import { MainContainer, Text, Toggle } from 'components/atoms';
 import { Title, Modal, FooterNavbar, ImageList } from '@/components/molecules';
 import { useChange, useFileChange, useDisplay } from '@/hooks';
 import { createFeedRequest } from 'action/feedAction';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import CheckIcon from '@mui/icons-material/Check';
 import RegionFeed from '@/components/RegionSearch/RegionFeed';
 import WeatherAPI from '@/components/WeatherAPI/WeatherAPI';
 
-const FeedWriteTemplate: NextPage = () => {
+const FeedUpdateTemplate: NextPage = () => {
   const dispatch = useDispatch();
+  const { feed } = useSelector((state: RootState) => state.feed);
 
-  const [value, onChange] = useChange('');
-  const [privateMode, setPrivateMode] = useState(false);
+  const [value, setValue, onChange] = useChange(`${feed.content}`);
+  const [privateMode, setPrivateMode] = useState(feed.private);
   const [file, setFile] = useFileChange(null);
   const [files, , , appendFile] = useFileChange(null);
   const [display, , openDisplay, closeDisplay] = useDisplay(false);
   const [date, setDate] = useState<string | null>();
-  const [region, onRegionChange] = useState('');
-  const [temperature, , onTemperatureChange] = useChange('');
+  const [region, onRegionChange] = useState(feed.region);
+  const [temperature, , onTemperatureChange] = useChange(`${feed.weather}`);
 
   const createFeedAction = (e: React.MouseEvent) => {
     dispatch(createFeedRequest(value, files, date, privateMode, region, temperature));
@@ -28,7 +30,7 @@ const FeedWriteTemplate: NextPage = () => {
 
   const onChangeDate = (e: React.ChangeEvent<HTMLInputElement>) => {
     setDate(
-      `${e.target.value.slice(0, 4)}.${e.target.value.slice(5, 7)}.${e.target.value.slice(
+      `${feed.photoDate.slice(0, 4)}.${feed.photoDate.slice(5, 7)}.${feed.photoDate.slice(
         8,
       )}.15:00`,
     );
@@ -54,7 +56,6 @@ const FeedWriteTemplate: NextPage = () => {
             <Styled.Input type="date" onChange={onChangeDate} />
           </Styled.RowContainer>
           <Styled.RowContainer>
-            {/* <Styled.Input value={region} onChange={onRegionChange} placeholder="Region..." /> */}
             <RegionFeed onChange={onRegionChange} />
           </Styled.RowContainer>
           <Styled.RowContainer>
@@ -79,4 +80,4 @@ const FeedWriteTemplate: NextPage = () => {
   );
 };
 
-export default FeedWriteTemplate;
+export default FeedUpdateTemplate;
