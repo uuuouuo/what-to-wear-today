@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -31,9 +32,9 @@ public class FollowController {
   }
 
   @DeleteMapping("/follow")
-  public ResponseEntity<DeleteFollowRes> deleteFollow(@RequestBody FollowReq request) {
+  public ResponseEntity<DeleteFollowRes> deleteFollow(@RequestParam(value = "userid") String userId, @RequestParam(value = "followingid") String followingId) {
 
-    DeleteFollowRes response = followService.cancelFollow(request);
+    DeleteFollowRes response = followService.cancelFollow(userId,followingId);
     return new ResponseEntity<>(response, HttpStatus.OK);
 
   }

@@ -61,14 +61,12 @@ public class FollowService {
   }
 
   @Transactional
-  public DeleteFollowRes cancelFollow(FollowReq request) {
+  public DeleteFollowRes cancelFollow(String userId, String followingId) {
 
 
-    String userId = request.getUserId();
-    String FollowingId = request.getFollowingId();
 
     Optional<User> userOp = userRepository.findByUserId(userId);
-    Optional<User> followingOp = userRepository.findByUserId(FollowingId);
+    Optional<User> followingOp = userRepository.findByUserId(followingId);
     User user = validateExist.findUser(userOp);
     User followingUser = validateExist.findUser(followingOp);
 
