@@ -1,6 +1,5 @@
 package com.ssafy.websns.service.feed;
 
-import com.ssafy.websns.model.dto.feed.FeedDto;
 import com.ssafy.websns.model.dto.feed.FeedDto.CreateReq;
 import com.ssafy.websns.model.dto.feed.FeedDto.FeedRes;
 import com.ssafy.websns.model.dto.feed.FeedDto.SearchDto;
@@ -89,6 +88,7 @@ public class FeedService {
         sb.append(date.getTime());
         sb.append(imageName.getOriginalFilename());
         String fileName = "C://images/feed/" + sb.toString();
+//        String fileName = "/home/ubuntu/images/feed/" + sb.toString();
         File dest = new File(fileName);
         try {
           imageName.transferTo(dest);
@@ -159,6 +159,7 @@ public class FeedService {
         sb.append(date.getTime());
         sb.append(imageName.getOriginalFilename());
         String fileName = "C://images/feed/" + sb.toString();
+//        String fileName = "/home/ubuntu/images/feed/" + sb.toString();
         File dest = new File(fileName);
         try {
           imageName.transferTo(dest);

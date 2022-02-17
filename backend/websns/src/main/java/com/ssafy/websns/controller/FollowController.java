@@ -30,10 +30,10 @@ public class FollowController {
 
   }
 
-  @DeleteMapping("/follow/{followNo}")
-  public ResponseEntity<DeleteFollowRes> deleteFollow(@PathVariable("followNo") Integer followNo) {
+  @DeleteMapping("/follow")
+  public ResponseEntity<DeleteFollowRes> deleteFollow(@RequestBody FollowReq request) {
 
-    DeleteFollowRes response = followService.cancelFollow(followNo);
+    DeleteFollowRes response = followService.cancelFollow(request);
     return new ResponseEntity<>(response, HttpStatus.OK);
 
   }
