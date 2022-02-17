@@ -1,6 +1,6 @@
 package com.ssafy.websns.model.dto.user;
 
-import com.ssafy.websns.model.entity.user.User;
+import com.ssafy.websns.model.entity.user.UserFollowCnt;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,12 +11,12 @@ public class FollowDto {
   @NoArgsConstructor(access = AccessLevel.PROTECTED)
   public static class FollowReq {
 
-    private User userFollowerNo;
-    private User userFollowingNo;
+    private String userId; // 나
+    private String followingId; // 내가 한 사람
 
-    public FollowReq(User userFollowerNo, User userFollowingNo) {
-      this.userFollowerNo = userFollowerNo;
-      this.userFollowingNo = userFollowingNo;
+    public FollowReq(String userId, String followingId) {
+      this.userId = userId;
+      this.followingId = followingId;
     }
 
   }
@@ -24,14 +24,25 @@ public class FollowDto {
   @Getter
   public static class FollowRes {
 
-    private User userFollowerNo;
-    private User userFollowingNo;
-    private Integer followCnt;
+    private UserFollowCnt followerUser;
+    private UserFollowCnt followingUser;
 
-    public FollowRes(User userFollowerNo, User userFollowingNo, Integer followCnt) {
-      this.userFollowerNo = userFollowerNo;
-      this.userFollowingNo = userFollowingNo;
-      this.followCnt = followCnt;
+    public FollowRes(UserFollowCnt followerUser, UserFollowCnt followingUser) {
+      this.followerUser = followerUser;
+      this.followingUser = followingUser;
+    }
+
+  }
+
+  @Getter
+  public static class DeleteFollowRes {
+
+    private String followerId;
+    private String followingId;
+
+    public DeleteFollowRes(String followerId, String followingId) {
+      this.followerId = followerId;
+      this.followingId = followingId;
     }
 
   }

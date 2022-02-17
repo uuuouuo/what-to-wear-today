@@ -28,6 +28,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestPart;
@@ -70,11 +71,8 @@ public class UserController {
   @PostMapping(value = "/logout")
   public ResponseEntity<String> logout(@RequestBody AuthReq authRequest, HttpServletResponse response) {
 
-    System.out.println("여기에 들어옴 !!!!!");
     String jwtToken = kakaoAuthService.logout(authRequest.getUserId());
     response.addHeader(JwtProperties.HEADER_STRING,JwtProperties.TOKEN_PREFIX +jwtToken);
-
-    System.out.println("jwt 토큰 " + jwtToken);
 
     return ResponseEntity.ok().body("로그아웃 완료");
 
@@ -83,11 +81,8 @@ public class UserController {
   @PostMapping(value = "/refresh")
   public ResponseEntity<String> refresh(@RequestBody AuthReq authRequest, HttpServletResponse response) {
 
-    System.out.println("여기에 들어옴 !!!!!");
     String jwtToken = kakaoAuthService.updateToken(authRequest.getUserId());
     response.addHeader(JwtProperties.HEADER_STRING,JwtProperties.TOKEN_PREFIX +jwtToken);
-
-    System.out.println("jwt 토큰 " + jwtToken);
 
     return ResponseEntity.ok().body("JWT 재생성 완료");
 
@@ -101,7 +96,7 @@ public class UserController {
 
   }
 
-  @PatchMapping(value = "/{userId}", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
+  @PutMapping(value = "/{userId}", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
   public ResponseEntity<UserProfileRes> updateUser (
       @PathVariable("userId") String userId,
       @RequestPart(value="request") UserProfileReq request,
@@ -112,7 +107,7 @@ public class UserController {
 
   }
 
-  @PatchMapping(value = "/type/{userId}")
+  @PutMapping(value = "/type/{userId}")
   public ResponseEntity<UpdateTypeRes> updateType(@PathVariable("userId") String userId,
       @RequestBody UpdateTypeInfoReq updateTypeInfoReq) {
 
@@ -121,7 +116,7 @@ public class UserController {
 
   }
 
-  @PatchMapping(value = "/region/{userId}")
+  @PutMapping(value = "/region/{userId}")
   public ResponseEntity<UpdateRegionRes> updateRegion(@PathVariable("userId") String userId,
       @RequestBody UpdateRegionReq updateRegionReq) {
 
@@ -130,7 +125,7 @@ public class UserController {
 
   }
 
-  @PatchMapping(value = "/interest/{userId}")
+  @PutMapping(value = "/interest/{userId}")
   public ResponseEntity<InterestRes> updateInterest(@PathVariable("userId") String userId,
       @RequestBody InterestReq request) {
 

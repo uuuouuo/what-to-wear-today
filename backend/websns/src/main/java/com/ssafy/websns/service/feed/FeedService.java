@@ -1,7 +1,9 @@
 package com.ssafy.websns.service.feed;
 
+import com.ssafy.websns.model.dto.feed.FeedDto;
 import com.ssafy.websns.model.dto.feed.FeedDto.CreateReq;
 import com.ssafy.websns.model.dto.feed.FeedDto.FeedRes;
+import com.ssafy.websns.model.dto.feed.FeedDto.SearchDto;
 import com.ssafy.websns.model.dto.feed.FeedDto.UpdateReq;
 import com.ssafy.websns.model.dto.feed.FeedDto.UpdateRes;
 import com.ssafy.websns.model.dto.feed.ImageDto.ImageFile;
@@ -13,6 +15,7 @@ import com.ssafy.websns.model.entity.feed.Tag;
 import com.ssafy.websns.model.entity.region.Region;
 import com.ssafy.websns.model.entity.user.User;
 import com.ssafy.websns.model.entity.user.UserProfile;
+import com.ssafy.websns.repository.feed.CustomFeedRepositoryImpl;
 import com.ssafy.websns.repository.feed.FeedLikeCntRepository;
 import com.ssafy.websns.repository.feed.FeedRepository;
 import com.ssafy.websns.repository.feed.FeedTagRepository;
@@ -49,6 +52,7 @@ public class FeedService {
   private final UserProfileRepository userProfileRepository;
   private final FeedTagRepository feedTagRepository;
   private final FeedLikeCntRepository feedLikeCntRepository;
+  private final CustomFeedRepositoryImpl customFeedRepository;
 
   private ValidateExist validateExist = new ValidateExist();
 
@@ -120,7 +124,7 @@ public class FeedService {
     List<String> resTags = feedTags.stream().map(tag -> tag.getTagNo().getTagName())
         .collect(Collectors.toList());
 
-    FeedRes response = new FeedRes(userProfile, feed, resImages, resTags);
+    FeedRes response = new FeedRes(userProfile, feed, resTags);
 
     return response;
 
@@ -208,7 +212,6 @@ public class FeedService {
 
   }
 
-  // 설정 지역 내 피드 보기
   public List<FeedRes> showFeedsByRegion(Integer regionNo, Pageable pageable) {
 
     Page<Feed> feeds = feedRepository.findAllByRegion(regionNo, pageable);
@@ -224,7 +227,6 @@ public class FeedService {
 
   }
 
-  // 마이페이지 내 피드 보기
   public List<FeedRes> showFeedsById(String userId) {
 
     Optional<User> userOptional = userRepository.findByUserId(userId);
@@ -244,7 +246,6 @@ public class FeedService {
 
   }
 
-  // 피드 상세정보 보기
   public FeedRes showFeedDetailByNo(Integer feedNo) {
 
     Optional<Feed> feedOptional = feedRepository.findByNo(feedNo);
@@ -271,32 +272,26 @@ public class FeedService {
     Optional<UserProfile> profileOptional = userProfileRepository.findByUser(feed.getUser());
     UserProfile userProfile = validateExist.findUserProfile(profileOptional);
 
-    FeedRes feedRes = new FeedRes(userProfile, feed, resImages, resTags);
+    FeedRes feedRes = new FeedRes(userProfile, feed, resTags);
 
     return feedRes;
 
   }
 
-  //  public List<FeedRes> searchFeedsByKeyword(String keyword) {
-//
-//    Optional<List<Feed>> optionalFeed = feedRepository.findFeedsByContent(keyword);
-//    List<Feed> feeds = validateExist.findFeeds(optionalFeed);
-//
-//    List<FeedRes> response = new ArrayList<>();
-//
-//    feeds.stream().forEach(feed -> {
-//      Optional<List<Image>> optional = imageRepository.findByFeed(feed);
-//      List<ImageFile> resImages = validateExist.findImages(optional).stream()
-//          .map(ImageFile::new).collect(Collectors.toList());
-//
-//      FeedRes feedRes = new FeedRes(feed, resImages);
-//
-//      response.add(feedRes);
-//    });
-//
-//    return response;
-//
-//  }
+  public List<FeedRes> searchFeeds(SearchDto searchDto) {
+
+    List<Feed> feeds = customFeedRepository.search(searchDto);
+
+    List<FeedRes> response = new ArrayList<>();
+
+    feeds.stream().forEach(feed -> {
+      FeedRes feedRes = getFeedRes(feed);
+      response.add(feedRes);
+    });
+
+    return response;
+
+  }
 
 }
 

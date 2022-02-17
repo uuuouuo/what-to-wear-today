@@ -28,24 +28,29 @@ public class Feed extends BaseEntity {
   private Integer no;
 
   @ManyToOne(fetch = LAZY)
-  @JoinColumn(name = "USER_NO")
+  @JoinColumn(name = "USER_NO", nullable = false)
   private User user;
 
   @ManyToOne(fetch = LAZY)
-  @JoinColumn(name = "REGION_NO")
+  @JoinColumn(name = "REGION_NO", nullable = false)
   private Region region;
 
+
+  @Column(nullable = false, length = 1000)
   private String content;
 
+  @Column(columnDefinition = " TIMESTAMP NULL DEFAULT NULL")
   private LocalDateTime photoDate;
 
+  @Column(nullable = false, length = 45)
   private String weather;
 
+  @Column(nullable = false)
   private Boolean privateMode;
 
+  @Column(nullable = false)
   private Boolean deleteMode;
 
-  // test
   public Feed(User user, Region region, String content, LocalDateTime photoDate,
       String weather, Boolean privateMode, Boolean deleteMode) {
     this.user = user;

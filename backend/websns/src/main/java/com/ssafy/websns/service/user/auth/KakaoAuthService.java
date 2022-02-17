@@ -31,16 +31,7 @@ public class KakaoAuthService { // public class GoogleAuthService
     System.out.println(socialId);
     Optional<User> findUser = userRepository.findByUserId(socialId);
 
-    //JWT 토큰 생성
-//    String jwtToken = JWT.create()
-//        .withSubject("cos토큰")
-//        .withExpiresAt(new Date(System.currentTimeMillis() + JwtProperties.EXPIRATION_TIME))
-//        .withClaim("id", principalDetails.getUser().getUserId())
-//        .withClaim("password", principalDetails.getUser().getPassword())
-//        .sign(Algorithm.HMAC512(JwtProperties.SECRET));
-
     String jwtToken = jwtTokenProvider.create(user);
-    System.out.println(jwtToken);
 
     LoginRes loginRes = new LoginRes();
     loginRes.setJwtToken(jwtToken);
@@ -66,7 +57,7 @@ public class KakaoAuthService { // public class GoogleAuthService
     Optional<User> userOptional = userRepository.findByUserId(userId);
 
     String newJwtToken = null;
-    System.out.println("2 : " + userOptional.isPresent());
+
     if(userOptional.isPresent()) {
       User user = userOptional.get();
       newJwtToken = jwtTokenProvider.create(user);
@@ -81,28 +72,13 @@ public class KakaoAuthService { // public class GoogleAuthService
     Optional<User> userOptional = userRepository.findByUserId(userId);
 
     String newJwtToken = null;
-    System.out.println("2 : " + userOptional.isPresent());
+
     if(userOptional.isPresent()) {
       User user = userOptional.get();
       newJwtToken = jwtTokenProvider.logout(user);
     }
     return newJwtToken;
 
-//    clientKakao.logout(authRequest.getAccessToken());
-
   }
 
-//  public String updateToken(String jwtToken) {
-//
-//    String userId = jwtTokenProvider.getUserId(jwtToken);
-//    Optional<User> userOptional = userRepository.findByUserId(userId);
-//
-//    String newJwtToken = "";
-//    if(userOptional.isPresent()) {
-//      newJwtToken = jwtTokenProvider.create(userOptional.get());
-//    }
-//
-//    return newJwtToken;
-//
-//  }
 }

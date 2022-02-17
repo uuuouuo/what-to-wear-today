@@ -7,6 +7,8 @@ import com.ssafy.websns.model.entity.user.UserProfile;
 import java.time.LocalDateTime;
 import java.util.List;
 import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.web.multipart.MultipartFile;
@@ -81,10 +83,9 @@ public class FeedDto {
     private LocalDateTime photoDate;
     private String weather;
     private Boolean privateMode;
-    private List<ImageFile> images;
     private List<String> tags;
 
-    public FeedRes(UserProfile userProfile, Feed feed, List<ImageFile> images, List<String> tags) {
+    public FeedRes(UserProfile userProfile, Feed feed, List<String> tags) {
       this.no = feed.getNo();
       this.userId = feed.getUser().getUserId();
       this.nickname = userProfile.getNickname();
@@ -94,7 +95,6 @@ public class FeedDto {
       this.photoDate = feed.getPhotoDate();
       this.weather = feed.getWeather();
       this.privateMode = feed.getPrivateMode();
-      this.images = images;
       this.tags = tags;
     }
 
@@ -165,6 +165,27 @@ public class FeedDto {
     public FeedDetailRes(FeedRes feedRes, List<CommentRes> commentRes) {
       this.feedRes = feedRes;
       this.commentRes = commentRes;
+    }
+
+  }
+
+  @Data
+  @NoArgsConstructor
+  @AllArgsConstructor
+  public static class SearchDto {
+
+    private List<String> tag;
+    private String startDate;
+    private String endDate;
+    private String region;
+    private String temperature;
+
+    public void create(List<String> tag, String startDate, String endDate, String region, String temperature) {
+      this.tag = tag;
+      this.startDate = startDate;
+      this.endDate = endDate;
+      this.region = region;
+      this.temperature = temperature;
     }
 
   }

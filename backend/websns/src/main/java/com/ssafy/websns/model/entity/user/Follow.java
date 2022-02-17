@@ -23,16 +23,16 @@ public class Follow {
   private Integer no;
 
   @ManyToOne(fetch = LAZY)
-  @JoinColumn(name = "USER_NO")
+  @JoinColumn(name = "USER_FOLLOWER_NO", nullable = false)
   private User userFollowerNo;
 
   @ManyToOne(fetch = LAZY)
-  @JoinColumn(name = "USER_NO")
+  @JoinColumn(name = "USER_FOLLOWING_NO", nullable = false)
   private User userFollowingNo;
 
-  public void createFollow(Integer no, User userFollowerNo, User userFollowingNo) {
-    this.no = no;
+  public void createFollow(User userFollowerNo, User userFollowingNo) {
     this.userFollowerNo = userFollowerNo;
     this.userFollowingNo = userFollowingNo;
   }
+
 }

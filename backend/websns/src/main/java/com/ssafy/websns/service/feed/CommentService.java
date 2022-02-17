@@ -13,6 +13,7 @@ import com.ssafy.websns.repository.feed.FeedRepository;
 import com.ssafy.websns.repository.user.UserProfileRepository;
 import com.ssafy.websns.repository.user.UserRepository;
 import com.ssafy.websns.service.validation.ValidateExist;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
@@ -98,7 +99,7 @@ public class CommentService {
     Optional<List<Comment>> commentOptional = commentRepository.findByFeedAndDeleteModeIsFalse(feed);
     List<Comment> comments = validateExist.findComments(commentOptional);
 
-    List<CommentRes> response = null;
+    List<CommentRes> response = new ArrayList<>();
     comments.stream().forEach(comment -> {
         Optional<UserProfile> profileOptional = userProfileRepository.findByUser(comment.getUser());
         UserProfile userProfile = validateExist.findUserProfile(profileOptional);
@@ -118,7 +119,7 @@ public class CommentService {
     Optional<List<Comment>> commentOptional = commentRepository.findByUserAndDeleteModeIsFalse(user);
     List<Comment> comments = validateExist.findComments(commentOptional);
 
-    List<CommentRes> response = null;
+    List<CommentRes> response = new ArrayList<>();
     comments.stream().forEach(comment -> {
         Optional<UserProfile> profileOptional = userProfileRepository.findByUser(user);
         UserProfile userProfile = validateExist.findUserProfile(profileOptional);

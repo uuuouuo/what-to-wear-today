@@ -24,33 +24,21 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
       HttpServletResponse response,
       FilterChain filterChain)  throws ServletException, IOException {
 
-    final String authorizationHeader = request.getHeader("JWT"); // Authorization 헤더 꺼냄
-    System.out.println("header token : " + authorizationHeader);
+    final String authorizationHeader = request.getHeader("JWT");
+
 
     if(authorizationHeader == null) {
       request.setAttribute("exception", ErrorCode.NON_LOGIN.getCode());
       filterChain.doFilter(request,response);
     }
 
-    if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) { // JWT 토큰이 존재하는지 확인
-//      String tokenStr = JwtHeaderUtil.getAccessToken(request); // Bearer로 시작하는 값에서 Bearer를 제거한 accessToken(appToken) 반환
+    if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
       String jwtToken = authorizationHeader.replace("Bearer ", "");
-//      AuthToken token = tokenProvider.convertAuthToken(tokenStr); // String to AuthToken
 
-//      if(!tokenProvider.validateExpired(jwtToken)) {
-//        request.setAttribute("exception", ErrorCode.EXPIRED_TOKEN.getCode());
-//        filterChain.doFilter(request, response);
-//      }
-//      else if(!tokenProvider.validateForm(jwtToken)) {
-//        request.setAttribute("exception", ErrorCode.INVALID_TOKEN.getCode());
-//        filterChain.doFilter(request, response);
-//      }
-//      else
       try{
-        if (tokenProvider.validate(jwtToken)) { // token이 유효한지 확인
+        if (tokenProvider.validate(jwtToken)) {
           Authentication authentication = tokenProvider.getAuthentication(jwtToken);
-          SecurityContextHolder.getContext().setAuthentication(authentication); // token에 존재하는 authentication 정보 삽입
-          System.out.println("로그아웃 여기 들어옴");
+          SecurityContextHolder.getContext().setAuthentication(authentication);
           filterChain.doFilter(request, response);
         }
       } catch(TokenExpiredException e) {
@@ -62,15 +50,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         request.setAttribute("exception", ErrorCode.INVALID_TOKEN.getCode());
         filterChain.doFilter(request, response);
       }
- //      else if (tokenProvider.validateForm(jwtToken) && !tokenProvider.validateExpired(jwtToken)) {
-//        String newJwtToken = tokenProvider.update(jwtToken);
-//        Authentication authentication = tokenProvider.getAuthentication(newJwtToken);
-//        SecurityContextHolder.getContext().setAuthentication(authentication); // token에 존재하는 authentication 정보 삽입
-//        System.out.println("토큰 다시 만듬");
-//      }
+
     }
 
-    System.out.println("로그아웃 여기 들어옴3");
   }
 
 }

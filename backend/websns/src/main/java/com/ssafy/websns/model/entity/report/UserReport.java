@@ -4,7 +4,6 @@ import static javax.persistence.FetchType.LAZY;
 
 import com.ssafy.websns.model.entity.user.User;
 import io.swagger.annotations.ApiModel;
-import java.time.LocalDateTime;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -25,15 +24,14 @@ public class UserReport {
   private Integer no;
 
   @ManyToOne(fetch = LAZY)
-  @JoinColumn
+  @JoinColumn(name = "REPORTER", nullable = false)
   private User reporter;
 
-  private String comment;
-
-  private LocalDateTime createdAt;
-
   @ManyToOne(fetch = LAZY)
-  @JoinColumn
+  @JoinColumn(name = "TARGET", nullable = false)
   private User target;
+
+  @Column(nullable = false, length = 300)
+  private String content;
 
 }

@@ -5,12 +5,15 @@ import com.ssafy.websns.model.dto.feed.FeedDto.CreateReq;
 import com.ssafy.websns.model.dto.feed.FeedDto.FeedDetailRes;
 import com.ssafy.websns.model.dto.feed.FeedDto.FeedReq;
 import com.ssafy.websns.model.dto.feed.FeedDto.FeedRes;
+import com.ssafy.websns.model.dto.feed.FeedDto.SearchDto;
 import com.ssafy.websns.model.dto.feed.FeedDto.UpdateReq;
 import com.ssafy.websns.model.dto.feed.FeedDto.UpdateRes;
 import com.ssafy.websns.service.feed.CommentService;
 import com.ssafy.websns.service.feed.FeedService;
+import java.util.Arrays;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -94,6 +97,44 @@ public class FeedController {
     List<FeedRes> feedRes = feedService.showFeedsById(userId);
 
     return new ResponseEntity<>(feedRes, HttpStatus.OK);
+
+  }
+
+
+  @GetMapping
+  public ResponseEntity<Page<FeedRes>> searchFeed(
+      @RequestParam(value= "tag",required = false) String[] tag,
+      @RequestParam(value = "startDate",required = false) String startDate,
+      @RequestParam(value = "endDate",required = false) String endDate,
+      @RequestParam(value = "region",required = false) String region,
+      @RequestParam(value = "temperature",required = false) String temperature,
+      @PageableDefault(size = 20) Pageable pageable) {
+
+    SearchDto searchDto = new SearchDto();
+
+    if(tag!=null){
+      searchDto.setTag(Arrays.asList(tag));
+    }
+
+    if(StringUtils.isNotEmpty(startDate)) {
+      searchDto.setStartDate(startDate);
+    }
+    if(StringUtils.isNotEmpty(endDate)) {
+      searchDto.setEndDate(endDate);
+    }
+
+    if(StringUtils.isNotEmpty(region)) {
+      searchDto.setRegion(region);
+    }
+
+    if(StringUtils.isNotEmpty(temperature)) {
+      searchDto.setTemperature(temperature);
+    }
+
+    List<FeedRes> feeds = feedService.searchFeeds(searchDto);
+    Page<FeedRes> pageRes = new PageImpl<>(feeds, pageable, feeds.size());
+
+    return new ResponseEntity<>(pageRes,HttpStatus.OK);
 
   }
 

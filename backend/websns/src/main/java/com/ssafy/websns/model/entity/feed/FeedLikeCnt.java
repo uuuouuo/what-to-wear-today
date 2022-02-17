@@ -23,9 +23,10 @@ public class FeedLikeCnt {
   private Integer no;
 
   @ManyToOne(fetch = LAZY)
-  @JoinColumn(name = "FEED_NO")
+  @JoinColumn(name = "FEED_NO", nullable = false)
   private Feed feed;
 
+  @Column(nullable = false)
   private Integer likeCnt;
 
   public void createFeedLikeCnt(Feed feed) {
