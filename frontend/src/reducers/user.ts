@@ -35,7 +35,6 @@ const reducer = (state = initialState, action: any) => {
       };
 
     case KAKAO_LOGIN_SUCCESS:
-      console.log(action.data);
       return {
         ...state,
         kakaoLoginLoading: false,

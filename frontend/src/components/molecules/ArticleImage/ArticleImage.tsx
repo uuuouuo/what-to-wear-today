@@ -18,7 +18,7 @@ const ArticleImage: FunctionComponent<Props> = ({ images }) => {
   const handleStepChange = (step: number) => {
     setActiveStep(step);
   };
-  console.log(images);
+
   return (
     <Box sx={{ maxWidth: 350, flexGrow: 1 }}>
       <SwipeableViews

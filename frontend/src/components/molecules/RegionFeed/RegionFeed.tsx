@@ -35,7 +35,6 @@ const RegionFeed: FunctionComponent<Props> = ({ value, onChange }) => {
     },
     [value],
   );
-  console.log(value);
   return (
     <>
       <Autocomplete

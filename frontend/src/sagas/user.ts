@@ -42,9 +42,7 @@ function kakaoSignupAPI(request: CreateUserType) {
 }
 
 function* kakaoSignup(action: any) {
-  console.log('create~~~', action.request);
   try {
-    console.log('create~~~', action.request);
     const result = yield call(kakaoSignupAPI, action.request);
 
     yield put({
