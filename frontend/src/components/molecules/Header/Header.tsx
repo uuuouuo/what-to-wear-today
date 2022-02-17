@@ -13,26 +13,12 @@ interface Props {
 }
 
 const Header: FunctionComponent<Props> = ({ leftSide, name, rightSide }) => {
-  const action = () => {
-    console.log('action에 넣을 함수');
-  };
-
   let rIcon = null;
   if (rightSide === 'notification') {
     rIcon = (
       <Styled.RightSide>
         <Link href="/notification">
           <NotificationsIcon />
-        </Link>
-      </Styled.RightSide>
-    );
-  } else if (rightSide === 'complete') {
-    rIcon = (
-      <Styled.RightSide>
-        <Link href="/">
-          <Button type="submit" onClick={action}>
-            <Text value="완료" />
-          </Button>
         </Link>
       </Styled.RightSide>
     );

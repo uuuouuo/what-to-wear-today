@@ -5,7 +5,7 @@ import wrapper from '@/store/configureStore';
 import { loadFeedRequest } from '@/action/feedAction';
 import { END } from 'redux-saga';
 
-const FeedWrite: NextPage = () => {
+const FeedUpdate: NextPage = () => {
   return <FeedUpdateTemplate />;
 };
 
@@ -21,4 +21,4 @@ export const getServerSideProps = wrapper.getServerSideProps(
     },
 );
 
-export default FeedWrite;
+export default FeedUpdate;

@@ -22,8 +22,8 @@ const WeatherAPI: FunctionComponent<Props> = ({ region, date }) => {
 
   return (
     <div>
-      {weatherData ? weatherData.temperatures : 'Loading'}
-      {weatherData ? weatherData.curWeather : 'Loading'}
+      {/* {weatherData ? weatherData.data.temperatures : ''}
+      {weatherData ? weatherData.data.curWeather : ''} */}
     </div>
   );
 };

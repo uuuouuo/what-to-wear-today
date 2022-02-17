@@ -4,9 +4,10 @@ import Box from '@mui/material/Box';
 import SwipeableViews from 'react-swipeable-views';
 import MobileStepper from '@mui/material/MobileStepper';
 import Styled from './ArticleImage.styled';
+import { PhotoType } from 'types/photo';
 
 interface Props {
-  images: string[];
+  images: PhotoType[];
 }
 
 const ArticleImage: FunctionComponent<Props> = ({ images }) => {
@@ -28,7 +29,7 @@ const ArticleImage: FunctionComponent<Props> = ({ images }) => {
         enableMouseEvents
       >
         {images.map((step, index) => (
-          <div key={step}>
+          <div key={step.imgUrl}>
             {Math.abs(activeStep - index) <= 2 ? (
               <Box
                 component="img"
@@ -39,7 +40,7 @@ const ArticleImage: FunctionComponent<Props> = ({ images }) => {
                   overflow: 'hidden',
                   width: '100%',
                 }}
-                src={step}
+                src={step.imgUrl}
                 alt="feed image"
               />
             ) : null}

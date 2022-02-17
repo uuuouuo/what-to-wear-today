@@ -32,20 +32,14 @@ export const initialState: StateType = {
 
 const reducer = (state = initialState, action: any) => {
   switch (action.type) {
-    //CREATE//
-
     case CREATE_FEED_REQUEST:
-      console.log('reducer!!', action);
-
       return {
         ...state,
         createFeedCreating: true,
         createFeedDone: false,
         createFeedError: null,
       };
-
     case CREATE_FEED_SUCCESS:
-      console.log('success!!', action);
       return {
         ...state,
         loadFeedDone: true,
@@ -55,14 +49,11 @@ const reducer = (state = initialState, action: any) => {
       };
 
     case CREATE_FEED_FAILURE:
-      console.log('fail!!', action);
       return {
         ...state,
         createFeedCreating: false,
         createFeedError: action.error,
       };
-
-    //READ//
 
     case LOAD_FEED_REQUEST:
       return {
@@ -87,8 +78,6 @@ const reducer = (state = initialState, action: any) => {
         loadFeedError: action.error,
       };
 
-    //UPDATE//
-
     case UPDATE_FEED_REQUEST:
       return {
         ...state,
@@ -111,8 +100,6 @@ const reducer = (state = initialState, action: any) => {
         updateFeedUpdating: false,
         updateFeedError: action.error,
       };
-
-    //DELETE//
 
     case DELETE_FEED_REQUEST:
       return {

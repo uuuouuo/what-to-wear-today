@@ -77,7 +77,6 @@ public class JwtTokenProvider {
       }
 
       PrincipalDetails principalDetails = new PrincipalDetails(user);
-      // 사실상 principal에 저장되는 값은 socialId값과 role뿐(소셜 로그인만 사용하여 password 저장하지 않아 ""로 넣음)
       return new UsernamePasswordAuthenticationToken(principalDetails, jwtToken);
     }
     return null;

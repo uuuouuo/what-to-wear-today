@@ -7,7 +7,6 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public interface ClientProxy {
 
-
   public User getUserData(String accessToken);
 
 }

@@ -36,9 +36,8 @@ const FeedHeader: FunctionComponent<Props> = ({ className, user, createdAt, weat
   };
 
   const deleteFeedAction = (e: React.MouseEvent) => {
-    e.preventDefault();
     dispatch(deleteFeedRequest(feedNo));
-    Router.push('/');
+    Router.back();
   };
 
   return (

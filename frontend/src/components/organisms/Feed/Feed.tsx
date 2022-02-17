@@ -27,7 +27,7 @@ const Feed: FunctionComponent<Props> = ({ feed }) => {
         feedNo={feed.no}
       />
 
-      {feed.images ? <ArticleImage images={feed.images} /> : <></>}
+      {/* {feed.image ? <ArticleImage images={feed.images} /> : <></>} */}
 
       <Styled.FeedContent onClick={moveFeedDetail}>{feed.content}</Styled.FeedContent>
       <Styled.TagContainer>

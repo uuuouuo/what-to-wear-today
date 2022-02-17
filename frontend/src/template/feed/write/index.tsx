@@ -9,11 +9,12 @@ import { useDispatch } from 'react-redux';
 import CheckIcon from '@mui/icons-material/Check';
 import weatherAPI from '@/libs/weatherAPI';
 import { WeatherType } from '@/types/weather';
+import Router from 'next/router';
 
 const FeedWriteTemplate: NextPage = () => {
   const dispatch = useDispatch();
 
-  const [value, , onChange] = useChange('');
+  const [value, setValue, onChange] = useChange(``);
   const [privateMode, setPrivateMode] = useState(false);
   const [files, , , appendFile, removeFile] = useFileChange(null);
   const [date, setDate] = useState<string | null>();
@@ -21,20 +22,32 @@ const FeedWriteTemplate: NextPage = () => {
   const [weather, setWeather, onWeatherChange] = useChange('');
   const [tags, , onTagsChange] = useChange('');
 
-  const createFeedAction = (e: React.MouseEvent) => {
-    dispatch(createFeedRequest(value, files, date, privateMode, region, tags));
+  const getTime = () => {
+    const today = new Date();
+    const hours = `0${today.getHours()}`.slice(-2);
+    const minutes = `0${today.getMinutes()}`.slice(-2);
+    const datetime = `${hours}:${minutes}`;
+    return datetime;
   };
 
-  const onChangeDate = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      setDate(
-        `${e.target.value.slice(0, 4)}.${e.target.value.slice(5, 7)}.${e.target.value.slice(
-          8,
-        )}.15:00`,
-      );
-    },
-    [date],
-  );
+  const createFeedAction = (e: React.MouseEvent) => {
+    e.preventDefault();
+    Router.back();
+    dispatch(
+      createFeedRequest(
+        value,
+        region,
+        weather,
+        privateMode,
+        `${date.slice(0, 4)}.${date.slice(5, 7)}.${date.slice(8)}.${getTime()}`,
+        files,
+      ),
+    );
+  };
+
+  const onChangeDate = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setDate(e.target.value);
+  };
 
   useEffect(() => {
     if (date && region) {
@@ -48,10 +61,10 @@ const FeedWriteTemplate: NextPage = () => {
       <Title value="CREATE" />
       <Styled.ContentContainer>
         <Styled.ButtonContainer>
-          <div>
+          <>
             <Text value="PRIVATE" color="#fff" />
             <Toggle value={privateMode} setValue={setPrivateMode} />
-          </div>
+          </>
           <Styled.Button bgColor="transparent" onClick={createFeedAction}>
             <CheckIcon />
           </Styled.Button>
@@ -63,15 +76,15 @@ const FeedWriteTemplate: NextPage = () => {
             <Styled.Input type="date" onChange={onChangeDate} />
           </Styled.RowContainer>
           <Styled.RowContainer>
-            <RegionFeed onChange={setRegion} />
+            <RegionFeed value={region} onChange={setRegion} />
           </Styled.RowContainer>
           <Styled.RowContainer>
             <Styled.Input value={weather} onChange={onWeatherChange} placeholder="Weather..." />
             {/* {date && region ? <WeatherAPI region={region} date={date} /> : null} */}
           </Styled.RowContainer>
-          <Styled.RowContainer>
+          {/* <Styled.RowContainer>
             <Styled.Input value={tags} onChange={onTagsChange} placeholder="Tags..." />
-          </Styled.RowContainer>
+          </Styled.RowContainer> */}
         </Styled.InputContainer>
       </Styled.ContentContainer>
       <FooterNavbar />

@@ -30,6 +30,12 @@ const FeedDetail: FunctionComponent<Props> = ({ feed }) => {
     }
   };
 
+  // const likeClick = (e: React.MouseEvent) => {
+  //   e.preventDefault();
+  //   const feedNo = Number(feed.no);
+  //   dispatch(feedNo);
+  // };
+
   return (
     <Styled.FeedDetail>
       <FeedHeader
@@ -46,12 +52,16 @@ const FeedDetail: FunctionComponent<Props> = ({ feed }) => {
       {feed.images ? <ArticleImage images={feed.images} /> : <></>}
 
       <Styled.FeedContent>{feed.content}</Styled.FeedContent>
-      <Styled.TagContainer>
-        <LocalOfferOutlinedIcon />
-        {feed.tags.map((tag) => (
-          <Tag key={tag} value={tag} />
-        ))}
-      </Styled.TagContainer>
+      {feed.tags ? (
+        <Styled.TagContainer>
+          <LocalOfferOutlinedIcon />
+          {feed.tags.map((tag) => (
+            <Tag key={tag} value={tag} />
+          ))}
+        </Styled.TagContainer>
+      ) : (
+        <></>
+      )}
 
       <FooterContainer>
         <>

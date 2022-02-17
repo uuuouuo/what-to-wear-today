@@ -47,7 +47,7 @@ public class CustomFeedRepositoryImpl implements CustomFeedRepository {
       String region, String temperature) {
 
 
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-d");
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     BooleanBuilder booleanBuilder = new BooleanBuilder();
 
@@ -61,9 +61,6 @@ public class CustomFeedRepositoryImpl implements CustomFeedRepository {
 
       startDate = startDate.replace(".","-");
       endDate = endDate.replace(".","-");
-
-      System.out.println("asdfad "+startDate);
-      System.out.println("asdfsdf2 " + endDate);
 
       LocalDateTime startDateTime = LocalDate.parse(startDate, formatter).atStartOfDay();
       LocalDateTime endDateTime = LocalDate.parse(endDate, formatter).atStartOfDay();
@@ -92,27 +89,10 @@ public class CustomFeedRepositoryImpl implements CustomFeedRepository {
         .fetchJoin()
         .where(tag.tagName.in(contents))
         .fetch();
-    System.out.println("===========================================");
+
     fetch.stream().forEach(System.out::println);
+
     return fetch;
   }
-
-//  BooleanBuilder regionEq(String content) {
-//    return nullSafeBuilder(() -> feed.region.regionName.eq(content));
-//  }
-//
-//
-//  BooleanBuilder betweenDate(LocalDateTime startDate, LocalDateTime endDate) {
-//    return nullSafeBuilder(() -> feed.photoDate.between(startDate, endDate));
-//  }
-//
-//
-//  BooleanBuilder nullSafeBuilder(Supplier<BooleanExpression> f) {
-//    try {
-//      return new BooleanBuilder(f.get());
-//    } catch (Exception e) {
-//      return new BooleanBuilder();
-//    }
-//  }
 
 }

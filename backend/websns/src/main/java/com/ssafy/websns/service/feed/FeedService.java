@@ -212,7 +212,6 @@ public class FeedService {
 
   }
 
-  // 설정 지역 내 피드 보기
   public List<FeedRes> showFeedsByRegion(Integer regionNo, Pageable pageable) {
 
     Page<Feed> feeds = feedRepository.findAllByRegion(regionNo, pageable);
@@ -228,7 +227,6 @@ public class FeedService {
 
   }
 
-  // 마이페이지 내 피드 보기
   public List<FeedRes> showFeedsById(String userId) {
 
     Optional<User> userOptional = userRepository.findByUserId(userId);
@@ -248,7 +246,6 @@ public class FeedService {
 
   }
 
-  // 피드 상세정보 보기
   public FeedRes showFeedDetailByNo(Integer feedNo) {
 
     Optional<Feed> feedOptional = feedRepository.findByNo(feedNo);
@@ -295,27 +292,6 @@ public class FeedService {
     return response;
 
   }
-
-  //  public List<FeedRes> searchFeedsByKeyword(String keyword) {
-//
-//    Optional<List<Feed>> optionalFeed = feedRepository.findFeedsByContent(keyword);
-//    List<Feed> feeds = validateExist.findFeeds(optionalFeed);
-//
-//    List<FeedRes> response = new ArrayList<>();
-//
-//    feeds.stream().forEach(feed -> {
-//      Optional<List<Image>> optional = imageRepository.findByFeed(feed);
-//      List<ImageFile> resImages = validateExist.findImages(optional).stream()
-//          .map(ImageFile::new).collect(Collectors.toList());
-//
-//      FeedRes feedRes = new FeedRes(feed, resImages);
-//
-//      response.add(feedRes);
-//    });
-//
-//    return response;
-//
-//  }
 
 }
 

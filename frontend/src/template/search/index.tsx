@@ -71,7 +71,7 @@ const SearchTemplate = () => {
         </Styled.RowContainer>
         <Styled.RowContainer>
           {/* <Styled.Input value={region} onChange={onRegionChange} placeholder="Region..." /> */}
-          <RegionFeed onChange={setRegion} />
+          <RegionFeed value={region} onChange={setRegion} />
         </Styled.RowContainer>
         <Styled.RowContainer>
           <Styled.Input

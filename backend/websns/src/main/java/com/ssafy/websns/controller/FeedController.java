@@ -44,7 +44,7 @@ public class FeedController {
   @PostMapping(consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
   public ResponseEntity<FeedRes> createFeed(
       @RequestPart(value="request") FeedReq request,
-      @RequestPart(value="imageNames")List<MultipartFile> images){
+      @RequestPart(value="imageNames") MultipartFile[] images){
 
     CreateReq createReq = new CreateReq(request,images);
 
@@ -110,19 +110,9 @@ public class FeedController {
       @RequestParam(value = "temperature",required = false) String temperature,
       @PageableDefault(size = 20) Pageable pageable) {
 
-
-
-    System.out.println(startDate);
-    System.out.println(endDate);
-    System.out.println(region);
-    System.out.println(temperature);
-
-
     SearchDto searchDto = new SearchDto();
 
     if(tag!=null){
-      Arrays.asList(tag).stream().forEach(System.out::println);
-      System.out.println("size : " + Arrays.asList(tag).size());
       searchDto.setTag(Arrays.asList(tag));
     }
 
