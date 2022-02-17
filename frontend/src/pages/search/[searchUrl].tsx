@@ -11,7 +11,7 @@ interface Props {
 }
 
 const Searched: NextPage<Props> = ({ searchUrl }) => {
-  axios.get(`http://localhost:8080${searchUrl}`).then((res) => console.log(res));
+  axios.get(`http://i6c106.p.ssafy.io:8080${searchUrl}`).then((res) => console.log(res));
   return <SearchedPage />;
 };
 
@@ -28,7 +28,7 @@ export const getServerSideProps = wrapper.getServerSideProps(
       }
       data += `&endDate=${query.endDate}`;
       if (query.region) {
-        data += `&region=${query.region}`;
+        data += `&region=${encodeURIComponent(query.region.toString())}`;
       }
       if (query.temperature) {
         data += `&temperature=${query.temperature}`;

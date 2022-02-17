@@ -122,7 +122,7 @@ function updateFeedAPI(
     tags: action.request.tags,
   };
   formData.append('request', new Blob([JSON.stringify(request)], { type: 'application/json' }));
-  return fileApi.put(`/feed`, formData);
+  return fileApi.put(`/feed/${action.feedNo}`, formData);
 }
 
 function* deleteFeed(action: ReturnType<typeof deleteFeedRequest>) {
