@@ -51,7 +51,6 @@ public class Feed extends BaseEntity {
   @Column(nullable = false)
   private Boolean deleteMode;
 
-  // test
   public Feed(User user, Region region, String content, LocalDateTime photoDate,
       String weather, Boolean privateMode, Boolean deleteMode) {
     this.user = user;

@@ -74,8 +74,6 @@ public class UserController {
     String jwtToken = kakaoAuthService.logout(authRequest.getUserId());
     response.addHeader(JwtProperties.HEADER_STRING,JwtProperties.TOKEN_PREFIX +jwtToken);
 
-    System.out.println("jwt 토큰 " + jwtToken);
-
     return ResponseEntity.ok().body("로그아웃 완료");
 
   }

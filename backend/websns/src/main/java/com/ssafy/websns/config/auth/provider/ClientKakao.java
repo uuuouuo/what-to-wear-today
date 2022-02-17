@@ -26,18 +26,11 @@ public class ClientKakao implements ClientProxy {
 
   public User getUserData(String code) {
 
-//    System.out.println("access : " + accessToken);
-
-//    Req req = new Req("authorization_code","beb77160d5b0e9d94c528d637f815ea5",
-//        "http://localhost:3000/callback/kakao",code,"sPxlX7Ccp6r9ISRe3z6BQyRmlBZdOesW");
-
-//
     MultiValueMap<String,String> req = new LinkedMultiValueMap<>();
     req.add("grant_type","authorization_code");
     req.add("client_id","beb77160d5b0e9d94c528d637f815ea5");
     req.add("redirect_uri","http://localhost:3000/callback/kakao");
     req.add("code",code);
-//    req.add("client_secret","sPxlX7Ccp6r9ISRe3z6BQyRmlBZdOesW");
 
     Res res = WebClient.builder().baseUrl("kauth.kakao.com").defaultHeader(HttpHeaders.CONTENT_TYPE,
             MediaType.APPLICATION_FORM_URLENCODED_VALUE)
@@ -45,17 +38,15 @@ public class ClientKakao implements ClientProxy {
         .uri("https://kauth.kakao.com/oauth/token")
         .body(BodyInserters.fromFormData(req))
         .retrieve()
-        //     아래의 onStatus는 error handling
-        .bodyToMono(Res.class) // KAKAO의 유저 정보를 넣을 Dto 클래스
+        .bodyToMono(Res.class)
         .block();
 
     String accessToken = res.getAccess_token();
     UserResponse userResponse = WebClient.builder().build().get()
-        .uri("https://kapi.kakao.com/v2/user/me") // KAKAO의 유저 정보 받아오는 url
-        .headers(h -> h.setBearerAuth(accessToken)) // JWT 토큰을 Bearer 토큰으로 지정
+        .uri("https://kapi.kakao.com/v2/user/me")
+        .headers(h -> h.setBearerAuth(accessToken))
         .retrieve()
-        //     아래의 onStatus는 error handling
-        .bodyToMono(UserResponse.class) // KAKAO의 유저 정보를 넣을 Dto 클래스
+        .bodyToMono(UserResponse.class)
         .block();
 
     User user = new User();
@@ -68,16 +59,15 @@ public class ClientKakao implements ClientProxy {
 
   }
 
-//  public void logout(String accessToken) {
-//    System.out.println("access 들어옴: " + accessToken);
-//    WebClient.builder().baseUrl("kapi.kakao.com").build().post()
-//        .uri("https://kapi.kakao.com/v1/user/logout")
-//        .headers(h -> h.setBearerAuth(accessToken)) // JWT 토큰을 Bearer 토큰으로 지정
-//        .retrieve()
-//        //     아래의 onStatus는 error handling
-//        .bodyToMono(UserResponse.class) // KAKAO의 유저 정보를 넣을 Dto 클래스
-//        .block();
-//  }
+  public void logout(String accessToken) {
+    WebClient.builder().baseUrl("kapi.kakao.com").build().post()
+        .uri("https://kapi.kakao.com/v1/user/logout")
+        .headers(h -> h.setBearerAuth(accessToken)) // JWT 토큰을 Bearer 토큰으로 지정
+        .retrieve()
+        //     아래의 onStatus는 error handling
+        .bodyToMono(UserResponse.class) // KAKAO의 유저 정보를 넣을 Dto 클래스
+        .block();
+  }
 
   @Data
   public static class UserResponse {

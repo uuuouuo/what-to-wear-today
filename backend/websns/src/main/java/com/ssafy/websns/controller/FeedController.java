@@ -110,19 +110,9 @@ public class FeedController {
       @RequestParam(value = "temperature",required = false) String temperature,
       @PageableDefault(size = 20) Pageable pageable) {
 
-
-
-    System.out.println(startDate);
-    System.out.println(endDate);
-    System.out.println(region);
-    System.out.println(temperature);
-
-
     SearchDto searchDto = new SearchDto();
 
     if(tag!=null){
-      Arrays.asList(tag).stream().forEach(System.out::println);
-      System.out.println("size : " + Arrays.asList(tag).size());
       searchDto.setTag(Arrays.asList(tag));
     }
 

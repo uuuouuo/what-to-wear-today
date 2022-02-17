@@ -47,7 +47,7 @@ public class WeatherDto {
 
             for (int i = 0; i < 12; i++) {
               String tmp = tds.get(i).text();
-              System.out.println(tds.toString()+" : "+tmp);
+
               if (i == 0) {
                 weather.setMonHour(tmp);
               }

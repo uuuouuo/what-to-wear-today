@@ -32,7 +32,6 @@ public class Comment extends BaseEntity {
   @JoinColumn(name = "FEED_NO", nullable = false)
   private Feed feed;
 
-//  @ColumnDefault("NULL")
   @ManyToOne(fetch = LAZY)
   @JoinColumn(name = "PARENT_NO")
   private Comment parent;
@@ -46,7 +45,6 @@ public class Comment extends BaseEntity {
   @Column(nullable = false)
   private Boolean deleteMode;
 
-  // test
   public Comment(User user, Feed feed, Comment parent, String content, Boolean privateMode,
       Boolean deleteMode) {
     this.user = user;

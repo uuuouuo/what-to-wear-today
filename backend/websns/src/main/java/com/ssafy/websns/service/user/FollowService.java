@@ -55,7 +55,6 @@ public class FollowService {
     followingUserCnt.plusFollower();
 
     FollowRes response = new FollowRes(userFollowCnt, followingUserCnt);
-//    FollowRes response = new FollowRes(userFollowCnt.getUser().getUserId(), followingUserCnt.getUser().getUserId());
 
     return response;
 
