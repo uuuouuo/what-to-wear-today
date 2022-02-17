@@ -9,17 +9,22 @@ const useFileChange = (
   (e: React.ChangeEvent<HTMLInputElement>) => void,
   (file: File) => void,
 ] => {
-  const [files, setFile] = useState(initalState);
+  const [files, setFile] = useState(initalState === null ? [] : initalState);
 
   const onChange = useCallback((e: React.ChangeEvent<HTMLInputElement>): void => {
     setFile([...Array.from(e.target.files)]);
   }, []);
 
-  const appendFile = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    setFile([...(files || []), ...Array.from(e.target.files)]);
-  }, []);
+  const appendFile = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      setFile([...files, ...Array.from(e.target.files)]);
+    },
+    [files],
+  );
 
-  const removeFile = useCallback((file: File) => {}, []);
+  const removeFile = useCallback((select: File) => {
+    // setFile(files.filter((file) => file !== select));
+  }, []);
 
   return [files, setFile, onChange, appendFile, removeFile];
 };

@@ -5,15 +5,13 @@ import WbSunnyIcon from '@mui/icons-material/WbSunny';
 interface Props {
   className?: string;
   weather: string;
-  temperature: number;
 }
 
-const Weather: FunctionComponent<Props> = ({ className, weather, temperature }) => {
+const Weather: FunctionComponent<Props> = ({ className, weather }) => {
   return (
     <Styled.WeatherArea className={className}>
       <WbSunnyIcon />
       <Styled.Text value={weather} />
-      {/* <Styled.Text value={temperature} /> */}
     </Styled.WeatherArea>
   );
 };

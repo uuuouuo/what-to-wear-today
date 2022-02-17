@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
 import type { NextPage } from 'next';
 import Styled from './styled';
-import { Title } from '@/components/molecules';
-
-import RegionSearch from '@/components/RegionSearch/RegionSearch';
+import { Title, RegionSearch } from '@/components/molecules';
 
 const RegionTemplate: NextPage = () => {
   return (

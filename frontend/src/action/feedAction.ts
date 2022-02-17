@@ -16,10 +16,10 @@ export const createFeedRequest = (value, files, date, privateMode, region, tempe
   request: {
     userId: 'jdb',
     content: value,
-    region: region,
+    region,
     weather: temperature,
     photoDate: date,
-    privateMode: privateMode,
+    privateMode,
     tags: [],
   },
   images: files,
@@ -33,7 +33,7 @@ export const createFeedFailure = () => ({
   type: CREATE_FEED_FAILURE,
 });
 
-////
+/// /
 
 export const loadFeedRequest = (feedNo: number) => ({
   type: LOAD_FEED_REQUEST,
@@ -47,11 +47,11 @@ export const loadFeedSuccess = () => ({
 export const loadFeedFailure = () => ({
   type: LOAD_FEED_FAILURE,
 });
-////
+/// /
 
 export const updateFeedRequest = (feedNo) => ({
   type: UPDATE_FEED_REQUEST,
-  feedNo: feedNo,
+  feedNo,
 });
 
 export const updateFeedSuccess = () => ({
@@ -62,11 +62,11 @@ export const updateFeedFailure = () => ({
   type: UPDATE_FEED_FAILURE,
 });
 
-////
+/// /
 
 export const deleteFeedRequest = (feedNo: number) => ({
   type: DELETE_FEED_REQUEST,
-  feedNo: feedNo,
+  feedNo,
 });
 
 export const deleteFeedSuccess = () => ({

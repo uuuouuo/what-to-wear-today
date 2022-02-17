@@ -8,6 +8,8 @@ import { MypageFeeds, MypageComments } from '@/components/organisms';
 import Avatar from '@mui/material/Avatar';
 import SettingsIcon from '@mui/icons-material/Settings';
 
+import { apiInstance, authInstance } from '@/libs/axios';
+
 interface Props {
   userId: string;
 }
@@ -15,11 +17,39 @@ interface Props {
 const UserTemplate: NextPage<Props> = ({ userId }) => {
   const classes = Styled.useStyles();
   const [value, setValue] = React.useState(0);
+  const [followers, setFollowers] = useState([]);
+  const [followings, setFollowings] = useState([]);
+  const [follow, setFollow] = useState(false);
+  const authApi = authInstance();
+  const api = apiInstance();
 
   const modifyProfile = () => {
-    console.log(userId);
-    console.log(typeof userId);
+    console.log('회원정보 수정');
   };
+
+  const handleFollow = async () => {
+    if (follow) {
+      await authApi.delete(`/follow?userid=${1234}&followingid=${userId}`);
+    } else {
+      await authApi.post('/follow', { userId: '1234', followingId: userId });
+    }
+    setFollow(!follow);
+  };
+
+  useEffect(() => {
+    api.get(`/follower/${userId}`).then((res) => {
+      setFollowers(res.data);
+    });
+    api.get(`/following/${userId}`).then((res) => {
+      setFollowings(res.data);
+    });
+
+    api.get(`/following/1234`).then((res) => {
+      if (res.data.find((obj) => obj.userId === userId)) {
+        setFollow(true);
+      }
+    });
+  }, [follow]);
 
   return (
     <Styled.MainContainer>
@@ -36,13 +66,13 @@ const UserTemplate: NextPage<Props> = ({ userId }) => {
         <Styled.UserInfo>
           <Styled.UserInfoHeader>
             <Text className="username" size="1.3rem" weight="600" value={userId} />
-            {userId === 'jdb1' ? (
+            {userId === '1234' ? (
               <Styled.Button className="btn setting" onClick={modifyProfile}>
                 <SettingsIcon />
               </Styled.Button>
             ) : (
-              <Styled.Button className="btn follow" onClick={modifyProfile}>
-                <Text value="Follow" />
+              <Styled.Button className="btn follow" onClick={handleFollow}>
+                {follow ? <Text value="Unfollow" /> : <Text value="Follow" />}
               </Styled.Button>
             )}
           </Styled.UserInfoHeader>
@@ -51,8 +81,8 @@ const UserTemplate: NextPage<Props> = ({ userId }) => {
             <Text color="#777" value="얼죽아" />
           </div>
           <Styled.UserInfoFooter>
-            <FollowingModal title="팔로워" />
-            <FollowingModal title="팔로잉" />
+            <FollowingModal title="팔로워" arr={followers} />
+            <FollowingModal title="팔로잉" arr={followings} />
           </Styled.UserInfoFooter>
         </Styled.UserInfo>
         <Styled.TabContainer>

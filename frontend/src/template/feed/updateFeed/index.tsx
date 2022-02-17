@@ -3,12 +3,11 @@ import type { NextPage } from 'next';
 import Styled from './styled';
 import type { RootState } from '@/reducers';
 import { MainContainer, Text, Toggle } from 'components/atoms';
-import { Title, Modal, FooterNavbar, ImageList } from '@/components/molecules';
+import { Title, Modal, FooterNavbar, ImageList, RegionFeed } from '@/components/molecules';
 import { useChange, useFileChange, useDisplay } from '@/hooks';
 import { createFeedRequest } from 'action/feedAction';
 import { useDispatch, useSelector } from 'react-redux';
 import CheckIcon from '@mui/icons-material/Check';
-import RegionFeed from '@/components/RegionSearch/RegionFeed';
 import WeatherAPI from '@/components/WeatherAPI/WeatherAPI';
 
 const FeedUpdateTemplate: NextPage = () => {
@@ -17,8 +16,7 @@ const FeedUpdateTemplate: NextPage = () => {
 
   const [value, setValue, onChange] = useChange(`${feed.content}`);
   const [privateMode, setPrivateMode] = useState(feed.private);
-  const [file, setFile] = useFileChange(null);
-  const [files, , , appendFile] = useFileChange(null);
+  const [files, , , appendFile, removeFile] = useFileChange(null);
   const [display, , openDisplay, closeDisplay] = useDisplay(false);
   const [date, setDate] = useState<string | null>();
   const [region, onRegionChange] = useState(feed.region);
@@ -49,7 +47,7 @@ const FeedUpdateTemplate: NextPage = () => {
             <CheckIcon />
           </Styled.Button>
         </Styled.ButtonContainer>
-        <ImageList selectedFile={file} setFile={setFile} files={files} appendFile={appendFile} />
+        <ImageList files={files} appendFile={appendFile} removeFile={removeFile} />
         <Styled.TextEditor value={value} onChange={onChange} />
         <Styled.InputContainer>
           <Styled.RowContainer>

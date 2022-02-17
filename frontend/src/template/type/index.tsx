@@ -7,6 +7,8 @@ import { Text } from '@/components/atoms';
 import { Title } from '@/components/molecules';
 import { useChange } from '@/hooks';
 import { TypeType } from '@/types/type';
+import { createUserType } from 'action/userAction';
+import { useDispatch } from 'react-redux';
 
 const questions: TypeType[][] = [
   [
@@ -32,10 +34,12 @@ const questions: TypeType[][] = [
 ];
 
 const TypeTemplate: NextPage = () => {
+  const dispatch = useDispatch();
   const QUESTIONS = questions.length;
   const [idx, setIdx] = useState(0);
   const [question, setQuestion] = useState(questions[idx]);
-  const [value, setValue, onChange] = useChange('');
+  const [value, setValue, onChange] = useChange('-1');
+  const [answer, setAnswer] = useState([]);
 
   const skipFunction = useCallback(() => {
     Router.push('/signup/success');
@@ -44,14 +48,21 @@ const TypeTemplate: NextPage = () => {
   const prevFunction = useCallback(() => {
     setIdx(idx - 1);
     setQuestion(questions[idx - 1]);
-  }, [idx]);
+  }, [value]);
 
   const nextFunction = useCallback(() => {
-    setValue('');
+    if (answer[idx]) {
+      answer.pop();
+      setAnswer([...answer, value]);
+    } else setAnswer([...answer, value]);
+
+    setValue('-1');
     setIdx(idx + 1);
-    if (idx + 1 === QUESTIONS) Router.push('/signup/success');
-    else setQuestion(questions[idx + 1]);
-  }, [idx]);
+    if (idx + 1 === QUESTIONS) {
+      dispatch(createUserType(answer));
+      Router.push('/signup/success');
+    } else setQuestion(questions[idx + 1]);
+  }, [value]);
 
   return (
     <Styled.MainContainer>
@@ -61,9 +72,9 @@ const TypeTemplate: NextPage = () => {
           return (
             <Styled.CheckInputFormGroup
               key={type.no}
-              value={type.constitution}
+              value={type.no}
               type="radio"
-              checked={value === type.constitution}
+              checked={Number(value) === type.no}
               name="type"
               onChange={onChange}
             >

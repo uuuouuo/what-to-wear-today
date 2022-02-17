@@ -45,7 +45,7 @@ const Comment: FunctionComponent<Props> = ({ className, comment }) => {
           nickname: comment.nickname,
           profileImage: comment.profileImage,
         }}
-        createdAt={comment.createdAt}
+        sub={comment.createdAt.toISOString()}
       />
       {display ? (
         <>

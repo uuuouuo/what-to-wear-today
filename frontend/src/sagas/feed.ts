@@ -29,9 +29,8 @@ const authApi = authInstance();
 const fileApi = fileInstance();
 
 function* createFeed(action: ReturnType<typeof createFeedRequest>) {
-  console.log('사가스 피드 생성 액션', action);
   try {
-    const result: Promise<AxiosResponse<FeedType>> = yield call(createFeedAPI, action);
+    const result = yield call(createFeedAPI, action);
     yield put({
       type: CREATE_FEED_SUCCESS,
       data: result,
@@ -47,7 +46,7 @@ function* createFeed(action: ReturnType<typeof createFeedRequest>) {
 function createFeedAPI(
   action: ReturnType<typeof createFeedRequest>,
 ): Promise<AxiosResponse<FeedType>> {
-  let images = new FormData();
+  const images = new FormData();
   action.images.forEach((file) => images.append('images', file));
 
   images.append('images', action.images);

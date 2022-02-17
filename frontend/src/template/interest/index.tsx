@@ -7,6 +7,8 @@ import { Text } from '@/components/atoms';
 import { Title } from '@/components/molecules';
 import { useCheck } from '@/hooks';
 import { InterestType } from '@/types/interest';
+import { createUserInterest } from '@/action/userAction';
+import { useDispatch } from 'react-redux';
 
 const dummy: InterestType[] = [
   { no: 0, interestName: '여행' },
@@ -44,6 +46,7 @@ const dummy: InterestType[] = [
 ];
 
 const InterestTemplate: NextPage = () => {
+  const dispatch = useDispatch();
   const [interests, , onChangeInterest] = useCheck([]);
 
   const isChecked = useCallback(
@@ -58,8 +61,9 @@ const InterestTemplate: NextPage = () => {
   }, []);
 
   const nextFunction = useCallback(() => {
+    dispatch(createUserInterest(interests));
     Router.push('/type');
-  }, []);
+  }, [interests]);
 
   return (
     <Styled.MainContainer>

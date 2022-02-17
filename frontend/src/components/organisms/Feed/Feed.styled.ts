@@ -15,13 +15,21 @@ const Feed = styled.div`
 const FeedContent = styled.div`
   width: 100%;
   text-align: left;
-  margin: 5vh 0;
+  padding: 5vh 0;
+  cursor: pointer;
 
   & .hashtag {
     border-radius: 0.3rem;
     color: #dd3345;
     background-color: #f4f4f8;
   }
+`;
+
+const TagContainer = styled.div`
+  display: flex;
+  width: 100%;
+  align-items: center;
+  margin: 1vh 0;
 `;
 
 const Button = styled(BaseButton)`
@@ -32,5 +40,6 @@ const Button = styled(BaseButton)`
 export default {
   Feed,
   FeedContent,
+  TagContainer,
   Button,
 };

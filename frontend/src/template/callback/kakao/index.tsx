@@ -4,7 +4,6 @@ import Styled from './styled';
 import Router from 'next/router';
 import CircularProgress from '@mui/material/CircularProgress';
 import { Modal } from '@/components/molecules';
-import { UserType } from 'types/user';
 import { useDisplay } from 'hooks';
 import { useSelector } from 'react-redux';
 import type { RootState } from '@/reducers';
@@ -14,16 +13,16 @@ interface Props {
 }
 
 const KakaoTemplate: NextPage<Props> = ({ code }) => {
-  const { myInfo } = useSelector((state: RootState) => state.user);
+  const { isMember } = useSelector((state: RootState) => state.user);
   const [open, , openModal, closeModal] = useDisplay(false);
   useEffect(() => {
-    if (myInfo) setTimeout(() => Router.push('/'), 3000);
+    if (isMember) Router.push('/');
     else openModal();
   }, []);
 
   const agreeFunction = useCallback(() => {
     closeModal();
-    setTimeout(() => Router.push('/signup'), 3000);
+    Router.push('/signup');
   }, []);
 
   const disagreeFunction = useCallback(() => {

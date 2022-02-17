@@ -4,12 +4,9 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
 import LocalOfferOutlinedIcon from '@mui/icons-material/LocalOfferOutlined';
 import Styled from './FeedDetail.styled';
-import { FooterContainer, Tag, Button, Text } from '@/components/atoms';
+import { FooterContainer, Tag } from '@/components/atoms';
 import { ArticleImage, FeedHeader } from '@/components/molecules';
 import { FeedType } from '@/types/feed';
-import { deleteFeedRequest } from '@/action/feedAction';
-import { useDispatch } from 'react-redux';
-import Link from 'next/link';
 
 interface Props {
   feed: FeedType;
@@ -24,34 +21,13 @@ const FeedDetail: FunctionComponent<Props> = ({ feed }) => {
     }
   }, []);
 
-  const dispatch = useDispatch();
   const [isDetail, setIsDetail] = useState(false);
-  const [isUser, setIsUser] = useState(true);
-  const viewUDBtn = isDetail && isUser;
-
   const moveFeedDetail = (e: React.MouseEvent) => {
     if (isDetail) {
       e.preventDefault();
     } else {
       Router.push(`feed/${feed.no}`);
     }
-  };
-
-  const updateFeedLink = (e: React.MouseEvent) => {
-    e.preventDefault();
-    Router.replace({
-      pathname: '/write',
-      query: {
-        '': feed.no,
-      },
-    });
-  };
-
-  const deleteFeedAction = (e: React.MouseEvent) => {
-    e.preventDefault();
-    const feedNo = Number(feed.no);
-    dispatch(deleteFeedRequest(feedNo));
-    Router.push('/');
   };
 
   return (
@@ -64,6 +40,7 @@ const FeedDetail: FunctionComponent<Props> = ({ feed }) => {
         }}
         createdAt={feed.createdAt}
         weather={feed.weather}
+        feedNo={feed.no}
       />
 
       {feed.images ? <ArticleImage images={feed.images} /> : <></>}
@@ -77,29 +54,14 @@ const FeedDetail: FunctionComponent<Props> = ({ feed }) => {
       </Styled.TagContainer>
 
       <FooterContainer>
-        {viewUDBtn ? (
-          <>
-            <Link href={`/feed/feedUpdate/${feed.no}`}>고고</Link>
-            <Button bgColor="#000" onClick={updateFeedLink}>
-              <Text color="#fff" value="수정" />
-            </Button>
-            <Button bgColor="#fe7b45" onClick={deleteFeedAction}>
-              <Text color="#fff" value="삭제" />
-            </Button>
-            <Styled.Button onClick={moveFeedDetail} bgColor="transparent">
-              <FavoriteBorderIcon />
-            </Styled.Button>
-          </>
-        ) : (
-          <>
-            <Styled.Button onClick={moveFeedDetail} bgColor="transparent">
-              <ChatBubbleOutlineIcon />
-            </Styled.Button>
-            <Styled.Button onClick={moveFeedDetail} bgColor="transparent">
-              <FavoriteBorderIcon />
-            </Styled.Button>
-          </>
-        )}
+        <>
+          <Styled.Button onClick={moveFeedDetail} bgColor="transparent">
+            <ChatBubbleOutlineIcon />
+          </Styled.Button>
+          <Styled.Button onClick={moveFeedDetail} bgColor="transparent">
+            <FavoriteBorderIcon />
+          </Styled.Button>
+        </>
       </FooterContainer>
     </Styled.FeedDetail>
   );

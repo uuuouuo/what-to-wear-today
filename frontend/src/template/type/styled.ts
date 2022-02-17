@@ -22,12 +22,12 @@ const CheckInputFormGroup = styled(BaseCheckInputFormGroup)`
   align-items: center;
   filter: drop-shadow(0px 50px 25px rgba(0, 0, 0, 0.15));
 
-  &:nth-child(2n) {
+  &:nth-of-type(2n) {
     margin: 5vh 20vw 2.5vh 0;
     background-color: #fff;
   }
 
-  &:nth-child(2n + 1) {
+  &:nth-of-type(2n + 1) {
     margin: 2.5vh 0 5vh 20vw;
     background-color: #d5d5d3;
   }

@@ -1,4 +1,5 @@
 import ArticleImage from './ArticleImage/ArticleImage';
+import ButtonModal from './ButtonModal/ButtonModal';
 import CheckInputFormGroup from './CheckInputFormGroup/CheckInputFormGroup';
 import Comment from './Comment/Comment';
 import CommentForm from './CommentForm/CommentForm';
@@ -15,6 +16,8 @@ import ImageUpload from './ImageUpload/ImageUpload';
 import ImageList from './ImageList/ImageList';
 import KakaoButton from './KakaoButton/KakaoButton';
 import NotificationContent from './NotificationContent/NotificationContent';
+import RegionFeed from './RegionFeed/RegionFeed';
+import RegionSearch from './RegionSearch/RegionSearch';
 import Modal from './Modal/Modal';
 import SuccessBadge from './SuccessBadge/SuccessBadge';
 import TabMenu from './TabMenu/TabMenu';
@@ -28,6 +31,7 @@ import Weather from './Weather/Weather';
 
 export {
   ArticleImage,
+  ButtonModal,
   CheckInputFormGroup,
   Comment,
   CommentForm,
@@ -45,6 +49,8 @@ export {
   KakaoButton,
   Modal,
   NotificationContent,
+  RegionFeed,
+  RegionSearch,
   ReportForm,
   SuccessBadge,
   TabMenu,

@@ -5,6 +5,7 @@ import feed from './feed';
 import feeds from './feeds';
 import myPageFeeds from './myPageFeeds';
 import myPageComments from './myPageComments';
+import searchedFeeds from './searchedFeeds';
 import { combineReducers } from 'redux';
 
 const rootReducer = (state: any, action: any) => {
@@ -20,6 +21,7 @@ const rootReducer = (state: any, action: any) => {
         feeds,
         myPageFeeds,
         myPageComments,
+        searchedFeeds,
       });
       return combineReducer(state, action);
     }

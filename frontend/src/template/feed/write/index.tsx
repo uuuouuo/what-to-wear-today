@@ -1,39 +1,48 @@
-import React, { useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import type { NextPage } from 'next';
 import Styled from './styled';
 import { MainContainer, Text, Toggle } from 'components/atoms';
-import { Title, Modal, FooterNavbar, ImageList } from '@/components/molecules';
-import { useChange, useFileChange, useDisplay } from '@/hooks';
+import { Title, FooterNavbar, ImageList, RegionFeed } from '@/components/molecules';
+import { useChange, useFileChange } from '@/hooks';
 import { createFeedRequest } from 'action/feedAction';
 import { useDispatch } from 'react-redux';
 import CheckIcon from '@mui/icons-material/Check';
-import RegionFeed from '@/components/RegionSearch/RegionFeed';
-import WeatherAPI from '@/components/WeatherAPI/WeatherAPI';
+import weatherAPI from '@/libs/weatherAPI';
+import { WeatherType } from '@/types/weather';
 
 const FeedWriteTemplate: NextPage = () => {
   const dispatch = useDispatch();
 
-  const [value, onChange] = useChange('');
+  const [value, , onChange] = useChange('');
   const [privateMode, setPrivateMode] = useState(false);
-  const [file, setFile] = useFileChange(null);
-  const [files, , , appendFile] = useFileChange(null);
-  const [display, , openDisplay, closeDisplay] = useDisplay(false);
+  const [files, , , appendFile, removeFile] = useFileChange(null);
   const [date, setDate] = useState<string | null>();
-  const [region, onRegionChange] = useState('');
-  const [temperature, , onTemperatureChange] = useChange('');
+  const [region, setRegion, onRegionChange] = useChange('');
+  const [weather, setWeather, onWeatherChange] = useChange('');
+  const [tags, , onTagsChange] = useChange('');
 
   const createFeedAction = (e: React.MouseEvent) => {
-    dispatch(createFeedRequest(value, files, date, privateMode, region, temperature));
+    dispatch(createFeedRequest(value, files, date, privateMode, region, tags));
   };
 
-  const onChangeDate = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setDate(
-      `${e.target.value.slice(0, 4)}.${e.target.value.slice(5, 7)}.${e.target.value.slice(
-        8,
-      )}.15:00`,
-    );
-  };
+  const onChangeDate = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      setDate(
+        `${e.target.value.slice(0, 4)}.${e.target.value.slice(5, 7)}.${e.target.value.slice(
+          8,
+        )}.15:00`,
+      );
+    },
+    [date],
+  );
 
+  useEffect(() => {
+    if (date && region) {
+      weatherAPI(region, date).then((data: WeatherType) =>
+        setWeather(`${data.curWeather} ${data.temperatures}`),
+      );
+    }
+  }, [date, region]);
   return (
     <MainContainer>
       <Title value="CREATE" />
@@ -47,34 +56,25 @@ const FeedWriteTemplate: NextPage = () => {
             <CheckIcon />
           </Styled.Button>
         </Styled.ButtonContainer>
-        <ImageList selectedFile={file} setFile={setFile} files={files} appendFile={appendFile} />
+        <ImageList files={files} appendFile={appendFile} removeFile={removeFile} />
         <Styled.TextEditor value={value} onChange={onChange} />
         <Styled.InputContainer>
           <Styled.RowContainer>
             <Styled.Input type="date" onChange={onChangeDate} />
           </Styled.RowContainer>
           <Styled.RowContainer>
-            {/* <Styled.Input value={region} onChange={onRegionChange} placeholder="Region..." /> */}
-            <RegionFeed onChange={onRegionChange} />
+            <RegionFeed onChange={setRegion} />
           </Styled.RowContainer>
           <Styled.RowContainer>
-            <Styled.Input
-              type="number"
-              value={temperature}
-              onChange={onTemperatureChange}
-              placeholder="Temperature..."
-            />
-            {date && region ? <WeatherAPI region={region} date={date} /> : null}
+            <Styled.Input value={weather} onChange={onWeatherChange} placeholder="Weather..." />
+            {/* {date && region ? <WeatherAPI region={region} date={date} /> : null} */}
+          </Styled.RowContainer>
+          <Styled.RowContainer>
+            <Styled.Input value={tags} onChange={onTagsChange} placeholder="Tags..." />
           </Styled.RowContainer>
         </Styled.InputContainer>
       </Styled.ContentContainer>
       <FooterNavbar />
-      <Modal
-        content="사진 어떻게 할꾸냠"
-        open={display}
-        agreeFunction={() => console.log('히히')}
-        disagreeFunction={() => console.log('헤헤')}
-      />
     </MainContainer>
   );
 };

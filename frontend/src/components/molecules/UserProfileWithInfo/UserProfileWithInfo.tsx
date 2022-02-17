@@ -8,20 +8,20 @@ import Link from 'next/link';
 interface Props {
   className?: string;
   user: UserProfileType;
-  createdAt?: string | Date;
+  sub?: string;
 }
 
-const UserProfileWithInfo: FunctionComponent<Props> = ({ className, user, createdAt }) => {
+const UserProfileWithInfo: FunctionComponent<Props> = ({ className, user, sub }) => {
   return (
-    <Styled.Container>
+    <Styled.Container className={className}>
       <UserProfile user={user} />
       <Styled.Info>
         <Link href={`/user/${user.userId}`}>
           <Text value={user.nickname} />
         </Link>
-        {createdAt ? (
+        {sub ? (
           <Styled.Sub>
-            <Text value={createdAt.toString()} color="#888" size="0.7rem" />
+            <Text value={sub} color="#888" size="0.7rem" />
           </Styled.Sub>
         ) : (
           <></>

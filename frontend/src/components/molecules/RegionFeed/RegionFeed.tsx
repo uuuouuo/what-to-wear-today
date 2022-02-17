@@ -4,14 +4,14 @@ import { apiInstance } from '@/libs/axios';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 
-// import Chip from '@mui/material/Chip';
-// import Stack from '@mui/material/Stack';
+import Styled from './RegionFeed.styled';
 
 interface Props {
   onChange: React.Dispatch<React.SetStateAction<string>>;
 }
 
-const RegionSearch: FunctionComponent<Props> = ({ onChange }) => {
+const RegionFeed: FunctionComponent<Props> = ({ onChange }) => {
+  const classes = Styled.useStyles();
   const api = apiInstance();
   const [regionList, setRegionList] = useState();
   const [interestRegion, setInterestRegion] = useState('지역을 설정해 주세요');
@@ -37,7 +37,19 @@ const RegionSearch: FunctionComponent<Props> = ({ onChange }) => {
         id="combo-box-demo"
         options={regionList}
         sx={{ width: 300 }}
-        renderInput={(params) => <TextField {...params} label="Region" />}
+        renderInput={(params) => (
+          <TextField
+            classes={{
+              root: classes.root,
+            }}
+            InputLabelProps={{
+              shrink: true,
+            }}
+            {...params}
+            label="Region..."
+            variant="standard"
+          />
+        )}
       />
       {/* <Stack direction="column" spacing={1}>
         <Stack direction="row" spacing={1}>
@@ -48,4 +60,4 @@ const RegionSearch: FunctionComponent<Props> = ({ onChange }) => {
   );
 };
 
-export default RegionSearch;
+export default RegionFeed;

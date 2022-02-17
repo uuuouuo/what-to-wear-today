@@ -1,6 +1,5 @@
-import React, { useState, useEffect, FunctionComponent, useCallback } from 'react';
-import { apiInstance, authInstance } from '@/libs/axios';
-import Router from 'next/router';
+import React, { useState, useEffect, FunctionComponent } from 'react';
+import { apiInstance } from '@/libs/axios';
 
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
@@ -8,26 +7,17 @@ import Autocomplete from '@mui/material/Autocomplete';
 import Chip from '@mui/material/Chip';
 import Stack from '@mui/material/Stack';
 
-import Styled from './styled';
-import { Text, FooterContainer } from '@/components/atoms';
-
-interface Props {
-  userId: string;
-}
-
-const RegionSearch: FunctionComponent<Props> = ({ userId }) => {
+const RegionSearch: FunctionComponent = () => {
   const api = apiInstance();
-  const authApi = authInstance();
   const [regionList, setRegionList] = useState();
   const [interestRegion, setInterestRegion] = useState([]);
 
   useEffect(() => {
-    // const region: Promise<any> = api.get(`/region`).then((res) => setRegionList(res.data));
-    api.get(`/region`).then((res) => setRegionList(res.data));
+    const region: Promise<any> = api.get(`/region`).then((res) => setRegionList(res.data));
   }, []);
 
   const onChange = (event, value) => {
-    if (value && !interestRegion.includes(value)) {
+    if (value) {
       setInterestRegion([...interestRegion, value]);
     }
   };
@@ -37,12 +27,6 @@ const RegionSearch: FunctionComponent<Props> = ({ userId }) => {
       return idx !== i;
     });
     setInterestRegion(newRegionList);
-  };
-
-  const nextFunction = () => {
-    authApi.put(`/user/region/${userId}`, { regions: interestRegion }).then((res) => {
-      Router.push(`/user/${userId}`);
-    });
   };
 
   return (
@@ -67,11 +51,6 @@ const RegionSearch: FunctionComponent<Props> = ({ userId }) => {
           );
         })}
       </Stack>
-      <FooterContainer>
-        <Styled.Button bgColor="#fff" onClick={nextFunction}>
-          <Text value="SAVE" />
-        </Styled.Button>
-      </FooterContainer>
     </>
   );
 };

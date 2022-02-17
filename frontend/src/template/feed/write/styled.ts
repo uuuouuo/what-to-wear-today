@@ -17,19 +17,16 @@ const Button = styled(BaseButton)`
 `;
 
 const ContentContainer = styled.div`
-  display: flex;
   margin: 3vh 1.5vh 0;
-  flex-direction: column;
-  align-items: center;
-  flex: 1;
+  overflow-y: scroll;
 `;
 
 const TextEditor = styled(BaseTextEditor)`
   z-index: 0;
-  width: 325px;
+  width: 350px;
+  height: 255px;
   box-sizing: border-box;
   background-color: #fff;
-  height: 25vh;
   padding-top: 5vh;
   transform: translate(7vw, -5vh);
 `;
