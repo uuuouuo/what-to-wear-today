@@ -32,7 +32,7 @@ const FeedWriteTemplate: NextPage = () => {
 
   const createFeedAction = (e: React.MouseEvent) => {
     e.preventDefault();
-    Router.back();
+    Router.push('/');
     dispatch(
       createFeedRequest(
         value,
