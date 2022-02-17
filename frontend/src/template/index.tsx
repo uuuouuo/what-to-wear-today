@@ -65,6 +65,7 @@ const Home: NextPage = () => {
         },
       });
     }
+    console.log(feeds);
   }, []);
   useEffect(() => {
     const options = {
