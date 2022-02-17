@@ -55,7 +55,6 @@ public class FollowService {
     followingUserCnt.plusFollower();
 
     FollowRes response = new FollowRes(userFollowCnt, followingUserCnt);
-//    FollowRes response = new FollowRes(userFollowCnt.getUser().getUserId(), followingUserCnt.getUser().getUserId());
 
     return response;
 
@@ -103,7 +102,7 @@ public class FollowService {
 
     Optional<User> userOp = userRepository.findByUserId(userId);
     User user = validateExist.findUser(userOp);
-    List<Follow> follows = followRepository.findByUserFollowingNo(user);
+    List<Follow> follows = followRepository.findByUserFollowerNo(user);
 
     List<UserProfileRes> response = new ArrayList<>();
     follows.stream().forEach(follow -> {

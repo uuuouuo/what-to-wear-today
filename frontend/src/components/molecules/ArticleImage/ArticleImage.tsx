@@ -4,9 +4,10 @@ import Box from '@mui/material/Box';
 import SwipeableViews from 'react-swipeable-views';
 import MobileStepper from '@mui/material/MobileStepper';
 import Styled from './ArticleImage.styled';
+import { PhotoType } from 'types/photo';
 
 interface Props {
-  images: Object[];
+  images: PhotoType[];
 }
 
 const ArticleImage: FunctionComponent<Props> = ({ images }) => {

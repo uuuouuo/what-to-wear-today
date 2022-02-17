@@ -7,6 +7,6 @@ import org.springframework.data.domain.Pageable;
 
 public interface CustomFeedRepository {
 
-  public List<Feed> search(SearchDto searchCondition, Pageable pageable);
+  public List<Feed> search(SearchDto searchCondition);
 
 }

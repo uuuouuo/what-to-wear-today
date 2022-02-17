@@ -16,7 +16,6 @@ interface Props {
 }
 
 const FeedDetail: FunctionComponent<Props> = ({ feed }) => {
-  console.log(feed);
   useEffect(() => {
     if (window.location.href === `http://localhost:3000/feed/${feed.no}`) {
       setIsDetail(true);
