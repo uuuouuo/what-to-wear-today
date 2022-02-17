@@ -45,7 +45,7 @@ public class FeedController {
   @PostMapping(consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
   public ResponseEntity<FeedRes> createFeed(
       @RequestPart(value="request") FeedReq request,
-      @RequestPart(value="imageNames")List<MultipartFile> images){
+      @RequestPart(value="imageNames") MultipartFile[] images){
 
     CreateReq createReq = new CreateReq(request,images);
 

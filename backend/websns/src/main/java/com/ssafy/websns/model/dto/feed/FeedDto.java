@@ -5,6 +5,7 @@ import com.ssafy.websns.model.dto.feed.ImageDto.ImageFile;
 import com.ssafy.websns.model.entity.feed.Feed;
 import com.ssafy.websns.model.entity.user.UserProfile;
 import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.List;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -55,7 +56,7 @@ public class FeedDto {
     private List<String> tags;
     private List<MultipartFile> imageNames;
 
-    public CreateReq(FeedReq feedReq,List<MultipartFile> images){
+    public CreateReq(FeedReq feedReq,MultipartFile[] images){
 
       this.userId = feedReq.getUserId();
       this.content = feedReq.getContent();
@@ -65,7 +66,7 @@ public class FeedDto {
       this.privateMode = feedReq.getPrivateMode();
       this.deleteMode = feedReq.getDeleteMode();
       this.tags = feedReq.getTags();
-      this.imageNames = images;
+      this.imageNames = Arrays.asList(images);
 
     }
 

@@ -25,7 +25,17 @@ const FeedUpdateTemplate: NextPage = () => {
   const [temperature, setTemperature, onTemperatureChange] = useChange(`${feed.weather}`);
 
   const updateFeedAction = (e: React.MouseEvent) => {
-    dispatch(updateFeedRequest(feed.no, value, files, date, privateMode, region, temperature));
+    dispatch(
+      updateFeedRequest(
+        feed.mo,
+        value,
+        region,
+        temperature,
+        `${date.slice(0, 4)}.${date.slice(5, 7)}.${date.slice(8)}.${getTime()}`,
+        privateMode,
+        files,
+      ),
+    );
   };
 
   const getTime = () => {

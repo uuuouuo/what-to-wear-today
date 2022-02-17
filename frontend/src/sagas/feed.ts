@@ -29,7 +29,6 @@ const authApi = authInstance();
 const fileApi = fileInstance();
 
 function* createFeed(action: ReturnType<typeof createFeedRequest>) {
-  console.log('사가!!', action);
   try {
     const result: Promise<AxiosResponse<FeedType>> = yield call(createFeedAPI, action);
     yield put({
@@ -47,11 +46,21 @@ function* createFeed(action: ReturnType<typeof createFeedRequest>) {
 function createFeedAPI(
   action: ReturnType<typeof createFeedRequest>,
 ): Promise<AxiosResponse<FeedType>> {
-  let images = new FormData();
-  action.images.forEach((file) => images.append('images', file));
+  let formData = new FormData();
+  action.request.imageNames.forEach((file) => formData.append('imageNames', file));
+  const request = {
+    userId: action.request.userId,
+    content: action.request.content,
+    region: action.request.region,
+    weather: action.request.weather,
+    photoDate: action.request.photoDate,
+    privateMode: action.request.privateMode,
+    deleteMode: action.request.deleteMode,
+    tags: action.request.tags,
+  };
+  formData.append('request', new Blob([JSON.stringify(request)], { type: 'application/json' }));
 
-  images.append('images', action.images);
-  return fileApi.post(`/feed`, { request: action.request });
+  return fileApi.post(`/feed`, formData);
 }
 
 function* loadFeed(action: ReturnType<typeof loadFeedRequest>) {
@@ -97,7 +106,20 @@ function* updateFeed(action: ReturnType<typeof updateFeedRequest>) {
 function updateFeedAPI(
   action: ReturnType<typeof updateFeedRequest>,
 ): Promise<AxiosResponse<FeedType>> {
-  return authApi.put(`/feed/${action}`, action.request);
+  let formData = new FormData();
+  action.request.imageNames.forEach((file) => formData.append('imageNames', file));
+  const request = {
+    userId: action.request.userId,
+    content: action.request.content,
+    region: action.request.region,
+    weather: action.request.weather,
+    photoDate: action.request.photoDate,
+    privateMode: action.request.privateMode,
+    deleteMode: action.request.deleteMode,
+    tags: action.request.tags,
+  };
+  formData.append('request', new Blob([JSON.stringify(request)], { type: 'application/json' }));
+  return fileApi.put(`/feed`, formData);
 }
 
 function* deleteFeed(action: ReturnType<typeof deleteFeedRequest>) {

@@ -25,7 +25,7 @@ const Feed: FunctionComponent<Props> = ({ feed }) => {
         weather={feed.weather}
       />
 
-      {feed.images ? <ArticleImage images={feed.images} /> : <></>}
+      {/* {feed.image ? <ArticleImage images={feed.images} /> : <></>} */}
 
       <Styled.FeedContent onClick={moveFeedDetail}>{feed.content}</Styled.FeedContent>
 

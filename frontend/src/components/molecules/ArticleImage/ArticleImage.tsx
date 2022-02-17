@@ -6,7 +6,7 @@ import MobileStepper from '@mui/material/MobileStepper';
 import Styled from './ArticleImage.styled';
 
 interface Props {
-  images: string[];
+  images: Object[];
 }
 
 const ArticleImage: FunctionComponent<Props> = ({ images }) => {
@@ -39,7 +39,7 @@ const ArticleImage: FunctionComponent<Props> = ({ images }) => {
                   overflow: 'hidden',
                   width: '100%',
                 }}
-                src={step}
+                src={step.imgUrl}
                 alt="feed image"
               />
             ) : null}

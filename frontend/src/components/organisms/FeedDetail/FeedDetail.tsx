@@ -16,6 +16,7 @@ interface Props {
 }
 
 const FeedDetail: FunctionComponent<Props> = ({ feed }) => {
+  console.log(feed);
   useEffect(() => {
     if (window.location.href === `http://localhost:3000/feed/${feed.no}`) {
       setIsDetail(true);
@@ -43,10 +44,9 @@ const FeedDetail: FunctionComponent<Props> = ({ feed }) => {
   };
 
   const deleteFeedAction = (e: React.MouseEvent) => {
-    e.preventDefault();
+    Router.back();
     const feedNo = Number(feed.no);
     dispatch(deleteFeedRequest(feedNo));
-    Router.back();
   };
 
   const likeClick = (e: React.MouseEvent) => {
@@ -70,12 +70,16 @@ const FeedDetail: FunctionComponent<Props> = ({ feed }) => {
       {feed.images ? <ArticleImage images={feed.images} /> : <></>}
 
       <Styled.FeedContent>{feed.content}</Styled.FeedContent>
-      <Styled.TagContainer>
-        <LocalOfferOutlinedIcon />
-        {feed.tags.map((tag) => (
-          <Tag key={tag} value={tag} />
-        ))}
-      </Styled.TagContainer>
+      {feed.tags ? (
+        <Styled.TagContainer>
+          <LocalOfferOutlinedIcon />
+          {feed.tags.map((tag) => (
+            <Tag key={tag} value={tag} />
+          ))}
+        </Styled.TagContainer>
+      ) : (
+        <></>
+      )}
 
       <FooterContainer>
         {viewUDBtn ? (

@@ -31,7 +31,6 @@ export const initialState: StateType = {
 };
 
 const reducer = (state = initialState, action: any) => {
-  console.log('리듀서', action);
   switch (action.type) {
     case CREATE_FEED_REQUEST:
       return {

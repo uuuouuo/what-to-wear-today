@@ -9,6 +9,7 @@ import { useDispatch } from 'react-redux';
 import CheckIcon from '@mui/icons-material/Check';
 import RegionFeed from '@/components/RegionSearch/RegionFeed';
 import WeatherAPI from '@/components/WeatherAPI/WeatherAPI';
+import Router from 'next/router';
 
 const FeedWriteTemplate: NextPage = () => {
   const dispatch = useDispatch();
@@ -31,15 +32,22 @@ const FeedWriteTemplate: NextPage = () => {
   };
 
   const createFeedAction = (e: React.MouseEvent) => {
-    dispatch(createFeedRequest(value, files, date, privateMode, region, temperature));
+    e.preventDefault();
+    Router.back();
+    dispatch(
+      createFeedRequest(
+        value,
+        region,
+        temperature,
+        privateMode,
+        `${date.slice(0, 4)}.${date.slice(5, 7)}.${date.slice(8)}.${getTime()}`,
+        files,
+      ),
+    );
   };
 
   const onChangeDate = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setDate(
-      `${e.target.value.slice(0, 4)}.${e.target.value.slice(5, 7)}.${e.target.value.slice(
-        8,
-      )}.${getTime()}`,
-    );
+    setDate(e.target.value);
   };
 
   return (
@@ -47,10 +55,10 @@ const FeedWriteTemplate: NextPage = () => {
       <Title value="CREATE" />
       <Styled.ContentContainer>
         <Styled.ButtonContainer>
-          <div>
+          <>
             <Text value="PRIVATE" color="#fff" />
             <Toggle value={privateMode} setValue={setPrivateMode} />
-          </div>
+          </>
           <Styled.Button bgColor="transparent" onClick={createFeedAction}>
             <CheckIcon />
           </Styled.Button>
@@ -62,8 +70,7 @@ const FeedWriteTemplate: NextPage = () => {
             <Styled.Input type="date" onChange={onChangeDate} />
           </Styled.RowContainer>
           <Styled.RowContainer>
-            {/* <Styled.Input value={region} onChange={onRegionChange} placeholder="Region..." /> */}
-            <RegionFeed onChange={onRegionChange} />
+            <RegionFeed value={region} onChange={onRegionChange} />
           </Styled.RowContainer>
           <Styled.RowContainer>
             <Styled.Input
@@ -72,7 +79,12 @@ const FeedWriteTemplate: NextPage = () => {
               onChange={onTemperatureChange}
               placeholder="Temperature..."
             />
-            {date && region ? <WeatherAPI region={region} date={date} /> : null}
+            {date && region ? (
+              <WeatherAPI
+                region={region}
+                date={`${date.slice(0, 4)}.${date.slice(5, 7)}.${date.slice(8)}.${getTime()}`}
+              />
+            ) : null}
           </Styled.RowContainer>
         </Styled.InputContainer>
       </Styled.ContentContainer>

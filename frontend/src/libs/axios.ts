@@ -22,8 +22,7 @@ function fileInstance() {
   const instance = axios.create({
     baseURL: API_BASE_URL,
     headers: {
-      // 'Content-Type': 'multipart/form-data',
-      'Content-Type': 'application/json',
+      'Content-Type': 'multipart/form-data',
     },
   });
   return instance;
