@@ -55,8 +55,8 @@ const SearchTemplate = () => {
       uri += `&temperature=${temperature}`;
     }
     // console.log(uri);
-    api.get(uri).then((res) => console.log(res.data.content));
-    // Router.push(`/`);
+    // api.get(uri).then((res) => console.log(res.data.content));
+    Router.push(`/search${uri}`);
   };
 
   return (
