@@ -12,19 +12,12 @@ import Text from '@/components/atoms/Text/Text';
 
 interface Props {
   title: string;
+  arr: { userId: string; nickname: string; profileImg: string }[];
 }
 
-const FollowingModal: FunctionComponent<Props> = ({ title }) => {
+const FollowingModal: FunctionComponent<Props> = ({ title, arr }) => {
   const [open, setOpen] = React.useState(false);
   const [scroll, setScroll] = React.useState<DialogProps['scroll']>('paper');
-
-  const dummyUser = [
-    { userId: '123', profileImg: '/images/icon/blank_user.png', nickname: '유저1' },
-    { userId: '234', profileImg: '/images/icon/blank_user.png', nickname: '유저2' },
-    { userId: '345', profileImg: '/images/icon/blank_user.png', nickname: '유저3' },
-    { userId: '567', profileImg: '/images/icon/blank_user.png', nickname: '유저4' },
-    { userId: '789', profileImg: '/images/icon/blank_user.png', nickname: '유저5' },
-  ];
 
   const handleClickOpen = (scrollType: DialogProps['scroll']) => () => {
     setOpen(true);
@@ -47,7 +40,9 @@ const FollowingModal: FunctionComponent<Props> = ({ title }) => {
 
   return (
     <div>
-      <Button onClick={handleClickOpen('paper')}>{title}</Button>
+      <Button onClick={handleClickOpen('paper')}>
+        {title} {arr.length}
+      </Button>
       <Dialog
         open={open}
         onClose={handleClose}
@@ -63,7 +58,7 @@ const FollowingModal: FunctionComponent<Props> = ({ title }) => {
             ref={descriptionElementRef}
             tabIndex={-1}
           >
-            {dummyUser.map((person) => {
+            {arr.map((person) => {
               return (
                 <Styled.RowContainer key={person.userId}>
                   <Avatar src={person.profileImg} sx={{ width: 50, height: 50 }} />
