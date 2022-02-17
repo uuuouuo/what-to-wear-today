@@ -9,7 +9,7 @@ import { ImageUpload } from '@/components/molecules';
 import styled from '@emotion/styled/types/base';
 
 interface Props {
-  files: File[] | null;
+  files: File[] | string[] | null;
   selectedFile: File[] | null;
   setFile: React.Dispatch<React.SetStateAction<File[] | null>>;
   appendFile: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -22,7 +22,6 @@ const FileList: FunctionComponent<Props> = ({ files, selectedFile, setFile, appe
   const handleStepChange = (step: number) => {
     setActiveStep(step);
   };
-
   return files ? (
     <SwipeableViews
       width={350}
@@ -38,7 +37,7 @@ const FileList: FunctionComponent<Props> = ({ files, selectedFile, setFile, appe
             <Image
               width={350}
               height={255}
-              src={window.URL.createObjectURL(file)}
+              src={typeof file === 'string' ? file : window.URL.createObjectURL(file)}
               alt="upload image"
             />
           ) : null}

@@ -13,7 +13,7 @@ import WeatherAPI from '@/components/WeatherAPI/WeatherAPI';
 const FeedWriteTemplate: NextPage = () => {
   const dispatch = useDispatch();
 
-  const [value, onChange] = useChange('');
+  const [value, setValue, onChange] = useChange(``);
   const [privateMode, setPrivateMode] = useState(false);
   const [file, setFile] = useFileChange(null);
   const [files, , , appendFile] = useFileChange(null);
@@ -21,6 +21,14 @@ const FeedWriteTemplate: NextPage = () => {
   const [date, setDate] = useState<string | null>();
   const [region, onRegionChange] = useState();
   const [temperature, , onTemperatureChange] = useChange('');
+
+  const getTime = () => {
+    const today = new Date();
+    const hours = ('0' + today.getHours()).slice(-2);
+    const minutes = ('0' + today.getMinutes()).slice(-2);
+    const datetime = hours + ':' + minutes;
+    return datetime;
+  };
 
   const createFeedAction = (e: React.MouseEvent) => {
     dispatch(createFeedRequest(value, files, date, privateMode, region, temperature));
@@ -30,7 +38,7 @@ const FeedWriteTemplate: NextPage = () => {
     setDate(
       `${e.target.value.slice(0, 4)}.${e.target.value.slice(5, 7)}.${e.target.value.slice(
         8,
-      )}.15:00`,
+      )}.${getTime()}`,
     );
   };
 

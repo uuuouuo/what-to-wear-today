@@ -20,8 +20,10 @@ public class Region {
   @Column(name = "REGION_NO")
   private Integer no;
 
+  @Column(nullable = false, length = 45)
   private String regionName;
 
+  @Column(nullable = false)
   private Integer pointCode;
 
   public Region(String regionName, Integer pointCode) {

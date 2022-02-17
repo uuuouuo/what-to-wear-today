@@ -22,11 +22,11 @@ public class TypeInfo {
   private Integer no;
 
   @ManyToOne(fetch = LAZY)
-  @JoinColumn(name = "USER_NO")
+  @JoinColumn(name = "USER_NO", nullable = false)
   private User user;
 
   @ManyToOne(fetch = LAZY)
-  @JoinColumn(name = "TYPE_NO")
+  @JoinColumn(name = "TYPE_NO", nullable = false)
   private Type type;
 
   public void createTypeInfo(User user, Type type) {

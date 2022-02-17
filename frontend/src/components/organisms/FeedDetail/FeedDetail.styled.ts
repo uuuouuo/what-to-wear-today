@@ -28,9 +28,17 @@ const Button = styled(BaseButton)`
   padding: 1vh;
 `;
 
+const fixButton = styled(BaseButton)`
+  margin: 0;
+  padding: 1vh;
+  background-color: #000;
+  color: #fff;
+`;
+
 export default {
   FeedDetail,
   FeedContent,
   TagContainer,
   Button,
+  fixButton,
 };

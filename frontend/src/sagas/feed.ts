@@ -29,7 +29,7 @@ const authApi = authInstance();
 const fileApi = fileInstance();
 
 function* createFeed(action: ReturnType<typeof createFeedRequest>) {
-  console.log('사가스 피드 생성 액션', action);
+  console.log('사가!!', action);
   try {
     const result: Promise<AxiosResponse<FeedType>> = yield call(createFeedAPI, action);
     yield put({
@@ -97,7 +97,7 @@ function* updateFeed(action: ReturnType<typeof updateFeedRequest>) {
 function updateFeedAPI(
   action: ReturnType<typeof updateFeedRequest>,
 ): Promise<AxiosResponse<FeedType>> {
-  return authApi.put(`/feed/${action}`, action);
+  return authApi.put(`/feed/${action}`, action.request);
 }
 
 function* deleteFeed(action: ReturnType<typeof deleteFeedRequest>) {

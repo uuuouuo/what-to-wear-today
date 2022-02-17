@@ -15,7 +15,7 @@ export const createCommentRequest = (content: string, feedNo: any) => ({
   type: CREATE_COMMENT_REQUEST,
   feedNo: feedNo,
   request: {
-    userId: 'jdb',
+    userId: '1234',
     parent: -1,
     content,
     privateMode: 0,

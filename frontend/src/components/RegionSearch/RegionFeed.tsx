@@ -1,4 +1,4 @@
-import React, { useState, useEffect, FunctionComponent } from 'react';
+import React, { useState, useEffect, FunctionComponent, useCallback } from 'react';
 import { apiInstance } from '@/libs/axios';
 
 import TextField from '@mui/material/TextField';
@@ -7,7 +7,13 @@ import Autocomplete from '@mui/material/Autocomplete';
 // import Chip from '@mui/material/Chip';
 // import Stack from '@mui/material/Stack';
 
-const RegionSearch: FunctionComponent = ({ onChange }) => {
+interface Props {
+  value: any;
+  onChange: any;
+}
+
+const RegionSearch: FunctionComponent<Props> = ({ value, onChange }) => {
+  console.log('나는 벨류', value);
   const api = apiInstance();
   const [regionList, setRegionList] = useState();
   const [interestRegion, setInterestRegion] = useState('지역을 설정해 주세요');
@@ -16,19 +22,27 @@ const RegionSearch: FunctionComponent = ({ onChange }) => {
     const region: Promise<any> = api.get(`/region`).then((res) => setRegionList(res.data));
   }, []);
 
-  const onStateChange = (event, value) => {
-    if (value) {
-      setInterestRegion(value);
-      onChange(value);
+  const onStateChange = useCallback((event, newValue) => {
+    if (newValue) {
+      setInterestRegion(newValue);
+      onChange(newValue);
     } else {
       setInterestRegion('지역을 설정해 주세요');
     }
-  };
+  }, []);
+  const onInputChange = useCallback(
+    (e, newInputValue) => {
+      onChange(newInputValue);
+    },
+    [value],
+  );
 
   return (
     <>
       <Autocomplete
+        inputValue={value}
         onChange={onStateChange}
+        onInputChange={onInputChange}
         disablePortal
         id="combo-box-demo"
         options={regionList}

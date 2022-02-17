@@ -9,9 +9,10 @@ import { LOAD_FEEDS_REQUEST } from '@/action/feedsAction';
 // key값 env에 넣기
 import { KAKAO_MAP_APIKEY } from '@/config';
 
-import { Header, FeedRegion, TabMenu, FooterNavbar } from '@/components/molecules';
+import { Header, FeedRegion, FooterNavbar } from '@/components/molecules';
 import { Feed } from '@/components/organisms';
 import { RegionType } from 'types/region';
+import { FormControlUnstyledContext } from '@mui/base';
 
 const interestRegions: RegionType[] = [
   { no: 1, regionName: 'seoul', weather: '맑음' },
@@ -27,6 +28,18 @@ const Home: NextPage = () => {
   const [pageNum, setPageNum] = useState(2);
   const viewport = useRef(null);
   const target = useRef(null);
+  const [region, setRegion] = useState('');
+
+  const getTime = () => {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = ('0' + (today.getMonth() + 1)).slice(-2);
+    const day = ('0' + today.getDate()).slice(-2);
+    const hours = ('0' + today.getHours()).slice(-2);
+    const minutes = ('0' + today.getMinutes()).slice(-2);
+    const datetime = year + '.' + month + '.' + day + '.' + hours + ':' + minutes;
+    return datetime;
+  };
 
   useEffect(() => {
     if (navigator) {
@@ -39,11 +52,20 @@ const Home: NextPage = () => {
           headers: {
             Authorization: `${KAKAO_MAP_APIKEY}`,
           },
-        }).then((response) => console.log(response.data.documents[1].address_name));
+        }).then((response) => setRegion(response.data.documents[1].address_name));
+      });
+    }
+    if (region) {
+      axios({
+        method: 'get',
+        url: `https://localhost:8080/weather`,
+        params: {
+          region: region,
+          date: getTime(),
+        },
       });
     }
   }, []);
-
   useEffect(() => {
     const options = {
       root: viewport.current,
@@ -64,7 +86,7 @@ const Home: NextPage = () => {
             type: LOAD_FEEDS_REQUEST,
             regionNo: pageNum,
           });
-          // 지역 값 설정 로직 작성 필요
+          // 유저의 지역 값 불러와 적용해야함
           setPageNum(pageNum + 1);
           observer.unobserve(entry.target);
           return;
@@ -98,7 +120,7 @@ const Home: NextPage = () => {
           const lastEl = idx === feeds.length - 1;
           return (
             <div ref={lastEl ? target : null}>
-              <Feed key={feed.no} feed={feed} />;
+              <Feed key={feed.no} feed={feed} />
             </div>
           );
         })}

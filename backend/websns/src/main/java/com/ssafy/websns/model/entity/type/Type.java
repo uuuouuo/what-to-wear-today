@@ -16,8 +16,10 @@ public class Type {
   @Column(name = "TYPE_NO")
   private Integer no;
 
+  @Column(nullable = false, length = 45)
   private String constitution;
 
+  @Column(nullable = false, length = 100)
   private String description;
 
 }

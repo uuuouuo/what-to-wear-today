@@ -28,6 +28,11 @@ const FeedDetail: FunctionComponent<Props> = ({ feed }) => {
   const [isDetail, setIsDetail] = useState(false);
   const [isUser, setIsUser] = useState(true);
   const viewUDBtn = isDetail && isUser;
+  // const [isLike, setIsLike] = useState(feed)
+
+  const none = (e: React.MouseEvent) => {
+    e.preventDefault();
+  };
 
   const moveFeedDetail = (e: React.MouseEvent) => {
     if (isDetail) {
@@ -37,21 +42,17 @@ const FeedDetail: FunctionComponent<Props> = ({ feed }) => {
     }
   };
 
-  const updateFeedLink = (e: React.MouseEvent) => {
-    e.preventDefault();
-    Router.replace({
-      pathname: '/write',
-      query: {
-        '': feed.no,
-      },
-    });
-  };
-
   const deleteFeedAction = (e: React.MouseEvent) => {
     e.preventDefault();
     const feedNo = Number(feed.no);
     dispatch(deleteFeedRequest(feedNo));
-    Router.push('/');
+    Router.back();
+  };
+
+  const likeClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    const feedNo = Number(feed.no);
+    dispatch(feedNo);
   };
 
   return (
@@ -79,10 +80,9 @@ const FeedDetail: FunctionComponent<Props> = ({ feed }) => {
       <FooterContainer>
         {viewUDBtn ? (
           <>
-            <Link href={`/feed/feedUpdate/${feed.no}`}>고고</Link>
-            <Button bgColor="#000" onClick={updateFeedLink}>
-              <Text color="#fff" value="수정" />
-            </Button>
+            <Styled.fixButton onClick={none}>
+              <Link href={`/feed/feedupdate/${feed.no}`}>수정</Link>
+            </Styled.fixButton>
             <Button bgColor="#fe7b45" onClick={deleteFeedAction}>
               <Text color="#fff" value="삭제" />
             </Button>

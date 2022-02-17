@@ -27,7 +27,8 @@ public class CommentController {
   private final CommentService commentService;
 
   @PostMapping("/{feedNo}")
-  public ResponseEntity<CommentRes> createComment(@PathVariable("feedNo") Integer feedNo, @RequestBody CreateReq request){
+  public ResponseEntity<CommentRes> createComment(@PathVariable("feedNo") Integer feedNo,
+      @RequestBody CreateReq request){
 
     CommentRes response = commentService.postComment(feedNo, request);
     return new ResponseEntity<>(response, HttpStatus.OK);
