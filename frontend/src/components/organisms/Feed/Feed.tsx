@@ -18,6 +18,7 @@ const Feed: FunctionComponent<Props> = ({ feed }) => {
   const moveFeedDetail = (e: React.MouseEvent) => {
     Router.push(`/feed/${feed.no}`);
   };
+  console.log(feed);
   return (
     <Styled.Feed>
       <FeedHeader
