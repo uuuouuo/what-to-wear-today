@@ -1,5 +1,5 @@
+const path = require('path');
+
 module.exports = {
-  output: {
-    globalObject: 'this',
-  },
+  output: { publicPath: '', path: path.join(__dirname, './dist'), filename: '[name].js' },
 };
