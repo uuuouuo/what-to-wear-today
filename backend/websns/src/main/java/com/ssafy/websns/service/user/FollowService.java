@@ -61,19 +61,28 @@ public class FollowService {
   }
 
   @Transactional
-  public DeleteFollowRes cancelFollow(Integer followNo) {
+  public DeleteFollowRes cancelFollow(String userId, String followingId) {
 
-    Follow follow = followRepository.findByNo(followNo);
-    User userFollower = follow.getUserFollowerNo();
-    User userFollowing = follow.getUserFollowingNo();
 
-    UserFollowCnt userFollowCnt = userfollowCntRepository.findByUser(userFollower);
-    UserFollowCnt followingUserCnt = userfollowCntRepository.findByUser(userFollowing);
+
+    Optional<User> userOp = userRepository.findByUserId(userId);
+    Optional<User> followingOp = userRepository.findByUserId(followingId);
+    User user = validateExist.findUser(userOp);
+    User followingUser = validateExist.findUser(followingOp);
+
+    followRepository.deleteByUserFollowerNoAndAndUserFollowingNo(user,followingUser);
+
+//    Follow follow = followRepository.findByNo(followNo);
+//    User userFollower = follow.getUserFollowerNo();
+//    User userFollowing = follow.getUserFollowingNo();
+
+    UserFollowCnt userFollowCnt = userfollowCntRepository.findByUser(user);
+    UserFollowCnt followingUserCnt = userfollowCntRepository.findByUser(followingUser);
 
     userFollowCnt.minusFollowing();
     followingUserCnt.minusFollower();
 
-    DeleteFollowRes response = new DeleteFollowRes(userFollower.getUserId(), userFollowing.getUserId());
+    DeleteFollowRes response = new DeleteFollowRes(user.getUserId(), followingUser.getUserId());
 
     return response;
 
