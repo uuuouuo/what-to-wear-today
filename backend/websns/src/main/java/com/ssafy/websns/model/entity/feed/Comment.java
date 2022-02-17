@@ -4,49 +4,59 @@ import static javax.persistence.FetchType.LAZY;
 
 import com.ssafy.websns.model.entity.BaseEntity;
 import com.ssafy.websns.model.entity.user.User;
-import io.swagger.annotations.ApiModel;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @Entity
-@Getter @Setter
+@Getter
 @NoArgsConstructor
-@ApiModel(value = "댓글 정보", description = "댓글 정보를 나타냅니다.")
 public class Comment extends BaseEntity {
 
   @Id
-  @GeneratedValue
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "COMMENT_NO")
   private Integer no;
 
   @ManyToOne(fetch = LAZY)
-  @JoinColumn(name = "USER_NO")
+  @JoinColumn(name = "USER_NO", nullable = false)
   private User user;
 
   @ManyToOne(fetch = LAZY)
-  @JoinColumn(name = "FEED_NO")
+  @JoinColumn(name = "FEED_NO", nullable = false)
   private Feed feed;
 
   @ManyToOne(fetch = LAZY)
   @JoinColumn(name = "PARENT_NO")
   private Comment parent;
 
+  @Column(nullable = false, length = 300)
   private String content;
 
+  @Column(nullable = false)
   private Boolean privateMode;
 
+  @Column(nullable = false)
   private Boolean deleteMode;
 
-  public void createComment(Integer no, User user, Feed feed, Comment parent, String content,
+  public Comment(User user, Feed feed, Comment parent, String content, Boolean privateMode,
+      Boolean deleteMode) {
+    this.user = user;
+    this.feed = feed;
+    this.parent = parent;
+    this.content = content;
+    this.privateMode = privateMode;
+    this.deleteMode = deleteMode;
+  }
+
+  public void createComment(User user, Feed feed, Comment parent, String content,
       Boolean privateMode, Boolean deleteMode) {
-    this.no = no;
     this.user = user;
     this.feed = feed;
     this.parent = parent;
@@ -64,4 +74,5 @@ public class Comment extends BaseEntity {
   public void deleteComment() {
     this.deleteMode = true;
   }
+
 }

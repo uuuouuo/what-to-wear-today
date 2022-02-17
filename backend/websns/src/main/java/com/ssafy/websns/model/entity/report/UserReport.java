@@ -4,10 +4,10 @@ import static javax.persistence.FetchType.LAZY;
 
 import com.ssafy.websns.model.entity.user.User;
 import io.swagger.annotations.ApiModel;
-import java.time.LocalDateTime;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -19,22 +19,19 @@ import lombok.Getter;
 public class UserReport {
 
   @Id
-  @GeneratedValue
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "USER_REPORT_NO")
   private Integer no;
 
   @ManyToOne(fetch = LAZY)
-//  @JoinColumn(name = "USER_NO")
-  @JoinColumn
+  @JoinColumn(name = "REPORTER", nullable = false)
   private User reporter;
 
-  private String comment;
-
-  private LocalDateTime createdAt;
-
   @ManyToOne(fetch = LAZY)
-//  @JoinColumn(name = "USER_NO")
-  @JoinColumn
+  @JoinColumn(name = "TARGET", nullable = false)
   private User target;
+
+  @Column(nullable = false, length = 300)
+  private String content;
 
 }
