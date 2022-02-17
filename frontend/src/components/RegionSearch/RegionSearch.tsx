@@ -36,12 +36,9 @@ const RegionSearch: FunctionComponent = ({ userId }) => {
   };
 
   const nextFunction = () => {
-    // Router.push(`/user/${userId}`);
-    // authApi
-    //   .put(`/user/region/${userId}`, { region: interestRegion })
-    //   .then((res) => console.log(res))
-    //   .catch((err) => console.log(err));
-    // authApi.post('/follow', { userId: 'jdb', followingId: 'tmp' });
+    authApi.put(`/user/region/${userId}`, { regions: interestRegion }).then((res) => {
+      Router.push(`/user/${userId}`);
+    });
   };
 
   return (
