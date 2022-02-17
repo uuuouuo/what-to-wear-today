@@ -87,8 +87,8 @@ public class FeedService {
       for (MultipartFile imageName : imageNames) {
         sb.append(date.getTime());
         sb.append(imageName.getOriginalFilename());
-        String fileName = "C://images/feed/" + sb.toString();
-//        String fileName = "/home/ubuntu/images/feed/" + sb.toString();
+//        String fileName = "C://images/feed/" + sb.toString();
+        String fileName = "/home/ubuntu/images/feed/" + sb.toString();
         File dest = new File(fileName);
         try {
           imageName.transferTo(dest);
@@ -158,8 +158,8 @@ public class FeedService {
       for (MultipartFile imageName : imageNames) {
         sb.append(date.getTime());
         sb.append(imageName.getOriginalFilename());
-        String fileName = "C://images/feed/" + sb.toString();
-//        String fileName = "/home/ubuntu/images/feed/" + sb.toString();
+//        String fileName = "C://images/feed/" + sb.toString();
+        String fileName = "/home/ubuntu/images/feed/" + sb.toString();
         File dest = new File(fileName);
         try {
           imageName.transferTo(dest);
@@ -217,6 +217,7 @@ public class FeedService {
 
     Page<Feed> feeds = feedRepository.findAllByRegion(regionNo, pageable);
 
+
     List<FeedRes> response = new ArrayList<>();
 
     feeds.stream().forEach(feed -> {
@@ -262,6 +263,12 @@ public class FeedService {
 
     Optional<List<Image>> imagesOptional = imageRepository.findByFeed(feed);
     List<Image> images = validateExist.findImages(imagesOptional);
+    List<String> imgs = new ArrayList<>();
+
+    images.stream().forEach(img -> {
+      imgs.add(img.getImgUrl());
+    });
+
     List<ImageFile> resImages = images.stream()
         .map(ImageFile::new).collect(Collectors.toList());
 
@@ -274,7 +281,7 @@ public class FeedService {
     UserProfile userProfile = validateExist.findUserProfile(profileOptional);
 
     FeedRes feedRes = new FeedRes(userProfile, feed, resTags);
-
+    feedRes.setImages(imgs);
     return feedRes;
 
   }

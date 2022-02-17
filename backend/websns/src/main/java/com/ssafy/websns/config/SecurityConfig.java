@@ -37,10 +37,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         .addFilter(new JwtAuthorizationFilter(authenticationManager(),
             userRepository,jwtTokenProvider))
         .authorizeRequests()
-        .antMatchers("/user/login/**","/user/kakao/**")
+        .antMatchers("/**")
         .permitAll()
-        .anyRequest()
-        .authenticated()
+//        .anyRequest()
+//        .authenticated()
         .and()
         .oauth2Login()
         .and()
