@@ -1,5 +1,3 @@
-import { PhotoType } from './photo';
-
 interface FeedType {
   no: number;
   userId: string;
@@ -10,7 +8,7 @@ interface FeedType {
   photoDate: Date;
   weather: string;
   privateMode: boolean;
-  images?: PhotoType[];
+  images?: string[];
   tags?: string[];
 }
 interface FeedRequestType {
