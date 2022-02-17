@@ -18,7 +18,8 @@ const RegionSearch: FunctionComponent = ({ userId }) => {
   const [interestRegion, setInterestRegion] = useState([]);
 
   useEffect(() => {
-    const region: Promise<any> = api.get(`/region`).then((res) => setRegionList(res.data));
+    // const region: Promise<any> = api.get(`/region`).then((res) => setRegionList(res.data));
+    api.get(`/region`).then((res) => setRegionList(res.data));
   }, []);
 
   const onChange = (event, value) => {
@@ -36,10 +37,11 @@ const RegionSearch: FunctionComponent = ({ userId }) => {
 
   const nextFunction = () => {
     // Router.push(`/user/${userId}`);
-    authApi
-      .patch(`/user/region/${userId}`, { region: interestRegion })
-      .then((res) => console.log(res))
-      .catch((err) => console.log(err));
+    // authApi
+    //   .put(`/user/region/${userId}`, { region: interestRegion })
+    //   .then((res) => console.log(res))
+    //   .catch((err) => console.log(err));
+    // authApi.post('/follow', { userId: 'jdb', followingId: 'tmp' });
   };
 
   return (
