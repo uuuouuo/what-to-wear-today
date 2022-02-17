@@ -28,7 +28,11 @@ const UserTemplate: NextPage<Props> = ({ userId }) => {
   };
 
   const handleFollow = async () => {
-    await authApi.post('/follow', { userId: '1234', followingId: userId });
+    if (follow) {
+      await authApi.delete(`/follow?userid=${1234}&followingid=${userId}`);
+    } else {
+      await authApi.post('/follow', { userId: '1234', followingId: userId });
+    }
     setFollow(!follow);
   };
 
@@ -40,7 +44,7 @@ const UserTemplate: NextPage<Props> = ({ userId }) => {
       setFollowings(res.data);
     });
 
-    api.get(`/follower/1234`).then((res) => {
+    api.get(`/following/1234`).then((res) => {
       if (res.data.find((obj) => obj.userId === userId)) {
         setFollow(true);
       }
