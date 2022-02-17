@@ -71,12 +71,12 @@ public class UserService {
     MultipartFile image = request.getImage();
     String imageUrl = "";
     if(image.isEmpty()){
-      imageUrl = "C://images/profile/basic_profile.png";
-//      imageUrl = "/home/ubuntu/images/profile/basic_profile.png";
+//      imageUrl = "C://images/profile/basic_profile.png";
+      imageUrl = "/home/ubuntu/images/profile/basic_profile.png";
     }
     else {
-      String fileName = "C://images/profile/" + userId + image.getOriginalFilename();
-//      String fileName = "/home/ubuntu/images/profile/" + userId + image.getOriginalFilename();
+//      String fileName = "C://images/profile/" + userId + image.getOriginalFilename();
+      String fileName = "/home/ubuntu/images/profile/" + userId + image.getOriginalFilename();
       File dest = new File(fileName);
       try {
         image.transferTo(dest);
@@ -147,8 +147,8 @@ public class UserService {
       imageUrl = "/home/ubuntu/images/profile/basic_profile.png";
     }
     else {
-      String fileName = "C://images/profile/" + userId + image.getOriginalFilename();
-//      String fileName = "/home/ubuntu/images/profile/" + userId + image.getOriginalFilename();
+//      String fileName = "C://images/profile/" + userId + image.getOriginalFilename();
+      String fileName = "/home/ubuntu/images/profile/" + userId + image.getOriginalFilename();
 
       File dest = new File(fileName);
       try {

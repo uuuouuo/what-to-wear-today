@@ -12,6 +12,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.web.multipart.MultipartFile;
 
 public class FeedDto {
@@ -73,6 +74,7 @@ public class FeedDto {
   }
 
   @Getter
+  @Setter
   public static class FeedRes {
 
     private Integer no;
@@ -85,6 +87,7 @@ public class FeedDto {
     private String weather;
     private Boolean privateMode;
     private List<String> tags;
+    private List<String> images;
 
     public FeedRes(UserProfile userProfile, Feed feed, List<String> tags) {
       this.no = feed.getNo();
@@ -112,6 +115,16 @@ public class FeedDto {
     private Boolean privateMode;
     private List<MultipartFile> imageNames;
     private List<String> tags;
+
+    public UpdateReq(FeedReq request, MultipartFile[] images) {
+      this.content = request.getContent();
+      this.region = request.getRegion();
+      this.weather = request.getWeather();
+      this.photoDate = request.photoDate;
+      this.privateMode = request.getPrivateMode();
+      this.imageNames = Arrays.asList(images);
+      this.tags = request.getTags();
+    }
 
     public UpdateReq(String content, String region, String weather,
         String photoDate, Boolean privateMode, List<MultipartFile> imageNames, List<String> tags) {

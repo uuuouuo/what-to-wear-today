@@ -14,7 +14,7 @@ public class CorsConfig {
   public CorsFilter corsFilter() {
     UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
     CorsConfiguration config = new CorsConfiguration();
-    config.addAllowedOrigin("http://localhost:3000");
+    config.addAllowedOrigin("http://i6c106.p.ssafy.io:3000");
 //    config.setAllowedOrigins(Arrays.asList("*"));
     config.setAllowedMethods(Arrays.asList("HEAD", "GET", "POST", "PUT", "DELETE"));
     config.setAllowedHeaders(Arrays.asList("Authorization", "Cache-Control", "Content-Type","JWT"));

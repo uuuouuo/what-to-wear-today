@@ -26,7 +26,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
@@ -44,7 +43,7 @@ public class FeedController {
   @PostMapping(consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
   public ResponseEntity<FeedRes> createFeed(
       @RequestPart(value="request") FeedReq request,
-      @RequestPart(value="imageNames") MultipartFile[] images){
+      @RequestPart(value="imageNames",required = false)MultipartFile[] images){
 
     CreateReq createReq = new CreateReq(request,images);
 
@@ -53,11 +52,14 @@ public class FeedController {
 
   }
 
-  @PutMapping("/{feedNo}")
+  @PutMapping(value = "/{feedNo}",consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
   public ResponseEntity<UpdateRes> updateFeed(@PathVariable("feedNo") Integer feedNo,
-      @RequestBody UpdateReq request) {
+      @RequestPart(value="request") FeedReq request,
+      @RequestPart(value="imageNames",required = false) MultipartFile[] images) {
 
-    UpdateRes response = feedService.editFeed(feedNo, request);
+    UpdateReq updateReq = new UpdateReq(request,images);
+
+    UpdateRes response = feedService.editFeed(feedNo, updateReq);
     return new ResponseEntity<>(response, HttpStatus.OK);
 
   }
