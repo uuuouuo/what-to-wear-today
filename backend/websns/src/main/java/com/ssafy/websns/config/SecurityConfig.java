@@ -12,7 +12,6 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.web.cors.CorsUtils;
 import org.springframework.web.filter.CorsFilter;
 
 @Configuration
@@ -38,8 +37,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         .addFilter(new JwtAuthorizationFilter(authenticationManager(),
             userRepository,jwtTokenProvider))
         .authorizeRequests()
-        .antMatchers("/**")
+        .antMatchers("/user/login/**","/user/kakao/**")
         .permitAll()
+        .anyRequest()
+        .authenticated()
         .and()
         .oauth2Login()
         .and()
