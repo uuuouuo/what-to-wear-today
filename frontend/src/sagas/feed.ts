@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-expressions */
 import { all, fork, put, takeLatest, call, getContext } from 'redux-saga/effects';
 import { apiInstance, authInstance, fileInstance } from '@/libs/axios';
 import { FeedType } from '@/types/feed';
@@ -47,7 +48,9 @@ function createFeedAPI(
   action: ReturnType<typeof createFeedRequest>,
 ): Promise<AxiosResponse<FeedType>> {
   const formData = new FormData();
-  action.request.imageNames.forEach((file) => formData.append('imageNames', file));
+  action.request.imageNames.length === 0
+    ? formData.append('imageNames', '')
+    : action.request.imageNames.forEach((file) => formData.append('imageNames', file));
   const request = {
     userId: action.request.userId,
     content: action.request.content,

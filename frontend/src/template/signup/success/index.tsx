@@ -18,7 +18,7 @@ const SuccessTemplate: NextPage = () => {
   }, []);
 
   const nextFunction = useCallback(() => {
-    Router.push('/login');
+    Router.push('/');
   }, []);
 
   return (
@@ -28,7 +28,7 @@ const SuccessTemplate: NextPage = () => {
 
       <FooterContainer>
         <Styled.Button bgColor="#fff" onClick={nextFunction}>
-          <Text value="LOGIN" />
+          <Text value="MAIN" />
         </Styled.Button>
       </FooterContainer>
     </Styled.MainContainer>

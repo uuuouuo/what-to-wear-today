@@ -8,7 +8,8 @@ import { useChange, useFileChange, useDisplay } from '@/hooks';
 import { updateFeedRequest } from 'action/feedAction';
 import { useDispatch, useSelector } from 'react-redux';
 import CheckIcon from '@mui/icons-material/Check';
-import WeatherAPI from '@/components/WeatherAPI/WeatherAPI';
+import weatherAPI from '@/libs/weatherAPI';
+import { WeatherType } from '@/types/weather';
 
 const FeedUpdateTemplate: NextPage = () => {
   const dispatch = useDispatch();
@@ -34,6 +35,15 @@ const FeedUpdateTemplate: NextPage = () => {
       ),
     );
   };
+
+  useEffect(() => {
+    if (date && region) {
+      weatherAPI(
+        region,
+        `${date.slice(0, 4)}.${date.slice(5, 7)}.${date.slice(8)}.${getTime()}`,
+      ).then((data: WeatherType) => setWeather(`${data.curWeather} ${data.temperatures}`));
+    }
+  }, [date, region]);
 
   const getTime = () => {
     const today = new Date();

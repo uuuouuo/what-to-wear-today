@@ -7,6 +7,7 @@ import { useChange, useDisplay } from '@/hooks';
 
 import { useDispatch } from 'react-redux';
 import { deleteCommentRequest, updateCommentRequest } from '@/action/commentAction';
+import makeTimeString from '@/libs/makeTimeString';
 
 interface Props {
   className?: string;
@@ -45,7 +46,7 @@ const Comment: FunctionComponent<Props> = ({ className, comment }) => {
           nickname: comment.nickname,
           profileImage: comment.profileImage,
         }}
-        sub={comment.createdAt.toISOString()}
+        sub={makeTimeString(comment.createdAt)}
       />
       {display ? (
         <>

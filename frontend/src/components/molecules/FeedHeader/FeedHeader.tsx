@@ -30,14 +30,9 @@ const FeedHeader: FunctionComponent<Props> = ({ className, user, createdAt, weat
     setDisplay(!display);
   };
 
-  const updateFeedLink = (e: React.MouseEvent) => {
-    e.preventDefault();
-    Router.push(`/feed/feedUpdate/${feedNo}`);
-  };
-
   const deleteFeedAction = (e: React.MouseEvent) => {
     dispatch(deleteFeedRequest(feedNo));
-    Router.back();
+    Router.push('/');
   };
 
   return (
@@ -53,8 +48,12 @@ const FeedHeader: FunctionComponent<Props> = ({ className, user, createdAt, weat
               </Button>
               {display ? (
                 <Styled.MoreContent>
-                  <Link href={`/feed/feedUpdate/${feedNo}`}>고고</Link>
-                  <Button bgColor="#000" onClick={updateFeedLink}>
+                  <Button
+                    bgColor="#000"
+                    onClick={(e: React.MouseEvent) => {
+                      Router.push(`/feed/feedUpdate/${feedNo}`);
+                    }}
+                  >
                     <Text color="#fff" value="수정" />
                   </Button>
                   <Button bgColor="#fe7b45" onClick={deleteFeedAction}>

@@ -35,16 +35,17 @@ const RegionFeed: FunctionComponent<Props> = ({ value, onChange }) => {
     },
     [value],
   );
-
+  console.log(value);
   return (
     <>
       <Autocomplete
         onChange={onStateChange}
-        // onInputChange={onInputChange}
+        onInputChange={onInputChange}
         disablePortal
         id="combo-box-demo"
         options={regionList}
         sx={{ width: 300 }}
+        inputValue={value}
         renderInput={(params) => (
           <TextField
             classes={{

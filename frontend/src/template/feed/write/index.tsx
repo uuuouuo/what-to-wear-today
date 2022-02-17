@@ -51,9 +51,10 @@ const FeedWriteTemplate: NextPage = () => {
 
   useEffect(() => {
     if (date && region) {
-      weatherAPI(region, date).then((data: WeatherType) =>
-        setWeather(`${data.curWeather} ${data.temperatures}`),
-      );
+      weatherAPI(
+        region,
+        `${date.slice(0, 4)}.${date.slice(5, 7)}.${date.slice(8)}.${getTime()}`,
+      ).then((data: WeatherType) => setWeather(`${data.curWeather} ${data.temperatures}`));
     }
   }, [date, region]);
   return (
@@ -61,10 +62,10 @@ const FeedWriteTemplate: NextPage = () => {
       <Title value="CREATE" />
       <Styled.ContentContainer>
         <Styled.ButtonContainer>
-          <>
+          <div>
             <Text value="PRIVATE" color="#fff" />
             <Toggle value={privateMode} setValue={setPrivateMode} />
-          </>
+          </div>
           <Styled.Button bgColor="transparent" onClick={createFeedAction}>
             <CheckIcon />
           </Styled.Button>

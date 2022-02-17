@@ -24,7 +24,7 @@ const MoreContent = styled.div`
   display: flex;
   flex-direction: column;
   right: 0;
-  bottom: -7vh;
+  bottom: -13vh;
   border: 2px solid #ccc;
   padding: 1vh;
   background-color: #fff;
@@ -43,8 +43,8 @@ const MoreContent = styled.div`
   }
 
   & button {
-    padding: 1vw;
-    width: 10vw;
+    padding: 3vw;
+    width: 18vw;
   }
 `;
 
