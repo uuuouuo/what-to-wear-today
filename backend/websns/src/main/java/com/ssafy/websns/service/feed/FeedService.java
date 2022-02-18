@@ -87,8 +87,9 @@ public class FeedService {
       for (MultipartFile imageName : imageNames) {
         sb.append(date.getTime());
         sb.append(imageName.getOriginalFilename());
-//        String fileName = "C://images/feed/" + sb.toString();
+//        String fileName = "/feed/" + sb.toString();
         String fileName = "/home/ubuntu/images/feed/" + sb.toString();
+
         File dest = new File(fileName);
         try {
           imageName.transferTo(dest);
@@ -158,7 +159,7 @@ public class FeedService {
       for (MultipartFile imageName : imageNames) {
         sb.append(date.getTime());
         sb.append(imageName.getOriginalFilename());
-//        String fileName = "C://images/feed/" + sb.toString();
+//        String fileName = "/feed/" + sb.toString();
         String fileName = "/home/ubuntu/images/feed/" + sb.toString();
         File dest = new File(fileName);
         try {
