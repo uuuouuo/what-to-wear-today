@@ -26,4 +26,5 @@ public class Weather {
   private String windDirection; //풍향
   private String windSpeed; //풍속
 
+
 }

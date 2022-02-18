@@ -1,0 +1,23 @@
+{
+  "/_app": "pages/_app.js",
+  "/_document": "pages/_document.js",
+  "/auth": "pages/auth.html",
+  "/callback/kakao": "pages/callback/kakao.js",
+  "/feed/[feedNo]": "pages/feed/[feedNo].js",
+  "/feed/feedUpdate/[feedNo]": "pages/feed/feedUpdate/[feedNo].js",
+  "/feed/like/[userId]": "pages/feed/like/[userId].html",
+  "/feed/write": "pages/feed/write.html",
+  "/": "pages/index.js",
+  "/interest": "pages/interest.html",
+  "/login": "pages/login.html",
+  "/notification": "pages/notification.html",
+  "/region/[userId]": "pages/region/[userId].js",
+  "/search/[searchUrl]": "pages/search/[searchUrl].js",
+  "/search": "pages/search.html",
+  "/signup": "pages/signup.html",
+  "/signup/success": "pages/signup/success.html",
+  "/type": "pages/type.html",
+  "/user/[userId]": "pages/user/[userId].js",
+  "/_error": "pages/_error.js",
+  "/404": "pages/404.html"
+}

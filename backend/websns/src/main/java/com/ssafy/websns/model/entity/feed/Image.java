@@ -5,6 +5,7 @@ import static javax.persistence.FetchType.LAZY;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -17,15 +18,16 @@ import lombok.NoArgsConstructor;
 public class Image {
 
   @Id
-  @GeneratedValue
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "IMAGE_NO")
   private Integer no;
 
-  private String imgUrl;
-
   @ManyToOne(fetch = LAZY)
-  @JoinColumn(name = "FEED_NO")
+  @JoinColumn(name = "FEED_NO", nullable = false)
   private Feed feed;
+
+  @Column(nullable = false, length = 100)
+  private String imgUrl;
 
   public Image(String imgUrl, Feed feed) {
     this.imgUrl = imgUrl;

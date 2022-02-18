@@ -4,6 +4,7 @@ import io.swagger.annotations.ApiModel;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import lombok.Getter;
 
@@ -13,10 +14,14 @@ import lombok.Getter;
 public class Interest {
 
   @Id
-  @GeneratedValue
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "INTEREST_NO")
   private Integer no;
 
+  @Column(nullable = false, length = 45)
   private String interestName;
 
+  public void creatInterest(String interestName) {
+    this.interestName = interestName;
+  }
 }

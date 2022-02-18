@@ -10,5 +10,5 @@ public interface FeedTagRepository extends JpaRepository<FeedTag,Integer>{
 
   void deleteFeedTagByFeed(Feed feed);
 
-  Optional<List<FeedTag>> findAllByFeed(Feed Feed);
+  Optional<List<FeedTag>> findByFeed(Feed Feed);
 }

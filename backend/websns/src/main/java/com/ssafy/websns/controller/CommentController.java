@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -28,7 +29,8 @@ public class CommentController {
   private final CommentService commentService;
 
   @PostMapping("/{feedNo}")
-  public ResponseEntity<CommentRes> createComment(@PathVariable("feedNo") Integer feedNo, @RequestBody CreateReq request){
+  public ResponseEntity<CommentRes> createComment(@PathVariable("feedNo") Integer feedNo,
+      @RequestBody CreateReq request){
 
     CommentRes response = commentService.postComment(feedNo, request);
     return new ResponseEntity<>(response, HttpStatus.OK);
@@ -36,7 +38,7 @@ public class CommentController {
   }
 
   @PutMapping("/{commentNo}")
-  public ResponseEntity<UpdateRes> updateComment(@PathVariable("commentNo")Integer commentNo,
+  public ResponseEntity<UpdateRes> updateComment(@PathVariable("commentNo") Integer commentNo,
       @RequestBody UpdateReq request) {
 
     UpdateRes response = commentService.editComment(commentNo, request);
@@ -52,12 +54,18 @@ public class CommentController {
   }
 
   @GetMapping("/{feedNo}")
-  public ResponseEntity<List<CommentRes>> getCommentList(@PathVariable("feedNo") Integer feedNo) {
+  public ResponseEntity<List<CommentRes>> getCommentListByFeed(@PathVariable("feedNo") Integer feedNo) {
 
     List<CommentRes> response = commentService.searchComments(feedNo);
     return new ResponseEntity<>(response, HttpStatus.OK);
   }
 
+  @GetMapping("/mypage")
+  public ResponseEntity<List<CommentRes>> getCommentListById(@RequestParam String userId) {
 
+    List<CommentRes> response = commentService.showCommentsById(userId);
+    return new ResponseEntity<>(response, HttpStatus.OK);
+  }
 
 }
+
