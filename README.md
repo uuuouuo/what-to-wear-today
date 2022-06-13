@@ -44,19 +44,13 @@
 
 <img src="https://img.shields.io/badge/JAVA-007396?style=for-the-badge&logo=java&logoColor=white"> <img src="https://img.shields.io/badge/SpringBoot-6DB33F?style=for-the-badge&logo=Springboot&logoColor=white"> <img src="https://img.shields.io/badge/Springsecurity-3CB371?style=for-the-badge&logo=Springsecurity&logoColor=white"> <img src="https://img.shields.io/badge/JPA-808080.svg?style=for-the-badge&logo=Hibernate&logoColor=white"> <img src="https://img.shields.io/badge/mysql-4479A1?style=for-the-badge&logo=mysql&logoColor=white">
 
-</br>
-
 ### Deployment
 
 ![AWS](https://img.shields.io/badge/AWS-%23FF9900.svg?style=for-the-badge&logo=amazon-aws&logoColor=white) <img src="https://img.shields.io/badge/nginx-%23009639?style=for-the-badge&logo=nginx&logoColor=white">
 
-</br>
-
 ### Editor
 
 ![Visual Studio Code](https://img.shields.io/badge/Visual%20Studio%20Code-0078d7.svg?style=for-the-badge&logo=visual-studio-code&logoColor=white) ![IntelliJ IDEA](https://img.shields.io/badge/IntelliJIDEA-000000.svg?style=for-the-badge&logo=intellij-idea&logoColor=white) ![Figma](https://img.shields.io/badge/figma-%23F24E1E.svg?style=for-the-badge&logo=figma&logoColor=white)
-
-</br>
 
 ### Communication
 
@@ -67,8 +61,6 @@
 
 ## 서비스 설명 및 주요 기능
 
----
-
 ![image](https://user-images.githubusercontent.com/89640705/173313877-0a7c5c49-57be-4782-baa8-35a20eedbef4.png)  
 ![image](https://user-images.githubusercontent.com/89640705/173313988-65d6a599-2f3b-477f-8aef-f3d0896c92a7.png)
 
@@ -76,7 +68,6 @@
 
 ## 협업
 
----
 
 > ## [📚 Notion](https://www.notion.so/c4c795f9b5094539a7f21ad39628e0e1)
 
