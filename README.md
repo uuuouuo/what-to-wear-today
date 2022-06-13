@@ -1,91 +1,112 @@
-# 열정6조핫식스
-
-[공통 프로젝트- FrontEnd](https://www.notion.so/FrontEnd-6979a6c34ccf44b29b8e43d23a330521)
-
-[공통 프로젝트 - BackEnd](https://www.notion.so/BackEnd-7533992c9d75487695f3ebf3c7c618cd)
-
-[팀 규칙](https://www.notion.so/78e39a654cde45a1bdc322df3853a5ce)
-
-[스크럼](https://www.notion.so/b1799a5e78f04a48b76684b8271a2886)
-
-[트러블 슈팅](https://www.notion.so/20923259fb4b40dab498ca62cd438ccf)
-
-[일일 회고](https://www.notion.so/4e6f073a8d81477ebe02335b05ed0e9b)
-
-[마무리 회고](https://www.notion.so/7c2e25c0f252410a9af6a2a1f24fff4a)
-
-[컨설턴트님 미팅](https://www.notion.so/c67e0d69187b4386b132669f130bf6a4)
-
-[ERD](https://www.notion.so/ERD-02ee30afa2b145b783d9816628ed7d80)
-
-[일정](https://www.notion.so/c645c5e53d3e4908818a0a195a5573fc)
-
-[명절](https://www.notion.so/d857607046414c0184009c3577b34e62)
+# 👕 오늘 뭐 입지?
 
 ---
 
-### 💻 회의룸
+> 개발기간: 2022.01 - 2022.02 (7주)  
+> 삼성 청년 SW 아카데미(SSAFY) 2학기 공통프로젝트
 
-[https://ssafyclass.webex.com/meet/jdb449730](https://ssafyclass.webex.com/meet/jdb449730)
+</br>
 
-[회의록](https://www.notion.so/2bd6c2c3d36c4fa896dd61c139492916)
-
-[수정 사항](https://www.notion.so/1aa0029877e344aebbb6893803baf228)
-
----
-
-### ✨ 팀원
-
-- 장다빈 : jdb4497@gmail.com
-- 강민철 : kmc9308@naver.com
-- 백지영 : bjyoung0@gmail.com
-- 김도현 : dodohyun0807@gmail.com
-- 장소명 : somyeong03@gmail.com
+## 서비스 소개
 
 ---
 
-### 📝 지라
+- 위치에 따른 날씨 정보 기반으로 해당 지역 사람들과 소통하며 패션 정보 공유 가능한 서비스
 
-**이슈**
+</br>
 
-- Story : 유스케이스 시나리오
-- Task : 개발 할 일
-- Bug : 버그
-- Epic : 큰 항목(ex. 서버관리, 결제관리, 백엔드, 프론트엔드)
+## 개발 배경
 
 ---
 
-### 📌 PM
+- 기존 날씨 정보만으로는 옷을 고르기 쉽지 않고, 코로나로 인해 외출이 빈도가 감소해 날씨에 대해 파악이 어려워 옷차림 선택이 이전보다 어려워짐
+- 풍량 및 습도에 따라 체감 온도가 다르고, 사람마다 체질이 다르기 때문에 같은 날씨라도 체감 온도가 다름
+  > 이를 기반으로 원하는 지역, 시간대 별로 사람들의 옷차림을 공유하여 옷차림에 대한 고민을 덜어주고자 기획
 
-✔ 1대 **PM : 강민철** (1.10~1.14)
+</br>
 
-✔ 2대 **PM : 백지영** (1.17~1.21)
-
-✔ 3대 **PM : 김도현** (1.24~1.28)
-
-✔ 4대 **PM : 장다빈** (2.3~2.4)
-
-✔ 5대 **PM**:  **장소명** (2.7~2.11)
+## 기대 효과
 
 ---
 
-### 🎈기획
+- 옷차림 선정 시 해당 지역의 사람들의 옷차림을 참고하여 빠르게 선택 가능
+- 나의 옷차림과 날씨를 함께 기록하여 해당 날씨에 대해 본인에게 맞는 옷차림 선택 가능
 
-- **유스케이스 :** [https://app.creately.com/diagram/LbgopoYvY0Y/edit](https://app.creately.com/diagram/LbgopoYvY0Y/edit)
-- **스케치** : [https://jamboard.google.com/d/1yIPMw3fYE8BNXKjvbNS5RsnNWoIhnffKokZV2dRoNH8/viewer?f=0](https://jamboard.google.com/d/1yIPMw3fYE8BNXKjvbNS5RsnNWoIhnffKokZV2dRoNH8/viewer?f=0)
-- **와이어프레임 :** [https://www.figma.com/file/S7PBmypr8eHFe22XiMcVuh/Untitled?node-id=0%3A1](https://www.figma.com/file/S7PBmypr8eHFe22XiMcVuh/%EC%98%A4%EB%8A%98-%EB%AD%90-%EC%9E%85%EC%A7%80%3F?node-id=0%3A1)
-- **기능 명세서** : [https://docs.google.com/spreadsheets/d/152tBnbyDOmF-1wNaTRJRI5eUuWwVq2Zh789ujk_oVS0/edit#gid=0](https://docs.google.com/spreadsheets/d/152tBnbyDOmF-1wNaTRJRI5eUuWwVq2Zh789ujk_oVS0/edit#gid=0)
-- **개념적** **ERD :** [https://app.diagrams.net/#G12OB5V23Eu3eeVgM3aL-WXfy0zqUbVvt5](https://app.diagrams.net/#G12OB5V23Eu3eeVgM3aL-WXfy0zqUbVvt5)
-- **논리적 ERD**: [https://www.notion.so/ERD-02ee30afa2b145b783d9816628ed7d80](https://www.notion.so/ERD-02ee30afa2b145b783d9816628ed7d80)
-- **팀 규칙 :** [https://www.notion.so/78e39a654cde45a1bdc322df3853a5ce](https://www.notion.so/78e39a654cde45a1bdc322df3853a5ce)
-- **백로그 :**
-- **API 명세 :** [https://docs.google.com/spreadsheets/d/1HtqbuDW2uEOyZ_6HAKVz2Pn37fM6afwjPhUKPyKemgo/edit#gid=0](https://docs.google.com/spreadsheets/d/1HtqbuDW2uEOyZ_6HAKVz2Pn37fM6afwjPhUKPyKemgo/edit#gid=0)
+</br>
+
+## 팀원 소개 및 역할
 
 ---
 
-# 메모장
+![image](https://user-images.githubusercontent.com/89640705/173314229-5972f3d0-14cc-4c11-84b6-9cdeabfa5286.png)
 
-- 좌표 작업(관서, 지역 좌표, 가장 가까운 관서)
-- 카테고리 항목 구체화
+</br>
 
-[발표 대본](https://www.notion.so/63d95bc0942b46a5a61ce9168e1a21be)
+## 기술 스택
+
+---
+
+### Front-End
+
+<img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=black">
+<img src="https://img.shields.io/badge/redux-7952B3?style=for-the-badge&logo=redux&logoColor=white">
+<img src="https://img.shields.io/badge/redux saga-003545?style=for-the-badge&logo=redux-saga&logoColor=white">
+<img src="https://img.shields.io/badge/typeScript-0769AD?style=for-the-badge&logo=typeScript&logoColor=white">
+<img src="https://img.shields.io/badge/next.js-F7DF1E?style=for-the-badge&logo=next.js&logoColor=black">
+<img src="https://img.shields.io/badge/storybook-E34F26?style=for-the-badge&logo=storybook&logoColor=white">
+
+</br>
+
+### Back-End
+
+<img src="https://img.shields.io/badge/JAVA-007396?style=for-the-badge&logo=java&logoColor=white">
+<img src="https://img.shields.io/badge/SpringBoot-6DB33F?style=for-the-badge&logo=Springboot&logoColor=white">
+<img src="https://img.shields.io/badge/Springsecurity-3CB371?style=for-the-badge&logo=Springsecurity&logoColor=white">
+<img src="https://img.shields.io/badge/JPA-808080.svg?style=for-the-badge&logo=Hibernate&logoColor=white"> 
+<img src="https://img.shields.io/badge/mysql-4479A1?style=for-the-badge&logo=mysql&logoColor=white">
+
+</br>
+
+### Deployment
+
+![AWS](https://img.shields.io/badge/AWS-%23FF9900.svg?style=for-the-badge&logo=amazon-aws&logoColor=white)
+<img src="https://img.shields.io/badge/nginx-%23009639?style=for-the-badge&logo=nginx&logoColor=white">
+
+</br>
+
+### Editor
+
+![Visual Studio Code](https://img.shields.io/badge/Visual%20Studio%20Code-0078d7.svg?style=for-the-badge&logo=visual-studio-code&logoColor=white) ![IntelliJ IDEA](https://img.shields.io/badge/IntelliJIDEA-000000.svg?style=for-the-badge&logo=intellij-idea&logoColor=white) ![Figma](https://img.shields.io/badge/figma-%23F24E1E.svg?style=for-the-badge&logo=figma&logoColor=white)
+
+</br>
+
+### Communication
+
+![Git](https://img.shields.io/badge/git-%23F05033.svg?style=for-the-badge&logo=git&logoColor=white) ![Jira](https://img.shields.io/badge/jira-%230A0FFF.svg?style=for-the-badge&logo=jira&logoColor=white) ![Notion](https://img.shields.io/badge/Notion-%23000000.svg?style=for-the-badge&logo=notion&logoColor=white)
+
+</br>
+
+## 서비스 설명 및 주요 기능
+
+---
+
+![image](https://user-images.githubusercontent.com/89640705/173313877-0a7c5c49-57be-4782-baa8-35a20eedbef4.png)
+![image](https://user-images.githubusercontent.com/89640705/173313988-65d6a599-2f3b-477f-8aef-f3d0896c92a7.png)
+
+</br>
+
+## 협업
+
+---
+
+> ## [📚 Notion](https://www.notion.so/c4c795f9b5094539a7f21ad39628e0e1)
+
+[📕 그라운드 룰](https://www.notion.so/c4c795f9b5094539a7f21ad39628e0e1)
+
+[📙 브랜치 전략](https://www.notion.so/8f9c4b1df8b0471ba9d395d607f2ce38)
+
+[📒 코딩 컨벤션](https://www.notion.so/0b03362c9bc84fa2a6b7a5d49ae247cf)
+
+[📗 커밋 컨벤션](https://www.notion.so/d95e259d70654e87936455fcf0cc8722)
+
+[📘 풀리퀘 컨벤션](https://www.notion.so/57b28aae24cf41a69c52fd4e9f74454e)
