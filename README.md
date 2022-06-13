@@ -38,8 +38,6 @@
 
 <img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=black"> <img src="https://img.shields.io/badge/redux-7952B3?style=for-the-badge&logo=redux&logoColor=white"> <img src="https://img.shields.io/badge/redux saga-003545?style=for-the-badge&logo=redux-saga&logoColor=white"> <img src="https://img.shields.io/badge/typeScript-0769AD?style=for-the-badge&logo=typeScript&logoColor=white"> <img src="https://img.shields.io/badge/next.js-F7DF1E?style=for-the-badge&logo=next.js&logoColor=black"> <img src="https://img.shields.io/badge/storybook-E34F26?style=for-the-badge&logo=storybook&logoColor=white">
 
-</br>
-
 ### Back-End
 
 <img src="https://img.shields.io/badge/JAVA-007396?style=for-the-badge&logo=java&logoColor=white"> <img src="https://img.shields.io/badge/SpringBoot-6DB33F?style=for-the-badge&logo=Springboot&logoColor=white"> <img src="https://img.shields.io/badge/Springsecurity-3CB371?style=for-the-badge&logo=Springsecurity&logoColor=white"> <img src="https://img.shields.io/badge/JPA-808080.svg?style=for-the-badge&logo=Hibernate&logoColor=white"> <img src="https://img.shields.io/badge/mysql-4479A1?style=for-the-badge&logo=mysql&logoColor=white">
