@@ -15,7 +15,7 @@
 
 - 기존 날씨 정보만으로는 옷을 고르기 쉽지 않고, 코로나로 인해 외출이 빈도가 감소해 날씨에 대해 파악이 어려워 옷차림 선택이 이전보다 어려워짐
 - 풍량 및 습도에 따라 체감 온도가 다르고, 사람마다 체질이 다르기 때문에 같은 날씨라도 체감 온도가 다름
-> 이를 기반으로 원하는 지역, 시간대 별로 사람들의 옷차림을 공유하여 옷차림에 대한 고민을 덜어주고자 기획
+> **이를 기반으로 원하는 지역, 시간대 별로 사람들의 옷차림을 공유하여 옷차림에 대한 고민을 덜어주고자 기획**
 
 </br>
 
@@ -54,14 +54,13 @@
 
 ### Communication
 
-![Git](https://img.shields.io/badge/git-%23F05033.svg?style=for-the-badge&logo=git&logoColor=white)   
-![Jira](https://img.shields.io/badge/jira-%230A0FFF.svg?style=for-the-badge&logo=jira&logoColor=white) ![Notion](https://img.shields.io/badge/Notion-%23000000.svg?style=for-the-badge&logo=notion&logoColor=white)
+![Git](https://img.shields.io/badge/git-%23F05033.svg?style=for-the-badge&logo=git&logoColor=white) ![Jira](https://img.shields.io/badge/jira-%230A0FFF.svg?style=for-the-badge&logo=jira&logoColor=white) ![Notion](https://img.shields.io/badge/Notion-%23000000.svg?style=for-the-badge&logo=notion&logoColor=white)
 
 </br>
 
 ## 서비스 설명 및 주요 기능
 
-![image](https://user-images.githubusercontent.com/89640705/173313877-0a7c5c49-57be-4782-baa8-35a20eedbef4.png)  
+![image](https://user-images.githubusercontent.com/89640705/173319608-b1a0bbd3-dc0c-4930-b817-08085df484e9.png)
 ![image](https://user-images.githubusercontent.com/89640705/173313988-65d6a599-2f3b-477f-8aef-f3d0896c92a7.png)
 
 </br>
