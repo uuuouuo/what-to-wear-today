@@ -66,7 +66,7 @@
 ## 협업
 
 
-> ## [📚 Notion](https://www.notion.so/c4c795f9b5094539a7f21ad39628e0e1)
+> ## [📚 Notion](https://www.notion.so/6-ff39986bd817473b89c304b686f62802)
 
 [📕 그라운드 룰](https://www.notion.so/c4c795f9b5094539a7f21ad39628e0e1)
 
